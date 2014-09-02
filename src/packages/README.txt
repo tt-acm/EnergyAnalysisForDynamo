@@ -1,0 +1,1 @@
+3rd party DLLs that are referenced into our project should live here.  Since Git won't track them (because of our .gitigore) the developer needs to be sure she has these on her machine.

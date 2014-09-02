@@ -1,0 +1,14 @@
+<Workspace Version="0.7.1.9856" X="-259" Y="-103" zoom="1" Description="" Category="" Name="Home">
+  <Elements>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="ff8da133-4630-46a0-81a2-d86051dba50a" nickname="GBSConnection.GetProjectLists" x="738" y="276" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.GBSConnection.GetProjectLists@bool">
+      <PortInfo index="0" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="a78192a9-5fd7-473e-9e7a-14f3be130ddf" nickname="Boolean" x="558" y="275" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>True</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="a78192a9-5fd7-473e-9e7a-14f3be130ddf" start_index="0" end="ff8da133-4630-46a0-81a2-d86051dba50a" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+</Workspace>

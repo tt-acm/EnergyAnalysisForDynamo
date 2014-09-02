@@ -1,0 +1,30 @@
+<Workspace Version="0.7.1.9856" X="80.5117869568769" Y="-116.567161472746" zoom="0.888789228297155" Description="" Category="" Name="Home">
+  <Elements>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="815b84eb-73f5-459d-b1df-a212f22fc32f" nickname="EnergySettings.SetEnergySettings" x="982.406041121511" y="436.328647389671" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.EnergySettings.SetEnergySettings@string,double,double,string,string">
+      <PortInfo index="0" default="True" />
+      <PortInfo index="1" default="True" />
+      <PortInfo index="2" default="True" />
+      <PortInfo index="3" default="True" />
+      <PortInfo index="4" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <GBSforDynamo.BuildingTypeDropdown type="GBSforDynamo.BuildingTypeDropdown" guid="4447feed-7852-4b4e-8d0a-ba6e3e04076d" nickname="Building Type Dropdown" x="34" y="249" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0" />
+    <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="83f5eb3b-234f-4081-8461-bd1af9ae6708" nickname="Glazing Percentage" x="36" y="314" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double>0.6</System.Double>
+      <Range min="0" max="1" />
+    </Dynamo.Nodes.DoubleSlider>
+    <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="d4373a50-6b22-49ae-a392-90a2ab77148a" nickname="Shade Depth" x="34.1066938769355" y="414.523243091059" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double>2</System.Double>
+      <Range min="0" max="3" />
+    </Dynamo.Nodes.DoubleSlider>
+    <GBSforDynamo.HVACtypeDropdown type="GBSforDynamo.HVACtypeDropdown" guid="02aa9e0d-ce1f-47b0-9844-bec97735fc31" nickname="HVAC System Type Dropdown" x="33.0829101000695" y="515.877837000825" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="5" />
+    <GBSforDynamo.OperatingSchedulesDropdown type="GBSforDynamo.OperatingSchedulesDropdown" guid="85278225-7db4-4bbf-8172-7ac87e8b3eee" nickname="Operating Schedules Dropdown" x="35.1304776538019" y="579.352431166538" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="4447feed-7852-4b4e-8d0a-ba6e3e04076d" start_index="0" end="815b84eb-73f5-459d-b1df-a212f22fc32f" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="83f5eb3b-234f-4081-8461-bd1af9ae6708" start_index="0" end="815b84eb-73f5-459d-b1df-a212f22fc32f" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="d4373a50-6b22-49ae-a392-90a2ab77148a" start_index="0" end="815b84eb-73f5-459d-b1df-a212f22fc32f" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="02aa9e0d-ce1f-47b0-9844-bec97735fc31" start_index="0" end="815b84eb-73f5-459d-b1df-a212f22fc32f" end_index="3" portType="0" />
+    <Dynamo.Models.ConnectorModel start="85278225-7db4-4bbf-8172-7ac87e8b3eee" start_index="0" end="815b84eb-73f5-459d-b1df-a212f22fc32f" end_index="4" portType="0" />
+  </Connectors>
+  <Notes />
+</Workspace>
