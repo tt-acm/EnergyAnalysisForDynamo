@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Xml;
+
+//Revit & Dynamo 
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Analysis;
 using DSCore;
@@ -15,17 +17,23 @@ using RevitServices.Persistence;
 using RevitServices.Transactions;
 using ProtoCore;
 using ProtoCore.Utils;
-
 using Autodesk.DesignScript.Runtime;
-//using Autodesk.Revit.DB.Analysis;
-//using EnergyDataSettings = Autodesk.Revit.DB.Analysis.EnergyDataSettings;
+
 
 namespace GBSforDynamo
 {
-
     public static class EnergySettings
     {
-        // Energy Setting component
+
+        /// Set Energy Settings
+        /// 
+        /// </summary>
+        /// <param name="BldgTyp"></param>
+        /// <param name="GlzPer"></param>
+        /// <param name="ShadeDepth"></param>
+        /// <param name="HVACsys"></param>
+        /// <param name="OSchedule"></param>
+        /// <returns></returns>
         [MultiReturn("EnergySettings","Bldgtype", "GlzPer", "ShadeDepth", "HvacSystem", "OSchedule")]
         public static Dictionary<string, object> SetEnergySettings(string BldgTyp = "", double GlzPer = 0, double ShadeDepth = 0, string HVACsys = "", string OSchedule = "")
         {
@@ -101,7 +109,11 @@ namespace GBSforDynamo
 
                 if (ShadeDepth != 0.0)
                 {
+                    myEnergySettings.IsGlazingShaded = true;
                     myEnergySettings.ShadeDepth = ShadeDepth;
+                }
+                else {
+                    myEnergySettings.IsGlazingShaded = false;
                 }
 
                 t.CommitTransaction();
@@ -125,8 +137,8 @@ namespace GBSforDynamo
             };
         }
 
-        /// <summary>
-        /// Gets existing Energy Settings
+        /// Read Existing Energy Settings
+        /// Reads Existing Energy Settings of the document
         /// </summary>
         /// <returns></returns>
         [MultiReturn("Bldgtype", "GlzPer", "ShadeDepth", "HvacSystem", "OSchedule")]

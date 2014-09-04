@@ -291,7 +291,117 @@ namespace GBSforDynamo
             //return the surface ID so the surface can be used downstream
             return SurfaceId;
         }
-        
+
+
+        public static ElementId SetZoneParameters(ElementId ZoneId = null) //, gbXMLSpaceType spaceType = gbXMLSpaceType.NoSpaceType, gbXMLConditionType conditionType = gbXMLConditionType.NoConditionType)
+        {
+            /*
+            //local varaibles
+            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+            MassZone zone = null;
+
+            
+            //try to get MassZone using the ID
+            try
+            {
+                zone = (MassZone)RvtDoc.GetElement(ZoneId);
+
+                if (zone == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a zone object with Id #: " + ZoneId.ToString());
+            }
+
+
+            //defense
+            if (!(gbXMLConditionType.IsDefined(typeof(gbXMLConditionType), conditionType)))
+            {
+                throw new Exception(conditionType.ToString() + " is not a valid condition type. Use conditionTypes dropdown to input a valid condition type.");
+            }
+
+            if (!(gbXMLSpaceType.IsDefined(typeof(gbXMLSpaceType), spaceType)))
+            {
+                throw new Exception(spaceType.ToString() + " is not a valid space type. Use spaceTypes dropdown to input a valid space type.");
+            }
+            
+            
+            try
+            {
+                //start a transaction task
+                TransactionManager.Instance.EnsureInTransaction(RvtDoc);
+
+                //set condiotn type
+                zone.ConditionType = conditionType;
+
+                //set space type
+                zone.SpaceType = spaceType;
+
+                //done with transaction task
+                TransactionManager.Instance.TransactionTaskDone();
+
+            }
+            catch (Exception)
+            {
+                throw new Exception("Something went wrong when trying to set the parameters on zone # " + ZoneId.ToString());
+            }
+             */
+
+            //return the zone ID so the zone can be used downstream
+            return ZoneId;
+        }
+
+
+        [MultiReturn("SurfaceIds", "SpaceType", "conditionType")]
+        public static Dictionary<string, object> DecomposeMassZone(ElementId ZoneId = null)
+        {
+            // local variables
+            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+            List<ElementId> faceIds = new List<ElementId>();
+            MassZone zone = null;
+            gbXMLConditionType conditionType = gbXMLConditionType.NoConditionType;
+            gbXMLSpaceType spaceType = gbXMLSpaceType.NoSpaceType;
+
+            // get zone data from the document using the id
+            try
+            {
+                zone = (MassZone)RvtDoc.GetElement(ZoneId);
+
+                if (zone == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a zone object with Id #: " + ZoneId.ToString());
+            }
+
+            // collect surfaces
+            // for now I collect all the ids but for future I need to only collect external walls
+            IList<Reference> analysisFaces = zone.GetReferencesToEnergyAnalysisFaces();
+
+            foreach (var face in analysisFaces)
+            {
+                if (face.ElementId != null) //face element IDs are identical with zoneID!
+                {
+                    faceIds.Add(face.ElementId);
+                }
+            }
+
+            // assign condition type
+            conditionType = zone.ConditionType;
+
+            // assign space type
+            spaceType = zone.SpaceType;
+
+            // return outputs
+            return new Dictionary<string, object>
+            {
+                {"SurfaceIds", faceIds},
+                {"SpaceType", spaceType},
+                {"conditionType", conditionType}
+            };
+
+        }
+
         public static Autodesk.DesignScript.Geometry.Mesh DrawAnalysisSurface(AbstractFamilyInstance MassFamilyInstance = null, ElementId SurfaceId = null)
         {
             //local varaibles

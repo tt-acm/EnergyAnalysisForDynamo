@@ -43,10 +43,6 @@
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Dynamo 0.7\DynamoCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DynamoRaaSHelper">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.7\Revit_2014\DynamoRaaSHelper.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="DynamoRevitDS">
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Dynamo 0.7\Revit_2014\DynamoRevitDS.dll</HintPath>
       <Private>False</Private>
@@ -57,14 +53,6 @@
     </Reference>
     <Reference Include="GBSforDynamoAuthHelper">
       <HintPath>..\packages\GBSforDynamoAuthHelper.dll</HintPath>
-    </Reference>
-    <Reference Include="Greg">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.7\Greg.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="GregRevitAuth">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.7\Revit_2014\GregRevitAuth.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -88,10 +76,6 @@
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Dynamo 0.7\ProtoInterface.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.7\RestSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="RevitAPI">
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Autodesk\Vasari Beta 3\RevitAPI.dll</HintPath>
       <Private>False</Private>
@@ -102,10 +86,6 @@
     </Reference>
     <Reference Include="RevitNodes">
       <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.7\Revit_2014\RevitNodes.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="RevitRaaS">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.7\Revit_2014\RevitRaaS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitServices">

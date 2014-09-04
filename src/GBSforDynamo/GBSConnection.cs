@@ -31,22 +31,13 @@ using RevitServices.Persistence;
 using RevitServices.Transactions;
 using ProtoCore;
 using ProtoCore.Utils;
-
-// 
-using RevitRaaS;
-using RevitServices;
-
 using Dynamo.Controls;
 using RevitServices.Elements;
-using Dynamo.Applications;
 using Dynamo;
 using DynamoUtilities;
 
-
-//Greg Graph registry
-using Greg;
-using RestSharp;
-
+//Revit Services
+using RevitServices;
 
 //AuthHelper
 using GBSforDynamoAuthHelper;
@@ -55,6 +46,7 @@ using GBSforDynamoAuthHelper;
 using GBSforDynamo.DataContracts;
 using Revit.Elements;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 
 namespace GBSforDynamo
@@ -64,23 +56,23 @@ namespace GBSforDynamo
         //RevitAuthProvider
         private static RevitAuthProvider revitAuthProvider;
 
-        // Check if currently logged-in
-        //https://github.com/DynamoDS/Dynamo/blob/a34344e4b06c9194b44afeb22d8bce76f66aef14/src/DynamoRevit/DynamoRevit.cs
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public static bool IsLoggedin()
-        {
-            RaaSClient client = new RaaSClient(DocumentManager.Instance.CurrentUIApplication);
-            if (!client.IsLoggedIn())
-            {
-              client.ShowLoginDialog(); // This crashes in Vasari, good at Revit 201
-            }
-            return client.IsLoggedIn();
-        }
+        //// Check if currently logged-in
+        ////https://github.com/DynamoDS/Dynamo/blob/a34344e4b06c9194b44afeb22d8bce76f66aef14/src/DynamoRevit/DynamoRevit.cs
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <returns></returns>
+        //public static bool IsLoggedin()
+        //{
+        //    RaaSClient client = new RaaSClient(DocumentManager.Instance.CurrentUIApplication);
+        //    if (!client.IsLoggedIn())
+        //    {
+        //      client.ShowLoginDialog(); // This crashes in Vasari, good at Revit 201
+        //    }
+        //    return client.IsLoggedIn();
+        //}
 
-        /// <summary>
+        /// GBS-Get Project List
         /// Returns Project Lists from GBS web service
         /// </summary>
         /// <returns></returns>
@@ -127,8 +119,46 @@ namespace GBSforDynamo
 
         }
 
-        /// <summary>
-        /// Exporting gbXML file and saving to local location
+
+        [MultiReturn("INPFile", "IDFFile")]
+        public static Dictionary<string, object> GetEnergyModelFiles(int ProjectId, string ProjectTitle, bool Connect = false)
+        {
+            //local variables
+            string INPFile = string.Empty;
+            string IDFFile = string.Empty;
+
+            //make Connect? inputs set to True mandatory
+            if (Connect == false)
+            {
+                throw new Exception("Set 'Connect' to True!");
+            }
+
+            // defense
+
+
+            // Initiate the Revit Auth
+            InitRevitAuthProvider();
+
+            /*
+            // Request - I'm still not sure how to create the request - should know more after today meeting
+            string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.GetProjectList, "json");
+
+            HttpWebResponse response = (HttpWebResponse)_CallGetApi(requestUri);
+            Stream responseStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(responseStream);
+            string result = reader.ReadToEnd();
+            */
+
+            return new Dictionary<string, object>
+            {
+                { "INPFile", INPFile},
+                { "IDFFile", IDFFile}
+            };
+
+        }
+
+        /// Create gbXML from Mass
+        /// Exporting gbXML file and saving to a local location
         /// </summary>
         /// <returns></returns>
         [MultiReturn("message", "gbXMLPath")]
@@ -188,7 +218,7 @@ namespace GBSforDynamo
             };
         }
 
-        /// <summary>
+        /// Create gbXML from Zones
         /// Exporting gbXML file from giving
         /// </summary>
         /// <param name="FilePath"></param>
@@ -253,7 +283,7 @@ namespace GBSforDynamo
         
         }
 
-        /// <summary>
+        /// GBS_Base Run
         /// Creates Project and Post gbXML to Run 
         /// </summary>
         /// <param name="ProjectTitle"></param>
@@ -329,16 +359,103 @@ namespace GBSforDynamo
             };
         }
 
+        /// GBS_Get RUn List
+        /// 
+        /// </summary>
+        /// <param name="ProjectId"></param>
+        /// <returns></returns>
+        [MultiReturn("RunIds", "AltRunIds", "RunNames")]
+        public static Dictionary<string, object> GetRunList(int ProjectId)
+        {
+            // Initiate the Revit Auth
+            InitRevitAuthProvider();
+
+            string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.GetProjectRunListUri, ProjectId.ToString(), "json");
+            HttpWebResponse response = (HttpWebResponse)_CallGetApi(requestUri);
+            Stream responseStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(responseStream);
+            string projectRunListJson = reader.ReadToEnd();
+
+            //TextWriterTraceListener tr2 = new TextWriterTraceListener(System.IO.File.CreateText("C:\\00_demo\\Output.txt"));
+            //Debug.Listeners.Add(tr2);
+            Debug.WriteLine(projectRunListJson);
+            Debug.Flush();
+
+            List<ProjectRun> projectRuns = DataContractJsonDeserialize<List<ProjectRun>>(projectRunListJson);
+
+            List<int> runIds = new List<int>();
+            List<int> altRunIds = new List<int>();
+            List<string> Names = new List<string>();
+
+            foreach (var run in projectRuns)
+            {
+                runIds.Add(run.runId);
+                altRunIds.Add(run.altRunId);
+                Names.Add(run.name);
+            }
+
+            //Populate outputs
+            return new Dictionary<string, object>
+            {
+                { "RunIds", runIds},
+                { "AltRunIds", altRunIds},
+                { "RunNames", Names}
+
+            };
+        
+        }
+
+        /// GBS_ Get Run Summary Results
+        /// 
+        /// gets the Run Summary results of given RunId
+        /// </summary>
+        /// <param name="RunId"></param>
+        /// <returns></returns>
+        [MultiReturn("RunTitle", "Location", "BuildingType","ProjectTemplate","FloorArea", "ElectricCost", "AnnualEnergyCost","LifecycleCost","AnnualCO2EmissionsElectric","AnnualCO2EmissionsOnsiteFuel","AnnualCO2EmissionsLargeSUVEquivalent")]
+        public static Dictionary<string, object> GetRunSummaryResult(int RunId)
+        {
+            // Initiate the Revit Auth
+            InitRevitAuthProvider();
+
+            //Get results Summary of given RunID
+            string requestGetRunSummaryResultsUri = GBSUri.GBSAPIUri +
+                                     string.Format(APIV1Uri.GetRunSummaryResultsUri, RunId, 0, "json");
+            HttpWebResponse response2 = (HttpWebResponse)_CallGetApi(requestGetRunSummaryResultsUri);
+            Stream responseStream2 = response2.GetResponseStream();
+            StreamReader reader2 = new StreamReader(responseStream2);
+            string resultSummary = reader2.ReadToEnd();
+            RunResultSummary runResultSummary = DataContractJsonDeserialize<RunResultSummary>(resultSummary);
+
+            //Populate outputs
+            return new Dictionary<string, object>
+            {
+                { "RunTitle", runResultSummary.Runtitle},
+                { "Location", runResultSummary.Location},
+                { "BuildingType", runResultSummary.BuildingType},
+                { "ProjectTemplate", runResultSummary.ProjectTemplateApplied},
+                { "FloorArea", runResultSummary.FloorArea.Value + runResultSummary.FloorArea.Units },
+                { "ElectricCost", runResultSummary.ElectricCost.Value + runResultSummary.ElectricCost.Units },
+                { "AnnualEnergyCost", runResultSummary.RunEnergyCarbonCostSummary.AnnualEnergyCost },
+                { "LifecycleCost", runResultSummary.RunEnergyCarbonCostSummary.LifecycleCost},
+                {"AnnualCO2EmissionsElectric", runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Value + runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Units},
+                {"AnnualCO2EmissionsOnsiteFuel",runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Value + runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Units},
+                {"AnnualCO2EmissionsLargeSUVEquivalent", runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Value + runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Units}
+
+            };
+        
+        }
 
 
-        // GBS Auth private methods
+        // PRIVATE METHODS
+
+        // GBS Authentification private methods
         private static void InitRevitAuthProvider()
         {
             SingleSignOnManager.RegisterSingleSignOn();
             revitAuthProvider = revitAuthProvider ?? new RevitAuthProvider(SynchronizationContext.Current);
         }
 
-        #region API Requests
+        #region API Web Requests
 
         private static WebResponse _CallGetApi(string requestUri)
         {
