@@ -7,6 +7,7 @@ using System.Xml;
 //Revit & Dynamo 
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Analysis;
+using Autodesk.Revit.UI;
 using DSCore;
 using DSCoreNodesUI;
 using Dynamo.Models;
@@ -25,11 +26,11 @@ namespace GBSforDynamo
     public static class EnergySettings
     {
 
-        /// Set Energy Settings
+        /// Modify / Set Energy Settings
         /// 
         /// </summary>
-        /// <param name="BldgTyp"></param>
-        /// <param name="GlzPer"></param>
+        /// <param name="BldgTyp"> Input Building Type </param>
+        /// <param name="GlzPer">Input Glazing Percentage (range: 0 to 1) </param>
         /// <param name="ShadeDepth"></param>
         /// <param name="HVACsys"></param>
         /// <param name="OSchedule"></param>
@@ -148,10 +149,12 @@ namespace GBSforDynamo
         [MultiReturn("Bldgtype", "GlzPer", "ShadeDepth", "HvacSystem", "OSchedule")]
         public static Dictionary<string, object> GetEnergySettings()
         {
+            // Get current document
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
 
-            //Load the default energy setting from the active Revit instance
+            // Load the default energy setting from the active Revit instance
             EnergyDataSettings es = Autodesk.Revit.DB.Analysis.EnergyDataSettings.GetFromDocument(RvtDoc);
+
 
             return new Dictionary<string, object>
             {
@@ -161,6 +164,13 @@ namespace GBSforDynamo
                 { "HvacSystem",Enum.GetName(typeof(gbXMLBuildingHVACSystem), es.BuildingHVACSystem)},
                 { "OSchedule",Enum.GetName(typeof(gbXMLBuildingOperatingSchedule), es.BuildingOperatingSchedule)}
             };
+
+
+            // User Visible Versions
+            //EnergyDataSettings es = EnergyDataSettings.GetFromDocument(RvtDoc);
+
+            //es.get_Parameter(BuiltInParameter.ENERGY_ANALYSIS_HVAC_SYSTEM).AsValueString();
+
         }
 
     }
