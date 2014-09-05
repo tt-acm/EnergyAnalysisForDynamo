@@ -359,7 +359,7 @@ namespace GBSforDynamo
             };
         }
 
-        /// GBS_Get RUn List
+        /// GBS_Get Run List
         /// 
         /// </summary>
         /// <param name="ProjectId"></param>
@@ -443,6 +443,40 @@ namespace GBSforDynamo
 
             };
         
+        }
+
+        /// <summary>
+        /// Get Run Result 
+        /// </summary>
+        /// <param name="RunId"></param>
+        public static string GetRunResult(int RunId, int AltRunId, string resulttype , string FilePath) // result type gbxml doe2 etc
+        {
+            // Initiate the Revit Auth
+            InitRevitAuthProvider();
+
+            // report
+            string report = " The request is failed!";
+
+            // Get result of given RunId
+            string requestGetRunResultsUri = GBSUri.GBSAPIUri +
+                                    string.Format(APIV1Uri.GetRunResultsUri, RunId, AltRunId, resulttype);
+
+            using (HttpWebResponse response = (HttpWebResponse)_CallGetApi(requestGetRunResultsUri))
+            using (Stream stream = response.GetResponseStream())
+            {
+                string zipFileName = Path.Combine(FilePath, string.Format("RunResults_{0}_{1}.zip", RunId, 0));
+
+                using (var fs = File.Create(zipFileName))
+                {
+                    stream.CopyTo(fs);
+                }
+                
+                if (File.Exists(zipFileName))
+                { report = "The Analysis result file " + resulttype + " was successfully downloaded!"; }
+  
+            }
+
+            return report ;
         }
 
 
