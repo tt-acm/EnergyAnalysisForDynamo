@@ -34,24 +34,25 @@ namespace GBSforDynamo
         /// <param name="HVACsys"></param>
         /// <param name="OSchedule"></param>
         /// <returns></returns>
-        [MultiReturn("EnergySettings","Bldgtype", "GlzPer", "ShadeDepth", "HvacSystem", "OSchedule")]
+        [MultiReturn("report","EnergySettings")]
         public static Dictionary<string, object> SetEnergySettings(string BldgTyp = "", double GlzPer = 0, double ShadeDepth = 0, string HVACsys = "", string OSchedule = "")
         {
             
-            //active document
+            //Get active document
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
 
             //Load the default energy setting from the active Revit instance
             EnergyDataSettings myEnergySettings = Autodesk.Revit.DB.Analysis.EnergyDataSettings.GetFromDocument(RvtDoc);
 
-            // Making Changes on 
+            //Making Changes on 
             TransactionManager.SetupManager();
             var transManager = TransactionManager.Instance.TransactionWrapper;
             var t = transManager.StartTransaction(RvtDoc);
 
             try
             {
-                // this overwrite the default energy settings
+                // This overwrite the default energy settings
+
                 if (!string.IsNullOrEmpty(BldgTyp))
                 {
                     Autodesk.Revit.DB.Analysis.gbXMLBuildingType type;
@@ -116,29 +117,32 @@ namespace GBSforDynamo
                     myEnergySettings.IsGlazingShaded = false;
                 }
 
+                // Commit Transaction
                 t.CommitTransaction();
             }
             catch (Exception ex)
             {
+                // Cancel Transaction if anything goes wrong  
                 t.CancelTransaction();
                 throw new Exception(ex.ToString());
             }
 
-            //return myEnergySettings;
+            // Report 
+            string report = "Building type is " + Enum.GetName(typeof(gbXMLBuildingType), myEnergySettings.BuildingType) + ".\n" +
+                "Glazing percentage is set to " + myEnergySettings.PercentageGlazing.ToString() + ".\n" +
+                "Shading depth is " + myEnergySettings.ShadeDepth.ToString() + ".\n" +
+                "Current HVAC system is " + Enum.GetName(typeof(gbXMLBuildingHVACSystem), myEnergySettings.BuildingHVACSystem) + ".\n" +
+                "Current Operating Schedule is " + Enum.GetName(typeof(gbXMLBuildingOperatingSchedule), myEnergySettings.BuildingOperatingSchedule) + ".";
 
             return new Dictionary<string, object>
             {
-                { "EnergySettings", myEnergySettings},
-                { "Bldgtype", Enum.GetName(typeof(gbXMLBuildingType),myEnergySettings.BuildingType)}, 
-                { "GlzPer",  myEnergySettings.PercentageGlazing}, 
-                { "ShadeDepth",  myEnergySettings.ShadeDepth}, 
-                { "HvacSystem",Enum.GetName(typeof(gbXMLBuildingHVACSystem), myEnergySettings.BuildingHVACSystem)},
-                { "OSchedule",Enum.GetName(typeof(gbXMLBuildingOperatingSchedule), myEnergySettings.BuildingOperatingSchedule)}
+                { "report", report},
+                { "EnergySettings", myEnergySettings} 
             };
         }
 
+        /// <summary>
         /// Read Existing Energy Settings
-        /// Reads Existing Energy Settings of the document
         /// </summary>
         /// <returns></returns>
         [MultiReturn("Bldgtype", "GlzPer", "ShadeDepth", "HvacSystem", "OSchedule")]
