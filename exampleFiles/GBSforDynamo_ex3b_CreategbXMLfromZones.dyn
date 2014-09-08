@@ -1,0 +1,24 @@
+<Workspace Version="0.7.1.10102" X="-1703.42125916468" Y="-414.849001137921" zoom="0.880994826581671" Description="" Category="" Name="Home">
+  <Elements>
+    <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="805473f9-662e-4e0b-bc1c-bfa37ffbd3be" nickname="Select Model Element" x="2058.78875294381" y="735.022435050324" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <instance id="e93902ca-6648-4dd0-893f-69028c1e6b7d-0002c341" />
+    </Dynamo.Nodes.DSModelElementSelection>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="eb5956a3-bbe1-48e6-883b-6badbce6d8a7" nickname="AnalysisZones.CreateFromMass" x="2308.74857772814" y="735.081063119674" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.CreateFromMass@Revit.Elements.AbstractFamilyInstance" />
+    <DSCore.File.Filename type="DSCore.File.Filename" guid="006cfa8a-373d-4b13-9f3a-9a3576e182ee" nickname="File Path" x="2281.59835494946" y="605.876272157752" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.String>C:\Users\EErtugrul\Desktop\gbXMLcompilerfromZones</System.String>
+    </DSCore.File.Filename>
+    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="da476d52-2857-49e4-bd9c-666302a7fb8f" nickname="Boolean" x="2479.53302235085" y="900.703556315426" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>True</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="baf523d6-f13b-4445-88b9-6479a11c5803" nickname="GBSConnection.gbXMLCompiler_fromZones" x="2678.66396784935" y="735.243500525533" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.GBSConnection.gbXMLCompiler_fromZones@string,var[],bool">
+      <PortInfo index="2" default="True" />
+    </Dynamo.Nodes.DSFunction>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="805473f9-662e-4e0b-bc1c-bfa37ffbd3be" start_index="0" end="eb5956a3-bbe1-48e6-883b-6badbce6d8a7" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="eb5956a3-bbe1-48e6-883b-6badbce6d8a7" start_index="1" end="baf523d6-f13b-4445-88b9-6479a11c5803" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="006cfa8a-373d-4b13-9f3a-9a3576e182ee" start_index="0" end="baf523d6-f13b-4445-88b9-6479a11c5803" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="da476d52-2857-49e4-bd9c-666302a7fb8f" start_index="0" end="baf523d6-f13b-4445-88b9-6479a11c5803" end_index="2" portType="0" />
+  </Connectors>
+  <Notes />
+</Workspace>
