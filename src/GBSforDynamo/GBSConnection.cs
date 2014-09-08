@@ -181,8 +181,25 @@ namespace GBSforDynamo
                 throw new Exception("MassFamily Instance are mandatory inputs");
             }
 
-            //local varaibles
+            //local variables
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+
+            //enable the analytical model in the document if it isn't already
+            try
+            {
+                TransactionManager.Instance.EnsureInTransaction(RvtDoc);
+                EnergyDataSettings energyData = EnergyDataSettings.GetFromDocument(RvtDoc);
+                if (energyData != null)
+                {
+                    energyData.SetCreateAnalyticalModel(true);
+                }
+                TransactionManager.Instance.TransactionTaskDone();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Something went wrong when trying to enable the energy model.");
+            }
+
             //get the id of the analytical model associated with that mass
             ElementId myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
             MassEnergyAnalyticalModel mea = (MassEnergyAnalyticalModel)RvtDoc.GetElement(myEnergyModelId);
