@@ -72,10 +72,15 @@ namespace GBSforDynamo
         //    return client.IsLoggedIn();
         //}
 
-        /// GBS-Get Project List
+
+        // NODE: GBS-Get Project List
+        /// <summary> 
         /// Returns Project Lists from GBS web service
-        /// </summary>
-        /// <returns></returns>
+        /// </summary> 
+        /// <param name="Connect"> Set Boolean True </param>
+        /// <returns name="ProjectIds"> Returns Project Ids in GBS Web Service </returns> 
+        /// <returns name="ProjectTitles"> Returns Project Titles in GBS Web Service </returns>
+        /// <returns name="ProjectDateAdded"> Returns Project's date of added or created </returns>
         [MultiReturn("ProjectIds", "ProjectTitles","ProjectDateAdded")]
         public static Dictionary<string, object> GetProjectLists(bool Connect = false )
         {
@@ -120,48 +125,16 @@ namespace GBSforDynamo
         }
 
 
-        [MultiReturn("INPFile", "IDFFile")]
-        public static Dictionary<string, object> GetEnergyModelFiles(int ProjectId, string ProjectTitle, bool Connect = false)
-        {
-            //local variables
-            string INPFile = string.Empty;
-            string IDFFile = string.Empty;
-
-            //make Connect? inputs set to True mandatory
-            if (Connect == false)
-            {
-                throw new Exception("Set 'Connect' to True!");
-            }
-
-            // defense
-
-
-            // Initiate the Revit Auth
-            InitRevitAuthProvider();
-
-            /*
-            // Request - I'm still not sure how to create the request - should know more after today meeting
-            string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.GetProjectList, "json");
-
-            HttpWebResponse response = (HttpWebResponse)_CallGetApi(requestUri);
-            Stream responseStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(responseStream);
-            string result = reader.ReadToEnd();
-            */
-
-            return new Dictionary<string, object>
-            {
-                { "INPFile", INPFile},
-                { "IDFFile", IDFFile}
-            };
-
-        }
-
-        /// Create gbXML from Mass
-        /// Exporting gbXML file and saving to a local location
+        // NODE: Create gbXML from Mass
+        /// <summary> 
+        /// Create gbXML file from Mass and saves to a local location 
         /// </summary>
-        /// <returns></returns>
-        [MultiReturn("message", "gbXMLPath")]
+        /// <param name="FilePath"> Specify the file path location to save gbXML file </param>
+        /// <param name="MassFamilyInstance"> Input Mass Id </param>
+        /// <param name="Run"> Set Boolean True. Default is false </param>
+        /// <returns name="report"> Success? </returns>
+        /// <returns name="gbXMLPath"></returns>
+        [MultiReturn("report", "gbXMLPath")]
         public static Dictionary<string, object> gbXMLCompiler_fromMass(string FilePath, AbstractFamilyInstance MassFamilyInstance = null, Boolean Run = false)
         {
             Boolean IsSuccess = false;
@@ -230,20 +203,23 @@ namespace GBSforDynamo
             // Populate Output Values
             return new Dictionary<string, object>
             {
-                { "message", message},
+                { "report", message},
                 { "gbXMLPath", path} 
             };
         }
 
-        /// Create gbXML from Zones
-        /// Exporting gbXML file from giving
+
+        // NODE: Create gbXML from Zones
+        /// <summary>
+        /// Exports gbXML file from Zones
         /// </summary>
-        /// <param name="FilePath"></param>
+        /// <param name="FilePath"> Specify the file path location to save gbXML file </param>
         /// <param name="FileName"></param>
         /// <param name="ZoneIds"></param>
         /// <param name="Run"></param>
-        /// <returns></returns>
-        [MultiReturn("message", "gbXMLPath")]
+        /// <returns name="message"> Success? </returns>
+        /// <returns name="gbXMLPath"></returns>
+        [MultiReturn("report", "gbXMLPath")]
         public static Dictionary<string, object> gbXMLCompiler_fromZones(string FilePath, List<ElementId> ZoneIds = null, Boolean Run = false)
         {
             Boolean IsSuccess = false;
@@ -293,24 +269,23 @@ namespace GBSforDynamo
 
             return new Dictionary<string, object>
             {
-                { "message", message},
+                { "report", message},
                 { "gbXMLPath", path} 
             };
 
         
         }
 
-        /// GBS_Base Run
-        /// Creates Project and Post gbXML to Run 
+        // NODE: GBS_Base Run
+        /// <summary>
+        /// Creates a new Project and Uploads gbXML to run the energy analysis of base model and the alternates
         /// </summary>
-        /// <param name="ProjectTitle"></param>
-        /// <param name="IsDemo"></param>
-        /// <param name="BuildingTypeId"></param>
-        /// <param name="ScheduleId"></param>
-        /// <param name="gbXMLPath"></param>
-        /// <returns></returns>
+        /// <param name="ProjectTitle"> Title of the project created in GBS Web Services, creates new if not created already </param>
+        /// <param name="gbXMLPath"> File path location of gbXML file</param>
+        /// <returns name="ProjectId"> Returns Project ID </returns>
+        /// /// <returns name="RunId"> Returns  Run ID </returns>
         [MultiReturn("ProjectId", "RunId")]
-        public static Dictionary<string, object> GBS_BaseRun(string ProjectTitle, Boolean IsDemo, string gbXMLPath)
+        public static Dictionary<string, object> GBS_BaseRun(string ProjectTitle, string gbXMLPath)
         {
             int newProjectId = 0;
             int newRunId = 0;
@@ -335,7 +310,7 @@ namespace GBSforDynamo
             // Initiate the Revit Auth
             InitRevitAuthProvider();
 
-            // Try to get Default Utility Costs from API
+            // Try to get Default Utility Costs from API 
             string requestGetDefaultUtilityCost = GBSUri.GBSAPIUri + APIV1Uri.GetDefaultUtilityCost;
             string requestUriforUtilityCost = string.Format(requestGetDefaultUtilityCost, BuildingTypeId, lat, lon, "xml");
             HttpWebResponse responseUtility = (HttpWebResponse)_CallGetApi(requestUriforUtilityCost);
@@ -355,7 +330,7 @@ namespace GBSforDynamo
 
             var response =
                 (HttpWebResponse)
-                _CallPostApi(requestUri, typeof(NewProjectItem), _CreateProjectItem(ProjectTitle, IsDemo, BuildingTypeId, ScheduleId, lat, lon, utilityCost.ElecCost, utilityCost.FuelCost));
+                _CallPostApi(requestUri, typeof(NewProjectItem), _CreateProjectItem(ProjectTitle, false, BuildingTypeId, ScheduleId, lat, lon, utilityCost.ElecCost, utilityCost.FuelCost));
                 
             newProjectId = DeserializeHttpWebResponse(response);
 
@@ -376,11 +351,14 @@ namespace GBSforDynamo
             };
         }
 
-        /// GBS_Get Run List
-        /// 
+        // NODE: GBS_Get Run List
+        /// <summary>
+        /// Gets Run List from GBS Web Service
         /// </summary>
-        /// <param name="ProjectId"></param>
-        /// <returns></returns>
+        /// <param name="ProjectId"> Input Project ID</param>
+        /// <returns name = "RunIds"> Returns Run IDs </returns>
+        /// <returns name = "AltRunIds"> Returns Alternate Run IDs </returns>
+        /// <returns name = "RunNames"> Returns Run Names </returns>
         [MultiReturn("RunIds", "AltRunIds", "RunNames")]
         public static Dictionary<string, object> GetRunList(int ProjectId)
         {
@@ -422,21 +400,32 @@ namespace GBSforDynamo
         
         }
 
-        /// GBS_ Get Run Summary Results
-        /// 
-        /// gets the Run Summary results of given RunId
+        // NODE: GBS_ Get Run Summary Results
+        /// <summary>
+        /// Gets the Run Summary Results of given RunId
         /// </summary>
-        /// <param name="RunId"></param>
-        /// <returns></returns>
+        /// <param name="RunId"> Input Run Id </param>
+        /// <param name="AltRunId"> Input Alternate Run Id. Default is 0, Base Run </param>
+        /// <returns name ="RunTitle"> Title of Run </returns>
+        /// <returns name ="Location"> Location </returns>
+        /// <returns name ="BuildingType"> Building Type</returns>
+        /// <returns name ="ProjectTemplate"> Project Template Applied </returns>
+        /// <returns name ="FloorArea"> Floor Area + Unit </returns>
+        /// <returns name ="ElectricCost"> Electric Cost + Unit </returns>
+        /// <returns name ="AnnualEnergyCost"> Annual Energy Cost + Unit </returns>
+        /// <returns name ="LifecycleCost"> Life Cycle Cost + Unit </returns>
+        /// <returns name ="AnnualCO2EmissionsElectric"> Annual CO2 Emissions Electric Cost + Unit </returns>
+        /// <returns name ="AnnualCO2EmissionsOnsiteFuel"> Annual CO2 Emissions Onsite Fuel Cost + Unit </returns>
+        /// <returns name ="AnnualCO2EmissionsLargeSUVEquivalent"> Annual CO2 Emissions Large SUV Equivalent Cost + Unit </returns>
         [MultiReturn("RunTitle", "Location", "BuildingType","ProjectTemplate","FloorArea", "ElectricCost", "AnnualEnergyCost","LifecycleCost","AnnualCO2EmissionsElectric","AnnualCO2EmissionsOnsiteFuel","AnnualCO2EmissionsLargeSUVEquivalent")]
-        public static Dictionary<string, object> GetRunSummaryResult(int RunId)
+        public static Dictionary<string, object> GetRunSummaryResult(int RunId , int AltRunId = 0)
         {
             // Initiate the Revit Auth
             InitRevitAuthProvider();
 
             //Get results Summary of given RunID
             string requestGetRunSummaryResultsUri = GBSUri.GBSAPIUri +
-                                     string.Format(APIV1Uri.GetRunSummaryResultsUri, RunId, 0, "json");
+                                     string.Format(APIV1Uri.GetRunSummaryResultsUri, RunId, AltRunId, "json");
             HttpWebResponse response2 = (HttpWebResponse)_CallGetApi(requestGetRunSummaryResultsUri);
             Stream responseStream2 = response2.GetResponseStream();
             StreamReader reader2 = new StreamReader(responseStream2);
@@ -462,10 +451,15 @@ namespace GBSforDynamo
         
         }
 
+        // NODE: Get Run Result TO DO: work with GBS Team about API calls
         /// <summary>
         /// Get Run Result 
         /// </summary>
-        /// <param name="RunId"></param>
+        /// <param name="RunId"> Input Run ID</param>
+        /// <param name="AltRunId"> Input Alternate Run ID </param>
+        /// <param name="resulttype"> Result type gbxml or doe2 or inp </param>
+        /// <param name="FilePath"> Set File location to download the file </param>
+        /// <returns> Returns report s.</returns>
         public static string GetRunResult(int RunId, int AltRunId, string resulttype , string FilePath) // result type gbxml doe2 etc
         {
             // Initiate the Revit Auth
@@ -481,7 +475,7 @@ namespace GBSforDynamo
             using (HttpWebResponse response = (HttpWebResponse)_CallGetApi(requestGetRunResultsUri))
             using (Stream stream = response.GetResponseStream())
             {
-                string zipFileName = Path.Combine(FilePath, string.Format("RunResults_{0}_{1}.zip", RunId, 0));
+                string zipFileName = Path.Combine(FilePath, string.Format("RunResults_{0}_{1}_{2}.zip", RunId, AltRunId, resulttype));
 
                 using (var fs = File.Create(zipFileName))
                 {
@@ -494,6 +488,51 @@ namespace GBSforDynamo
             }
 
             return report ;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProjectId"></param>
+        /// <param name="ProjectTitle"></param>
+        /// <param name="Connect"></param>
+        /// <returns></returns>
+        [MultiReturn("INPFile", "IDFFile")]
+        public static Dictionary<string, object> GetEnergyModelFiles(int ProjectId, string ProjectTitle, bool Connect = false)
+        {
+            //local variables
+            string INPFile = string.Empty;
+            string IDFFile = string.Empty;
+
+            //make Connect? inputs set to True mandatory
+            if (Connect == false)
+            {
+                throw new Exception("Set 'Connect' to True!");
+            }
+
+            // defense
+
+
+            // Initiate the Revit Auth
+            InitRevitAuthProvider();
+
+            /*
+            // Request - I'm still not sure how to create the request - should know more after today meeting
+            string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.GetProjectList, "json");
+
+            HttpWebResponse response = (HttpWebResponse)_CallGetApi(requestUri);
+            Stream responseStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(responseStream);
+            string result = reader.ReadToEnd();
+            */
+
+            return new Dictionary<string, object>
+            {
+                { "INPFile", INPFile},
+                { "IDFFile", IDFFile}
+            };
+
         }
 
 
