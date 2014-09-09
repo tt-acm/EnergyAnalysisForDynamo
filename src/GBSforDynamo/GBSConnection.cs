@@ -78,9 +78,9 @@ namespace GBSforDynamo
         /// Returns Project Lists from GBS web service
         /// </summary> 
         /// <param name="Connect"> Set Boolean True </param>
-        /// <returns name="ProjectIds"> Returns Project Ids in GBS Web Service </returns> 
-        /// <returns name="ProjectTitles"> Returns Project Titles in GBS Web Service </returns>
-        /// <returns name="ProjectDateAdded"> Returns Project's date of added or created </returns>
+        /// <returns name="ProjectIds"> Returns Project Ids in GBS Web Service List.</returns> 
+        /// <returns name="ProjectTitles"> Returns Project Titles in GBS Web Service List.</returns> 
+        /// <returns name="ProjectDateAdded"> Returns Project's date of added or created List.</returns> 
         [MultiReturn("ProjectIds", "ProjectTitles","ProjectDateAdded")]
         public static Dictionary<string, object> GetProjectLists(bool Connect = false )
         {
@@ -214,10 +214,9 @@ namespace GBSforDynamo
         /// Exports gbXML file from Zones
         /// </summary>
         /// <param name="FilePath"> Specify the file path location to save gbXML file </param>
-        /// <param name="FileName"></param>
-        /// <param name="ZoneIds"></param>
-        /// <param name="Run"></param>
-        /// <returns name="message"> Success? </returns>
+        /// <param name="ZoneIds"> Input Zone IDs</param>
+        /// <param name="Run">Set Boolean True. Default is false </param>
+        /// <returns name="report"> Success? </returns>
         /// <returns name="gbXMLPath"></returns>
         [MultiReturn("report", "gbXMLPath")]
         public static Dictionary<string, object> gbXMLCompiler_fromZones(string FilePath, List<ElementId> ZoneIds = null, Boolean Run = false)
@@ -459,7 +458,7 @@ namespace GBSforDynamo
         /// <param name="AltRunId"> Input Alternate Run ID </param>
         /// <param name="resulttype"> Result type gbxml or doe2 or inp </param>
         /// <param name="FilePath"> Set File location to download the file </param>
-        /// <returns> Returns report s.</returns>
+        /// <returns name="report"> string. </returns>
         public static string GetRunResult(int RunId, int AltRunId, string resulttype , string FilePath) // result type gbxml doe2 etc
         {
             // Initiate the Revit Auth
