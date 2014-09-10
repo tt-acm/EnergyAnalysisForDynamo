@@ -293,9 +293,11 @@ namespace GBSforDynamo
         }
 
 
-        public static ElementId SetZoneParameters(ElementId ZoneId = null) //, gbXMLSpaceType spaceType = gbXMLSpaceType.NoSpaceType, gbXMLConditionType conditionType = gbXMLConditionType.NoConditionType)
+        public static ElementId SetZoneParameters(ElementId ZoneId, string SpaceType = "", string ConditionType = "")
         {
-            /*
+            
+        // gbXMLSpaceType spaceType = gbXMLSpaceType.NoSpaceType, gbXMLConditionType conditionType = gbXMLConditionType.NoConditionType
+        
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassZone zone = null;
@@ -315,16 +317,15 @@ namespace GBSforDynamo
 
 
             //defense
-            if (!(gbXMLConditionType.IsDefined(typeof(gbXMLConditionType), conditionType)))
+            if (!string.IsNullOrEmpty(ConditionType) && !(gbXMLConditionType.IsDefined(typeof(gbXMLConditionType), ConditionType)))
             {
-                throw new Exception(conditionType.ToString() + " is not a valid condition type. Use conditionTypes dropdown to input a valid condition type.");
+                throw new Exception(ConditionType.ToString() + " is not a valid condition type. Use conditionTypes dropdown to input a valid condition type.");
             }
 
-            if (!(gbXMLSpaceType.IsDefined(typeof(gbXMLSpaceType), spaceType)))
+            if (!string.IsNullOrEmpty(SpaceType) && !(gbXMLSpaceType.IsDefined(typeof(gbXMLSpaceType), SpaceType)))
             {
-                throw new Exception(spaceType.ToString() + " is not a valid space type. Use spaceTypes dropdown to input a valid space type.");
+                throw new Exception(SpaceType.ToString() + " is not a valid space type. Use spaceTypes dropdown to input a valid space type.");
             }
-            
             
             try
             {
@@ -332,10 +333,16 @@ namespace GBSforDynamo
                 TransactionManager.Instance.EnsureInTransaction(RvtDoc);
 
                 //set condiotn type
-                zone.ConditionType = conditionType;
-
+                if (!string.IsNullOrEmpty(ConditionType))
+                {
+                    zone.ConditionType = (gbXMLConditionType)Enum.Parse(typeof(gbXMLConditionType), ConditionType);
+                }
+   
                 //set space type
-                zone.SpaceType = spaceType;
+             if (!string.IsNullOrEmpty(SpaceType))
+             {   
+                zone.SpaceType = (gbXMLSpaceType)Enum.Parse(typeof(gbXMLSpaceType), SpaceType);
+             }
 
                 //done with transaction task
                 TransactionManager.Instance.TransactionTaskDone();
@@ -345,7 +352,6 @@ namespace GBSforDynamo
             {
                 throw new Exception("Something went wrong when trying to set the parameters on zone # " + ZoneId.ToString());
             }
-             */
 
             //return the zone ID so the zone can be used downstream
             return ZoneId;
