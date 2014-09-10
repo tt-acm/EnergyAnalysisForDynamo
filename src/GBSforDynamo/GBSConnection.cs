@@ -555,6 +555,24 @@ namespace GBSforDynamo
             };
         }
 
+        /// <summary>
+        /// Get Electric Power Plant Sources in Your Region
+        /// </summary>
+        /// <param name="Results"></param>
+        /// <returns></returns>
+        [MultiReturn("Fossil","Nuclear","Hydroelectric","Renewable","Other")]
+        public static Dictionary<string, object> GetElectricPowerPlantSources(RunResultSummary Results)
+        {
+            // Populate Outputs
+            return new Dictionary<string, object>
+            {
+                {"Fossil",Results.ElectricPowerPlantSources.Fossil},
+                {"Nuclear",Results.ElectricPowerPlantSources.Nuclear},
+                {"Hydroelectric",Results.ElectricPowerPlantSources.Hydroelectric},
+                {"Renewable",Results.ElectricPowerPlantSources.Renewable},
+                {"Other",Results.ElectricPowerPlantSources.Other},
+            };
+        }
 
 
         // NODE: Get Run Result TO DO: work with GBS Team about API calls
