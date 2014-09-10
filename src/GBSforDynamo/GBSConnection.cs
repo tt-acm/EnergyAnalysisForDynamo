@@ -399,56 +399,56 @@ namespace GBSforDynamo
         
         }
 
-        // NODE: GBS_ Get Run Summary Results
-        /// <summary>
-        /// Gets the Run Summary Results of given RunId
-        /// </summary>
-        /// <param name="RunId"> Input Run Id </param>
-        /// <param name="AltRunId"> Input Alternate Run Id. Default is 0, Base Run </param>
-        /// <returns name ="RunTitle"> Title of Run </returns>
-        /// <returns name ="Location"> Location </returns>
-        /// <returns name ="BuildingType"> Building Type</returns>
-        /// <returns name ="ProjectTemplate"> Project Template Applied </returns>
-        /// <returns name ="FloorArea"> Floor Area + Unit </returns>
-        /// <returns name ="ElectricCost"> Electric Cost + Unit </returns>
-        /// <returns name ="AnnualEnergyCost"> Annual Energy Cost + Unit </returns>
-        /// <returns name ="LifecycleCost"> Life Cycle Cost + Unit </returns>
-        /// <returns name ="AnnualCO2EmissionsElectric"> Annual CO2 Emissions Electric Cost + Unit </returns>
-        /// <returns name ="AnnualCO2EmissionsOnsiteFuel"> Annual CO2 Emissions Onsite Fuel Cost + Unit </returns>
-        /// <returns name ="AnnualCO2EmissionsLargeSUVEquivalent"> Annual CO2 Emissions Large SUV Equivalent Cost + Unit </returns>
-        [MultiReturn("RunTitle", "Location", "BuildingType","ProjectTemplate","FloorArea", "ElectricCost", "AnnualEnergyCost","LifecycleCost","AnnualCO2EmissionsElectric","AnnualCO2EmissionsOnsiteFuel","AnnualCO2EmissionsLargeSUVEquivalent")]
-        public static Dictionary<string, object> GetRunSummaryResult(int RunId , int AltRunId = 0)
-        {
-            // Initiate the Revit Auth
-            InitRevitAuthProvider();
+        //// NODE: GBS_ Get Run Summary Results
+        ///// <summary>
+        ///// Gets the Run Summary Results of given RunId
+        ///// </summary>
+        ///// <param name="RunId"> Input Run Id </param>
+        ///// <param name="AltRunId"> Input Alternate Run Id. Default is 0, Base Run </param>
+        ///// <returns name ="RunTitle"> Title of Run </returns>
+        ///// <returns name ="Location"> Location </returns>
+        ///// <returns name ="BuildingType"> Building Type</returns>
+        ///// <returns name ="ProjectTemplate"> Project Template Applied </returns>
+        ///// <returns name ="FloorArea"> Floor Area + Unit </returns>
+        ///// <returns name ="ElectricCost"> Electric Cost + Unit </returns>
+        ///// <returns name ="AnnualEnergyCost"> Annual Energy Cost + Unit </returns>
+        ///// <returns name ="LifecycleCost"> Life Cycle Cost + Unit </returns>
+        ///// <returns name ="AnnualCO2EmissionsElectric"> Annual CO2 Emissions Electric Cost + Unit </returns>
+        ///// <returns name ="AnnualCO2EmissionsOnsiteFuel"> Annual CO2 Emissions Onsite Fuel Cost + Unit </returns>
+        ///// <returns name ="AnnualCO2EmissionsLargeSUVEquivalent"> Annual CO2 Emissions Large SUV Equivalent Cost + Unit </returns>
+        //[MultiReturn("RunTitle", "Location", "BuildingType","ProjectTemplate","FloorArea", "ElectricCost", "AnnualEnergyCost","LifecycleCost","AnnualCO2EmissionsElectric","AnnualCO2EmissionsOnsiteFuel","AnnualCO2EmissionsLargeSUVEquivalent")]
+        //public static Dictionary<string, object> GetRunSummaryResult(int RunId , int AltRunId = 0)
+        //{
+        //    // Initiate the Revit Auth
+        //    InitRevitAuthProvider();
 
-            //Get results Summary of given RunID & AltRunID
-            string requestGetRunSummaryResultsUri = GBSUri.GBSAPIUri +
-                                     string.Format(APIV1Uri.GetRunSummaryResultsUri, RunId, AltRunId, "json");
-            HttpWebResponse response2 = (HttpWebResponse)_CallGetApi(requestGetRunSummaryResultsUri);
-            Stream responseStream2 = response2.GetResponseStream();
-            StreamReader reader2 = new StreamReader(responseStream2);
-            string resultSummary = reader2.ReadToEnd();
-            RunResultSummary runResultSummary = DataContractJsonDeserialize<RunResultSummary>(resultSummary);
+        //    //Get results Summary of given RunID & AltRunID
+        //    string requestGetRunSummaryResultsUri = GBSUri.GBSAPIUri +
+        //                             string.Format(APIV1Uri.GetRunSummaryResultsUri, RunId, AltRunId, "json");
+        //    HttpWebResponse response2 = (HttpWebResponse)_CallGetApi(requestGetRunSummaryResultsUri);
+        //    Stream responseStream2 = response2.GetResponseStream();
+        //    StreamReader reader2 = new StreamReader(responseStream2);
+        //    string resultSummary = reader2.ReadToEnd();
+        //    RunResultSummary runResultSummary = DataContractJsonDeserialize<RunResultSummary>(resultSummary);
 
-            //Populate outputs
-            return new Dictionary<string, object>
-            {
-                { "RunTitle", runResultSummary.Runtitle},
-                { "Location", runResultSummary.Location},
-                { "BuildingType", runResultSummary.BuildingType},
-                { "ProjectTemplate", runResultSummary.ProjectTemplateApplied},
-                { "FloorArea", runResultSummary.FloorArea.Value + runResultSummary.FloorArea.Units },
-                { "ElectricCost", runResultSummary.ElectricCost.Value + runResultSummary.ElectricCost.Units },
-                { "AnnualEnergyCost", runResultSummary.RunEnergyCarbonCostSummary.AnnualEnergyCost },
-                { "LifecycleCost", runResultSummary.RunEnergyCarbonCostSummary.LifecycleCost},
-                {"AnnualCO2EmissionsElectric", runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Value + runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Units},
-                {"AnnualCO2EmissionsOnsiteFuel",runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Value + runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Units},
-                {"AnnualCO2EmissionsLargeSUVEquivalent", runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Value + runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Units}
+        //    //Populate outputs
+        //    return new Dictionary<string, object>
+        //    {
+        //        { "RunTitle", runResultSummary.Runtitle},
+        //        { "Location", runResultSummary.Location},
+        //        { "BuildingType", runResultSummary.BuildingType},
+        //        { "ProjectTemplate", runResultSummary.ProjectTemplateApplied},
+        //        { "FloorArea", runResultSummary.FloorArea.Value + runResultSummary.FloorArea.Units },
+        //        { "ElectricCost", runResultSummary.ElectricCost.Value + runResultSummary.ElectricCost.Units },
+        //        { "AnnualEnergyCost", runResultSummary.RunEnergyCarbonCostSummary.AnnualEnergyCost },
+        //        { "LifecycleCost", runResultSummary.RunEnergyCarbonCostSummary.LifecycleCost},
+        //        {"AnnualCO2EmissionsElectric", runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Value + runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Units},
+        //        {"AnnualCO2EmissionsOnsiteFuel",runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Value + runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Units},
+        //        {"AnnualCO2EmissionsLargeSUVEquivalent", runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Value + runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Units}
 
-            };
+        //    };
         
-        }
+        //}
 
 
         /// <summary>
@@ -484,13 +484,17 @@ namespace GBSforDynamo
                 "Total Cooling Capacity : " + runResultSummary.BuildingSummary.TotalCoolingCapacity.Value + " " + runResultSummary.BuildingSummary.TotalCoolingCapacity.Units + "\n" +
                 "Total Heating Capacity : " + runResultSummary.BuildingSummary.TotalHeatingCapacity.Value + " " + runResultSummary.BuildingSummary.TotalHeatingCapacity.Units + "\n";
 
+            List<object> floorarea = new List<object>();
+            floorarea.Add((double)runResultSummary.FloorArea.Value);
+            floorarea.Add(runResultSummary.FloorArea.Units);
+
             //Populate outputs
             return new Dictionary<string, object>
             {
                 { "Results",runResultSummary},
                 { "BuildingType", runResultSummary.BuildingType},
                 { "Location", runResultSummary.Location},
-                { "FloorArea", runResultSummary.FloorArea.Value + " " + runResultSummary.FloorArea.Units },
+                { "FloorArea", floorarea },
                 { "BuildingSummary", buildingsummary}
 
             };
@@ -506,25 +510,81 @@ namespace GBSforDynamo
         [MultiReturn("Annual Energy Cost","Lifecycle Cost","Annual CO2 Emissions","Annual Energy", "Lifecycle Energy")]
         public static Dictionary<string, object> GetEnegrgyCarbonCostSummary(RunResultSummary Results)
         {
+            // Populate Annual CO2 Emissions
+            List<List<object>> annualCO2Emissions = new List<List<object>>();
 
-            string annualCO2Emissions = "Electric : " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Units + "\n" +
-                                        "Onsite Fuel : " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Units + "\n" +
-                                        "Large SUV Equivalent : " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Units;
+            List<object> electric = new List<object>();
+            electric.Add("Electric - " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Units); // Type + Unit
+            electric.Add((double)Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Value); // Value
+            annualCO2Emissions.Add(electric);
 
-            string annualEnergy = "Energy Use Intensity (EUI) : " + Results.RunEnergyCarbonCostSummary.AnnualEUI.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualEUI.Units + "\n" +
-                                  "Electric : " + Results.RunEnergyCarbonCostSummary.AnnualEnergyElectric.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualEnergyElectric.Units + "\n" +
-                                  "Fuel : " + Results.RunEnergyCarbonCostSummary.AnnualEnergyFuel.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualEnergyFuel.Units + "\n" +
-                                  "Annual Peak Demand : " + Results.RunEnergyCarbonCostSummary.AnnualPeakDemand.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualPeakDemand.Units;
+            List<object> onsiteFuel = new List<object>();
+            onsiteFuel.Add("Onsite Fuel - " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Units);
+            onsiteFuel.Add((double)Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Value);
+            annualCO2Emissions.Add(onsiteFuel);
 
-            string lifecycleEnergy = "Electric : " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyElectric.Value + " " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyElectric.Units + "\n" +
-                                     "Fuel : " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Value + " " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Units;
+            List<object> largeSUV = new List<object>();
+            largeSUV.Add("Large SUV Equivalent - " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Units);
+            largeSUV.Add((double)Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Value);
+            annualCO2Emissions.Add(largeSUV);
+
+            //string annualCO2Emissions = "Electric : " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Units + "\n" +
+            //                            "Onsite Fuel : " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Units + "\n" +
+            //                            "Large SUV Equivalent : " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Units;
+
+
+            // Populate Annual Energy
+            List<List<object>> annualEnergy = new List<List<object>>();
+
+            List<object> EUI = new List<object>();
+            EUI.Add("Energy Use Intensity (EUI) - " + Results.RunEnergyCarbonCostSummary.AnnualEUI.Units);
+            EUI.Add((double)Results.RunEnergyCarbonCostSummary.AnnualEUI.Value);
+            annualEnergy.Add(EUI);
+
+            List<object> Eelectric = new List<object>();
+            Eelectric.Add("Electric - " + Results.RunEnergyCarbonCostSummary.AnnualEnergyElectric.Units);
+            Eelectric.Add((double)Results.RunEnergyCarbonCostSummary.AnnualEnergyElectric.Value);
+            annualEnergy.Add(Eelectric);
+
+            List<object> Efuel = new List<object>();
+            Efuel.Add("Fuel - " + Results.RunEnergyCarbonCostSummary.AnnualEnergyFuel.Units);
+            Efuel.Add((double)Results.RunEnergyCarbonCostSummary.AnnualEnergyFuel.Value);
+            annualEnergy.Add(Efuel);
+
+            List<object> EPeakDemand = new List<object>();
+            EPeakDemand.Add("Annual Peak Demand - " + Results.RunEnergyCarbonCostSummary.AnnualPeakDemand.Units);
+            EPeakDemand.Add((double)Results.RunEnergyCarbonCostSummary.AnnualPeakDemand.Value);
+            annualEnergy.Add(EPeakDemand);
+
+            //string annualEnergy = "Energy Use Intensity (EUI) : " + Results.RunEnergyCarbonCostSummary.AnnualEUI.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualEUI.Units + "\n" +
+            //                      "Electric : " + Results.RunEnergyCarbonCostSummary.AnnualEnergyElectric.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualEnergyElectric.Units + "\n" +
+            //                       "Fuel : " + Results.RunEnergyCarbonCostSummary.AnnualEnergyFuel.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualEnergyFuel.Units + "\n" +
+            //                       "Annual Peak Demand : " + Results.RunEnergyCarbonCostSummary.AnnualPeakDemand.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualPeakDemand.Units;
+
+
+            // Populate Life cycle Energy
+            List<List<object>> lifecycleEnergy = new List<List<object>>();
+
+            List<object> LElectric = new List<object>();
+            LElectric.Add("Electric - " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyElectric.Units);
+            LElectric.Add((double)Results.RunEnergyCarbonCostSummary.LifecycleEnergyElectric.Value);
+            lifecycleEnergy.Add(LElectric);
+
+
+            List<object> LFuel = new List<object>();
+            LElectric.Add("Fuel - " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Units);
+            LElectric.Add((double)Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Value);
+            lifecycleEnergy.Add(LFuel);
+
+            //string lifecycleEnergy = "Electric : " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyElectric.Value + " " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyElectric.Units + "\n" +
+            //                         "Fuel : " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Value + " " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Units;
 
             
             
             //Populate Outputs
             return new Dictionary<string, object> 
             { 
-                {"Annual Energy Cost",Results.RunEnergyCarbonCostSummary.AnnualEnergyCost.Value + " " + Results.RunEnergyCarbonCostSummary.CurrencyCulture.DisplayName}, // how to find the currency ???
+                {"Annual Energy Cost",Results.RunEnergyCarbonCostSummary.AnnualEnergyCost.Value}, // how to find the currency ???
                 {"Lifecycle Cost",Results.RunEnergyCarbonCostSummary.LifecycleCost},
                 {"Annual CO2 Emissions", annualCO2Emissions},
                 {"Annual Energy",annualEnergy},
@@ -538,19 +598,43 @@ namespace GBSforDynamo
         /// </summary>
         /// <param name="Results"></param>
         /// <returns></returns>
-        [MultiReturn("Units", "Run CO2 Emission","Onsite Renewable Potential", "Natural Ventilation Potential","Onsite Biofuel Use","Net CO2 Emission", "Net Large SUV Equivalent")]
+        [MultiReturn("Run CO2 Emission","Onsite Renewable Potential", "Natural Ventilation Potential","Onsite Biofuel Use","Net CO2 Emission", "Net Large SUV Equivalent")]
         public static Dictionary<string, object> GetCarbonNeutralPotential(RunResultSummary Results)
-        { 
+        {
+            // Populate Carbon Neutral Potential data
+            List<object> CO2Emission = new List<Object>();
+            CO2Emission.Add(Results.CarbonNeutralPotential.Units);
+            CO2Emission.Add((double)Results.CarbonNeutralPotential.RunEmissions.Value);
+
+            List<object> RenewablePotential = new List<object>();
+            RenewablePotential.Add(Results.CarbonNeutralPotential.Units);
+            RenewablePotential.Add((double)Results.CarbonNeutralPotential.OnsiteRenewablePotentialEmissions.Value);
+
+            List<object> NVentilationPotential = new List<object>();
+            NVentilationPotential.Add(Results.CarbonNeutralPotential.Units);
+            NVentilationPotential.Add(Results.CarbonNeutralPotential.NaturalVentilationPotentialEmissions.Value);
+
+            List<object> BiofuelUse = new List<object>();
+            BiofuelUse.Add(Results.CarbonNeutralPotential.Units);
+            BiofuelUse.Add((double)Results.CarbonNeutralPotential.OnsiteBiofuelUseEmissions.Value);
+
+            List<object> NetCO2Emission= new List<object>();
+            NetCO2Emission.Add(Results.CarbonNeutralPotential.Units);
+            NetCO2Emission.Add((double)Results.CarbonNeutralPotential.NetCO2Emissions.Value);
+
+            List<object> LargeSUV= new List<object>();
+            LargeSUV.Add(Results.CarbonNeutralPotential.NetLargeSUVEquivalent.Units);
+            LargeSUV.Add((double)Results.CarbonNeutralPotential.NetLargeSUVEquivalent.Value);
+
             // Populate Outputs
             return new Dictionary<string, object>
             {
-                {"Units",Results.CarbonNeutralPotential.Units},
-                {"Run CO2 Emission",Results.CarbonNeutralPotential.RunEmissions.Value},
-                {"Onsite Renewable Potential", Results.CarbonNeutralPotential.OnsiteRenewablePotentialEmissions.Value},
-                {"Natural Ventilation Potential",Results.CarbonNeutralPotential.NaturalVentilationPotentialEmissions.Value},
-                {"Onsite Biofuel Use",Results.CarbonNeutralPotential.OnsiteBiofuelUseEmissions.Value},
-                {"Net CO2 Emission",Results.CarbonNeutralPotential.NetCO2Emissions.Value},
-                {"Net Large SUV Equivalent", Results.CarbonNeutralPotential.NetLargeSUVEquivalent.Value + " " + Results.CarbonNeutralPotential.NetLargeSUVEquivalent.Units}
+                {"Run CO2 Emission",CO2Emission},
+                {"Onsite Renewable Potential", RenewablePotential},
+                {"Natural Ventilation Potential",NVentilationPotential},
+                {"Onsite Biofuel Use",BiofuelUse},
+                {"Net CO2 Emission",NetCO2Emission},
+                {"Net Large SUV Equivalent", LargeSUV}
 
             };
         }
