@@ -422,7 +422,7 @@ namespace GBSforDynamo
             // Initiate the Revit Auth
             InitRevitAuthProvider();
 
-            //Get results Summary of given RunID
+            //Get results Summary of given RunID & AltRunID
             string requestGetRunSummaryResultsUri = GBSUri.GBSAPIUri +
                                      string.Format(APIV1Uri.GetRunSummaryResultsUri, RunId, AltRunId, "json");
             HttpWebResponse response2 = (HttpWebResponse)_CallGetApi(requestGetRunSummaryResultsUri);
@@ -450,6 +450,52 @@ namespace GBSforDynamo
         
         }
 
+
+        /// <summary>
+        /// Gets Results object and Building summary
+        /// <para> Use .... nodes to parse the Results info of the specific run</para>
+        /// </summary>
+        /// <param name="RunID"> Input Run Id </param>
+        /// <param name="AltRunID"> Input Alternate Id </param>
+        /// <returns></returns>
+        [MultiReturn("Results","BuildingType","Location","FloorArea","BuildingSummary")]
+        public static Dictionary<string, object> GetEnergyandCarbonResults(int RunID, int AltRunID = 0)
+        {
+            // Initiate the Revit Auth
+            InitRevitAuthProvider();
+
+            //Get results Summary of given RunID & AltRunID
+            string requestGetRunSummaryResultsUri = GBSUri.GBSAPIUri +
+                                     string.Format(APIV1Uri.GetRunSummaryResultsUri, RunID, AltRunID, "json");
+            HttpWebResponse response2 = (HttpWebResponse)_CallGetApi(requestGetRunSummaryResultsUri);
+            Stream responseStream2 = response2.GetResponseStream();
+            StreamReader reader2 = new StreamReader(responseStream2);
+            string resultSummary = reader2.ReadToEnd();
+            RunResultSummary runResultSummary = DataContractJsonDeserialize<RunResultSummary>(resultSummary);
+
+            string buildingsummary = "Number of People : " + runResultSummary.BuildingSummary.NumberOfPeople.Value + " " + runResultSummary.BuildingSummary.NumberOfPeople.Units + ",\n" +
+                "Average Lighting Power Density : " + runResultSummary.BuildingSummary.AvgLightingPowerDensity.Value + " " + runResultSummary.BuildingSummary.AvgLightingPowerDensity.Units + ",\n" +
+                "Average Equipment Power Density : " + runResultSummary.BuildingSummary.AvgEquipmentPowerDensity.Value + " " + runResultSummary.BuildingSummary.AvgEquipmentPowerDensity.Units + ",\n" +
+                "Specific Fan Flow : " + runResultSummary.BuildingSummary.SpecificFanFlow.Value + " " + runResultSummary.BuildingSummary.SpecificFanFlow.Units + ",\n" +
+                "Specific Fan Power : " + runResultSummary.BuildingSummary.SpecificFanPower.Value + " " + runResultSummary.BuildingSummary.SpecificFanPower.Units + ",\n" +
+                "Specific Cooling : " + runResultSummary.BuildingSummary.SpecificCooling.Value + " " + runResultSummary.BuildingSummary.SpecificCooling.Units + ",\n" +
+                "Specific Heating : " + runResultSummary.BuildingSummary.SpecificHeating.Value + " " + runResultSummary.BuildingSummary.SpecificHeating.Units + ",\n" +
+                "Total Fan Flow : " + runResultSummary.BuildingSummary.TotalFanFlow.Value + " " + runResultSummary.BuildingSummary.TotalFanFlow.Units + ",\n" +
+                "Total Cooling Capacity : " + runResultSummary.BuildingSummary.TotalCoolingCapacity.Value + " " + runResultSummary.BuildingSummary.TotalCoolingCapacity.Units + ",\n" +
+                "Total Heating Capacity : " + runResultSummary.BuildingSummary.TotalHeatingCapacity.Value + " " + runResultSummary.BuildingSummary.TotalHeatingCapacity.Units + ".\n";
+
+            //Populate outputs
+            return new Dictionary<string, object>
+            {
+                { "Results",runResultSummary},
+                { "BuildingType", runResultSummary.BuildingType},
+                { "Location", runResultSummary.Location},
+                { "FloorArea", runResultSummary.FloorArea.Value + " " + runResultSummary.FloorArea.Units },
+                { "BuildingSummary", buildingsummary}
+
+            };
+        }
+
         // NODE: Get Run Result TO DO: work with GBS Team about API calls
         /// <summary>
         /// Get Run Result 
@@ -459,7 +505,7 @@ namespace GBSforDynamo
         /// <param name="resulttype"> Result type gbxml or doe2 or inp </param>
         /// <param name="FilePath"> Set File location to download the file </param>
         /// <returns name="report"> string. </returns>
-        public static string GetRunResult(int RunId, int AltRunId, string resulttype , string FilePath) // result type gbxml doe2 etc
+        public static string GetRunResult(int RunId, int AltRunId, string resulttype , string FilePath) // result type gbxml/doe2/eplus
         {
             // Initiate the Revit Auth
             InitRevitAuthProvider();
@@ -535,14 +581,17 @@ namespace GBSforDynamo
         }
 
 
-        // PRIVATE METHODS
 
-        // GBS Authentification private methods
+
+        //*************** PRIVATE METHODS ***************//
+
+        // GBS Authentification 
         private static void InitRevitAuthProvider()
         {
             SingleSignOnManager.RegisterSingleSignOn();
             revitAuthProvider = revitAuthProvider ?? new RevitAuthProvider(SynchronizationContext.Current);
         }
+
 
         #region API Web Requests
 
@@ -624,6 +673,7 @@ namespace GBSforDynamo
 
         #endregion
 
+        #region DataContracts Items Methods
         private static NewProjectItem _CreateProjectItem(string title, Boolean demo, int bldgTypeId, int scheduleId, double lat, double lon, float electCost, float fuelcost)
         {
 
@@ -638,7 +688,7 @@ namespace GBSforDynamo
                 CultureInfo = "en-US",
                 ElecCost = electCost,
                 FuelCost = fuelcost
-                // ElectCost, FuelCost, CultureInfo not required if no value should se the default values ! Ask GBS Team!
+                // Elcin: ElectCost, FuelCost, CultureInfo not required if no value should se the default values ! Ask GBS Team!
             };
 
             return newProject;
@@ -667,7 +717,9 @@ namespace GBSforDynamo
             };
 
             return newRun;
-        
+
         }
+        #endregion
+
     }
 }
