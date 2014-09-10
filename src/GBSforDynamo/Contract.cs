@@ -390,7 +390,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class RunResultSummary
+    [IsVisibleInDynamoLibrary(false)]
+    public class RunResultSummary
     {
         [DataMember]
         public string Runtitle { get; set; }
@@ -437,11 +438,11 @@ namespace GBSforDynamo.DataContracts
         [DataMember]
         public BuildingStatisticSummary BuildingSummary { get; set; }
 
-        [DataMember]
-        public ConstructionDataInformation ConstructionData { get; set; }
+        //[DataMember]
+        //public ConstructionDataInformation ConstructionData { get; set; }
 
-        [DataMember]
-        public LeedSection LeedSection { get; set; }
+        //[DataMember]
+        //public LeedSection LeedSection { get; set; }
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
@@ -508,7 +509,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class SimulationCarbonNeutralPotential
+    [IsVisibleInDynamoLibrary(false)]
+    public class SimulationCarbonNeutralPotential
     {
         [DataMember]
         public string Units { get; set; }
@@ -536,7 +538,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-   internal class ElectricPowerPlantSource
+    [IsVisibleInDynamoLibrary(false)]
+    public class ElectricPowerPlantSource
     {
         [DataMember]
         public double Fossil { get; set; }
@@ -650,7 +653,8 @@ namespace GBSforDynamo.DataContracts
     //}
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class BuildingStatisticSummary
+    [IsVisibleInDynamoLibrary(false)]
+    public class BuildingStatisticSummary
     {
         [DataMember]
         public DataMeasurement NumberOfPeople { get; set; }
@@ -707,7 +711,8 @@ namespace GBSforDynamo.DataContracts
     #region Air & Hydronic Equipment
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class AirEquipment
+    [IsVisibleInDynamoLibrary(false)]
+    public class AirEquipment
     {
         [DataMember]
         public string AirloopId { get; set; }
@@ -744,7 +749,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class HydronicEquipment
+    [IsVisibleInDynamoLibrary(false)]
+    public class HydronicEquipment
     {
         [DataMember]
         public string HydronicEquipmentID { get; set; }
@@ -781,7 +787,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class DataMeasurement
+    [IsVisibleInDynamoLibrary(false)]
+    public class DataMeasurement
     {
         [DataMember]
         public double? Value { get; set; }
@@ -866,6 +873,7 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
+    [IsVisibleInDynamoLibrary(false)]
     internal class ConstructionDataInformation
     {
         //[DataMember]
@@ -956,7 +964,8 @@ namespace GBSforDynamo.DataContracts
     #endregion
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class UtilityInformation
+    [IsVisibleInDynamoLibrary(false)]
+    public class UtilityInformation
     {
         [DataMember]
         public Guid UtilityId { get; set; }

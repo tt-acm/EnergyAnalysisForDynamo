@@ -453,8 +453,8 @@ namespace GBSforDynamo
 
         /// <summary>
         /// Gets Results object and Building summary
-        /// <para> Use .... nodes to parse the Results info of the specific run</para>
         /// </summary>
+        /// <para> Use .... nodes to parse the Results info of the specific run</para>
         /// <param name="RunID"> Input Run Id </param>
         /// <param name="AltRunID"> Input Alternate Id </param>
         /// <returns></returns>
@@ -473,16 +473,16 @@ namespace GBSforDynamo
             string resultSummary = reader2.ReadToEnd();
             RunResultSummary runResultSummary = DataContractJsonDeserialize<RunResultSummary>(resultSummary);
 
-            string buildingsummary = "Number of People : " + runResultSummary.BuildingSummary.NumberOfPeople.Value + " " + runResultSummary.BuildingSummary.NumberOfPeople.Units + ",\n" +
-                "Average Lighting Power Density : " + runResultSummary.BuildingSummary.AvgLightingPowerDensity.Value + " " + runResultSummary.BuildingSummary.AvgLightingPowerDensity.Units + ",\n" +
-                "Average Equipment Power Density : " + runResultSummary.BuildingSummary.AvgEquipmentPowerDensity.Value + " " + runResultSummary.BuildingSummary.AvgEquipmentPowerDensity.Units + ",\n" +
-                "Specific Fan Flow : " + runResultSummary.BuildingSummary.SpecificFanFlow.Value + " " + runResultSummary.BuildingSummary.SpecificFanFlow.Units + ",\n" +
-                "Specific Fan Power : " + runResultSummary.BuildingSummary.SpecificFanPower.Value + " " + runResultSummary.BuildingSummary.SpecificFanPower.Units + ",\n" +
-                "Specific Cooling : " + runResultSummary.BuildingSummary.SpecificCooling.Value + " " + runResultSummary.BuildingSummary.SpecificCooling.Units + ",\n" +
-                "Specific Heating : " + runResultSummary.BuildingSummary.SpecificHeating.Value + " " + runResultSummary.BuildingSummary.SpecificHeating.Units + ",\n" +
-                "Total Fan Flow : " + runResultSummary.BuildingSummary.TotalFanFlow.Value + " " + runResultSummary.BuildingSummary.TotalFanFlow.Units + ",\n" +
-                "Total Cooling Capacity : " + runResultSummary.BuildingSummary.TotalCoolingCapacity.Value + " " + runResultSummary.BuildingSummary.TotalCoolingCapacity.Units + ",\n" +
-                "Total Heating Capacity : " + runResultSummary.BuildingSummary.TotalHeatingCapacity.Value + " " + runResultSummary.BuildingSummary.TotalHeatingCapacity.Units + ".\n";
+            string buildingsummary = "Number of People : " + runResultSummary.BuildingSummary.NumberOfPeople.Value + " " + runResultSummary.BuildingSummary.NumberOfPeople.Units + "\n" +
+                "Average Lighting Power Density : " + runResultSummary.BuildingSummary.AvgLightingPowerDensity.Value + " " + runResultSummary.BuildingSummary.AvgLightingPowerDensity.Units + "\n" +
+                "Average Equipment Power Density : " + runResultSummary.BuildingSummary.AvgEquipmentPowerDensity.Value + " " + runResultSummary.BuildingSummary.AvgEquipmentPowerDensity.Units + "\n" +
+                "Specific Fan Flow : " + runResultSummary.BuildingSummary.SpecificFanFlow.Value + " " + runResultSummary.BuildingSummary.SpecificFanFlow.Units + "\n" +
+                "Specific Fan Power : " + runResultSummary.BuildingSummary.SpecificFanPower.Value + " " + runResultSummary.BuildingSummary.SpecificFanPower.Units + "\n" +
+                "Specific Cooling : " + runResultSummary.BuildingSummary.SpecificCooling.Value + " " + runResultSummary.BuildingSummary.SpecificCooling.Units + "\n" +
+                "Specific Heating : " + runResultSummary.BuildingSummary.SpecificHeating.Value + " " + runResultSummary.BuildingSummary.SpecificHeating.Units + "\n" +
+                "Total Fan Flow : " + runResultSummary.BuildingSummary.TotalFanFlow.Value + " " + runResultSummary.BuildingSummary.TotalFanFlow.Units + "\n" +
+                "Total Cooling Capacity : " + runResultSummary.BuildingSummary.TotalCoolingCapacity.Value + " " + runResultSummary.BuildingSummary.TotalCoolingCapacity.Units + "\n" +
+                "Total Heating Capacity : " + runResultSummary.BuildingSummary.TotalHeatingCapacity.Value + " " + runResultSummary.BuildingSummary.TotalHeatingCapacity.Units + "\n";
 
             //Populate outputs
             return new Dictionary<string, object>
@@ -495,6 +495,42 @@ namespace GBSforDynamo
 
             };
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Results"></param>
+        /// <returns></returns>
+        [MultiReturn("Annual Energy Cost","Lifecycle Cost","Annual CO2 Emissions","Annual Energy", "Lifecycle Energy")]
+        public static Dictionary<string, object> GetEnegrgyCarbonCostSummary(RunResultSummary Results)
+        {
+
+            string annualCO2Emissions = "Electric : " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsElectric.Units + "\n" +
+                                        "Onsite Fuel : " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsOnsiteFuel.Units + "\n" +
+                                        "Large SUV Equivalent : " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Units;
+
+            string annualEnergy = "Energy Use Intensity (EUI) : " + Results.RunEnergyCarbonCostSummary.AnnualEUI.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualEUI.Units + "\n" +
+                                  "Electric : " + Results.RunEnergyCarbonCostSummary.AnnualEnergyElectric.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualEnergyElectric.Units + "\n" +
+                                  "Fuel : " + Results.RunEnergyCarbonCostSummary.AnnualEnergyFuel.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualEnergyFuel.Units + "\n" +
+                                  "Annual Peak Demand : " + Results.RunEnergyCarbonCostSummary.AnnualPeakDemand.Value + " " + Results.RunEnergyCarbonCostSummary.AnnualPeakDemand.Units;
+
+            string lifecycleEnergy = "Electric : " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyElectric.Value + " " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyElectric.Units + "\n" +
+                                     "Fuel : " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Value + " " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Units;
+
+            
+            
+            //Populate Outputs
+            return new Dictionary<string, object> 
+            { 
+                {"Annual Energy Cost",Results.RunEnergyCarbonCostSummary.AnnualEnergyCost.Value + " " + Results.RunEnergyCarbonCostSummary.CurrencyCulture.DisplayName}, // how to find the currency ???
+                {"Lifecycle Cost",Results.RunEnergyCarbonCostSummary.LifecycleCost},
+                {"Annual CO2 Emissions", annualCO2Emissions},
+                {"Annual Energy",annualEnergy},
+                {"LifeCycle Energy", lifecycleEnergy}
+
+            };
+        }
+
 
         // NODE: Get Run Result TO DO: work with GBS Team about API calls
         /// <summary>
