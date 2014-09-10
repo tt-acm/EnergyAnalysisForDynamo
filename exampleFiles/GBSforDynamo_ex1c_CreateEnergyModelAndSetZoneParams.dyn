@@ -1,34 +1,41 @@
-<Workspace Version="0.7.2.16963" X="-1114.1260310515" Y="-425.534875761674" zoom="1.06744357042576" Description="" Category="" Name="Home">
+<Workspace Version="0.7.2.16963" X="-531.711233452096" Y="-60.9290483059962" zoom="0.983551292103556" Description="" Category="" Name="Home">
   <Elements>
     <DSRevitNodesUI.Levels type="DSRevitNodesUI.Levels" guid="709e9346-2a23-48aa-8000-42d54f27ee54" nickname="Levels" x="275.632616194934" y="521.165885666128" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0" />
     <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="477cd4a4-3747-4eeb-8717-62056f9087ab" nickname="Select Model Element" x="275.632616194934" y="424.165885666128" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <instance id="46f097b2-3884-4c7a-8ad5-1a0d1d01aba0-0002cf8f" />
     </Dynamo.Nodes.DSModelElementSelection>
     <Dynamo.Nodes.IntegerSlider type="Dynamo.Nodes.IntegerSlider" guid="93806cc9-c700-4b86-8f31-292fdf058396" nickname="Surface Index" x="829.690582572454" y="548.838599060186" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.Int32>1</System.Int32>
+      <System.Int32>0</System.Int32>
       <Range min="0" max="10" />
     </Dynamo.Nodes.IntegerSlider>
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="d0731126-3e8a-482e-a50d-f25dc20a1946" nickname="AnalysisZones.SetZoneParameters" x="1344.45847208013" y="527.885453351549" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.SetZoneParameters@var,string,string">
       <PortInfo index="1" default="True" />
       <PortInfo index="2" default="True" />
     </Dynamo.Nodes.DSFunction>
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="36d7819f-aad1-4fae-951b-34fc00a2381e" nickname="AnalysisZones.CreateFromMassAndLevels" x="526.748367984934" y="387.163851106246" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.CreateFromMassAndLevels@Revit.Elements.AbstractFamilyInstance,Revit.Elements.Element[]" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="36d7819f-aad1-4fae-951b-34fc00a2381e" nickname="AnalysisZones.CreateFromMassAndLevels" x="538.665740235913" y="387.163851106246" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.CreateFromMassAndLevels@Revit.Elements.AbstractFamilyInstance,Revit.Elements.Element[]" />
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="267a2ae1-b8c0-4ace-976b-3ae42143ea14" nickname="List.GetItemAtIndex" x="1006.33537163057" y="413.089609193653" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
     <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="3aad1085-6013-4837-9539-5c46726a2728" nickname="Code Block" x="1094.18336323273" y="645.88518756643" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;ActiveStorage&quot;;" ShouldFocus="false" />
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="372ec628-fda0-4868-845d-3ef31c2bbed2" nickname="AnalysisZones.DecomposeMassZone" x="1645.40311470748" y="526.502354642444" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.DecomposeMassZone@var" />
     <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="83009d91-4a0f-441b-8368-db153b4c45b7" nickname="Code Block" x="1112.53524849902" y="783.058471824555" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;Heated&quot;;" ShouldFocus="false" />
-    <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="0a6ecd42-5b80-44e6-8a66-99e629b19538" nickname="Watch" x="2087.11255765169" y="465.424935639983" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="0a6ecd42-5b80-44e6-8a66-99e629b19538" nickname="Watch" x="1940.03218324147" y="435.446770155098" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
     <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="e2b713f7-16cd-4e07-b527-18d1843986a6" nickname="Watch" x="1958.07120983821" y="585.337597579524" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="113e9b65-bdd8-4838-a02e-91401e41e2a0" nickname="Watch" x="1414.37364193638" y="241.919192264725" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="5826a23f-b6d0-4fa6-8839-b7c2aab0d1ed" nickname="AnalysisZones.DrawAnalysisZone" x="1416.47823561628" y="103.123130816676" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.DrawAnalysisZone@Revit.Elements.AbstractFamilyInstance,var,double">
+      <PortInfo index="2" default="True" />
+    </Dynamo.Nodes.DSFunction>
   </Elements>
   <Connectors>
     <Dynamo.Models.ConnectorModel start="709e9346-2a23-48aa-8000-42d54f27ee54" start_index="0" end="36d7819f-aad1-4fae-951b-34fc00a2381e" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="477cd4a4-3747-4eeb-8717-62056f9087ab" start_index="0" end="36d7819f-aad1-4fae-951b-34fc00a2381e" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="477cd4a4-3747-4eeb-8717-62056f9087ab" start_index="0" end="5826a23f-b6d0-4fa6-8839-b7c2aab0d1ed" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="93806cc9-c700-4b86-8f31-292fdf058396" start_index="0" end="267a2ae1-b8c0-4ace-976b-3ae42143ea14" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="d0731126-3e8a-482e-a50d-f25dc20a1946" start_index="0" end="372ec628-fda0-4868-845d-3ef31c2bbed2" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="36d7819f-aad1-4fae-951b-34fc00a2381e" start_index="1" end="267a2ae1-b8c0-4ace-976b-3ae42143ea14" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="36d7819f-aad1-4fae-951b-34fc00a2381e" start_index="1" end="113e9b65-bdd8-4838-a02e-91401e41e2a0" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="267a2ae1-b8c0-4ace-976b-3ae42143ea14" start_index="0" end="d0731126-3e8a-482e-a50d-f25dc20a1946" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="267a2ae1-b8c0-4ace-976b-3ae42143ea14" start_index="0" end="5826a23f-b6d0-4fa6-8839-b7c2aab0d1ed" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="3aad1085-6013-4837-9539-5c46726a2728" start_index="0" end="d0731126-3e8a-482e-a50d-f25dc20a1946" end_index="1" portType="0" />
-    <Dynamo.Models.ConnectorModel start="372ec628-fda0-4868-845d-3ef31c2bbed2" start_index="1" end="0a6ecd42-5b80-44e6-8a66-99e629b19538" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="372ec628-fda0-4868-845d-3ef31c2bbed2" start_index="0" end="0a6ecd42-5b80-44e6-8a66-99e629b19538" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="372ec628-fda0-4868-845d-3ef31c2bbed2" start_index="2" end="e2b713f7-16cd-4e07-b527-18d1843986a6" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="83009d91-4a0f-441b-8368-db153b4c45b7" start_index="0" end="d0731126-3e8a-482e-a50d-f25dc20a1946" end_index="2" portType="0" />
   </Connectors>

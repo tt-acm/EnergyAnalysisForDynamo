@@ -296,8 +296,6 @@ namespace GBSforDynamo
         public static ElementId SetZoneParameters(ElementId ZoneId, string SpaceType = "", string ConditionType = "")
         {
             
-        // gbXMLSpaceType spaceType = gbXMLSpaceType.NoSpaceType, gbXMLConditionType conditionType = gbXMLConditionType.NoConditionType
-        
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassZone zone = null;
@@ -379,16 +377,40 @@ namespace GBSforDynamo
             {
                 throw new Exception("Couldn't find a zone object with Id #: " + ZoneId.ToString());
             }
+            
+            // get analytical model Id
+            ElementId meaID = zone.MassEnergyAnalyticalModelId;
+            
+            // get the mass energy model
+            MassEnergyAnalyticalModel mea = (MassEnergyAnalyticalModel)RvtDoc.GetElement(meaID);
 
-            // collect surfaces
-            // for now I collect all the ids but for future I need to only collect external walls
-            IList<Reference> analysisFaces = zone.GetReferencesToEnergyAnalysisFaces();
+            // get all face references
+            IList<Reference> faceRefs = mea.GetReferencesToAllFaces();
 
-            foreach (var face in analysisFaces)
+            // this is so confusing but I just trust what you have done so far. Hopefully there is an easier/cleaner way to do this.
+            Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
+            foreach (var fr in faceRefs)
             {
-                if (face.ElementId != null) //face element IDs are identical with zoneID!
+                ElementId id = mea.GetMassSurfaceDataIdForReference(fr);
+                if (!mySurfaceData.ContainsKey(id.IntegerValue))
                 {
-                    faceIds.Add(face.ElementId);
+                    MassSurfaceData d = (MassSurfaceData)RvtDoc.GetElement(id);
+                    mySurfaceData.Add(id.IntegerValue, d);
+                }
+            }
+
+            //filter by category = mass exterior wall
+            var allSurfsList = mySurfaceData.Values.ToList();
+            var extSurfList = from n in allSurfsList
+                              where n.Category.Name == "Mass Exterior Wall" && n.ReferenceElementId == ZoneId
+                              select n;
+
+            // collect id of surfaces
+            foreach (var face in extSurfList)
+            {
+                if (face.Id != null) //face element IDs are identical with zoneID!
+                {
+                    faceIds.Add(face.Id);
                 }
             }
 
@@ -517,24 +539,41 @@ namespace GBSforDynamo
             return Autodesk.DesignScript.Geometry.Vector.ByCoordinates(normal.X, normal.Y, normal.Z, true);
         }
 
-        public static List<Autodesk.DesignScript.Geometry.Mesh> DrawAnalysisZone(AbstractFamilyInstance MassFamilyInstance = null, ElementId ZoneId = null, double offset = 1.0)
+//        public static List<Autodesk.DesignScript.Geometry.Mesh> DrawAnalysisZone(AbstractFamilyInstance MassFamilyInstance = null, ElementId ZoneId, double offset = 1.0)
+        public static List<Autodesk.DesignScript.Geometry.Mesh> DrawAnalysisZone(ElementId ZoneId, double offset = 1.0)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassZone zone = null;
             ElementId myEnergyModelId = null;
 
+            // get zone data from the document using the id
+            try
+            {
+                zone = (MassZone)RvtDoc.GetElement(ZoneId);
+
+                if (zone == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a zone object with Id #: " + ZoneId.ToString());
+            }
+
+
             //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
             try
             {
-                myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
+                myEnergyModelId = zone.MassEnergyAnalyticalModelId;
+                // myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
                 if (myEnergyModelId == null) throw new Exception();
             }
             catch (Exception)
             {
-                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + MassFamilyInstance.InternalElement.Id.ToString());
+                //throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + MassFamilyInstance.InternalElement.Id.ToString());
+                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + zone.MassEnergyAnalyticalModelId.ToString());
             }
 
+            /*
             //try to get the MassSurfaceData object from the document
             try
             {
@@ -545,7 +584,7 @@ namespace GBSforDynamo
             {
                 throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + ZoneId.ToString());
             }
-
+            */
 
             ////get the lowest face from the zone.
             //Autodesk.Revit.DB.Face lowestFace = null;
