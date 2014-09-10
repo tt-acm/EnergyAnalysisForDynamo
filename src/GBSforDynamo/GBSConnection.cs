@@ -497,8 +497,10 @@ namespace GBSforDynamo
         }
 
         /// <summary>
-        /// 
+        /// Get Energy, Carbon Cost Summary
         /// </summary>
+        /// <remarks> Estimated Energy and Cost Summary Assumptions:  </remarks>
+        /// <remarks> 30-year life and 6.1 % discount rate for costs. Doesnot include electric transmission loses or renewable and natural ventilation potential.</remarks>
         /// <param name="Results"></param>
         /// <returns></returns>
         [MultiReturn("Annual Energy Cost","Lifecycle Cost","Annual CO2 Emissions","Annual Energy", "Lifecycle Energy")]
@@ -530,6 +532,29 @@ namespace GBSforDynamo
 
             };
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Results"></param>
+        /// <returns></returns>
+        [MultiReturn("Units", "Run CO2 Emission","Onsite Renewable Potential", "Natural Ventilation Potential","Onsite Biofuel Use","Net CO2 Emission", "Net Large SUV Equivalent")]
+        public static Dictionary<string, object> GetCarbonNeutralPotential(RunResultSummary Results)
+        { 
+            // Populate Outputs
+            return new Dictionary<string, object>
+            {
+                {"Units",Results.CarbonNeutralPotential.Units},
+                {"Run CO2 Emission",Results.CarbonNeutralPotential.RunEmissions.Value},
+                {"Onsite Renewable Potential", Results.CarbonNeutralPotential.OnsiteRenewablePotentialEmissions.Value},
+                {"Natural Ventilation Potential",Results.CarbonNeutralPotential.NaturalVentilationPotentialEmissions.Value},
+                {"Onsite Biofuel Use",Results.CarbonNeutralPotential.OnsiteBiofuelUseEmissions.Value},
+                {"Net CO2 Emission",Results.CarbonNeutralPotential.NetCO2Emissions.Value},
+                {"Net Large SUV Equivalent", Results.CarbonNeutralPotential.NetLargeSUVEquivalent.Value + " " + Results.CarbonNeutralPotential.NetLargeSUVEquivalent.Units}
+
+            };
+        }
+
 
 
         // NODE: Get Run Result TO DO: work with GBS Team about API calls
