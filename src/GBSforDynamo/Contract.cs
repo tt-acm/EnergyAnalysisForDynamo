@@ -438,15 +438,16 @@ namespace GBSforDynamo.DataContracts
         [DataMember]
         public BuildingStatisticSummary BuildingSummary { get; set; }
 
-        //[DataMember]
-        //public ConstructionDataInformation ConstructionData { get; set; }
+        [DataMember]
+        public ConstructionDataInformation ConstructionData { get; set; }
 
-        //[DataMember]
-        //public LeedSection LeedSection { get; set; }
+        [DataMember]
+        public LeedSection LeedSection { get; set; }
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class LeedSection
+    [IsVisibleInDynamoLibrary(false)]
+    public class LeedSection
     {
         [DataMember]
         public LeedDaylight LeedDaylight { get; set; }
@@ -558,7 +559,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class LeedDaylight
+    [IsVisibleInDynamoLibrary(false)]
+    public class LeedDaylight
     {
         [DataMember]
         public string LeedGScore { get; set; }
@@ -568,7 +570,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class NaturalVentilationPotential
+    [IsVisibleInDynamoLibrary(false)]
+    public class NaturalVentilationPotential
     {
         [DataMember]
         public string TotalHrsMechanicalCoolingRequired { get; set; }
@@ -587,14 +590,16 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class WindEnergyPotential
+    [IsVisibleInDynamoLibrary(false)]
+    public class WindEnergyPotential
     {
         [DataMember]
         public string AnnualElectricGeneration { get; set; }
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class PhotoVoltaicPotential
+    [IsVisibleInDynamoLibrary(false)]
+    public class PhotoVoltaicPotential
     {
         [DataMember]
         public string AnnualEnergySavings { get; set; }
@@ -616,7 +621,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class LeedWaterEfficiency
+    [IsVisibleInDynamoLibrary(false)]
+    public class LeedWaterEfficiency
     {
         [DataMember]
         public string IndoorUsage { get; set; }
@@ -800,7 +806,8 @@ namespace GBSforDynamo.DataContracts
     #region Construction
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class SurfaceTypeData
+    [IsVisibleInDynamoLibrary(false)]
+    public class SurfaceTypeData
     {
         [DataMember]
         public string Name { get; set; }
@@ -822,7 +829,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal enum WindowOrientation
+    [IsVisibleInDynamoLibrary(false)]
+    public enum WindowOrientation
     {
         [EnumMember]
         South,
@@ -835,7 +843,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class WindowTypeData
+    [IsVisibleInDynamoLibrary(false)]
+    public class WindowTypeData
     {
         [DataMember]
         public string Name { get; set; }
@@ -857,7 +866,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class WindowData
+    [IsVisibleInDynamoLibrary(false)]
+    public class WindowData
     {
         [DataMember]
         public List<WindowTypeData> SouthFacingWindows { get; set; }
@@ -874,7 +884,7 @@ namespace GBSforDynamo.DataContracts
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
     [IsVisibleInDynamoLibrary(false)]
-    internal class ConstructionDataInformation
+    public class ConstructionDataInformation
     {
         //[DataMember]
         //public bool IsBaseRun { get; set; }
