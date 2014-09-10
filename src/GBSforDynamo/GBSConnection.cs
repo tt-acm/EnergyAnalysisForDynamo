@@ -572,8 +572,8 @@ namespace GBSforDynamo
 
 
             List<object> LFuel = new List<object>();
-            LElectric.Add("Fuel - " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Units);
-            LElectric.Add((double)Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Value);
+            LFuel.Add("Fuel - " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Units);
+            LFuel.Add((double)Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Value);
             lifecycleEnergy.Add(LFuel);
 
             //string lifecycleEnergy = "Electric : " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyElectric.Value + " " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyElectric.Units + "\n" +
