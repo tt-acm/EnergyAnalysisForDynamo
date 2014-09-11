@@ -10,7 +10,8 @@ using System.Globalization;
 namespace GBSforDynamo.DataContracts
 {
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class Project
+    [IsVisibleInDynamoLibrary(false)]
+    public class Project
     {
         [DataMember(EmitDefaultValue = true)]
         public int Id { get; set; }
@@ -60,14 +61,15 @@ namespace GBSforDynamo.DataContracts
     {
 
     }
-
-    internal class DataContractNamespace
+    [IsVisibleInDynamoLibrary(false)]
+    public class DataContractNamespace
     {
         public const string Namespace = @"http://gbs.autodesk.com/gbs/api/DataContract/";
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class NewProjectItem
+    [IsVisibleInDynamoLibrary(false)]
+    public class NewProjectItem
     {
         [DataMember]
         public string Title { get; set; }
@@ -98,7 +100,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class NewRunItem
+    [IsVisibleInDynamoLibrary(false)]
+    public class NewRunItem
     {
         [DataMember]
         public int ProjectId { get; set; }
@@ -115,7 +118,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class ProjectRun
+    [IsVisibleInDynamoLibrary(false)]
+    public class ProjectRun
     {
         [DataMember]
         public int runId { get; set; }
@@ -134,7 +138,8 @@ namespace GBSforDynamo.DataContracts
     }
 
     [DataContract(Namespace = DataContractNamespace.Namespace)]
-    internal class BuildingType
+    [IsVisibleInDynamoLibrary(false)]
+    public class BuildingType
     {
         [DataMember]
         public int BuildingTypeId { get; set; }

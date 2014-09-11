@@ -286,8 +286,18 @@ namespace GBSforDynamo
         [MultiReturn("ProjectId", "RunId")]
         public static Dictionary<string, object> GBS_BaseRun(string ProjectTitle, string gbXMLPath)
         {
+            // Make sure the given file is an .xml
+            string extention = Path.GetExtension(gbXMLPath);
+            if (extention != ".xml")
+            {
+                throw new Exception("Make sure to input gbxml file");
+            }
+
+            //Output variables
             int newProjectId = 0;
             int newRunId = 0;
+
+            #region Setup : Get values from current Revit document
 
             //local variable to get SiteLocation and Lat & Lon information
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
@@ -300,7 +310,7 @@ namespace GBSforDynamo
             int ScheduleId = (int) myEnergySettings.BuildingOperatingSchedule;
             
             // Angles are in Rdaians when coming from revit API
-            //Convert to display
+            // Convert to lat & lon values 
             const double angleRatio = Math.PI / 180; // angle conversion factor
 
             double lat = RvtDoc.SiteLocation.Latitude / angleRatio;
@@ -324,7 +334,10 @@ namespace GBSforDynamo
             }
             DefaultUtilityItem utilityCost = DataContractDeserialize<DefaultUtilityItem>(theresponse);
 
-            // Create A Project
+            #endregion
+
+
+            // 1.  Create A New  Project
             string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateProjectUri, "xml");
 
             var response =
@@ -333,8 +346,8 @@ namespace GBSforDynamo
                 
             newProjectId = DeserializeHttpWebResponse(response);
 
-            //Create A Base Run
 
+            // 2. Create A Base Run
             string requestCreateBaseRunUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateBaseRunUri,"xml");
 
             var response2 =
@@ -343,6 +356,7 @@ namespace GBSforDynamo
                 newRunId = DeserializeHttpWebResponse(response2);
 
 
+            // 3. Populate the Outputs
             return new Dictionary<string, object>
             {
                 { "ProjectId", newProjectId},
@@ -848,7 +862,7 @@ namespace GBSforDynamo
                 ScheduleId = scheduleId,
                 Latitude = lat,
                 Longitude = lon,
-                CultureInfo = "en-US",
+                CultureInfo = "en-US", // TODO : we shoudl get this from Rvt document ?
                 ElecCost = electCost,
                 FuelCost = fuelcost
                 // Elcin: ElectCost, FuelCost, CultureInfo not required if no value should se the default values ! Ask GBS Team!
@@ -857,18 +871,14 @@ namespace GBSforDynamo
             return newProject;
         }
 
-        private static NewRunItem _GetNewRunItem(int projectId, string gbxmlFile)
+        private static NewRunItem _GetNewRunItem(int projectId, string gbXmlFullPath)
         {
-            string FileName = Path.GetFileName(gbxmlFile);
-            string Folder = Path.GetDirectoryName(gbxmlFile);
-            string ZipFileName = Path.GetFileNameWithoutExtension(gbxmlFile);
+            string gbxmlFile = Path.GetFileName(gbXmlFullPath); // with extension
+            string path = Path.GetDirectoryName(gbXmlFullPath); // folder of xml file located
 
-            string ZipFullPath = Path.Combine(Folder, ZipFileName + ".zip");
-            //ZipUtil.ZipFile(path, gbxmlFile, gbxmlFile + ".zip", "95401", "Office");
-            //ZipUtil.ZipFile(path, gbxmlFile, gbxmlFile + ".zip", "95401", "BuildingType");
-
-            ZipUtil.ZipFile(gbxmlFile, ZipFullPath);
-            byte[] fileBuffer = System.IO.File.ReadAllBytes(ZipFullPath);
+            // this creates the zip file
+            ZipUtil.ZipFile(path, gbxmlFile, gbxmlFile + ".zip");
+            byte[] fileBuffer = System.IO.File.ReadAllBytes(Path.Combine(path , gbxmlFile + ".zip"));
             string gbXml64 = Convert.ToBase64String(fileBuffer);
             
             var newRun = new NewRunItem

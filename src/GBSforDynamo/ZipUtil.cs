@@ -3,10 +3,12 @@ using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Checksums;
 using System.Xml;
+using Autodesk.DesignScript.Runtime;
 
 namespace GBSforDynamo
 {
-    class ZipUtil
+    [IsVisibleInDynamoLibrary(false)]
+    public class ZipUtil
     {
         public static Stream ZipStream(Stream inputStream, string fileName)
         {
@@ -25,24 +27,24 @@ namespace GBSforDynamo
         }
 
         //public static void ZipFile(string path, string file2Zip, string zipFileName, string zip, string bldgType)
-            public static void ZipFile(string file2ZipFullPath, string zipFileFullPath)
+        public static void ZipFile(string path, string file2Zip, string zipFileName)
         {
             //MemoryStream ms = InitializeGbxml(path + file2Zip, zip, bldgType) as MemoryStream;
-            MemoryStream ms = InitializeGbxml(file2ZipFullPath) as MemoryStream;
+            MemoryStream ms = InitializeGbxml(Path.Combine(path , file2Zip)) as MemoryStream;
  
-            //string compressedFile = path + zipFileName;
-            if (File.Exists(zipFileFullPath))
+            string compressedFile =Path.Combine(path, zipFileName);
+            if (File.Exists(compressedFile))
             {
-                File.Delete(zipFileFullPath);
+                File.Delete(compressedFile);
             }
             Crc32 objCrc32 = new Crc32();
-            ZipOutputStream strmZipOutputStream = new ZipOutputStream(File.Create(zipFileFullPath));
+            ZipOutputStream strmZipOutputStream = new ZipOutputStream(File.Create(compressedFile));
             strmZipOutputStream.SetLevel(9);
 
             byte[] gbXmlBuffer = new byte[ms.Length];
             ms.Read(gbXmlBuffer, 0, gbXmlBuffer.Length);
 
-            ZipEntry objZipEntry = new ZipEntry(file2ZipFullPath);
+            ZipEntry objZipEntry = new ZipEntry(file2Zip);
 
             objZipEntry.DateTime = DateTime.Now;
             objZipEntry.Size = ms.Length;
