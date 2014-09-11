@@ -377,7 +377,16 @@ namespace GBSforDynamo
             {
                 throw new Exception("Couldn't find a zone object with Id #: " + ZoneId.ToString());
             }
+
+            /*
             
+            // here I want to get all the external surfaces for the zone but I couldn't figure it out
+
+            // this is the solution 1 which doesn't really work!
+            // there are 3 different ids in MassSurface
+            // 1. referenceID which returns the ID to the MassEnergyAnalyticalMode
+            // 2. Id which is the Id of the surface itself
+            // and finally 3. uniqueId which is a GUID and doesn't help
             // get analytical model Id
             ElementId meaID = zone.MassEnergyAnalyticalModelId;
             
@@ -405,14 +414,20 @@ namespace GBSforDynamo
                               where n.Category.Name == "Mass Exterior Wall" && n.ReferenceElementId == ZoneId
                               select n;
 
+
+            // this is solution two that doesn't work either. face.ElementId returns zoneID and face.LinkedElementId returns -1!
+
+            IList<Reference> analysisFaces = zone.GetReferencesToEnergyAnalysisFaces();
+            
             // collect id of surfaces
-            foreach (var face in extSurfList)
-            {
-                if (face.Id != null) //face element IDs are identical with zoneID!
-                {
-                    faceIds.Add(face.Id);
+            foreach (var face in analysisFaces)
+            {   
+                if (face.LinkedElementId != null) //face element IDs are identical with zoneID!
+                {   
+                    faceIds.Add(face.LinkedElementId);
                 }
             }
+            */
 
             // assign condition type
             conditionType = zone.ConditionType;
@@ -430,23 +445,12 @@ namespace GBSforDynamo
 
         }
 
-        public static Autodesk.DesignScript.Geometry.Mesh DrawAnalysisSurface(AbstractFamilyInstance MassFamilyInstance = null, ElementId SurfaceId = null)
+        public static Autodesk.DesignScript.Geometry.Mesh DrawAnalysisSurface(ElementId SurfaceId)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassSurfaceData surf = null;
             ElementId myEnergyModelId = null;
-
-            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
-            try
-            {
-                myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
-                if (myEnergyModelId == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + MassFamilyInstance.InternalElement.Id.ToString());
-            }
             
             //try to get the MassSurfaceData object from the document
             try
@@ -458,6 +462,20 @@ namespace GBSforDynamo
             {
                 throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
             }
+            
+                //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
+            try
+            {
+
+                myEnergyModelId = surf.ReferenceElementId;
+                // MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
+                if (myEnergyModelId == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + surf.ReferenceElementId.ToString());
+            }
+            
 
             //get the smallest face
             Autodesk.Revit.DB.Face smallFace = GetSmallestFace(RvtDoc, surf, myEnergyModelId);
