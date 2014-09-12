@@ -515,7 +515,7 @@ namespace GBSforDynamo
         }
 
         /// <summary>
-        /// Get Energy, Carbon Cost Summary
+        /// Gets Energy, Carbon Cost Summary
         /// </summary>
         /// <remarks> Estimated Energy and Cost Summary Assumptions:  </remarks>
         /// <remarks> 30-year life and 6.1 % discount rate for costs. Doesnot include electric transmission loses or renewable and natural ventilation potential.</remarks>
@@ -608,7 +608,7 @@ namespace GBSforDynamo
         }
 
         /// <summary>
-        /// 
+        /// Gets Carbon Neutral Potential
         /// </summary>
         /// <param name="Results"></param>
         /// <returns></returns>
@@ -672,6 +672,120 @@ namespace GBSforDynamo
             };
         }
 
+        /// <summary>
+        /// Gets LEED Section
+        /// </summary>
+        /// <param name="Results"></param>
+        /// <returns></returns>
+        [MultiReturn("LEED Daylight", "LEED Water Efficiency", "Photovoltaic Potential", "Wind Energy Potential", "Natural Ventilation Potential")] 
+        public static Dictionary<string, object> GetLEEDSection(RunResultSummary Results)
+        { 
+
+            // Populate Leed Daylight
+            List<object> LEEDDaylight = new List<object>();
+            LEEDDaylight.Add(Results.LeedSection.LeedDaylight.LeedGScore);
+            LEEDDaylight.Add(Results.LeedSection.LeedDaylight.LeedQualify);
+
+            // Populate Leed water Efficiency
+            List<List<object>> LeedWaterEfficiency = new List<List<object>>();
+
+            List<object> indoor = new List<object>();
+            indoor.Add(Results.LeedSection.LeedWaterEfficiency.IndoorUsage); // Value
+            indoor.Add("Indoor - " + Results.LeedSection.LeedWaterEfficiency.SIUnit); // Type + Unit
+            indoor.Add(Results.LeedSection.LeedWaterEfficiency.IndoorCost); // Value
+            indoor.Add("Indoor - " + Results.LeedSection.LeedWaterEfficiency.CurrencyUnit); // Type + Unit
+            LeedWaterEfficiency.Add(indoor);
+
+            List<object> outdoor = new List<object>();
+            outdoor.Add(Results.LeedSection.LeedWaterEfficiency.OutdoorUsage); // Value
+            outdoor.Add("Outdoor - " + Results.LeedSection.LeedWaterEfficiency.SIUnit); // Type + Unit
+            outdoor.Add(Results.LeedSection.LeedWaterEfficiency.OutdoorCost); // Value
+            outdoor.Add("Outdoor - " + Results.LeedSection.LeedWaterEfficiency.CurrencyUnit); // Type + Unit
+            LeedWaterEfficiency.Add(outdoor);
+
+            List<object> total = new List<object>();
+            total.Add(Results.LeedSection.LeedWaterEfficiency.TotalUsage); // Value
+            total.Add("Outdoor - " + Results.LeedSection.LeedWaterEfficiency.SIUnit); // Type + Unit
+            total.Add(Results.LeedSection.LeedWaterEfficiency.TotalCost); // Value
+            total.Add("Outdoor - " + Results.LeedSection.LeedWaterEfficiency.CurrencyUnit); // Type + Unit
+            LeedWaterEfficiency.Add(total);
+
+            // Populate Leed Photovoltoic Potential
+            List<List<object>> LeedPhotovoltaicPotential = new List<List<object>>();
+
+            List<object> AnnualEnergySaving = new List<object>();
+            AnnualEnergySaving.Add(Results.LeedSection.PhotoVoltaicPotential.AnnualEnergySavings); // Value
+            AnnualEnergySaving.Add("Annual Energy Savings"); // Type
+            LeedPhotovoltaicPotential.Add(AnnualEnergySaving);
+
+            List<object> TotalPanelInstalledCost = new List<object>();
+            TotalPanelInstalledCost.Add(Results.LeedSection.PhotoVoltaicPotential.TotalInstalledPanelCost); // Value
+            TotalPanelInstalledCost.Add("Total Installed Panel Cost"); // Type
+            LeedPhotovoltaicPotential.Add(TotalPanelInstalledCost);
+
+            List<object> NominalRatedPower = new List<object>();
+            NominalRatedPower.Add(Results.LeedSection.PhotoVoltaicPotential.NominalRatedPower); // Value
+            NominalRatedPower.Add("Nominal Rated Power"); // Type
+            LeedPhotovoltaicPotential.Add(NominalRatedPower);
+
+            List<object> TotalPanelArea = new List<object>();
+            TotalPanelArea.Add(Results.LeedSection.PhotoVoltaicPotential.TotalPanelArea); // Value
+            TotalPanelArea.Add("Total Panel Area"); // Type
+            LeedPhotovoltaicPotential.Add(TotalPanelArea);
+
+            List<object> MaxPaybackPeriod = new List<object>();
+            MaxPaybackPeriod.Add(Results.LeedSection.PhotoVoltaicPotential.MaxPaybackPeriod); // Value
+            MaxPaybackPeriod.Add("Maximum Payback Period"); // Type
+            LeedPhotovoltaicPotential.Add(MaxPaybackPeriod);
+
+            List<object> assumption= new List<object>();
+            assumption.Add("Assumptions: "+ Results.LeedSection.PhotoVoltaicPotential.Assumption);
+            LeedPhotovoltaicPotential.Add(assumption );
+
+            // Populate Wind Energy Potential
+            List<object> WindEnergyPotential = new List<object>();
+            WindEnergyPotential.Add(Results.LeedSection.WindEnergyPotential.AnnualElectricGeneration); // Value
+            WindEnergyPotential.Add("Annual Electric Generation"); // Type
+            WindEnergyPotential.Add("Wind Energy Assumptions : A single 15 ft turbine, with cut-in and cut-out winds of 6 mph and 45 mph respectively, and located at the coordinates of the weather data");
+
+            // Populate Natural Ventilation Potential
+            List<List<object>> NaturalVentilationPotential = new List<List<object>>();
+
+            List<object> THrsMechCoolReq = new List<object>();
+            THrsMechCoolReq.Add(Results.LeedSection.NaturalVentilationPotential.TotalHrsMechanicalCoolingRequired); // Value
+            THrsMechCoolReq.Add("Total Hours Mechanical Cooling Required"); // Type
+            NaturalVentilationPotential.Add(THrsMechCoolReq);
+
+            List<object> PossibleNaturalVentilation= new List<object>();
+            PossibleNaturalVentilation.Add(Results.LeedSection.NaturalVentilationPotential.PossibleNaturalVentilationHrs); // Value
+            PossibleNaturalVentilation.Add("Possible Natural Ventilation Hours"); // Type
+            NaturalVentilationPotential.Add(PossibleNaturalVentilation);
+
+            List<object> PossibleAnnualElectricEnergy = new List<object>();
+            PossibleAnnualElectricEnergy.Add(Results.LeedSection.NaturalVentilationPotential.PossibleAnnualElectricEnergySaving); // Value
+            PossibleAnnualElectricEnergy.Add("Possible Annual Electric Energy Savings"); // Type
+            NaturalVentilationPotential.Add(PossibleAnnualElectricEnergy);
+
+            List<object> PossibleAnnualElectricCost = new List<object>();
+            PossibleAnnualElectricCost.Add(Results.LeedSection.NaturalVentilationPotential.PossibelAnnualElectricCostSavings); // Value
+            PossibleAnnualElectricCost.Add("Possible Annual Electric Cost Savings"); // Type
+            NaturalVentilationPotential.Add(PossibleAnnualElectricCost);
+
+            List<object> NetHrsMechCoolReq = new List<object>();
+            NetHrsMechCoolReq.Add(Results.LeedSection.NaturalVentilationPotential.NetHrsMechanicalCoolingRequired); // Value
+            NetHrsMechCoolReq.Add("Net Hours Mechanical Cooling Required"); // Type
+            NaturalVentilationPotential.Add(NetHrsMechCoolReq);
+
+            // Populate Outputs
+            return new Dictionary<string, object>
+            {
+                {"LEED Daylight", LEEDDaylight},
+                {"LEED Water Efficiency", LeedWaterEfficiency},
+                {"Photovolvatic Potential", LeedPhotovoltaicPotential},
+                {"Wind Energy Potential", WindEnergyPotential},
+                {"Natural Ventilation Potential", NaturalVentilationPotential}
+            };
+        }
 
         // NODE: Get Run Result TO DO: work with GBS Team about API calls
         /// <summary>
