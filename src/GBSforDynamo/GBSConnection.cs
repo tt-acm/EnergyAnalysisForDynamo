@@ -392,22 +392,48 @@ namespace GBSforDynamo
             List<ProjectRun> projectRuns = DataContractJsonDeserialize<List<ProjectRun>>(projectRunListJson);
 
             List<int> runIds = new List<int>();
-            List<int> altRunIds = new List<int>();
-            List<string> Names = new List<string>();
+            List<List<int>> AltRunIds = new List<List<int>>();
+            List<List<string>> RunNames = new List<List<string>>();
 
+            //
             foreach (var run in projectRuns)
             {
-                runIds.Add(run.runId);
-                altRunIds.Add(run.altRunId);
-                Names.Add(run.name);
+                if (!runIds.Contains(run.runId))
+                {
+                    runIds.Add(run.runId);
+                } 
             }
+            
+            // Foreach runId Linq query on Projects Run
+            foreach (var runId in runIds)
+            {
+                //Local variables
+                List<int> altRunIds = new List<int>();
+                List<string> Names = new List<string>();
+
+
+                //linq query
+                var runs = from run in projectRuns
+                           where run.runId == runId
+                           select run;
+
+                foreach (var item in runs)
+                {
+                    altRunIds.Add(item.altRunId);
+                    Names.Add(item.name);
+                }
+
+                AltRunIds.Add(altRunIds);
+                RunNames.Add(Names);
+            }
+
 
             //Populate outputs
             return new Dictionary<string, object>
             {
-                { "RunIds", runIds},
-                { "AltRunIds", altRunIds},
-                { "RunNames", Names}
+                { "RunIds", runIds}, // List
+                { "AltRunIds", AltRunIds}, // Array
+                { "RunNames", RunNames} // Array
 
             };
         
