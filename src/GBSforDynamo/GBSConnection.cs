@@ -336,7 +336,7 @@ namespace GBSforDynamo
 
             #endregion
 
-
+            // TODO: Check if the project exists if not create new one. // IMPORTANT 
             // 1.  Create A New  Project
             string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateProjectUri, "xml");
 
@@ -786,13 +786,22 @@ namespace GBSforDynamo
 
         private static WebResponse _CallPostApi(string requestUri, System.Type type, object o)
         {
-            var s = new DataContractSerializer(type);
             string postString = null;
-            using (MemoryStream stream = new MemoryStream())
+            try
             {
-                s.WriteObject(stream, o);
-                postString = Encoding.UTF8.GetString(stream.ToArray());
+                var s = new DataContractSerializer(type);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    s.WriteObject(stream, o);
+                    postString = Encoding.UTF8.GetString(stream.ToArray());
+                }
             }
+            catch (Exception)
+            {
+                
+                throw new Exception("The encoding xml failed ");
+            }
+
 
             // Sign URL using Revit auth
             var signedRequestUri = revitAuthProvider.SignRequest(requestUri, HttpMethod.Post, null);
