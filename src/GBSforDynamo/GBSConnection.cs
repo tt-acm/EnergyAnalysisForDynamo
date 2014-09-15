@@ -275,27 +275,18 @@ namespace GBSforDynamo
         
         }
 
-        // NODE: GBS_Base Run
-        /// <summary>
-        /// Creates a new Project and Uploads gbXML to run the energy analysis of base model and the alternates
-        /// </summary>
-        /// <param name="ProjectTitle"> Title of the project created in GBS Web Services, creates new if not created already </param>
-        /// <param name="gbXMLPath"> File path location of gbXML file</param>
-        /// <returns name="ProjectId"> Returns Project ID </returns>
-        /// /// <returns name="RunId"> Returns  Run ID </returns>
-        [MultiReturn("ProjectId", "RunId")]
-        public static Dictionary<string, object> GBS_BaseRun(string ProjectTitle, string gbXMLPath)
-        {
-            // Make sure the given file is an .xml
-            string extention = Path.GetExtension(gbXMLPath);
-            if (extention != ".xml")
-            {
-                throw new Exception("Make sure to input gbxml file");
-            }
 
-            //Output variables
+        // NODE: Create new Project
+        /// <summary>
+        /// Creates new project in GBS Webservices, returns new Project ID
+        /// </summary>
+        /// <param name="ProjectTitle"> Title of the project </param>
+        /// <returns></returns>
+        [MultiReturn("ProjectId")]
+        public static Dictionary<string, object> Create_NewProject(string ProjectTitle)
+        {
+            //Output variable
             int newProjectId = 0;
-            int newRunId = 0;
 
             #region Setup : Get values from current Revit document
 
@@ -306,17 +297,21 @@ namespace GBSforDynamo
             EnergyDataSettings myEnergySettings = Autodesk.Revit.DB.Analysis.EnergyDataSettings.GetFromDocument(RvtDoc);
 
             // get BuildingType and ScheduleId from document
-            int BuildingTypeId = (int) myEnergySettings.BuildingType;
-            int ScheduleId = (int) myEnergySettings.BuildingOperatingSchedule;
-            
+            int BuildingTypeId = (int)myEnergySettings.BuildingType;
+            int ScheduleId = (int)myEnergySettings.BuildingOperatingSchedule;
+
             // Angles are in Rdaians when coming from revit API
             // Convert to lat & lon values 
             const double angleRatio = Math.PI / 180; // angle conversion factor
 
             double lat = RvtDoc.SiteLocation.Latitude / angleRatio;
             double lon = RvtDoc.SiteLocation.Longitude / angleRatio;
-            
-            // Initiate the Revit Auth
+
+            #endregion
+
+            #region Setup : Get default Utility Values
+
+            //1. Initiate the Revit Auth
             InitRevitAuthProvider();
 
             // Try to get Default Utility Costs from API 
@@ -336,33 +331,62 @@ namespace GBSforDynamo
 
             #endregion
 
-            // TODO: Check if the project exists if not create new one. // IMPORTANT 
-            // 1.  Create A New  Project
+            // 2.  Create A New  Project
             string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateProjectUri, "xml");
 
             var response =
                 (HttpWebResponse)
                 _CallPostApi(requestUri, typeof(NewProjectItem), _CreateProjectItem(ProjectTitle, false, BuildingTypeId, ScheduleId, lat, lon, utilityCost.ElecCost, utilityCost.FuelCost));
-                
+
             newProjectId = DeserializeHttpWebResponse(response);
-
-
-            // 2. Create A Base Run
-            string requestCreateBaseRunUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateBaseRunUri,"xml");
-
-            var response2 =
-                (HttpWebResponse)
-                 _CallPostApi(requestCreateBaseRunUri, typeof(NewRunItem), _GetNewRunItem(newProjectId, gbXMLPath));
-                newRunId = DeserializeHttpWebResponse(response2);
 
 
             // 3. Populate the Outputs
             return new Dictionary<string, object>
             {
-                { "ProjectId", newProjectId},
-                { "RunId", newRunId} 
+                { "ProjectId", newProjectId}
             };
         }
+
+
+        // NODE: Create Base Run
+        /// <summary>
+        /// Creates Base Run and returns Base RunId
+        /// </summary>
+        /// <param name="ProjectId"> Input Project ID </param>
+        /// <param name="gbXMLPath"> Input file path of gbXML File </param>
+        /// <returns></returns>
+        [MultiReturn("RunId")]
+        public static Dictionary<string, object> Create_BaseRun(int ProjectId, string gbXMLPath)
+        {
+            // Make sure the given file is an .xml
+            string extention = Path.GetExtension(gbXMLPath);
+            if (extention != ".xml")
+            {
+                throw new Exception("Make sure to input gbxml file");
+            }
+
+            //Output variable
+            int newRunId = 0;
+
+            // 1. Initiate the Revit Auth
+            InitRevitAuthProvider();
+
+            // 2. Create A Base Run
+            string requestCreateBaseRunUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateBaseRunUri, "xml");
+
+            var response =
+                (HttpWebResponse)
+                 _CallPostApi(requestCreateBaseRunUri, typeof(NewRunItem), _GetNewRunItem(ProjectId, gbXMLPath));
+            newRunId = DeserializeHttpWebResponse(response);
+
+            // 3. Populate the Outputs
+            return new Dictionary<string, object>
+            {
+                { "RunId", newRunId},
+            };
+        }
+
 
         // NODE: GBS_Get Run List
         /// <summary>
