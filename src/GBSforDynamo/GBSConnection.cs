@@ -81,8 +81,8 @@ namespace GBSforDynamo
         /// <returns name="ProjectIds"> Returns Project Ids in GBS Web Service List.</returns> 
         /// <returns name="ProjectTitles"> Returns Project Titles in GBS Web Service List.</returns> 
         /// <returns name="ProjectDateAdded"> Returns Project's date of added or created List.</returns> 
-        [MultiReturn("ProjectIds", "ProjectTitles","ProjectDateAdded")]
-        public static Dictionary<string, object> GetProjectLists(bool Connect = false )
+        [MultiReturn("ProjectIds", "ProjectTitles", "ProjectDateAdded")]
+        public static Dictionary<string, object> GetProjectLists(bool Connect = false)
         {
             //Local Output variables 
             List<int> ProjectIds = new List<int>();
@@ -92,7 +92,7 @@ namespace GBSforDynamo
             //make Connect? inputs set to True mandatory
             if (Connect == false)
             {
-               throw new Exception("Set 'Connect' to True!");
+                throw new Exception("Set 'Connect' to True!");
             }
 
             // Initiate the Revit Auth
@@ -145,10 +145,10 @@ namespace GBSforDynamo
             //make RUN? inputs set to True mandatory
             if (Run == false)
             {
-               throw new Exception("Set 'Connect' to True!");
+                throw new Exception("Set 'Connect' to True!");
             }
 
-             //make mass instance and levels mandatory inputs
+            //make mass instance and levels mandatory inputs
             if (MassFamilyInstance == null)
             {
                 throw new Exception("MassFamily Instance are mandatory inputs");
@@ -174,14 +174,14 @@ namespace GBSforDynamo
             }
 
             //get the id of the analytical model associated with that mass
-            ElementId myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
+            Autodesk.Revit.DB.ElementId myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
             MassEnergyAnalyticalModel mea = (MassEnergyAnalyticalModel)RvtDoc.GetElement(myEnergyModelId);
-            ICollection<ElementId> ZoneIds = mea.GetMassZoneIds();
+            ICollection<Autodesk.Revit.DB.ElementId> ZoneIds = mea.GetMassZoneIds();
 
             MassGBXMLExportOptions gbXmlExportOptions = new MassGBXMLExportOptions(ZoneIds.ToList()); // two constructors 
 
             RvtDoc.Export(Folder, FileName, gbXmlExportOptions);
-            
+
             // if the file exists return success message if not return failed message
             string path = Path.Combine(Folder, FileName + ".xml");
 
@@ -241,8 +241,11 @@ namespace GBSforDynamo
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
 
+            //convert the ElementId wrapper instances to actual Revit ElementId objects
+            List<Autodesk.Revit.DB.ElementId> outZoneIds = ZoneIds.Select(e => new Autodesk.Revit.DB.ElementId(e.InternalId)).ToList();
+
             // Create gbXML
-            MassGBXMLExportOptions gbXmlExportOptions = new MassGBXMLExportOptions(ZoneIds);  
+            MassGBXMLExportOptions gbXmlExportOptions = new MassGBXMLExportOptions(outZoneIds);
 
             RvtDoc.Export(Folder, FileName, gbXmlExportOptions);
 
@@ -260,7 +263,7 @@ namespace GBSforDynamo
             {
                 message = "Success! The gbXML file was created";
             }
-            else 
+            else
             {
                 path = string.Empty;
             }
@@ -272,7 +275,7 @@ namespace GBSforDynamo
                 { "gbXMLPath", path} 
             };
 
-        
+
         }
 
 
@@ -425,9 +428,9 @@ namespace GBSforDynamo
                 if (!runIds.Contains(run.runId))
                 {
                     runIds.Add(run.runId);
-                } 
+                }
             }
-            
+
             // Foreach runId Linq query on Projects Run
             foreach (var runId in runIds)
             {
@@ -460,7 +463,7 @@ namespace GBSforDynamo
                 { "RunNames", RunNames} // Array
 
             };
-        
+
         }
 
         //// NODE: GBS_ Get Run Summary Results
@@ -511,7 +514,7 @@ namespace GBSforDynamo
         //        {"AnnualCO2EmissionsLargeSUVEquivalent", runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Value + runResultSummary.RunEnergyCarbonCostSummary.AnnualCO2EmissionsLargeSUVEquivalent.Units}
 
         //    };
-        
+
         //}
 
 
@@ -522,7 +525,7 @@ namespace GBSforDynamo
         /// <param name="RunID"> Input Run Id </param>
         /// <param name="AltRunID"> Input Alternate Id </param>
         /// <returns></returns>
-        [MultiReturn("Results","BuildingType","Location","FloorArea","BuildingSummary")]
+        [MultiReturn("Results", "BuildingType", "Location", "FloorArea", "BuildingSummary")]
         public static Dictionary<string, object> GetEnergyandCarbonResults(int RunID, int AltRunID = 0)
         {
             // Initiate the Revit Auth
@@ -571,7 +574,7 @@ namespace GBSforDynamo
         /// <remarks> 30-year life and 6.1 % discount rate for costs. Doesnot include electric transmission loses or renewable and natural ventilation potential.</remarks>
         /// <param name="Results"></param>
         /// <returns></returns>
-        [MultiReturn("Annual Energy Cost","Lifecycle Cost","Annual CO2 Emissions","Annual Energy", "Lifecycle Energy")]
+        [MultiReturn("Annual Energy Cost", "Lifecycle Cost", "Annual CO2 Emissions", "Annual Energy", "Lifecycle Energy")]
         public static Dictionary<string, object> GetEnegrgyCarbonCostSummary(RunResultSummary Results)
         {
             // Populate Annual CO2 Emissions
@@ -643,8 +646,8 @@ namespace GBSforDynamo
             //string lifecycleEnergy = "Electric : " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyElectric.Value + " " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyElectric.Units + "\n" +
             //                         "Fuel : " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Value + " " + Results.RunEnergyCarbonCostSummary.LifecycleEnergyFuel.Units;
 
-            
-            
+
+
             //Populate Outputs
             return new Dictionary<string, object> 
             { 
@@ -662,7 +665,7 @@ namespace GBSforDynamo
         /// </summary>
         /// <param name="Results"></param>
         /// <returns></returns>
-        [MultiReturn("Run CO2 Emission","Onsite Renewable Potential", "Natural Ventilation Potential","Onsite Biofuel Use","Net CO2 Emission", "Net Large SUV Equivalent")]
+        [MultiReturn("Run CO2 Emission", "Onsite Renewable Potential", "Natural Ventilation Potential", "Onsite Biofuel Use", "Net CO2 Emission", "Net Large SUV Equivalent")]
         public static Dictionary<string, object> GetCarbonNeutralPotential(RunResultSummary Results)
         {
             // Populate Carbon Neutral Potential data
@@ -682,11 +685,11 @@ namespace GBSforDynamo
             BiofuelUse.Add(Results.CarbonNeutralPotential.Units);
             BiofuelUse.Add((double)Results.CarbonNeutralPotential.OnsiteBiofuelUseEmissions.Value);
 
-            List<object> NetCO2Emission= new List<object>();
+            List<object> NetCO2Emission = new List<object>();
             NetCO2Emission.Add(Results.CarbonNeutralPotential.Units);
             NetCO2Emission.Add((double)Results.CarbonNeutralPotential.NetCO2Emissions.Value);
 
-            List<object> LargeSUV= new List<object>();
+            List<object> LargeSUV = new List<object>();
             LargeSUV.Add(Results.CarbonNeutralPotential.NetLargeSUVEquivalent.Units);
             LargeSUV.Add((double)Results.CarbonNeutralPotential.NetLargeSUVEquivalent.Value);
 
@@ -708,7 +711,7 @@ namespace GBSforDynamo
         /// </summary>
         /// <param name="Results"></param>
         /// <returns></returns>
-        [MultiReturn("Fossil","Nuclear","Hydroelectric","Renewable","Other")]
+        [MultiReturn("Fossil", "Nuclear", "Hydroelectric", "Renewable", "Other")]
         public static Dictionary<string, object> GetElectricPowerPlantSources(RunResultSummary Results)
         {
             // Populate Outputs
@@ -727,9 +730,9 @@ namespace GBSforDynamo
         /// </summary>
         /// <param name="Results"></param>
         /// <returns></returns>
-        [MultiReturn("LEED Daylight", "LEED Water Efficiency", "Photovoltaic Potential", "Wind Energy Potential", "Natural Ventilation Potential")] 
+        [MultiReturn("LEED Daylight", "LEED Water Efficiency", "Photovoltaic Potential", "Wind Energy Potential", "Natural Ventilation Potential")]
         public static Dictionary<string, object> GetLEEDSection(RunResultSummary Results)
-        { 
+        {
 
             // Populate Leed Daylight
             List<object> LEEDDaylight = new List<object>();
@@ -788,9 +791,9 @@ namespace GBSforDynamo
             MaxPaybackPeriod.Add("Maximum Payback Period"); // Type
             LeedPhotovoltaicPotential.Add(MaxPaybackPeriod);
 
-            List<object> assumption= new List<object>();
-            assumption.Add("Assumptions: "+ Results.LeedSection.PhotoVoltaicPotential.Assumption);
-            LeedPhotovoltaicPotential.Add(assumption );
+            List<object> assumption = new List<object>();
+            assumption.Add("Assumptions: " + Results.LeedSection.PhotoVoltaicPotential.Assumption);
+            LeedPhotovoltaicPotential.Add(assumption);
 
             // Populate Wind Energy Potential
             List<object> WindEnergyPotential = new List<object>();
@@ -806,7 +809,7 @@ namespace GBSforDynamo
             THrsMechCoolReq.Add("Total Hours Mechanical Cooling Required"); // Type
             NaturalVentilationPotential.Add(THrsMechCoolReq);
 
-            List<object> PossibleNaturalVentilation= new List<object>();
+            List<object> PossibleNaturalVentilation = new List<object>();
             PossibleNaturalVentilation.Add(Results.LeedSection.NaturalVentilationPotential.PossibleNaturalVentilationHrs); // Value
             PossibleNaturalVentilation.Add("Possible Natural Ventilation Hours"); // Type
             NaturalVentilationPotential.Add(PossibleNaturalVentilation);
@@ -846,7 +849,7 @@ namespace GBSforDynamo
         /// <param name="resulttype"> Result type gbxml or doe2 or inp </param>
         /// <param name="FilePath"> Set File location to download the file </param>
         /// <returns name="report"> string. </returns>
-        public static string GetRunResult(int RunId, int AltRunId, string resulttype , string FilePath) // result type gbxml/doe2/eplus
+        public static string GetRunResult(int RunId, int AltRunId, string resulttype, string FilePath) // result type gbxml/doe2/eplus
         {
             // Initiate the Revit Auth
             InitRevitAuthProvider();
@@ -867,13 +870,13 @@ namespace GBSforDynamo
                 {
                     stream.CopyTo(fs);
                 }
-                
+
                 if (File.Exists(zipFileName))
                 { report = "The Analysis result file " + resulttype + " was successfully downloaded!"; }
-  
+
             }
 
-            return report ;
+            return report;
         }
 
 
@@ -962,7 +965,7 @@ namespace GBSforDynamo
             }
             catch (Exception)
             {
-                
+
                 throw new Exception("The encoding xml failed ");
             }
 
@@ -987,7 +990,7 @@ namespace GBSforDynamo
 
         #endregion
 
-        #region Serialize/ Deserialize 
+        #region Serialize/ Deserialize
 
         static T DataContractJsonDeserialize<T>(string response)
         {
@@ -1051,9 +1054,9 @@ namespace GBSforDynamo
 
             // this creates the zip file
             ZipUtil.ZipFile(path, gbxmlFile, gbxmlFile + ".zip");
-            byte[] fileBuffer = System.IO.File.ReadAllBytes(Path.Combine(path , gbxmlFile + ".zip"));
+            byte[] fileBuffer = System.IO.File.ReadAllBytes(Path.Combine(path, gbxmlFile + ".zip"));
             string gbXml64 = Convert.ToBase64String(fileBuffer);
-            
+
             var newRun = new NewRunItem
             {
                 Title = Path.GetFileName(gbxmlFile),
