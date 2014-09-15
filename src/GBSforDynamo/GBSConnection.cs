@@ -283,7 +283,7 @@ namespace GBSforDynamo
         /// <param name="ProjectTitle"> Title of the project </param>
         /// <returns></returns>
         [MultiReturn("ProjectId")]
-        public static Dictionary<string, object> Create_NewProject(string ProjectTitle)
+        public static Dictionary<string, int> Create_NewProject(string ProjectTitle)
         {
             //Output variable
             int newProjectId = 0;
@@ -342,7 +342,7 @@ namespace GBSforDynamo
 
 
             // 3. Populate the Outputs
-            return new Dictionary<string, object>
+            return new Dictionary<string, int>
             {
                 { "ProjectId", newProjectId}
             };
@@ -357,7 +357,7 @@ namespace GBSforDynamo
         /// <param name="gbXMLPath"> Input file path of gbXML File </param>
         /// <returns></returns>
         [MultiReturn("RunId")]
-        public static Dictionary<string, object> Create_BaseRun(int ProjectId, string gbXMLPath)
+        public static Dictionary<string, int> Create_BaseRun(int ProjectId, string gbXMLPath)
         {
             // Make sure the given file is an .xml
             string extention = Path.GetExtension(gbXMLPath);
@@ -381,7 +381,7 @@ namespace GBSforDynamo
             newRunId = DeserializeHttpWebResponse(response);
 
             // 3. Populate the Outputs
-            return new Dictionary<string, object>
+            return new Dictionary<string, int>
             {
                 { "RunId", newRunId},
             };
