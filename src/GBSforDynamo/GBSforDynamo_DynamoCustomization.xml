@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GBSforDynamo</name>
+    </assembly>
+    <namespaces>
+        <namespace name="GBSforDynamo">
+            <category>GBSforDynamo</category>
+        </namespace>
+    </namespaces>
+</doc>
