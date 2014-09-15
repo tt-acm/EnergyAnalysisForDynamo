@@ -178,7 +178,7 @@ namespace GBSforDynamo
         /// <returns name="report"> Success? </returns>
         /// <returns name="gbXMLPath"></returns>
         [MultiReturn("report", "gbXMLPath")]
-        public static Dictionary<string, object> gbXMLCompilerFromMass(string FilePath, AbstractFamilyInstance MassFamilyInstance = null, Boolean Run = false)
+        public static Dictionary<string, object> gbXMLCompilerFromMass(string FilePath, AbstractFamilyInstance MassFamilyInstance , Boolean Run = false)
         {
             Boolean IsSuccess = false;
 
@@ -189,12 +189,6 @@ namespace GBSforDynamo
             if (Run == false)
             {
                 throw new Exception("Set 'Connect' to True!");
-            }
-
-            //make mass instance and levels mandatory inputs
-            if (MassFamilyInstance == null)
-            {
-                throw new Exception("MassFamily Instance are mandatory inputs");
             }
 
             //local variables
@@ -262,7 +256,7 @@ namespace GBSforDynamo
         /// <returns name="report"> Success? </returns>
         /// <returns name="gbXMLPath"></returns>
         [MultiReturn("report", "gbXMLPath")]
-        public static Dictionary<string, object> gbXMLCompilerFromZones(string FilePath, List<ElementId> ZoneIds = null, Boolean Run = false)
+        public static Dictionary<string, object> gbXMLCompilerFromZones(string FilePath, List<ElementId> ZoneIds, Boolean Run = false)
         {
             Boolean IsSuccess = false;
 
@@ -273,12 +267,6 @@ namespace GBSforDynamo
             if (Run == false)
             {
                 throw new Exception("Set 'Connect' to True!");
-            }
-
-            //make mass instance and levels mandatory inputs
-            if (ZoneIds == null)
-            {
-                throw new Exception("MassFamily Instance are mandatory inputs");
             }
 
             //local varaibles

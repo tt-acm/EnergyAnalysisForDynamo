@@ -22,22 +22,23 @@ using System.Text.RegularExpressions;
 
 namespace GBSforDynamo
 {
-
+    /// <summary>
+    /// Contains Dynamo nodes that deal with a Revit model's Analysis zones and surfaces
+    /// </summary>
     public static class AnalysisZones
     {
+        /// <summary>
+        /// Creates mass floors and analysis zones from a [conceptual mass] family instance and a list of levels.
+        /// </summary>
+        /// <param name="MassFamilyInstance">The conceptual mass family instance to create zones from</param>
+        /// <param name="Levels">A list of levels to create mass floors with</param>
+        /// <returns></returns>
         [MultiReturn("MassFamilyInstance", "ZoneIds", "SurfaceIds")]
-        public static Dictionary<string, object> CreateFromMassAndLevels(AbstractFamilyInstance MassFamilyInstance = null, List<Revit.Elements.Element> Levels = null)
+        public static Dictionary<string, object> CreateFromMassAndLevels(AbstractFamilyInstance MassFamilyInstance, List<Revit.Elements.Element> Levels)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             EnergyAnalysisDetailModel em = null;
-            
-
-            //make mass instance and levels mandatory inputs
-            if (MassFamilyInstance == null || Levels == null)
-            {
-                throw new Exception("MassFamily Instance and Levels are mandatory inputs");
-            }
 
             #region Mass Floors and Energy Model
             //create mass floors
@@ -154,12 +155,16 @@ namespace GBSforDynamo
             };
         }
 
+        /// <summary>
+        /// Creates analysis zones from a [conceptual mass] family instance which already contains at least one mass floor.
+        /// </summary>
+        /// <param name="MassFamilyInstance">The conceptual mass family instance to create zones from</param>
+        /// <returns></returns>
         [MultiReturn("MassFamilyInstance", "ZoneIds", "SurfaceIds")]
-        public static Dictionary<string, object> CreateFromMass(AbstractFamilyInstance MassFamilyInstance = null)
+        public static Dictionary<string, object> CreateFromMass(AbstractFamilyInstance MassFamilyInstance)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
-            
 
             //get the id of the analytical model associated with that mass
             Autodesk.Revit.DB.ElementId myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
@@ -222,7 +227,16 @@ namespace GBSforDynamo
             };
         }
 
-        public static ElementId SetSurfaceParameters(ElementId SurfaceId = null, double glazingPercent = 0.4, double shadingDepth = 0.0, double sillHeight = 3.0, string ConstType = "default")
+        /// <summary>
+        /// Sets an exterior surface's energy parameters
+        /// </summary>
+        /// <param name="SurfaceId">The ElementId of the surface to modify.  Get this from the AnalysisZones > CreateFrom* > SurfaceIds output list</param>
+        /// <param name="glazingPercent">Percentage of glazed area.  Should be a double between 0.0 - 1.0</param>
+        /// <param name="shadingDepth">Shading Depth, specified as a double.  We assume the double value represents a length using Dynamo's current length unit.</param>
+        /// <param name="sillHeight">Target sill height, specified as a double.  We assume the double value represents a length using Dynamo's current length unit.</param>
+        /// <param name="ConstType">Conceptual Construction Type.  Use the Conceptual Construction Types Dropdown node from our EnergySettings tab to specify a value.</param>
+        /// <returns></returns>
+        public static ElementId SetSurfaceParameters(ElementId SurfaceId, double glazingPercent = 0.4, double shadingDepth = 0.0, double sillHeight = 3.0, string ConstType = "default")
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
@@ -302,6 +316,13 @@ namespace GBSforDynamo
             return SurfaceId;
         }
 
+        /// <summary>
+        /// Sets an analysis zone's energy parameters
+        /// </summary>
+        /// <param name="ZoneId">The ElementId of the zone to modify.  Get this from the AnalysisZones > CreateFrom* > ZoneIds output list</param>
+        /// <param name="SpaceType">Sets the zone's space type.  Use the Space Types Dropdown node from our EnergySetting tab to specify a value.</param>
+        /// <param name="ConditionType">Sets the zone's condition type.  Use the Condition Types Dropdown node from our EnergySetting tab to specify a value.</param>
+        /// <returns></returns>
         public static ElementId SetZoneParameters(ElementId ZoneId, string SpaceType = "", string ConditionType = "")
         {
 
@@ -364,8 +385,13 @@ namespace GBSforDynamo
             return ZoneId;
         }
 
+        /// <summary>
+        /// Exposes an analysis zone's properties
+        /// </summary>
+        /// <param name="ZoneId">The ElementId of the zone to inspect.  Get this from the AnalysisZones > CreateFrom* > ZoneIds output list</param>
+        /// <returns></returns>
         [MultiReturn("SurfaceIds", "SpaceType", "conditionType")]
-        public static Dictionary<string, object> DecomposeMassZone(ElementId ZoneId = null)
+        public static Dictionary<string, object> DecomposeMassZone(ElementId ZoneId)
         {
             // local variables
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
@@ -453,6 +479,11 @@ namespace GBSforDynamo
 
         }
 
+        /// <summary>
+        /// Draws a mesh in Dynamo representing an analysis surface.  Useful when trying to identify a surface to modify.
+        /// </summary>
+        /// <param name="SurfaceId">The ElementId of the surface to draw.  Get this from AnalysisZones > CreateFrom* > SurfaceIds output list</param>
+        /// <returns></returns>
         public static Autodesk.DesignScript.Geometry.Mesh DrawAnalysisSurface(ElementId SurfaceId)
         {
             //local varaibles
@@ -474,9 +505,7 @@ namespace GBSforDynamo
             //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
             try
             {
-
                 myEnergyModelId = surf.ReferenceElementId;
-                // MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
                 if (myEnergyModelId == null) throw new Exception();
             }
             catch (Exception)
@@ -492,22 +521,38 @@ namespace GBSforDynamo
             return Revit.GeometryConversion.RevitToProtoMesh.ToProtoType(prettyMesh);
         }
 
-        public static Autodesk.DesignScript.Geometry.Point AnalysisSurfacePoint(AbstractFamilyInstance MassFamilyInstance = null, ElementId SurfaceId = null)
+        /// <summary>
+        /// Draws a point around the center of an analysis surface.  Useful for sorting/grouping surfaces upstream of a SetSurfaceParameters node.
+        /// </summary>
+        /// <param name="SurfaceId">The ElementId of the surface to create a point from.  Get this from the AnalysisZones > CreateFrom* > SurfaceIds output list</param>
+        /// <returns></returns>
+        public static Autodesk.DesignScript.Geometry.Point AnalysisSurfacePoint(ElementId SurfaceId)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassSurfaceData surf = null;
             Autodesk.Revit.DB.ElementId myEnergyModelId = null;
 
+            //try to get the MassSurfaceData object from the document
+            try
+            {
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
+                if (surf == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
+            }
+
             //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
             try
             {
-                myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
+                myEnergyModelId = surf.ReferenceElementId;
                 if (myEnergyModelId == null) throw new Exception();
             }
             catch (Exception)
             {
-                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + MassFamilyInstance.InternalElement.Id.ToString());
+                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + surf.ReferenceElementId.ToString());
             }
 
             //try to get the MassSurfaceData object from the document
@@ -529,22 +574,38 @@ namespace GBSforDynamo
             return outPoint;
         }
 
-        public static Autodesk.DesignScript.Geometry.Vector AnalysisSurfaceVector(AbstractFamilyInstance MassFamilyInstance = null, ElementId SurfaceId = null)
+        /// <summary>
+        /// Returns a vector represnting the normal of an analysis surface.  Useful for sorting/grouping surfaces upstream of a SetSurfaceParameters node.
+        /// </summary>
+        /// <param name="SurfaceId">The ElementId of the surface to create a vector from.  Get this from AnalysisZones > CreateFrom* > SurfaceIds output list</param>
+        /// <returns></returns>
+        public static Autodesk.DesignScript.Geometry.Vector AnalysisSurfaceVector(ElementId SurfaceId = null)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassSurfaceData surf = null;
             Autodesk.Revit.DB.ElementId myEnergyModelId = null;
 
+            //try to get the MassSurfaceData object from the document
+            try
+            {
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
+                if (surf == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
+            }
+
             //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
             try
             {
-                myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
+                myEnergyModelId = surf.ReferenceElementId;
                 if (myEnergyModelId == null) throw new Exception();
             }
             catch (Exception)
             {
-                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + MassFamilyInstance.InternalElement.Id.ToString());
+                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + surf.ReferenceElementId.ToString());
             }
 
             //try to get the MassSurfaceData object from the document
@@ -568,7 +629,7 @@ namespace GBSforDynamo
         /// <summary>
         /// Draws an analysis zone in Dynamo.  Use this to identify which zone is which in the CreateFromMass/CreateFromMassAndLevels 'ZoneIds' output list.
         /// </summary>
-        /// <param name="ZoneId">The ID of the zone to draw.  This should be one of the items from the CreateFromMass/CreateFromMassAndLevels 'ZoneIds' output list </param>
+        /// <param name="ZoneId">The ElementId of the zone to draw.  Get this from the AnalysisZones > CreateFrom* > ZoneIds output list</param>
         /// <returns>A list of Dynamo meshes for each zone.</returns>
         public static List<Autodesk.DesignScript.Geometry.Mesh> DrawAnalysisZone(ElementId ZoneId)
         {
@@ -615,7 +676,6 @@ namespace GBSforDynamo
             }
             return outMeshes;
         }
-
 
         /// <summary>
         /// returns the average height of a face by averaging it's points' v values (for ruled faces - origin is returned fro planar faces.
