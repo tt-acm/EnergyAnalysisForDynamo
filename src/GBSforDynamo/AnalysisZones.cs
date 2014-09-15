@@ -557,8 +557,12 @@ namespace GBSforDynamo
             return Autodesk.DesignScript.Geometry.Vector.ByCoordinates(normal.X, normal.Y, normal.Z, true);
         }
 
-//        public static List<Autodesk.DesignScript.Geometry.Mesh> DrawAnalysisZone(AbstractFamilyInstance MassFamilyInstance = null, ElementId ZoneId, double offset = 1.0)
-        public static List<Autodesk.DesignScript.Geometry.Mesh> DrawAnalysisZone(ElementId ZoneId, double offset = 1.0)
+        /// <summary>
+        /// Draws an analysis zone in Dynamo.  Use this to identify which zone is which in the CreateFromMass/CreateFromMassAndLevels 'ZoneIds' output list.
+        /// </summary>
+        /// <param name="ZoneId">The ID of the zone to draw.  This should be one of the items from the CreateFromMass/CreateFromMassAndLevels 'ZoneIds' output list </param>
+        /// <returns>A list of Dynamo meshes for each zone.</returns>
+        public static List<Autodesk.DesignScript.Geometry.Mesh> DrawAnalysisZone(ElementId ZoneId)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
@@ -590,59 +594,6 @@ namespace GBSforDynamo
                 //throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + MassFamilyInstance.InternalElement.Id.ToString());
                 throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + zone.MassEnergyAnalyticalModelId.ToString());
             }
-
-            /*
-            //try to get the MassSurfaceData object from the document
-            try
-            {
-                zone = (MassZone)RvtDoc.GetElement(ZoneId);
-                if (zone == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + ZoneId.ToString());
-            }
-            */
-
-            ////get the lowest face from the zone.
-            //Autodesk.Revit.DB.Face lowestFace = null;
-
-            ////get references to all of the faces
-            //IList<Reference> faceRefs = zone.GetReferencesToEnergyAnalysisFaces();
-            //double lowestFaceHeight = 1000000.0;
-            //foreach (var faceRef in faceRefs)
-            //{
-            //    //get the actual face
-            //    Autodesk.Revit.DB.Face face = (Autodesk.Revit.DB.Face)zone.GetGeometryObjectFromReference(faceRef);
-
-            //    //get it's height.
-            //    double h = GetAverageFaceHeight(face);
-
-            //    //if lower than others, make it the lowest face
-            //    if (h < lowestFaceHeight)
-            //    {
-            //        lowestFaceHeight = h;
-            //        lowestFace = face;
-            //    }
-            //}
-
-                //for debugging - let's make sure we are getting the bottom of the zone
-            //Autodesk.Revit.DB.Mesh prettyMesh = lowestFace.Triangulate();
-            //return Revit.GeometryConversion.RevitToProtoMesh.ToProtoType(prettyMesh);
-            
-
-            ////draw a polyline from the outline of the lowest face
-            //List<Autodesk.DesignScript.Geometry.Point> designScriptPoints = GetPolygon(lowestFace.EdgeLoops.get_Item(0));
-            //List<Autodesk.DesignScript.Geometry.Point> culledPoints = CullRepeats(designScriptPoints);
-            //Autodesk.DesignScript.Geometry.PolyCurve myOutline = Autodesk.DesignScript.Geometry.PolyCurve.ByPoints(culledPoints, true);
-            ////offset it in a bit, and move it up a bit
-            //var myOffset = myOutline.Offset(offset);
-            //return myOffset;
-
-            //draw a line from one of it's corner points to a little bit below the level above
-
-            //loft out a solid and return
-
 
             //return a list of all fo the mesh faces for each zone
             List<Autodesk.DesignScript.Geometry.Mesh> outMeshes = new List<Autodesk.DesignScript.Geometry.Mesh>();
