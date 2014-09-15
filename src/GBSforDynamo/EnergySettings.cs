@@ -26,16 +26,16 @@ namespace GBSforDynamo
     public static class EnergySettings
     {
 
-        /// Modify / Set Energy Settings
-        /// 
+        /// <summary>
+        /// Sets the Enegry Data Settings
         /// </summary>
         /// <param name="BldgTyp"> Input Building Type </param>
-        /// <param name="GlzPer">Input Glazing Percentage (range: 0 to 1) </param>
-        /// <param name="ShadeDepth"></param>
-        /// <param name="HVACsys"></param>
-        /// <param name="OSchedule"></param>
+        /// <param name="GlzPer">Input glazing percentage (range: 0 to 1) </param>
+        /// <param name="ShadeDepth">Input Shape Depth</param>
+        /// <param name="HVACsys">Input Building HVAC system</param>
+        /// <param name="OSchedule">Input Building Operating Schedule</param>
         /// <returns></returns>
-        [MultiReturn("report","EnergySettings")]
+        [MultiReturn("EnergySettings","report")]
         public static Dictionary<string, object> SetEnergySettings(string BldgTyp = "", double GlzPer = 0, double ShadeDepth = 0, string HVACsys = "", string OSchedule = "")
         {
             
@@ -137,13 +137,13 @@ namespace GBSforDynamo
 
             return new Dictionary<string, object>
             {
-                { "report", report},
-                { "EnergySettings", myEnergySettings} 
+                { "EnergySettings", myEnergySettings},
+                { "report", report}
             };
         }
 
         /// <summary>
-        /// Read Existing Energy Settings
+        /// Gets existing Energy Data Settings from current document
         /// </summary>
         /// <returns></returns>
         [MultiReturn("Bldgtype", "GlzPer", "ShadeDepth", "HvacSystem", "OSchedule")]
@@ -166,7 +166,7 @@ namespace GBSforDynamo
             };
 
 
-            // User Visible Versions
+            // User Visible Versions NOTE: this available in only Revit 2015 API
             //EnergyDataSettings es = EnergyDataSettings.GetFromDocument(RvtDoc);
 
             //es.get_Parameter(BuiltInParameter.ENERGY_ANALYSIS_HVAC_SYSTEM).AsValueString();
