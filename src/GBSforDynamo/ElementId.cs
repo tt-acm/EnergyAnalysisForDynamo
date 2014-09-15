@@ -12,17 +12,17 @@ namespace GBSforDynamo
     /// <summary>
     /// Wrapper class for Autodesk.Revit.DB.ElementId.
     /// </summary>
-    [SupressImportIntoVM]
     public class ElementId
     {
         //the revit ID that we are wrapping around.
         private Autodesk.Revit.DB.ElementId internalId;
 
         //access to the internal ID using an int.
-        [SupressImportIntoVM]
         public int InternalId
         {
+            [SupressImportIntoVM]
             get { return internalId.IntegerValue; }
+            [SupressImportIntoVM]
             set
             {
                 try
@@ -44,5 +44,7 @@ namespace GBSforDynamo
         {
             InternalId = id;
         }
+        [SupressImportIntoVM]
+        public ElementId() { }
     }
 }

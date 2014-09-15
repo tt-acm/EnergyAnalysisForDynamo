@@ -222,7 +222,16 @@ namespace GBSforDynamo
             };
         }
 
-        public static ElementId SetSurfaceParameters(ElementId SurfaceId = null, double glazingPercent = 0.4, double shadingDepth = 0.0, double sillHeight = 3.0, string ConstType = "default")
+        /// <summary>
+        /// Set a mass exterior wall surface's energy parameters
+        /// </summary>
+        /// <param name="SurfaceId"></param>
+        /// <param name="glazingPercent"></param>
+        /// <param name="shadingDepth"></param>
+        /// <param name="sillHeight"></param>
+        /// <param name="ConstType"></param>
+        /// <returns></returns>
+        public static ElementId SetSurfaceParameters(ElementId SurfaceId, double glazingPercent = 0.4, double shadingDepth = 0.0, double sillHeight = 3.0, string ConstType = "default")
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
