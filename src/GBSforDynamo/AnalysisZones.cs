@@ -26,18 +26,11 @@ namespace GBSforDynamo
     public static class AnalysisZones
     {
         [MultiReturn("MassFamilyInstance", "ZoneIds", "SurfaceIds")]
-        public static Dictionary<string, object> CreateFromMassAndLevels(AbstractFamilyInstance MassFamilyInstance = null, List<Revit.Elements.Element> Levels = null)
+        public static Dictionary<string, object> CreateFromMassAndLevels(AbstractFamilyInstance MassFamilyInstance, List<Revit.Elements.Element> Levels)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             EnergyAnalysisDetailModel em = null;
-            
-
-            //make mass instance and levels mandatory inputs
-            if (MassFamilyInstance == null || Levels == null)
-            {
-                throw new Exception("MassFamily Instance and Levels are mandatory inputs");
-            }
 
             #region Mass Floors and Energy Model
             //create mass floors
@@ -155,11 +148,10 @@ namespace GBSforDynamo
         }
 
         [MultiReturn("MassFamilyInstance", "ZoneIds", "SurfaceIds")]
-        public static Dictionary<string, object> CreateFromMass(AbstractFamilyInstance MassFamilyInstance = null)
+        public static Dictionary<string, object> CreateFromMass(AbstractFamilyInstance MassFamilyInstance)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
-            
 
             //get the id of the analytical model associated with that mass
             Autodesk.Revit.DB.ElementId myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
@@ -374,7 +366,7 @@ namespace GBSforDynamo
         }
 
         [MultiReturn("SurfaceIds", "SpaceType", "conditionType")]
-        public static Dictionary<string, object> DecomposeMassZone(ElementId ZoneId = null)
+        public static Dictionary<string, object> DecomposeMassZone(ElementId ZoneId)
         {
             // local variables
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
@@ -483,9 +475,7 @@ namespace GBSforDynamo
             //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
             try
             {
-
                 myEnergyModelId = surf.ReferenceElementId;
-                // MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
                 if (myEnergyModelId == null) throw new Exception();
             }
             catch (Exception)
@@ -501,22 +491,33 @@ namespace GBSforDynamo
             return Revit.GeometryConversion.RevitToProtoMesh.ToProtoType(prettyMesh);
         }
 
-        public static Autodesk.DesignScript.Geometry.Point AnalysisSurfacePoint(AbstractFamilyInstance MassFamilyInstance = null, ElementId SurfaceId = null)
+        public static Autodesk.DesignScript.Geometry.Point AnalysisSurfacePoint(ElementId SurfaceId)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassSurfaceData surf = null;
             Autodesk.Revit.DB.ElementId myEnergyModelId = null;
 
+            //try to get the MassSurfaceData object from the document
+            try
+            {
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
+                if (surf == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
+            }
+
             //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
             try
             {
-                myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
+                myEnergyModelId = surf.ReferenceElementId;
                 if (myEnergyModelId == null) throw new Exception();
             }
             catch (Exception)
             {
-                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + MassFamilyInstance.InternalElement.Id.ToString());
+                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + surf.ReferenceElementId.ToString());
             }
 
             //try to get the MassSurfaceData object from the document
@@ -538,22 +539,33 @@ namespace GBSforDynamo
             return outPoint;
         }
 
-        public static Autodesk.DesignScript.Geometry.Vector AnalysisSurfaceVector(AbstractFamilyInstance MassFamilyInstance = null, ElementId SurfaceId = null)
+        public static Autodesk.DesignScript.Geometry.Vector AnalysisSurfaceVector(ElementId SurfaceId = null)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassSurfaceData surf = null;
             Autodesk.Revit.DB.ElementId myEnergyModelId = null;
 
+            //try to get the MassSurfaceData object from the document
+            try
+            {
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
+                if (surf == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
+            }
+
             //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
             try
             {
-                myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
+                myEnergyModelId = surf.ReferenceElementId;
                 if (myEnergyModelId == null) throw new Exception();
             }
             catch (Exception)
             {
-                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + MassFamilyInstance.InternalElement.Id.ToString());
+                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + surf.ReferenceElementId.ToString());
             }
 
             //try to get the MassSurfaceData object from the document

@@ -20,9 +20,9 @@ namespace GBSforDynamo
         //access to the internal ID using an int.
         public int InternalId
         {
-            [SupressImportIntoVM]
+            [IsVisibleInDynamoLibrary(false)]
             get { return internalId.IntegerValue; }
-            [SupressImportIntoVM]
+            [IsVisibleInDynamoLibrary(false)]
             set
             {
                 try
@@ -39,12 +39,12 @@ namespace GBSforDynamo
         }
 
         //constructor
-        [SupressImportIntoVM]
+        [IsVisibleInDynamoLibrary(false)]
         public ElementId(int id)
         {
             InternalId = id;
         }
-        [SupressImportIntoVM]
+        [IsVisibleInDynamoLibrary(false)]
         public ElementId() { }
     }
 }
