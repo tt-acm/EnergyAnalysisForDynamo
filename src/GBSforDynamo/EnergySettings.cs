@@ -31,7 +31,7 @@ namespace GBSforDynamo
         /// </summary>
         /// <param name="BldgTyp"> Input Building Type </param>
         /// <param name="GlzPer">Input glazing percentage (range: 0 to 1) </param>
-        /// <param name="ShadeDepth">Input Shape Depth</param>
+        /// <param name="ShadeDepth">Input auto-generated shading depth</param>
         /// <param name="HVACsys">Input Building HVAC system</param>
         /// <param name="OSchedule">Input Building Operating Schedule</param>
         /// <returns></returns>
