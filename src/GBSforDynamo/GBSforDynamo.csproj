@@ -118,6 +118,7 @@
   <ItemGroup>
     <Compile Include="AnalysisZones.cs" />
     <Compile Include="Contract.cs" />
+    <Compile Include="ElementId.cs" />
     <Compile Include="EnergySettings.cs" />
     <Compile Include="GBSConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

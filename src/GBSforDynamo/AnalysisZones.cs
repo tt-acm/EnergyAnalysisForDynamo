@@ -22,6 +22,7 @@ using System.Text.RegularExpressions;
 
 namespace GBSforDynamo
 {
+
     public static class AnalysisZones
     {
         [MultiReturn("MassFamilyInstance", "ZoneIds", "SurfaceIds")]
@@ -86,15 +87,13 @@ namespace GBSforDynamo
             }
             #endregion
 
-
-
             #region Output Zone and Surface IDs
             //ok now we should be able to get all of the zones and surfaces associated
             //with our mass, and output them for use downstream
 
 
             //get the id of the analytical model associated with that mass
-            ElementId myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
+            Autodesk.Revit.DB.ElementId myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
             MassEnergyAnalyticalModel mea = (MassEnergyAnalyticalModel)RvtDoc.GetElement(myEnergyModelId);
 
             //if mea is null, we should throw a good error message.  Seems to be working in Revit now that we are regenerating.
@@ -105,7 +104,7 @@ namespace GBSforDynamo
 
             //get the zone ids from our Mass's MassEnergyAnalyticalModel object
             //we'll use these to draw zones in another component - not sure if we can use them to drive opening / shading params
-            List<ElementId> zoneIds = mea.GetMassZoneIds().ToList();
+            List<Autodesk.Revit.DB.ElementId> zoneIds = mea.GetMassZoneIds().ToList();
 
             //get the MassSurfaceData ids of the definitions belonging to external faces
             //we'll output these, and then try to visualize the faces and change parameters in another component
@@ -117,7 +116,7 @@ namespace GBSforDynamo
             Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
             foreach (var fr in faceRefs)
             {
-                ElementId id = mea.GetMassSurfaceDataIdForReference(fr);
+                Autodesk.Revit.DB.ElementId id = mea.GetMassSurfaceDataIdForReference(fr);
                 if (!mySurfaceData.ContainsKey(id.IntegerValue))
                 {
                     MassSurfaceData d = (MassSurfaceData)RvtDoc.GetElement(id);
@@ -131,20 +130,27 @@ namespace GBSforDynamo
                               where n.Category.Name == "Mass Exterior Wall"
                               select n;
 
-            //output list
-            List<ElementId> surfaceIds = new List<ElementId>();
+            //output list of face Ids
+            List<Autodesk.Revit.DB.ElementId> surfaceIds = new List<Autodesk.Revit.DB.ElementId>();
             foreach (var s in extSurfList)
             {
                 surfaceIds.Add(s.Id);
             }
+
+
+            //loop over the output lists, and wrap them in our ElementId wrapper class
+            List<ElementId> outZoneIds = zoneIds.Select(e => new ElementId(e.IntegerValue)).ToList();
+            List<ElementId> outSurfaceIds = surfaceIds.Select(e => new ElementId(e.IntegerValue)).ToList();
+
+
             #endregion
 
 
             return new Dictionary<string, object>
             {
                 {"MassFamilyInstance", MassFamilyInstance},
-                {"ZoneIds", zoneIds},
-                {"SurfaceIds", surfaceIds}
+                {"ZoneIds", outZoneIds},
+                {"SurfaceIds", outSurfaceIds}
             };
         }
 
@@ -156,7 +162,7 @@ namespace GBSforDynamo
             
 
             //get the id of the analytical model associated with that mass
-            ElementId myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
+            Autodesk.Revit.DB.ElementId myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
             MassEnergyAnalyticalModel mea = (MassEnergyAnalyticalModel)RvtDoc.GetElement(myEnergyModelId);
 
             //throw an error if we can't get the analytical model - it must be enabled in Revit.
@@ -168,7 +174,7 @@ namespace GBSforDynamo
 
             //get the zone ids from our Mass's MassEnergyAnalyticalModel object
             //we'll use these to draw zones in another component - not sure if we can use them to drive opening / shading params
-            List<ElementId> zoneIds = mea.GetMassZoneIds().ToList();
+            List<Autodesk.Revit.DB.ElementId> zoneIds = mea.GetMassZoneIds().ToList();
 
 
 
@@ -182,7 +188,7 @@ namespace GBSforDynamo
             Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
             foreach (var fr in faceRefs)
             {
-                ElementId id = mea.GetMassSurfaceDataIdForReference(fr);
+                Autodesk.Revit.DB.ElementId id = mea.GetMassSurfaceDataIdForReference(fr);
                 if (!mySurfaceData.ContainsKey(id.IntegerValue))
                 {
                     MassSurfaceData d = (MassSurfaceData)RvtDoc.GetElement(id);
@@ -197,18 +203,22 @@ namespace GBSforDynamo
                               select n;
 
             //output list
-            List<ElementId> surfaceIds = new List<ElementId>();
+            List<Autodesk.Revit.DB.ElementId> surfaceIds = new List<Autodesk.Revit.DB.ElementId>();
             foreach (var s in extSurfList)
             {
                 surfaceIds.Add(s.Id);
             }
 
+            //loop over the output lists, and wrap them in our ElementId wrapper class
+            List<ElementId> outZoneIds = zoneIds.Select(e => new ElementId(e.IntegerValue)).ToList();
+            List<ElementId> outSurfaceIds = surfaceIds.Select(e => new ElementId(e.IntegerValue)).ToList();
+
 
             return new Dictionary<string, object>
             {
                 {"MassFamilyInstance", MassFamilyInstance},
-                {"ZoneIds", zoneIds},
-                {"SurfaceIds", surfaceIds}
+                {"ZoneIds", outZoneIds},
+                {"SurfaceIds", outSurfaceIds}
             };
         }
 
@@ -221,8 +231,8 @@ namespace GBSforDynamo
             //try to get the MassSurfaceData object from the document
             try
             {
-                surf = (MassSurfaceData)RvtDoc.GetElement(SurfaceId);
-                if (surf == null)throw new Exception();
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
+                if (surf == null) throw new Exception();
             }
             catch (Exception)
             {
@@ -265,13 +275,13 @@ namespace GBSforDynamo
                 if (shadingDepth > 0)
                 {
                     surf.IsGlazingShaded = true;
-                    surf.ShadeDepth = shadingDepth; 
+                    surf.ShadeDepth = shadingDepth;
                 }
 
                 //set conceptual construction if not empty
                 if (!string.IsNullOrEmpty(ConstType) && ConstType != "default")
                 {
-                    ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType);
+                    Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType);
                     if (myTypeId != null)
                     {
                         surf.IsConceptualConstructionByEnergyData = false;
@@ -281,7 +291,7 @@ namespace GBSforDynamo
 
                 //done with transaction task
                 TransactionManager.Instance.TransactionTaskDone();
-               
+
             }
             catch (Exception)
             {
@@ -292,19 +302,18 @@ namespace GBSforDynamo
             return SurfaceId;
         }
 
-
         public static ElementId SetZoneParameters(ElementId ZoneId, string SpaceType = "", string ConditionType = "")
         {
-            
+
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassZone zone = null;
 
-            
+
             //try to get MassZone using the ID
             try
             {
-                zone = (MassZone)RvtDoc.GetElement(ZoneId);
+                zone = (MassZone)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(ZoneId.InternalId));
 
                 if (zone == null) throw new Exception();
             }
@@ -324,7 +333,7 @@ namespace GBSforDynamo
             {
                 throw new Exception(SpaceType.ToString() + " is not a valid space type. Use spaceTypes dropdown to input a valid space type.");
             }
-            
+
             try
             {
                 //start a transaction task
@@ -335,12 +344,12 @@ namespace GBSforDynamo
                 {
                     zone.ConditionType = (gbXMLConditionType)Enum.Parse(typeof(gbXMLConditionType), ConditionType);
                 }
-   
+
                 //set space type
-             if (!string.IsNullOrEmpty(SpaceType))
-             {   
-                zone.SpaceType = (gbXMLSpaceType)Enum.Parse(typeof(gbXMLSpaceType), SpaceType);
-             }
+                if (!string.IsNullOrEmpty(SpaceType))
+                {
+                    zone.SpaceType = (gbXMLSpaceType)Enum.Parse(typeof(gbXMLSpaceType), SpaceType);
+                }
 
                 //done with transaction task
                 TransactionManager.Instance.TransactionTaskDone();
@@ -355,7 +364,6 @@ namespace GBSforDynamo
             return ZoneId;
         }
 
-
         [MultiReturn("SurfaceIds", "SpaceType", "conditionType")]
         public static Dictionary<string, object> DecomposeMassZone(ElementId ZoneId = null)
         {
@@ -369,7 +377,7 @@ namespace GBSforDynamo
             // get zone data from the document using the id
             try
             {
-                zone = (MassZone)RvtDoc.GetElement(ZoneId);
+                zone = (MassZone)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(ZoneId.InternalId));
 
                 if (zone == null) throw new Exception();
             }
@@ -450,20 +458,20 @@ namespace GBSforDynamo
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassSurfaceData surf = null;
-            ElementId myEnergyModelId = null;
-            
+            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
+
             //try to get the MassSurfaceData object from the document
             try
             {
-                surf = (MassSurfaceData)RvtDoc.GetElement(SurfaceId);
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
                 if (surf == null) throw new Exception();
             }
             catch (Exception)
             {
                 throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
             }
-            
-                //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
+
+            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
             try
             {
 
@@ -475,7 +483,7 @@ namespace GBSforDynamo
             {
                 throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + surf.ReferenceElementId.ToString());
             }
-            
+
 
             //get the smallest face
             Autodesk.Revit.DB.Face smallFace = GetSmallestFace(RvtDoc, surf, myEnergyModelId);
@@ -489,7 +497,7 @@ namespace GBSforDynamo
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassSurfaceData surf = null;
-            ElementId myEnergyModelId = null;
+            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
 
             //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
             try
@@ -505,7 +513,7 @@ namespace GBSforDynamo
             //try to get the MassSurfaceData object from the document
             try
             {
-                surf = (MassSurfaceData)RvtDoc.GetElement(SurfaceId);
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
                 if (surf == null) throw new Exception();
             }
             catch (Exception)
@@ -526,7 +534,7 @@ namespace GBSforDynamo
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassSurfaceData surf = null;
-            ElementId myEnergyModelId = null;
+            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
 
             //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
             try
@@ -542,7 +550,7 @@ namespace GBSforDynamo
             //try to get the MassSurfaceData object from the document
             try
             {
-                surf = (MassSurfaceData)RvtDoc.GetElement(SurfaceId);
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
                 if (surf == null) throw new Exception();
             }
             catch (Exception)
@@ -567,12 +575,12 @@ namespace GBSforDynamo
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassZone zone = null;
-            ElementId myEnergyModelId = null;
+            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
 
             // get zone data from the document using the id
             try
             {
-                zone = (MassZone)RvtDoc.GetElement(ZoneId);
+                zone = (MassZone)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(ZoneId.InternalId));
 
                 if (zone == null) throw new Exception();
             }
@@ -787,7 +795,7 @@ namespace GBSforDynamo
             return p;
         }
 
-        private static Autodesk.Revit.DB.Face GetSmallestFace(Document RvtDoc, MassSurfaceData surf, ElementId myEnergyModelId)
+        private static Autodesk.Revit.DB.Face GetSmallestFace(Document RvtDoc, MassSurfaceData surf, Autodesk.Revit.DB.ElementId myEnergyModelId)
         {
             //the data object contains references to faces.  For every face, draw a surface or something with designscript
             IList<Reference> faceRefs = surf.GetFaceReferences();
@@ -806,7 +814,7 @@ namespace GBSforDynamo
             return smallFace;
         }
 
-        private static Autodesk.Revit.DB.Face GetLargestFace(Document RvtDoc, MassSurfaceData surf, ElementId myEnergyModelId)
+        private static Autodesk.Revit.DB.Face GetLargestFace(Document RvtDoc, MassSurfaceData surf, Autodesk.Revit.DB.ElementId myEnergyModelId)
         {
             //the data object contains references to faces.  For every face, draw a surface or something with designscript
             IList<Reference> faceRefs = surf.GetFaceReferences();
@@ -825,7 +833,7 @@ namespace GBSforDynamo
             return bigFace;
         }
 
-        private static ElementId getConceptualConstructionIdFromName(Document RvtDoc, string name)
+        private static Autodesk.Revit.DB.ElementId getConceptualConstructionIdFromName(Document RvtDoc, string name)
         {
             try
             {
@@ -837,7 +845,7 @@ namespace GBSforDynamo
 
                 //find the id of the element with the same name as the arg
                 //had a hard time dealing with the dash in the name - it was either a em dash or a horiz bar
-                ElementId id = null;
+                Autodesk.Revit.DB.ElementId id = null;
                 Regex rgx = new Regex("[^a-zA-Z0-9]");
                 while (i.MoveNext())
                 {
