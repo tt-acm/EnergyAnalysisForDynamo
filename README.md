@@ -1,9 +1,9 @@
 GBSforDynamo
 ============
 
-GBSforDynamo is a parametric interface for [Autodesk Green Building Studio](https://gbs.autodesk.com/GBS/), built on top of [Dynamo](http://dynamobim.org/).  The project will enable parametric energy modeling and whole building energy analysis workflows in Dynamo 0.7 and REvit/Vasari.
+GBSforDynamo is a parametric interface for [Autodesk Green Building Studio](https://gbs.autodesk.com/GBS/), built on top of [Dynamo](http://dynamobim.org/) and [Vasari](http://autodeskvasari.com/)/[Revit](http://www.autodesk.com/products/revit-family/overview).  The project will enable parametric energy modeling and whole-building energy analysis workflows in Dynamo 0.7.2 and Vasari/Revit.
 
-The project is being developed in C# using Visual Studio, and will work with recent [daily] builds of Dynamo 0.7, and Vasari Beta 3.0 and/or Revit 2014.  The project consists of two libraries; one is a zero-touch library containing most nodes, the other is a UI library containing nodes with dropdown elements.  
+The project is being developed in C# using Visual Studio, and will work with Dynamo 0.7.2, and Vasari Beta 3.0 and/or Revit 2014.  The project consists of two libraries; one is a zero-touch library containing most of the nodes, the other is a UI library containing nodes with dropdown elements.  
 
 
 We are developing nodes in three main categories:
@@ -15,7 +15,7 @@ We are developing nodes in three main categories:
  - Green Building Studio analysis results query and visualization.  These nodes will query the GBS web service and return numeric results that can be used for data visualization.  We have to see exactly what we can get at via the API, but we hope to be able to expose results data at the level of zones and timesteps.  All of the nodes that interact with the GBS web service will use the Autodesk Single Sign On credentials from Revit/Vasari for authentication.
 
 
-GBSforDynamo is developed and maintained by Thornton Tomasetti’s CORE studio.  The main developers are:
-Elcin Ertugrul (eertugrul)
-Mostapha Sadeghipour Roudsari (mostaphaRoudsari)
-Benjamin Howes (bhowes-tt)
+GBSforDynamo is developed and maintained by [Thornton Tomasetti](http://www.thorntontomasetti.com/)’s [CORE studio](http://core.thorntontomasetti.com/).  The main developers are:
+- [Elcin Ertugrul](https://github.com/eertugrul)
+- [Mostapha Sadeghipour Roudsari](https://github.com/mostaphaRoudsari)
+- [Benjamin Howes](https://github.com/bhowes-tt)
