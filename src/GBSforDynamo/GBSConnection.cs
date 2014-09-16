@@ -197,13 +197,7 @@ namespace GBSforDynamo
             //enable the analytical model in the document if it isn't already
             try
             {
-                TransactionManager.Instance.EnsureInTransaction(RvtDoc);
-                EnergyDataSettings energyData = EnergyDataSettings.GetFromDocument(RvtDoc);
-                if (energyData != null)
-                {
-                    energyData.SetCreateAnalyticalModel(true);
-                }
-                TransactionManager.Instance.TransactionTaskDone();
+                AnalysisZones.ActivateEnergyModel(RvtDoc);
             }
             catch (Exception)
             {
@@ -271,6 +265,16 @@ namespace GBSforDynamo
 
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+
+            //enable the analytical model in the document if it isn't already
+            try
+            {
+                AnalysisZones.ActivateEnergyModel(RvtDoc);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Something went wrong when trying to enable the energy model.");
+            }
 
             //convert the ElementId wrapper instances to actual Revit ElementId objects
             List<Autodesk.Revit.DB.ElementId> outZoneIds = ZoneIds.Select(e => new Autodesk.Revit.DB.ElementId(e.InternalId)).ToList();

@@ -59,13 +59,7 @@ namespace GBSforDynamo
             //enable the analytical model in the document if it isn't already
             try
             {
-                TransactionManager.Instance.EnsureInTransaction(RvtDoc);
-                EnergyDataSettings energyData = EnergyDataSettings.GetFromDocument(RvtDoc);
-                if (energyData != null)
-                {
-                    energyData.SetCreateAnalyticalModel(true);
-                }
-                TransactionManager.Instance.TransactionTaskDone();
+                ActivateEnergyModel(RvtDoc);
             }
             catch (Exception)
             {
@@ -166,6 +160,16 @@ namespace GBSforDynamo
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
 
+            //enable the analytical model in the document if it isn't already
+            try
+            {
+                ActivateEnergyModel(RvtDoc);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Something went wrong when trying to enable the energy model.");
+            }
+
             //get the id of the analytical model associated with that mass
             Autodesk.Revit.DB.ElementId myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
             MassEnergyAnalyticalModel mea = (MassEnergyAnalyticalModel)RvtDoc.GetElement(myEnergyModelId);
@@ -173,7 +177,7 @@ namespace GBSforDynamo
             //throw an error if we can't get the analytical model - it must be enabled in Revit.
             if (mea == null)
             {
-                throw new Exception("Could not get the MassEnergyAnalyticalModel from the mass - Enable the Energy Model in Revit/Vasari, and make sure the Mass has at least one Mass Floor.");
+                throw new Exception("Could not get the MassEnergyAnalyticalModel from the mass - make sure the Mass has at least one Mass Floor.");
             }
 
 
@@ -921,6 +925,32 @@ namespace GBSforDynamo
                 }
             }
             catch (Exception) { return null; } 
+        }
+
+        /// <summary>
+        /// Activate the Energy Model in a Revit document
+        /// </summary>
+        /// <param name="RvtDoc">The project document to activate the energy model in</param>
+        [SupressImportIntoVM]
+        public static void ActivateEnergyModel(Document RvtDoc)
+        {
+            //try to get at least one MassEnergyAnalyticalModel object in the doc.  if there is one there, we don't need to turn on the energy model
+            FilteredElementCollector col = new FilteredElementCollector(RvtDoc);
+            var meas = col.OfClass(typeof(MassEnergyAnalyticalModel)).ToElementIds();
+            if (meas.Count != 0)
+            {
+                return;
+            }
+
+            //if we make it here, turn on the Analytical model, and regenerate the doc
+            TransactionManager.Instance.EnsureInTransaction(RvtDoc);
+            EnergyDataSettings energyData = EnergyDataSettings.GetFromDocument(RvtDoc);
+            if (energyData != null)
+            {
+                energyData.SetCreateAnalyticalModel(true);
+            }
+            TransactionManager.Instance.TransactionTaskDone();
+            DocumentManager.Regenerate();
         }
     }
 }

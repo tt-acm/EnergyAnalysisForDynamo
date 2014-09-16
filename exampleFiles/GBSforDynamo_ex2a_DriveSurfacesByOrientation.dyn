@@ -1,4 +1,4 @@
-<Workspace Version="0.7.2.3911" X="-1232.18614974732" Y="-425.528687020136" zoom="0.813150579433976" Description="" Category="" Name="Home">
+<Workspace Version="0.7.2.3911" X="-885.574361289399" Y="-246.893471215973" zoom="0.565571368000865" Description="" Category="" Name="Home">
   <Elements>
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="85d69076-84d9-4526-a557-b8b36581dff5" nickname="Math.RemapRange" x="2644.82226471384" y="854.366934569732" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.Math.RemapRange@double[],double,double">
       <PortInfo index="1" default="True" />
@@ -13,17 +13,17 @@
       <Range min="0.2" max="0.8" />
     </Dynamo.Nodes.DoubleSlider>
     <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="805473f9-662e-4e0b-bc1c-bfa37ffbd3be" nickname="Select Model Element" x="1628.76772887288" y="664.221094187836" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <instance id="e2208c72-2ddd-45d0-b99b-4e74a33253b3-00032065" />
+      <instance id="e93902ca-6648-4dd0-893f-69028c1e6b7d-0002c341" />
     </Dynamo.Nodes.DSModelElementSelection>
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="eb5956a3-bbe1-48e6-883b-6badbce6d8a7" nickname="AnalysisZones.CreateFromMass" x="1823.41680568689" y="664.279722257186" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.CreateFromMass@Revit.Elements.AbstractFamilyInstance" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="f7205ddb-9541-4aab-8159-266339e4c3cd" nickname="AnalysisZones.DrawAnalysisSurface" x="3152.58387669004" y="656.257201761607" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.DrawAnalysisSurface@var" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="6c4c262f-ec77-44a0-a067-810b8f62b989" nickname="AnalysisZones.SetSurfaceParameters" x="2869.51061121226" y="724.531894764534" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.SetSurfaceParameters@var,double,double,double,string">
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="f7205ddb-9541-4aab-8159-266339e4c3cd" nickname="AnalysisZones.DrawAnalysisSurface" x="3152.58387669004" y="656.257201761607" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.DrawAnalysisSurface@GBSforDynamo.ElementId" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="6c4c262f-ec77-44a0-a067-810b8f62b989" nickname="AnalysisZones.SetSurfaceParameters" x="2869.51061121226" y="724.531894764534" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.SetSurfaceParameters@GBSforDynamo.ElementId,double,double,double,string">
       <PortInfo index="1" default="True" />
       <PortInfo index="2" default="True" />
       <PortInfo index="3" default="True" />
       <PortInfo index="4" default="True" />
     </Dynamo.Nodes.DSFunction>
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="2f85b304-ba33-4e08-8dd1-7f89a45f6748" nickname="AnalysisZones.AnalysisSurfaceVector" x="2160.85146985783" y="858.834232037351" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.AnalysisSurfaceVector@Revit.Elements.AbstractFamilyInstance,var" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="2f85b304-ba33-4e08-8dd1-7f89a45f6748" nickname="AnalysisZones.AnalysisSurfaceVector" x="2160.85146985783" y="858.834232037351" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.AnalysisSurfaceVector@GBSforDynamo.ElementId" />
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="f5712f83-1404-49c8-bfb4-6c2df02bd726" nickname="Vector.Dot" x="2438.02863401662" y="801.684301282961" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Vector.Dot@Autodesk.DesignScript.Geometry.Vector" />
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="e3601ff1-6cf7-4151-adb5-f963159ee3a9" nickname="Vector.YAxis" x="2312.29878635696" y="773.109335905766" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Vector.YAxis" />
   </Elements>
@@ -32,10 +32,9 @@
     <Dynamo.Models.ConnectorModel start="63016597-8c18-4f82-b3e9-bfe4a5ac372e" start_index="0" end="85d69076-84d9-4526-a557-b8b36581dff5" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="4ab758f9-2e13-4549-bf03-86d09239b7e5" start_index="0" end="85d69076-84d9-4526-a557-b8b36581dff5" end_index="2" portType="0" />
     <Dynamo.Models.ConnectorModel start="805473f9-662e-4e0b-bc1c-bfa37ffbd3be" start_index="0" end="eb5956a3-bbe1-48e6-883b-6badbce6d8a7" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="eb5956a3-bbe1-48e6-883b-6badbce6d8a7" start_index="0" end="2f85b304-ba33-4e08-8dd1-7f89a45f6748" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="eb5956a3-bbe1-48e6-883b-6badbce6d8a7" start_index="2" end="6c4c262f-ec77-44a0-a067-810b8f62b989" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="eb5956a3-bbe1-48e6-883b-6badbce6d8a7" start_index="2" end="2f85b304-ba33-4e08-8dd1-7f89a45f6748" end_index="1" portType="0" />
-    <Dynamo.Models.ConnectorModel start="eb5956a3-bbe1-48e6-883b-6badbce6d8a7" start_index="2" end="f7205ddb-9541-4aab-8159-266339e4c3cd" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="eb5956a3-bbe1-48e6-883b-6badbce6d8a7" start_index="2" end="2f85b304-ba33-4e08-8dd1-7f89a45f6748" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="6c4c262f-ec77-44a0-a067-810b8f62b989" start_index="0" end="f7205ddb-9541-4aab-8159-266339e4c3cd" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="2f85b304-ba33-4e08-8dd1-7f89a45f6748" start_index="0" end="f5712f83-1404-49c8-bfb4-6c2df02bd726" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="f5712f83-1404-49c8-bfb4-6c2df02bd726" start_index="0" end="85d69076-84d9-4526-a557-b8b36581dff5" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="e3601ff1-6cf7-4151-adb5-f963159ee3a9" start_index="0" end="f5712f83-1404-49c8-bfb4-6c2df02bd726" end_index="0" portType="0" />
