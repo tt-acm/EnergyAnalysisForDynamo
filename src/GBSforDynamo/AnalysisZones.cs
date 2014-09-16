@@ -128,8 +128,13 @@ namespace GBSforDynamo
 
             //get the smallest face
             Autodesk.Revit.DB.Face bigFace = GetLargestFace(RvtDoc, surf, myEnergyModelId);
-            XYZ normal = bigFace.ComputeNormal(new Autodesk.Revit.DB.UV(0.5, 0.5));
-            normal = normal.Normalize();
+
+            // Find the face normal at the center of the face
+            BoundingBoxUV bbox = bigFace.GetBoundingBox();
+            // center of the face in the UV of the face
+            Autodesk.Revit.DB.UV center = new Autodesk.Revit.DB.UV((bbox.Max.U - bbox.Min.U) / 2 + bbox.Min.U, (bbox.Max.V - bbox.Min.V) / 2 + bbox.Min.V);
+            XYZ faceNormal = bigFace.ComputeNormal(center);
+            XYZ normal = faceNormal.Normalize();
             return Autodesk.DesignScript.Geometry.Vector.ByCoordinates(normal.X, normal.Y, normal.Z, true);
         }
         
