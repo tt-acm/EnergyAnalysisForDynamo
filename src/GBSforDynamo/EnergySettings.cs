@@ -26,6 +26,36 @@ namespace GBSforDynamo
 {
     public static class EnergySettings
     {
+        /// <summary>
+        /// Gets existing Energy Data Settings from current document
+        /// </summary>
+        /// <returns></returns>
+        [MultiReturn("Bldgtype", "GlzPer", "ShadeDepth", "HvacSystem", "OSchedule")]
+        public static Dictionary<string, object> GetEnergySettings()
+        {
+            // Get current document
+            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+
+            // Load the default energy setting from the active Revit instance
+            EnergyDataSettings es = Autodesk.Revit.DB.Analysis.EnergyDataSettings.GetFromDocument(RvtDoc);
+
+
+            return new Dictionary<string, object>
+            {
+                { "Bldgtype", Enum.GetName(typeof(gbXMLBuildingType), es.BuildingType)}, 
+                { "GlzPer",  es.PercentageGlazing}, 
+                { "ShadeDepth",  es.ShadeDepth * UnitConverter.HostToDynamoFactor}, 
+                { "HvacSystem",Enum.GetName(typeof(gbXMLBuildingHVACSystem), es.BuildingHVACSystem)},
+                { "OSchedule",Enum.GetName(typeof(gbXMLBuildingOperatingSchedule), es.BuildingOperatingSchedule)}
+            };
+
+
+            // User Visible Versions NOTE: this available in only Revit 2015 API
+            //EnergyDataSettings es = EnergyDataSettings.GetFromDocument(RvtDoc);
+
+            //es.get_Parameter(BuiltInParameter.ENERGY_ANALYSIS_HVAC_SYSTEM).AsValueString();
+
+        }
 
         /// <summary>
         /// Sets the Enegry Data Settings
@@ -129,36 +159,7 @@ namespace GBSforDynamo
             };
         }
 
-        /// <summary>
-        /// Gets existing Energy Data Settings from current document
-        /// </summary>
-        /// <returns></returns>
-        [MultiReturn("Bldgtype", "GlzPer", "ShadeDepth", "HvacSystem", "OSchedule")]
-        public static Dictionary<string, object> GetEnergySettings()
-        {
-            // Get current document
-            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
-
-            // Load the default energy setting from the active Revit instance
-            EnergyDataSettings es = Autodesk.Revit.DB.Analysis.EnergyDataSettings.GetFromDocument(RvtDoc);
-
-
-            return new Dictionary<string, object>
-            {
-                { "Bldgtype", Enum.GetName(typeof(gbXMLBuildingType), es.BuildingType)}, 
-                { "GlzPer",  es.PercentageGlazing}, 
-                { "ShadeDepth",  es.ShadeDepth * UnitConverter.HostToDynamoFactor}, 
-                { "HvacSystem",Enum.GetName(typeof(gbXMLBuildingHVACSystem), es.BuildingHVACSystem)},
-                { "OSchedule",Enum.GetName(typeof(gbXMLBuildingOperatingSchedule), es.BuildingOperatingSchedule)}
-            };
-
-
-            // User Visible Versions NOTE: this available in only Revit 2015 API
-            //EnergyDataSettings es = EnergyDataSettings.GetFromDocument(RvtDoc);
-
-            //es.get_Parameter(BuiltInParameter.ENERGY_ANALYSIS_HVAC_SYSTEM).AsValueString();
-
-        }
+        
 
     }
 

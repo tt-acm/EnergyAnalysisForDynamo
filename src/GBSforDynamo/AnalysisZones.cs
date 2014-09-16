@@ -29,6 +29,111 @@ namespace GBSforDynamo
     public static class AnalysisZones
     {
         /// <summary>
+        /// Draws a point around the center of an analysis surface.  Useful for sorting/grouping surfaces upstream of a SetSurfaceParameters node.
+        /// </summary>
+        /// <param name="SurfaceId">The ElementId of the surface to create a point from.  Get this from the AnalysisZones > CreateFrom* > SurfaceIds output list</param>
+        /// <returns></returns>
+        public static Autodesk.DesignScript.Geometry.Point AnalysisSurfacePoint(ElementId SurfaceId)
+        {
+            //local varaibles
+            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+            MassSurfaceData surf = null;
+            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
+
+            //try to get the MassSurfaceData object from the document
+            try
+            {
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
+                if (surf == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
+            }
+
+            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
+            try
+            {
+                myEnergyModelId = surf.ReferenceElementId;
+                if (myEnergyModelId == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + surf.ReferenceElementId.ToString());
+            }
+
+            //try to get the MassSurfaceData object from the document
+            try
+            {
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
+                if (surf == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
+            }
+
+            //get the smallest face
+            Autodesk.Revit.DB.Face smallFace = GetSmallestFace(RvtDoc, surf, myEnergyModelId);
+
+            //get the average point of all points on the face
+            Autodesk.DesignScript.Geometry.Point outPoint = getAveragePointFromFace(smallFace);
+            return outPoint;
+        }
+
+        /// <summary>
+        /// Returns a vector represnting the normal of an analysis surface.  Useful for sorting/grouping surfaces upstream of a SetSurfaceParameters node.
+        /// </summary>
+        /// <param name="SurfaceId">The ElementId of the surface to create a vector from.  Get this from AnalysisZones > CreateFrom* > SurfaceIds output list</param>
+        /// <returns></returns>
+        public static Autodesk.DesignScript.Geometry.Vector AnalysisSurfaceVector(ElementId SurfaceId)
+        {
+            //local varaibles
+            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+            MassSurfaceData surf = null;
+            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
+
+            //try to get the MassSurfaceData object from the document
+            try
+            {
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
+                if (surf == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
+            }
+
+            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
+            try
+            {
+                myEnergyModelId = surf.ReferenceElementId;
+                if (myEnergyModelId == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + surf.ReferenceElementId.ToString());
+            }
+
+            //try to get the MassSurfaceData object from the document
+            try
+            {
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
+                if (surf == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
+            }
+
+            //get the smallest face
+            Autodesk.Revit.DB.Face bigFace = GetLargestFace(RvtDoc, surf, myEnergyModelId);
+            XYZ normal = bigFace.ComputeNormal(new Autodesk.Revit.DB.UV(0.5, 0.5));
+            normal = normal.Normalize();
+            return Autodesk.DesignScript.Geometry.Vector.ByCoordinates(normal.X, normal.Y, normal.Z, true);
+        }
+        
+        /// <summary>
         /// Creates mass floors and analysis zones from a [conceptual mass] family instance and a list of levels.
         /// </summary>
         /// <param name="MassFamilyInstance">The conceptual mass family instance to create zones from</param>
@@ -233,6 +338,187 @@ namespace GBSforDynamo
         }
 
         /// <summary>
+        /// Exposes an analysis zone's properties, including the zone's exterior face element ids.
+        /// </summary>
+        /// <param name="ZoneId">The ElementId of the zone to inspect.  Get this from the AnalysisZones > CreateFrom* > ZoneIds output list</param>
+        /// <returns></returns>
+        [MultiReturn("SurfaceIds", "SpaceType", "conditionType")]
+        public static Dictionary<string, object> DecomposeMassZone(ElementId ZoneId)
+        {
+            // local variables
+            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+            MassZone zone = null;
+            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
+            gbXMLConditionType conditionType = gbXMLConditionType.NoConditionType;
+            gbXMLSpaceType spaceType = gbXMLSpaceType.NoSpaceType;
+
+            // get zone data from the document using the id
+            try
+            {
+                zone = (MassZone)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(ZoneId.InternalId));
+
+                if (zone == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a zone object with Id #: " + ZoneId.ToString());
+            }
+
+            //get external faces belonging to this zone
+            #region Get faces belonging to this zone
+		
+            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
+            try
+            {
+                myEnergyModelId = zone.MassEnergyAnalyticalModelId;
+                if (myEnergyModelId == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + zone.MassEnergyAnalyticalModelId.ToString());
+            }
+
+            //some faces supposedly share massSurfaceData definitions (although i think they are all unique in practice) - here we're pulling out unique data definitions.  
+            Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
+
+            //get references to all of the faces
+            IList<Reference> faceRefs = zone.GetReferencesToEnergyAnalysisFaces();
+            foreach (var faceRef in faceRefs)
+            {
+                //get the element ID of the MassSurfaceData object associated with this face
+                Autodesk.Revit.DB.ElementId id = zone.GetMassDataElementIdForZoneFaceReference(faceRef);
+                //add it to our dict if it isn't already there
+                if (!mySurfaceData.ContainsKey(id.IntegerValue))
+                {
+                    MassSurfaceData d = (MassSurfaceData)RvtDoc.GetElement(id);
+                    mySurfaceData.Add(id.IntegerValue, d);
+                }
+            }
+
+            //filter by category = mass exterior wall
+            var allSurfsList = mySurfaceData.Values.ToList();
+            var extSurfList = from n in allSurfsList
+                              where n.Category.Name == "Mass Exterior Wall"
+                              select n;
+
+            //list of element Ids to wrap and output
+            List<Autodesk.Revit.DB.ElementId> surfaceIds = extSurfList.Select(e => e.Id).ToList();
+
+            //loop over the output lists, and wrap them in our ElementId wrapper class
+            List<ElementId> outSurfaceIds = surfaceIds.Select(e => new ElementId(e.IntegerValue)).ToList();
+ 
+	        #endregion
+
+            // assign condition type
+            conditionType = zone.ConditionType;
+
+            // assign space type
+            spaceType = zone.SpaceType;
+
+            // return outputs
+            return new Dictionary<string, object>
+            {
+                {"SurfaceIds", outSurfaceIds},
+                {"SpaceType", spaceType},
+                {"conditionType", conditionType}
+            };
+
+        }
+
+        /// <summary>
+        /// Draws a mesh in Dynamo representing an analysis surface.  Useful when trying to identify a surface to modify.
+        /// </summary>
+        /// <param name="SurfaceId">The ElementId of the surface to draw.  Get this from AnalysisZones > CreateFrom* > SurfaceIds output list</param>
+        /// <returns></returns>
+        public static Autodesk.DesignScript.Geometry.Mesh DrawAnalysisSurface(ElementId SurfaceId)
+        {
+            //local varaibles
+            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+            MassSurfaceData surf = null;
+            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
+
+            //try to get the MassSurfaceData object from the document
+            try
+            {
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
+                if (surf == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
+            }
+
+            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
+            try
+            {
+                myEnergyModelId = surf.ReferenceElementId;
+                if (myEnergyModelId == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + surf.ReferenceElementId.ToString());
+            }
+
+
+            //get the smallest face
+            Autodesk.Revit.DB.Face smallFace = GetSmallestFace(RvtDoc, surf, myEnergyModelId);
+
+            Autodesk.Revit.DB.Mesh prettyMesh = smallFace.Triangulate();
+            return Revit.GeometryConversion.RevitToProtoMesh.ToProtoType(prettyMesh);
+        }
+
+        /// <summary>
+        /// Draws an analysis zone in Dynamo.  Use this to identify which zone is which in the CreateFromMass/CreateFromMassAndLevels 'ZoneIds' output list.
+        /// </summary>
+        /// <param name="ZoneId">The ElementId of the zone to draw.  Get this from the AnalysisZones > CreateFrom* > ZoneIds output list</param>
+        /// <returns>A list of Dynamo meshes for each zone.</returns>
+        public static List<Autodesk.DesignScript.Geometry.Mesh> DrawAnalysisZone(ElementId ZoneId)
+        {
+            //local varaibles
+            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+            MassZone zone = null;
+            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
+
+            // get zone data from the document using the id
+            try
+            {
+                zone = (MassZone)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(ZoneId.InternalId));
+
+                if (zone == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a zone object with Id #: " + ZoneId.ToString());
+            }
+
+
+            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
+            try
+            {
+                myEnergyModelId = zone.MassEnergyAnalyticalModelId;
+                // myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
+                if (myEnergyModelId == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                //throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + MassFamilyInstance.InternalElement.Id.ToString());
+                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + zone.MassEnergyAnalyticalModelId.ToString());
+            }
+
+            //return a list of all fo the mesh faces for each zone
+            List<Autodesk.DesignScript.Geometry.Mesh> outMeshes = new List<Autodesk.DesignScript.Geometry.Mesh>();
+            //get references to all of the faces
+            IList<Reference> faceRefs = zone.GetReferencesToEnergyAnalysisFaces();
+            foreach (var faceRef in faceRefs)
+            {
+                //get the actual face and add the converted version to our list
+                Autodesk.Revit.DB.Face face = (Autodesk.Revit.DB.Face)zone.GetGeometryObjectFromReference(faceRef);
+                outMeshes.Add(Revit.GeometryConversion.RevitToProtoMesh.ToProtoType(face.Triangulate()));
+            }
+            return outMeshes;
+        }
+
+        /// <summary>
         /// Sets an exterior surface's energy parameters
         /// </summary>
         /// <param name="SurfaceId">The ElementId of the surface to modify.  Get this from the AnalysisZones > CreateFrom* > SurfaceIds output list</param>
@@ -388,292 +674,6 @@ namespace GBSforDynamo
 
             //return the zone ID so the zone can be used downstream
             return ZoneId;
-        }
-
-        /// <summary>
-        /// Exposes an analysis zone's properties, including the zone's exterior face element ids.
-        /// </summary>
-        /// <param name="ZoneId">The ElementId of the zone to inspect.  Get this from the AnalysisZones > CreateFrom* > ZoneIds output list</param>
-        /// <returns></returns>
-        [MultiReturn("SurfaceIds", "SpaceType", "conditionType")]
-        public static Dictionary<string, object> DecomposeMassZone(ElementId ZoneId)
-        {
-            // local variables
-            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
-            MassZone zone = null;
-            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
-            gbXMLConditionType conditionType = gbXMLConditionType.NoConditionType;
-            gbXMLSpaceType spaceType = gbXMLSpaceType.NoSpaceType;
-
-            // get zone data from the document using the id
-            try
-            {
-                zone = (MassZone)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(ZoneId.InternalId));
-
-                if (zone == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a zone object with Id #: " + ZoneId.ToString());
-            }
-
-            //get external faces belonging to this zone
-            #region Get faces belonging to this zone
-		
-            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
-            try
-            {
-                myEnergyModelId = zone.MassEnergyAnalyticalModelId;
-                if (myEnergyModelId == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + zone.MassEnergyAnalyticalModelId.ToString());
-            }
-
-            //some faces supposedly share massSurfaceData definitions (although i think they are all unique in practice) - here we're pulling out unique data definitions.  
-            Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
-
-            //get references to all of the faces
-            IList<Reference> faceRefs = zone.GetReferencesToEnergyAnalysisFaces();
-            foreach (var faceRef in faceRefs)
-            {
-                //get the element ID of the MassSurfaceData object associated with this face
-                Autodesk.Revit.DB.ElementId id = zone.GetMassDataElementIdForZoneFaceReference(faceRef);
-                //add it to our dict if it isn't already there
-                if (!mySurfaceData.ContainsKey(id.IntegerValue))
-                {
-                    MassSurfaceData d = (MassSurfaceData)RvtDoc.GetElement(id);
-                    mySurfaceData.Add(id.IntegerValue, d);
-                }
-            }
-
-            //filter by category = mass exterior wall
-            var allSurfsList = mySurfaceData.Values.ToList();
-            var extSurfList = from n in allSurfsList
-                              where n.Category.Name == "Mass Exterior Wall"
-                              select n;
-
-            //list of element Ids to wrap and output
-            List<Autodesk.Revit.DB.ElementId> surfaceIds = extSurfList.Select(e => e.Id).ToList();
-
-            //loop over the output lists, and wrap them in our ElementId wrapper class
-            List<ElementId> outSurfaceIds = surfaceIds.Select(e => new ElementId(e.IntegerValue)).ToList();
- 
-	        #endregion
-
-            // assign condition type
-            conditionType = zone.ConditionType;
-
-            // assign space type
-            spaceType = zone.SpaceType;
-
-            // return outputs
-            return new Dictionary<string, object>
-            {
-                {"SurfaceIds", outSurfaceIds},
-                {"SpaceType", spaceType},
-                {"conditionType", conditionType}
-            };
-
-        }
-
-        /// <summary>
-        /// Draws a mesh in Dynamo representing an analysis surface.  Useful when trying to identify a surface to modify.
-        /// </summary>
-        /// <param name="SurfaceId">The ElementId of the surface to draw.  Get this from AnalysisZones > CreateFrom* > SurfaceIds output list</param>
-        /// <returns></returns>
-        public static Autodesk.DesignScript.Geometry.Mesh DrawAnalysisSurface(ElementId SurfaceId)
-        {
-            //local varaibles
-            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
-            MassSurfaceData surf = null;
-            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
-
-            //try to get the MassSurfaceData object from the document
-            try
-            {
-                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
-                if (surf == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
-            }
-
-            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
-            try
-            {
-                myEnergyModelId = surf.ReferenceElementId;
-                if (myEnergyModelId == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + surf.ReferenceElementId.ToString());
-            }
-
-
-            //get the smallest face
-            Autodesk.Revit.DB.Face smallFace = GetSmallestFace(RvtDoc, surf, myEnergyModelId);
-
-            Autodesk.Revit.DB.Mesh prettyMesh = smallFace.Triangulate();
-            return Revit.GeometryConversion.RevitToProtoMesh.ToProtoType(prettyMesh);
-        }
-
-        /// <summary>
-        /// Draws a point around the center of an analysis surface.  Useful for sorting/grouping surfaces upstream of a SetSurfaceParameters node.
-        /// </summary>
-        /// <param name="SurfaceId">The ElementId of the surface to create a point from.  Get this from the AnalysisZones > CreateFrom* > SurfaceIds output list</param>
-        /// <returns></returns>
-        public static Autodesk.DesignScript.Geometry.Point AnalysisSurfacePoint(ElementId SurfaceId)
-        {
-            //local varaibles
-            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
-            MassSurfaceData surf = null;
-            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
-
-            //try to get the MassSurfaceData object from the document
-            try
-            {
-                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
-                if (surf == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
-            }
-
-            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
-            try
-            {
-                myEnergyModelId = surf.ReferenceElementId;
-                if (myEnergyModelId == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + surf.ReferenceElementId.ToString());
-            }
-
-            //try to get the MassSurfaceData object from the document
-            try
-            {
-                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
-                if (surf == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
-            }
-
-            //get the smallest face
-            Autodesk.Revit.DB.Face smallFace = GetSmallestFace(RvtDoc, surf, myEnergyModelId);
-
-            //get the average point of all points on the face
-            Autodesk.DesignScript.Geometry.Point outPoint = getAveragePointFromFace(smallFace);
-            return outPoint;
-        }
-
-        /// <summary>
-        /// Returns a vector represnting the normal of an analysis surface.  Useful for sorting/grouping surfaces upstream of a SetSurfaceParameters node.
-        /// </summary>
-        /// <param name="SurfaceId">The ElementId of the surface to create a vector from.  Get this from AnalysisZones > CreateFrom* > SurfaceIds output list</param>
-        /// <returns></returns>
-        public static Autodesk.DesignScript.Geometry.Vector AnalysisSurfaceVector(ElementId SurfaceId)
-        {
-            //local varaibles
-            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
-            MassSurfaceData surf = null;
-            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
-
-            //try to get the MassSurfaceData object from the document
-            try
-            {
-                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
-                if (surf == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
-            }
-
-            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
-            try
-            {
-                myEnergyModelId = surf.ReferenceElementId;
-                if (myEnergyModelId == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + surf.ReferenceElementId.ToString());
-            }
-
-            //try to get the MassSurfaceData object from the document
-            try
-            {
-                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
-                if (surf == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
-            }
-
-            //get the smallest face
-            Autodesk.Revit.DB.Face bigFace = GetLargestFace(RvtDoc, surf, myEnergyModelId);
-            XYZ normal = bigFace.ComputeNormal(new Autodesk.Revit.DB.UV(0.5, 0.5));
-            normal = normal.Normalize();
-            return Autodesk.DesignScript.Geometry.Vector.ByCoordinates(normal.X, normal.Y, normal.Z, true);
-        }
-
-        /// <summary>
-        /// Draws an analysis zone in Dynamo.  Use this to identify which zone is which in the CreateFromMass/CreateFromMassAndLevels 'ZoneIds' output list.
-        /// </summary>
-        /// <param name="ZoneId">The ElementId of the zone to draw.  Get this from the AnalysisZones > CreateFrom* > ZoneIds output list</param>
-        /// <returns>A list of Dynamo meshes for each zone.</returns>
-        public static List<Autodesk.DesignScript.Geometry.Mesh> DrawAnalysisZone(ElementId ZoneId)
-        {
-            //local varaibles
-            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
-            MassZone zone = null;
-            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
-
-            // get zone data from the document using the id
-            try
-            {
-                zone = (MassZone)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(ZoneId.InternalId));
-
-                if (zone == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a zone object with Id #: " + ZoneId.ToString());
-            }
-
-
-            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
-            try
-            {
-                myEnergyModelId = zone.MassEnergyAnalyticalModelId;
-                // myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
-                if (myEnergyModelId == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                //throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + MassFamilyInstance.InternalElement.Id.ToString());
-                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + zone.MassEnergyAnalyticalModelId.ToString());
-            }
-
-            //return a list of all fo the mesh faces for each zone
-            List<Autodesk.DesignScript.Geometry.Mesh> outMeshes = new List<Autodesk.DesignScript.Geometry.Mesh>();
-            //get references to all of the faces
-            IList<Reference> faceRefs = zone.GetReferencesToEnergyAnalysisFaces();
-            foreach (var faceRef in faceRefs)
-            {
-                //get the actual face and add the converted version to our list
-                Autodesk.Revit.DB.Face face = (Autodesk.Revit.DB.Face)zone.GetGeometryObjectFromReference(faceRef);
-                outMeshes.Add(Revit.GeometryConversion.RevitToProtoMesh.ToProtoType(face.Triangulate()));
-            }
-            return outMeshes;
         }
 
         /// <summary>
