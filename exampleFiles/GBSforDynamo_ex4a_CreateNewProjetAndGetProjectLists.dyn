@@ -1,0 +1,20 @@
+<Workspace Version="0.7.2.17586" X="7.87644327752469" Y="81.4412165226922" zoom="1.45436992563799" Description="" Category="" Name="Home">
+  <Elements>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="093484c0-85a9-460d-9bda-0cceea37d12d" nickname="GBSConnection.CreateNewProject" x="510.150746324475" y="72.0433720134779" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.GBSConnection.CreateNewProject@string" />
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="04f8115f-66b4-4fce-9d70-0ae67dfca8ec" nickname="Code Block" x="25.1978654238611" y="64.8140183466369" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="TestNewProjectfromDynamo;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="ecd60d03-7b77-477c-89ea-374c45e90584" nickname="GBSConnection.GetProjectLists" x="483.587533954094" y="321.39776089462" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.GBSConnection.GetProjectLists@bool">
+      <PortInfo index="0" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="d5b5f019-7105-4565-832d-cee8036e0a30" nickname="Boolean" x="265.413208515045" y="320.598587541363" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>False</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="04f8115f-66b4-4fce-9d70-0ae67dfca8ec" start_index="0" end="093484c0-85a9-460d-9bda-0cceea37d12d" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="d5b5f019-7105-4565-832d-cee8036e0a30" start_index="0" end="ecd60d03-7b77-477c-89ea-374c45e90584" end_index="0" portType="0" />
+  </Connectors>
+  <Notes>
+    <Dynamo.Models.NoteModel text="Create New GBS Project" x="383.647411059094" y="-7.99028776085638" />
+    <Dynamo.Models.NoteModel text="Create New GBS Project" x="373.32227737327" y="244.697785150573" />
+  </Notes>
+</Workspace>
