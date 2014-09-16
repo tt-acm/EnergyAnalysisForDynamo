@@ -19,6 +19,7 @@ using RevitServices.Transactions;
 using ProtoCore;
 using ProtoCore.Utils;
 using Autodesk.DesignScript.Runtime;
+using Revit.GeometryConversion;
 
 
 namespace GBSforDynamo
@@ -31,7 +32,7 @@ namespace GBSforDynamo
         /// </summary>
         /// <param name="BldgTyp"> Input Building Type </param>
         /// <param name="GlzPer">Input glazing percentage (range: 0 to 1) </param>
-        /// <param name="ShadeDepth">Input auto-generated shading depth</param>
+        /// <param name="ShadeDepth">Shading Depth, specified as a double.  We assume the double value represents a length using Dynamo's current length unit.</param>
         /// <param name="HVACsys">Input Building HVAC system</param>
         /// <param name="OSchedule">Input Building Operating Schedule</param>
         /// <returns></returns>
@@ -45,88 +46,74 @@ namespace GBSforDynamo
             //Load the default energy setting from the active Revit instance
             EnergyDataSettings myEnergySettings = Autodesk.Revit.DB.Analysis.EnergyDataSettings.GetFromDocument(RvtDoc);
 
-            //Making Changes on 
-            TransactionManager.SetupManager();
-            var transManager = TransactionManager.Instance.TransactionWrapper;
-            var t = transManager.StartTransaction(RvtDoc);
+            //make sure we are in a transaction
+            TransactionManager.Instance.EnsureInTransaction(RvtDoc);
 
-            try
+            if (!string.IsNullOrEmpty(BldgTyp))
             {
-                // This overwrite the default energy settings
-
-                if (!string.IsNullOrEmpty(BldgTyp))
+                Autodesk.Revit.DB.Analysis.gbXMLBuildingType type;
+                try
                 {
-                    Autodesk.Revit.DB.Analysis.gbXMLBuildingType type;
-                    try
-                    {
-                        type = (Autodesk.Revit.DB.Analysis.gbXMLBuildingType)Enum.Parse(typeof(Autodesk.Revit.DB.Analysis.gbXMLBuildingType), BldgTyp);
-                    }
-                    catch (Exception)
-                    {
-                        throw new Exception("Building Type is not found");
-                    }
-                    myEnergySettings.BuildingType = type;
+                    type = (Autodesk.Revit.DB.Analysis.gbXMLBuildingType)Enum.Parse(typeof(Autodesk.Revit.DB.Analysis.gbXMLBuildingType), BldgTyp);
                 }
-
-                if (!string.IsNullOrEmpty(HVACsys))
+                catch (Exception)
                 {
-                    Autodesk.Revit.DB.Analysis.gbXMLBuildingHVACSystem type;
-                    try
-                    {
-                        type = (Autodesk.Revit.DB.Analysis.gbXMLBuildingHVACSystem)Enum.Parse(typeof(Autodesk.Revit.DB.Analysis.gbXMLBuildingHVACSystem), HVACsys);
-                    }
-                    catch (Exception)
-                    {
-                        throw new Exception("HVAC system is not found");
-                    }
-                    myEnergySettings.BuildingHVACSystem = type;
+                    throw new Exception("Building Type is not found");
                 }
-
-                if (!string.IsNullOrEmpty(OSchedule))
-                {
-                    Autodesk.Revit.DB.Analysis.gbXMLBuildingOperatingSchedule type;
-                    try
-                    {
-                        type = (Autodesk.Revit.DB.Analysis.gbXMLBuildingOperatingSchedule)Enum.Parse(typeof(Autodesk.Revit.DB.Analysis.gbXMLBuildingOperatingSchedule), OSchedule);
-                    }
-                    catch (Exception)
-                    {
-                        throw new Exception("Operating Schedule is not found");
-                    }
-                    myEnergySettings.BuildingOperatingSchedule = type;
-                }
-
-                if (GlzPer != 0.0)
-                {
-                    // the value should be 0 - 1
-                    try
-                    {
-                        myEnergySettings.PercentageGlazing = GlzPer;
-                    }
-                    catch (Exception) // 
-                    {
-                        throw new Exception("The Glazing Percentage input range should be 0 - 1");
-                    }
-                }
-
-                if (ShadeDepth != 0.0)
-                {
-                    myEnergySettings.IsGlazingShaded = true;
-                    myEnergySettings.ShadeDepth = ShadeDepth;
-                }
-                else {
-                    myEnergySettings.IsGlazingShaded = false;
-                }
-
-                // Commit Transaction
-                t.CommitTransaction();
+                myEnergySettings.BuildingType = type;
             }
-            catch (Exception ex)
+
+            if (!string.IsNullOrEmpty(HVACsys))
             {
-                // Cancel Transaction if anything goes wrong  
-                t.CancelTransaction();
-                throw new Exception(ex.ToString());
+                Autodesk.Revit.DB.Analysis.gbXMLBuildingHVACSystem type;
+                try
+                {
+                    type = (Autodesk.Revit.DB.Analysis.gbXMLBuildingHVACSystem)Enum.Parse(typeof(Autodesk.Revit.DB.Analysis.gbXMLBuildingHVACSystem), HVACsys);
+                }
+                catch (Exception)
+                {
+                    throw new Exception("HVAC system is not found");
+                }
+                myEnergySettings.BuildingHVACSystem = type;
             }
+
+            if (!string.IsNullOrEmpty(OSchedule))
+            {
+                Autodesk.Revit.DB.Analysis.gbXMLBuildingOperatingSchedule type;
+                try
+                {
+                    type = (Autodesk.Revit.DB.Analysis.gbXMLBuildingOperatingSchedule)Enum.Parse(typeof(Autodesk.Revit.DB.Analysis.gbXMLBuildingOperatingSchedule), OSchedule);
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Operating Schedule is not found");
+                }
+                myEnergySettings.BuildingOperatingSchedule = type;
+            }
+
+            if (GlzPer > 0.0 && GlzPer <= 1.0)
+            {
+                try
+                {
+                    myEnergySettings.PercentageGlazing = GlzPer;
+                }
+                catch (Exception) 
+                {
+                    throw new Exception("The Glazing Percentage input range should be 0 - 1");
+                }
+            }
+
+            if (ShadeDepth > 0.0)
+            {
+                myEnergySettings.IsGlazingShaded = true;
+                myEnergySettings.ShadeDepth = ShadeDepth * UnitConverter.DynamoToHostFactor;
+            }
+            else {
+                myEnergySettings.IsGlazingShaded = false;
+            }
+
+            //done with the transaction 
+            TransactionManager.Instance.TransactionTaskDone();
 
             // Report 
             string report = "Building type is " + Enum.GetName(typeof(gbXMLBuildingType), myEnergySettings.BuildingType) + ".\n" +
@@ -160,7 +147,7 @@ namespace GBSforDynamo
             {
                 { "Bldgtype", Enum.GetName(typeof(gbXMLBuildingType), es.BuildingType)}, 
                 { "GlzPer",  es.PercentageGlazing}, 
-                { "ShadeDepth",  es.ShadeDepth}, 
+                { "ShadeDepth",  es.ShadeDepth * UnitConverter.HostToDynamoFactor}, 
                 { "HvacSystem",Enum.GetName(typeof(gbXMLBuildingHVACSystem), es.BuildingHVACSystem)},
                 { "OSchedule",Enum.GetName(typeof(gbXMLBuildingOperatingSchedule), es.BuildingOperatingSchedule)}
             };

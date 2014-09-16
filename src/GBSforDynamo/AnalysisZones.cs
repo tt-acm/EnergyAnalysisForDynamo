@@ -14,6 +14,7 @@ using ProtoCore.AST.AssociativeAST;
 using RevitServices.Persistence;
 using RevitServices.Transactions;
 using Revit.Elements;
+using Revit.GeometryConversion;
 using Autodesk.DesignScript.Runtime;
 using Autodesk.DesignScript.Interfaces;
 using Autodesk.DesignScript.Geometry;
@@ -240,7 +241,7 @@ namespace GBSforDynamo
         /// <param name="sillHeight">Target sill height, specified as a double.  We assume the double value represents a length using Dynamo's current length unit.</param>
         /// <param name="ConstType">Conceptual Construction Type.  Use the Conceptual Construction Types Dropdown node from our EnergySettings tab to specify a value.</param>
         /// <returns></returns>
-        public static ElementId SetSurfaceParameters(ElementId SurfaceId, double glazingPercent = 0.4, double shadingDepth = 0.0, double sillHeight = 3.0, string ConstType = "default")
+        public static ElementId SetSurfaceParameters(ElementId SurfaceId, double glazingPercent = 0.4, double shadingDepth = 0.0, double sillHeight = 0.0, string ConstType = "default")
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
@@ -284,7 +285,7 @@ namespace GBSforDynamo
                 }
 
                 //set target sill height 
-                surf.SillHeight = sillHeight;
+                surf.SillHeight = sillHeight * UnitConverter.DynamoToHostFactor;
 
                 //set glazing percentage
                 surf.PercentageGlazing = glazingPercent;
@@ -293,7 +294,7 @@ namespace GBSforDynamo
                 if (shadingDepth > 0)
                 {
                     surf.IsGlazingShaded = true;
-                    surf.ShadeDepth = shadingDepth;
+                    surf.ShadeDepth = shadingDepth * UnitConverter.DynamoToHostFactor;
                 }
 
                 //set conceptual construction if not empty
@@ -577,7 +578,7 @@ namespace GBSforDynamo
         /// </summary>
         /// <param name="SurfaceId">The ElementId of the surface to create a vector from.  Get this from AnalysisZones > CreateFrom* > SurfaceIds output list</param>
         /// <returns></returns>
-        public static Autodesk.DesignScript.Geometry.Vector AnalysisSurfaceVector(ElementId SurfaceId = null)
+        public static Autodesk.DesignScript.Geometry.Vector AnalysisSurfaceVector(ElementId SurfaceId)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
