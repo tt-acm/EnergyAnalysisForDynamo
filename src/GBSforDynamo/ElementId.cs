@@ -17,12 +17,14 @@ namespace GBSforDynamo
         //the revit ID that we are wrapping around.
         private Autodesk.Revit.DB.ElementId internalId;
 
-        //access to the internal ID using an int.
+        /// <summary>
+        /// The int representation of the [Revit] Element Id.
+        /// </summary>
         public int InternalId
         {
-            [IsVisibleInDynamoLibrary(false)]
+            [SupressImportIntoVM]
             get { return internalId.IntegerValue; }
-            [IsVisibleInDynamoLibrary(false)]
+            [SupressImportIntoVM]
             set
             {
                 try
@@ -33,18 +35,25 @@ namespace GBSforDynamo
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("GBSforDynamo internal error - could not find a Revit Element with the specified ElementId.  Here is the exception that was thrown: \n\n" + ex.ToString());
+                    throw new Exception("GBSforDynamo internal error - could not find a Revit Element with the specified ElementId.  Here is the actual exception that was thrown by Revit: \n\n" + ex.ToString());
                 }
             }
         }
 
-        //constructor
-        [IsVisibleInDynamoLibrary(false)]
+        /// <summary>
+        /// New ElementId instance with int input to set the Id
+        /// </summary>
+        /// <param name="id">The int representation of a Revit ElementId</param>
+        [SupressImportIntoVM]
         public ElementId(int id)
         {
             InternalId = id;
         }
-        [IsVisibleInDynamoLibrary(false)]
+
+        /// <summary>
+        /// Default constructor override
+        /// </summary>
+        [SupressImportIntoVM]
         public ElementId() { }
     }
 }

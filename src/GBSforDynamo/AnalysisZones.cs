@@ -189,7 +189,7 @@ namespace GBSforDynamo
             //get references to the faces using the mass - we need these to get at the surface data
             IList<Reference> faceRefs = mea.GetReferencesToAllFaces();
 
-            //some faces share massSurfaceData definitions - here we're pulling out unique data definitions.  not totally sure how this all works yet...
+            //some faces supposedly share massSurfaceData definitions (although i think they are all unique in practice) - here we're pulling out unique data definitions.  
             Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
             foreach (var fr in faceRefs)
             {
@@ -386,7 +386,7 @@ namespace GBSforDynamo
         }
 
         /// <summary>
-        /// Exposes an analysis zone's properties
+        /// Exposes an analysis zone's properties, including the zone's exterior face element ids.
         /// </summary>
         /// <param name="ZoneId">The ElementId of the zone to inspect.  Get this from the AnalysisZones > CreateFrom* > ZoneIds output list</param>
         /// <returns></returns>
@@ -395,8 +395,8 @@ namespace GBSforDynamo
         {
             // local variables
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
-            List<ElementId> faceIds = new List<ElementId>();
             MassZone zone = null;
+            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
             gbXMLConditionType conditionType = gbXMLConditionType.NoConditionType;
             gbXMLSpaceType spaceType = gbXMLSpaceType.NoSpaceType;
 
@@ -412,29 +412,30 @@ namespace GBSforDynamo
                 throw new Exception("Couldn't find a zone object with Id #: " + ZoneId.ToString());
             }
 
-            /*
-            
-            // here I want to get all the external surfaces for the zone but I couldn't figure it out
-
-            // this is the solution 1 which doesn't really work!
-            // there are 3 different ids in MassSurface
-            // 1. referenceID which returns the ID to the MassEnergyAnalyticalMode
-            // 2. Id which is the Id of the surface itself
-            // and finally 3. uniqueId which is a GUID and doesn't help
-            // get analytical model Id
-            ElementId meaID = zone.MassEnergyAnalyticalModelId;
-            
-            // get the mass energy model
-            MassEnergyAnalyticalModel mea = (MassEnergyAnalyticalModel)RvtDoc.GetElement(meaID);
-
-            // get all face references
-            IList<Reference> faceRefs = mea.GetReferencesToAllFaces();
-
-            // this is so confusing but I just trust what you have done so far. Hopefully there is an easier/cleaner way to do this.
-            Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
-            foreach (var fr in faceRefs)
+            //get external faces belonging to this zone
+            #region Get faces belonging to this zone
+		
+            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
+            try
             {
-                ElementId id = mea.GetMassSurfaceDataIdForReference(fr);
+                myEnergyModelId = zone.MassEnergyAnalyticalModelId;
+                if (myEnergyModelId == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + zone.MassEnergyAnalyticalModelId.ToString());
+            }
+
+            //some faces supposedly share massSurfaceData definitions (although i think they are all unique in practice) - here we're pulling out unique data definitions.  
+            Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
+
+            //get references to all of the faces
+            IList<Reference> faceRefs = zone.GetReferencesToEnergyAnalysisFaces();
+            foreach (var faceRef in faceRefs)
+            {
+                //get the element ID of the MassSurfaceData object associated with this face
+                Autodesk.Revit.DB.ElementId id = zone.GetMassDataElementIdForZoneFaceReference(faceRef);
+                //add it to our dict if it isn't already there
                 if (!mySurfaceData.ContainsKey(id.IntegerValue))
                 {
                     MassSurfaceData d = (MassSurfaceData)RvtDoc.GetElement(id);
@@ -445,23 +446,16 @@ namespace GBSforDynamo
             //filter by category = mass exterior wall
             var allSurfsList = mySurfaceData.Values.ToList();
             var extSurfList = from n in allSurfsList
-                              where n.Category.Name == "Mass Exterior Wall" && n.ReferenceElementId == ZoneId
+                              where n.Category.Name == "Mass Exterior Wall"
                               select n;
 
+            //list of element Ids to wrap and output
+            List<Autodesk.Revit.DB.ElementId> surfaceIds = extSurfList.Select(e => e.Id).ToList();
 
-            // this is solution two that doesn't work either. face.ElementId returns zoneID and face.LinkedElementId returns -1!
-
-            IList<Reference> analysisFaces = zone.GetReferencesToEnergyAnalysisFaces();
-            
-            // collect id of surfaces
-            foreach (var face in analysisFaces)
-            {   
-                if (face.LinkedElementId != null) //face element IDs are identical with zoneID!
-                {   
-                    faceIds.Add(face.LinkedElementId);
-                }
-            }
-            */
+            //loop over the output lists, and wrap them in our ElementId wrapper class
+            List<ElementId> outSurfaceIds = surfaceIds.Select(e => new ElementId(e.IntegerValue)).ToList();
+ 
+	        #endregion
 
             // assign condition type
             conditionType = zone.ConditionType;
@@ -472,7 +466,7 @@ namespace GBSforDynamo
             // return outputs
             return new Dictionary<string, object>
             {
-                {"SurfaceIds", faceIds},
+                {"SurfaceIds", outSurfaceIds},
                 {"SpaceType", spaceType},
                 {"conditionType", conditionType}
             };
