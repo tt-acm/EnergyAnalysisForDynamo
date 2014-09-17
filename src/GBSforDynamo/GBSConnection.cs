@@ -107,7 +107,7 @@ namespace GBSforDynamo
             //Check if the project exists
             if (IsProjectExisting(ProjectTitle))
             {
-                throw new Exception("The project is already existing project. Use Get Project List Node to get the GBS projects' attributes");
+                throw new Exception(ProjectTitle + " is already existing project. Use Get Project List Node to get the GBS projects' attributes");
             }
 
             //Output variable
@@ -122,8 +122,16 @@ namespace GBSforDynamo
             EnergyDataSettings myEnergySettings = Autodesk.Revit.DB.Analysis.EnergyDataSettings.GetFromDocument(RvtDoc);
 
             // get BuildingType and ScheduleId from document
-            int BuildingTypeId = (int)myEnergySettings.BuildingType;
-            int ScheduleId = (int)myEnergySettings.BuildingOperatingSchedule;
+            // Remap Revit enum/values to GBS enum/ values
+            string RvtBldgtype = Enum.GetName(typeof(gbXMLBuildingType), myEnergySettings.BuildingType);
+            int BuildingTypeId = RemapBldgType(RvtBldgtype);
+            // this for comparison
+            int RvtBuildingTypeId = (int)myEnergySettings.BuildingType;
+
+            // Lets set the schedule ID to 1 for now
+            //int ScheduleId = (int)myEnergySettings.BuildingOperatingSchedule;
+            int ScheduleId = 1;
+
 
             // Angles are in Rdaians when coming from revit API
             // Convert to lat & lon values 
@@ -887,16 +895,72 @@ namespace GBSforDynamo
             string result = reader.ReadToEnd();
             List<Project> projectList = DataContractJsonDeserialize<List<Project>>(result);
 
-            var Iprojects = from project in projectList
-                            where project.Title == NewProjectName
-                            select project;
 
-            if (Iprojects != null) 
+            try
             {
-                IsExisting = true;
+                var project = (from pr in projectList
+                              where pr.Title == NewProjectName
+                              select pr).First();
+
+                if (project != null)
+                {
+                    IsExisting = true;
+                }
+
+            }
+            catch (Exception)
+            {
+
             }
 
             return IsExisting;
+        }
+
+
+        // Remap Revit Building type to GBS 
+        private static int RemapBldgType(string RvtBldType)
+        {
+            int GBSBldgEnum = 1;
+
+            // Initiate the Revit Auth
+            InitRevitAuthProvider();
+
+
+            // Get Building Types
+
+            // Request 
+            string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.GetBuildingTypesUri, "json");
+
+            HttpWebResponse response = (HttpWebResponse)_CallGetApi(requestUri);
+            Stream responseStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(responseStream);
+            string result = reader.ReadToEnd();
+
+            List<DataContracts.BuildingType> buildingTypeList = DataContractJsonDeserialize<List<DataContracts.BuildingType>>(result);
+
+            DataContracts.BuildingType bldgType;
+
+            try
+            {
+                bldgType = (from BldType in buildingTypeList
+                                where BldType.BuildingTypeName == RvtBldType
+                                select BldType).First();
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+
+
+            if (bldgType != null)
+	        {
+                GBSBldgEnum = bldgType.BuildingTypeId;
+	        }
+            
+
+            return GBSBldgEnum;
+        
         }
 
         #region API Web Requests
