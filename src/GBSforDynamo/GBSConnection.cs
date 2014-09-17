@@ -130,7 +130,7 @@ namespace GBSforDynamo
 
             // Lets set the schedule ID to 1 for now
             //int ScheduleId = (int)myEnergySettings.BuildingOperatingSchedule;
-            int ScheduleId = 1;
+            int ScheduleId = RemapScheduleType((int)myEnergySettings.BuildingOperatingSchedule);
 
 
             // Angles are in Rdaians when coming from revit API
@@ -948,8 +948,7 @@ namespace GBSforDynamo
             }
             catch (Exception)
             {
-                
-                throw;
+                throw new Exception("The Building Type is not defined in GBS");
             }
 
 
@@ -960,6 +959,64 @@ namespace GBSforDynamo
             
 
             return GBSBldgEnum;
+        
+        }
+
+        //Remap Revit Operating Schedule to GBS __ This is slopy mapping ! 
+        private static int RemapScheduleType(int RvtSchdlType)
+        {
+            int gbsSchdlTyp = 1; // default
+
+            if (RvtSchdlType == 0) // Default
+            {
+                gbsSchdlTyp = 1;
+            }
+            else if (RvtSchdlType == 1) //TwentyFourHourSevenDayFacility 24/7
+            {
+                gbsSchdlTyp = 2;
+            }
+            else if (RvtSchdlType == 2) // TwentyFourHourSixDayFacility 24/6
+            {
+                gbsSchdlTyp = 3;
+            }
+            else if (RvtSchdlType == 3) // TwentyFourHourHourFiveDayFacility 24/5
+            {
+                gbsSchdlTyp = 4;
+            }
+            else if (RvtSchdlType == 4) // TwelveHourSevenDayFacility 12/7
+            {
+                gbsSchdlTyp = 5;
+            }
+            else if (RvtSchdlType == 5) // TwelveHourSixDayFacility 12/6
+            {
+                gbsSchdlTyp = 6;
+            }
+            else if (RvtSchdlType == 6) // TwelveHourFiveDayFacility 12/5
+            {
+                gbsSchdlTyp = 7;
+            }
+            else if (RvtSchdlType == 7) // KindergartenThruTwelveGradeSchool k12
+            {
+                gbsSchdlTyp = 8;
+            }
+            else if (RvtSchdlType == 8) // YearRoundSchool
+            {
+                gbsSchdlTyp = 9;
+            }
+            else if (RvtSchdlType == 9) //TheaterPerformingArts
+            {
+                gbsSchdlTyp = 10;
+            }
+            else if (RvtSchdlType == 10) // Worship
+            {
+                gbsSchdlTyp = 11;
+            }
+            else if (RvtSchdlType == 11) //NON
+            {
+                gbsSchdlTyp = 1;
+            }
+
+            return gbsSchdlTyp;
         
         }
 
