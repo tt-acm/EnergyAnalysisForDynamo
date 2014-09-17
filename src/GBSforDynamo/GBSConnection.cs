@@ -104,6 +104,12 @@ namespace GBSforDynamo
         [MultiReturn("ProjectId")]
         public static Dictionary<string, int> CreateNewProject(string ProjectTitle)
         {
+            //Check if the project exists
+            if (IsProjectExisting(ProjectTitle))
+            {
+                throw new Exception("The project is already existing project. Use Get Project List Node to get the GBS projects' attributes");
+            }
+
             //Output variable
             int newProjectId = 0;
 
@@ -862,6 +868,36 @@ namespace GBSforDynamo
             revitAuthProvider = revitAuthProvider ?? new RevitAuthProvider(SynchronizationContext.Current);
         }
 
+
+
+        // Check if the Project has been already created
+        private static bool IsProjectExisting(string NewProjectName) // true the project is existing, false is a new project
+        {
+            bool IsExisting = false; 
+
+            // Initiate the Revit Auth
+            InitRevitAuthProvider();
+
+            // Request 
+            string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.GetProjectList, "json");
+
+            HttpWebResponse response = (HttpWebResponse)_CallGetApi(requestUri);
+            Stream responseStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(responseStream);
+            string result = reader.ReadToEnd();
+            List<Project> projectList = DataContractJsonDeserialize<List<Project>>(result);
+
+            var Iprojects = from project in projectList
+                            where project.Title == NewProjectName
+                            select project;
+
+            if (Iprojects != null) 
+            {
+                IsExisting = true;
+            }
+
+            return IsExisting;
+        }
 
         #region API Web Requests
 
