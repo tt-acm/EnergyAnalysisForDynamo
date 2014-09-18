@@ -3,7 +3,7 @@ GBSforDynamo
 
 GBSforDynamo is a parametric interface for [Autodesk Green Building Studio](https://gbs.autodesk.com/GBS/), built on top of [Dynamo](http://dynamobim.org/) and [Vasari](http://autodeskvasari.com/)/[Revit](http://www.autodesk.com/products/revit-family/overview).  The project will enable parametric energy modeling and whole-building energy analysis workflows in Dynamo 0.7.2 and Vasari/Revit.
 
-The project is being developed in C# using Visual Studio, and will work with Dynamo 0.7.2, and Vasari Beta 3.0 and/or Revit 2014.  The project consists of two libraries; one is a zero-touch library containing most of the nodes, the other is a UI library containing nodes with dropdown elements.  
+The project is being developed in C# using Visual Studio, and will work with Dynamo 0.7.2, and Vasari Beta 3.0 and/or Revit 2014.  The project consists of two libraries; one is a [zero-touch library](https://github.com/DynamoDS/Dynamo/wiki/Zero-Touch-Plugin-Development) containing most of the nodes, the other is a UI library containing a few nodes with dropdown elements.  
 
 
 We are developing nodes in three main categories:
