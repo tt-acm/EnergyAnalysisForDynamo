@@ -1,8 +1,6 @@
-<Workspace Version="0.7.2.16963" X="-1261.51226442354" Y="-256.335995555351" zoom="0.645028222336702" Description="" Category="" Name="Home">
+<Workspace Version="0.7.2.17586" X="-1356.23609140599" Y="-300.767754651323" zoom="0.787327545950247" Description="" Category="" Name="Home">
   <Elements>
-    <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="805473f9-662e-4e0b-bc1c-bfa37ffbd3be" nickname="Select Model Element" x="1851.06903146706" y="739.562756831236" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <instance id="46f097b2-3884-4c7a-8ad5-1a0d1d01aba0-0002cf8f" />
-    </Dynamo.Nodes.DSModelElementSelection>
+    <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="805473f9-662e-4e0b-bc1c-bfa37ffbd3be" nickname="Select Model Element" x="1851.06903146706" y="739.562756831236" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="eb5956a3-bbe1-48e6-883b-6badbce6d8a7" nickname="AnalysisZones.CreateFromMass" x="2101.02885625139" y="739.621384900586" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.CreateFromMass@Revit.Elements.AbstractFamilyInstance" />
     <DSCore.File.Filename type="DSCore.File.Filename" guid="006cfa8a-373d-4b13-9f3a-9a3576e182ee" nickname="File Path" x="2281.59835494946" y="605.876272157752" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.String>C:\Users\MSadeghipourroudsari\Desktop\test2.XML</System.String>
@@ -24,5 +22,9 @@
     <Dynamo.Models.ConnectorModel start="4f626702-e815-485d-a44e-af2ceebeb691" start_index="0" end="9279dbc4-8215-48a0-af29-cfbda9e67ce2" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="4f626702-e815-485d-a44e-af2ceebeb691" start_index="1" end="b300e0cd-2676-4c5d-ab97-faaa7b61fc1b" end_index="0" portType="0" />
   </Connectors>
-  <Notes />
+  <Notes>
+    <Dynamo.Models.NoteModel text="1. Select Mass from Revit/Vasari document" x="1844.18846616736" y="534.895625078357" />
+    <Dynamo.Models.NoteModel text="2. Set the file path and name of gbXML file &amp; Selects Zones to be compiled " x="2287.86684785263" y="530.047845741973" />
+    <Dynamo.Models.NoteModel text="3. Compile gbXML from selected Zones only" x="2691.31380581069" y="542.692486849361" />
+  </Notes>
 </Workspace>
