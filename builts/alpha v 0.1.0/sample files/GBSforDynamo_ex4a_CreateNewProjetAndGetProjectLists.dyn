@@ -1,0 +1,25 @@
+<Workspace Version="0.7.2.17586" X="-45.8426632557662" Y="167.550968984861" zoom="0.83507775052218" Description="" Category="" Name="Home">
+  <Elements>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="093484c0-85a9-460d-9bda-0cceea37d12d" nickname="GBSConnection.CreateNewProject" x="510.150746324475" y="72.0433720134779" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.GBSConnection.CreateNewProject@string" />
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="04f8115f-66b4-4fce-9d70-0ae67dfca8ec" nickname="Code Block" x="159.592136547261" y="64.8140183466369" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;TestNewProjectfromDynamo&quot;;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="ecd60d03-7b77-477c-89ea-374c45e90584" nickname="GBSConnection.GetProjectLists" x="480.855381499332" y="371.942581307722" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.GBSConnection.GetProjectLists@bool">
+      <PortInfo index="0" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="d5b5f019-7105-4565-832d-cee8036e0a30" nickname="Boolean" x="262.681056060283" y="371.143407954465" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>False</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="f22bcead-e67b-467a-aa2d-6b94785f3ea2" nickname="EnergySettings.GetEnergySettings" x="848.464539325348" y="16.5453587274361" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.EnergySettings.GetEnergySettings" />
+    <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="66ba3b24-6896-4aa1-9443-994108cdf251" nickname="Watch" x="1141.59485856446" y="15.8316924580405" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="2fb31c37-4c9b-489d-af90-a5c6f86f04e7" nickname="Watch" x="1139.39316764015" y="124.28130252218" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="04f8115f-66b4-4fce-9d70-0ae67dfca8ec" start_index="0" end="093484c0-85a9-460d-9bda-0cceea37d12d" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="d5b5f019-7105-4565-832d-cee8036e0a30" start_index="0" end="ecd60d03-7b77-477c-89ea-374c45e90584" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="f22bcead-e67b-467a-aa2d-6b94785f3ea2" start_index="0" end="66ba3b24-6896-4aa1-9443-994108cdf251" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="f22bcead-e67b-467a-aa2d-6b94785f3ea2" start_index="4" end="2fb31c37-4c9b-489d-af90-a5c6f86f04e7" end_index="0" portType="0" />
+  </Connectors>
+  <Notes>
+    <Dynamo.Models.NoteModel text="Create New GBS Project&#xD;&#xA;Building Type and Operating Schedule Type will be read from Energy Settings of the current Revit/ Vasari document" x="381.469040162436" y="-72.252229212279" />
+    <Dynamo.Models.NoteModel text="Get List of GBS Projects " x="370.590124918508" y="295.242605563675" />
+  </Notes>
+</Workspace>

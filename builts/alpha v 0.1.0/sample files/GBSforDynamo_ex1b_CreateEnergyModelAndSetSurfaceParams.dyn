@@ -1,0 +1,52 @@
+<Workspace Version="0.7.2.17586" X="-217.144883573086" Y="-112.568414533854" zoom="0.848807039122759" Description="" Category="" Name="Home">
+  <Elements>
+    <DSRevitNodesUI.Levels type="DSRevitNodesUI.Levels" guid="709e9346-2a23-48aa-8000-42d54f27ee54" nickname="Levels" x="490" y="522" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0" />
+    <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="477cd4a4-3747-4eeb-8717-62056f9087ab" nickname="Select Model Element" x="490" y="425" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="66e0ec22-210b-4f07-b874-a7f2d0da851e" nickname="AnalysisZones.CreateFromMassAndLevels" x="759" y="423" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.CreateFromMassAndLevels@Revit.Elements.AbstractFamilyInstance,Revit.Elements.Element[]" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="2b805991-ed36-4372-b305-10f3ce51cd7f" nickname="AnalysisZones.SetSurfaceParameters" x="1695.15427517495" y="688.386720439122" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.SetSurfaceParameters@GBSforDynamo.ElementId,double,double,double,string">
+      <PortInfo index="1" default="True" />
+      <PortInfo index="2" default="True" />
+      <PortInfo index="3" default="True" />
+      <PortInfo index="4" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="c959af21-eddf-4a3e-a633-4d7dcb99aa33" nickname="AnalysisZones.DrawAnalysisSurface" x="1216.60532841497" y="400.052922332924" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\GBSforDynamo\bin\GBSforDynamo.dll" function="GBSforDynamo.AnalysisZones.DrawAnalysisSurface@GBSforDynamo.ElementId" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="4ed6b6d3-f97b-4b30-85f3-4d5c30a5ec92" nickname="List.GetItemAtIndex" x="1522.93568644607" y="424.548973339123" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
+    <Dynamo.Nodes.IntegerSlider type="Dynamo.Nodes.IntegerSlider" guid="93806cc9-c700-4b86-8f31-292fdf058396" nickname="Surface Index" x="963.796281061173" y="636.344202651583" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Int32>6</System.Int32>
+      <Range min="0" max="10" />
+    </Dynamo.Nodes.IntegerSlider>
+    <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="f4b472cb-7f0e-487d-8ff3-1b951d0a9f8b" nickname="Glazing %" x="965.208249256589" y="739.41788091698" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double>0.7</System.Double>
+      <Range min="0.2" max="0.8" />
+    </Dynamo.Nodes.DoubleSlider>
+    <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="9299930a-564d-4996-9ef1-2ad42f4e86cd" nickname="Shading Depth" x="961.222086544904" y="835.431718205295" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double>3</System.Double>
+      <Range min="0.2" max="3" />
+    </Dynamo.Nodes.DoubleSlider>
+    <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="f996a98e-44f0-44c0-9086-7ca30a646454" nickname="Sill Height" x="961.471828419468" y="937.093428275276" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double>0.386</System.Double>
+      <Range min="0" max="5" />
+    </Dynamo.Nodes.DoubleSlider>
+    <GBSforDynamo.ConcConstTypeDropdown type="GBSforDynamo.ConcConstTypeDropdown" guid="eb835c74-ec47-4129-ac84-928548bd4564" nickname="Conceptual Construction Types Dropdown" x="959.560376474923" y="1047.22694751775" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="fef977d6-c403-4a2e-ae1e-212b28b710c2" nickname="List.GetItemAtIndex" x="1523.18542832063" y="557.273983708265" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="709e9346-2a23-48aa-8000-42d54f27ee54" start_index="0" end="66e0ec22-210b-4f07-b874-a7f2d0da851e" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="477cd4a4-3747-4eeb-8717-62056f9087ab" start_index="0" end="66e0ec22-210b-4f07-b874-a7f2d0da851e" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="66e0ec22-210b-4f07-b874-a7f2d0da851e" start_index="2" end="fef977d6-c403-4a2e-ae1e-212b28b710c2" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="66e0ec22-210b-4f07-b874-a7f2d0da851e" start_index="2" end="c959af21-eddf-4a3e-a633-4d7dcb99aa33" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="c959af21-eddf-4a3e-a633-4d7dcb99aa33" start_index="0" end="4ed6b6d3-f97b-4b30-85f3-4d5c30a5ec92" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="93806cc9-c700-4b86-8f31-292fdf058396" start_index="0" end="fef977d6-c403-4a2e-ae1e-212b28b710c2" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="93806cc9-c700-4b86-8f31-292fdf058396" start_index="0" end="4ed6b6d3-f97b-4b30-85f3-4d5c30a5ec92" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="f4b472cb-7f0e-487d-8ff3-1b951d0a9f8b" start_index="0" end="2b805991-ed36-4372-b305-10f3ce51cd7f" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="9299930a-564d-4996-9ef1-2ad42f4e86cd" start_index="0" end="2b805991-ed36-4372-b305-10f3ce51cd7f" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="f996a98e-44f0-44c0-9086-7ca30a646454" start_index="0" end="2b805991-ed36-4372-b305-10f3ce51cd7f" end_index="3" portType="0" />
+    <Dynamo.Models.ConnectorModel start="fef977d6-c403-4a2e-ae1e-212b28b710c2" start_index="0" end="2b805991-ed36-4372-b305-10f3ce51cd7f" end_index="0" portType="0" />
+  </Connectors>
+  <Notes>
+    <Dynamo.Models.NoteModel text="1. Select Mass element from Revit/Vasari document" x="448.672242570615" y="305.834375638497" />
+    <Dynamo.Models.NoteModel text="2. Create Analysis Zones From Mass and Levels" x="778.68189800051" y="306.021966573869" />
+    <Dynamo.Models.NoteModel text="3. Draw Surfaces " x="1275.32781464905" y="306.735019575514" />
+    <Dynamo.Models.NoteModel text="4. Set Surface parameters" x="1785.73972096494" y="309.282638567832" />
+  </Notes>
+</Workspace>
