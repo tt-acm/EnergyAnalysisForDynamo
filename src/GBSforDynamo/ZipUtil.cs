@@ -93,9 +93,34 @@ namespace GBSforDynamo
             XmlDocument doc = new XmlDocument();
             doc.Load(fullname);
 
-            XmlNamespaceManager nsmgr = new XmlNamespaceManager(doc.NameTable);
+            // EE: There must be a shorter way !
+            XmlNode node = doc.DocumentElement;
+            foreach (XmlNode node1 in node.ChildNodes)
+            {
+                foreach (XmlNode node2 in node1.ChildNodes)
+                {
+                    if (node2.Name == "ProgramInfo")
+                    {
+                        foreach (XmlNode childnode in node2.ChildNodes)
+                        {
+                            if (childnode.Name == "ProductName")
+                            {
+                                if (!childnode.InnerText.Contains("Dynamo"))
+                                {
+                                    string productname = "Dynamo _ " + childnode.InnerText;
+                                    childnode.InnerText = productname; 
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            XmlNamespaceManager nsmgr = new XmlNamespaceManager(doc.NameTable); 
             nsmgr.AddNamespace("gbx", doc.DocumentElement.Attributes["xmlns"].Value);
 
+            
             MemoryStream ms = new MemoryStream();
             doc.Save(ms);
             ms.Position = 0;

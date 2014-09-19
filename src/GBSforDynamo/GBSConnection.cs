@@ -227,11 +227,41 @@ namespace GBSforDynamo
 
             RvtDoc.Export(Folder, FileName, gbXmlExportOptions);
 
+
             // if the file exists return success message if not return failed message
             string path = Path.Combine(Folder, FileName + ".xml");
 
             if (System.IO.File.Exists(path))
             {
+                // Modify the xml Program Info element, aithorize the
+                XmlDocument doc = new XmlDocument();
+                doc.Load(path);
+
+                // EE: There must be a shorter way !
+                XmlNode node = doc.DocumentElement;
+
+                foreach (XmlNode node1 in node.ChildNodes)
+                {
+                    foreach (XmlNode node2 in node1.ChildNodes)
+                    {
+                        if (node2.Name == "ProgramInfo" )
+                        {
+                            foreach (XmlNode childnode in node2.ChildNodes)
+                            {
+                                if (childnode.Name == "ProductName")
+                                {
+                                    string productname = "Dynamo _ " + childnode.InnerText;
+                                    childnode.InnerText = productname;
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+
+                //doc.DocumentElement.Attributes["ProgramInfo"].ChildNodes[1].Value += "Dynamo ";
+                doc.Save(path);
+                
                 IsSuccess = true;
             }
             string message = "Failed to create gbXML file!";
@@ -304,6 +334,32 @@ namespace GBSforDynamo
 
             if (System.IO.File.Exists(path))
             {
+                // Modify the xml Program Info element, aithorize the
+                XmlDocument doc = new XmlDocument();
+                doc.Load(path);
+
+                // EE: There must be a shorter way !
+                XmlNode node = doc.DocumentElement;
+                foreach (XmlNode node1 in node.ChildNodes)
+                {
+                    foreach (XmlNode node2 in node1.ChildNodes)
+                    {
+                        if (node2.Name == "ProgramInfo")
+                        {
+                            foreach (XmlNode childnode in node2.ChildNodes)
+                            {
+                                if (childnode.Name == "ProductName")
+                                {
+                                    string productname = "Dynamo _ " + childnode.InnerText;
+                                    childnode.InnerText = productname;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                doc.Save(path);
+
                 IsSuccess = true;
             }
             string message = "Failed to create gbXML file!";
