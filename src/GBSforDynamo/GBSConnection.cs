@@ -107,7 +107,7 @@ namespace GBSforDynamo
             //Check if the project exists
             if (IsProjectExisting(ProjectTitle))
             {
-                throw new Exception(ProjectTitle + " is already existing project. Use Get Project List Node to get the GBS projects' attributes");
+                throw new Exception(ProjectTitle + " is already an existing project. Try with a another name or use GetProjectList Node to get the existing GBS projects' attributes");
             }
 
             //Output variable
