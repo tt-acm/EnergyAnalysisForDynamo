@@ -180,6 +180,56 @@ namespace EnergyAnalysisForDynamo.Utilities
 
         #region API Web Requests
 
+        /// <summary>
+        /// Turn off MassRuns
+        /// </summary>
+        /// <param name="requestUri"></param>
+        /// <returns></returns>
+        public static bool _TurnOffMassRuns()
+        {
+            // here is a post that may help:
+            // http://autodesk.typepad.com/bpa/2013/05/new-update-on-gbs-adn-api.html
+
+            //Get results Summary of given RunID & AltRunID
+            string requestTurnOffMassRuns = GBSUri.GBSAPIUri + 
+                                     string.Format(APIV1Uri.TurnOffMassRuns);
+
+            // Sign URL using Revit auth
+            var signedRequestUri = revitAuthProvider.SignRequest(requestTurnOffMassRuns, HttpMethod.Put, null);
+
+            // Sign URL using Revit auth
+            // var signedRequestUri = revitAuthProvider.SignRequest(requestTurnOffMassRuns, HttpMethod.Put, null);
+
+            return true;
+            //return signedRequestUri;
+        }
+
+        /*
+        string url = ConfigurationManager.AppSettings["GBSOpenAPIUrl"] + "v1/User/MassRunRight";
+            HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
+            request.Method = "PUT";
+            request.Headers.Add(HttpRequestHeader.Authorization, _oauthBase.GetOAuthHeader(new Uri(url), _consumerKey, _consumerSecret, _tokenSecretData.Token, _tokenSecretData.Secret, "PUT"));
+            request.PreAuthenticate = true;
+            request.ContentType = "application/xml";
+            
+            using (Stream stream = request.GetRequestStream())
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    DataContractSerializer serializer = new DataContractSerializer(typeof(bool));
+                    serializer.WriteObject(ms, enabled);
+                    byte[] postData = ms.ToArray();
+                    stream.Write(postData, 0, postData.Length);
+                }
+                
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                {
+                    reader.ReadToEnd();
+                }
+            }
+        */
+
         public static WebResponse _CallGetApi(string requestUri)
         {
             // Sign URL using Revit auth
