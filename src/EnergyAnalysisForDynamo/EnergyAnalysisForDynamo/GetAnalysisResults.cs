@@ -64,7 +64,7 @@ namespace EnergyAnalysisForDynamo
         /// <returns name="ProjectTitles"> Returns Project Titles in GBS Web Service List.</returns> 
         /// <returns name="ProjectDateAdded"> Returns Project's date of added or created List.</returns> 
         [MultiReturn("ProjectIds", "ProjectTitles", "ProjectDateAdded")]
-        public static Dictionary<string, object> GetProjectLists(bool Connect = false)
+        public static Dictionary<string, object> GetProjectsList(bool Connect = false)
         {
             //Local Output variables 
             List<int> ProjectIds = new List<int>();
@@ -107,7 +107,7 @@ namespace EnergyAnalysisForDynamo
         }
 
 
-        // NODE: GBS_Get Run List
+        // NODE: GBS_Get Run Ids
         /// <summary>
         /// Gets Run List of specific project from GBS Web Service
         /// </summary>
@@ -115,8 +115,8 @@ namespace EnergyAnalysisForDynamo
         /// <returns name = "RunIds"> Returns Run IDs </returns>
         /// <returns name = "AltRunIds"> Returns Alternate Run IDs </returns>
         /// <returns name = "RunNames"> Returns Run Names </returns>
-        [MultiReturn("RunIds", "AltRunIds", "RunNames")]
-        public static Dictionary<string, object> GetRunList(int ProjectId)
+        [MultiReturn("RunNames", "RunIds")]
+        public static Dictionary<string, object> GetRunIds(int ProjectId)
         {
             // Initiate the Revit Auth
             Helper.InitRevitAuthProvider();
@@ -147,6 +147,8 @@ namespace EnergyAnalysisForDynamo
                 }
             }
 
+            /*
+             * Commenting out altRunIds
             // Foreach runId Linq query on Projects Run
             foreach (var runId in runIds)
             {
@@ -169,14 +171,13 @@ namespace EnergyAnalysisForDynamo
                 AltRunIds.Add(altRunIds);
                 RunNames.Add(Names);
             }
-
+            */
 
             //Populate outputs
             return new Dictionary<string, object>
             {
-                { "RunIds", runIds}, // List
-                { "AltRunIds", AltRunIds}, // Array
-                { "RunNames", RunNames} // Array
+                { "RunNames", RunNames}, // Array
+                { "RunIds", runIds} // List
 
             };
 
@@ -191,8 +192,11 @@ namespace EnergyAnalysisForDynamo
         /// <param name="AltRunID"> Input Alternate Id </param>
         /// <returns></returns>
         [MultiReturn("Results", "BuildingType", "Location", "FloorArea", "BuildingSummary")]
-        public static Dictionary<string, object> LoadAnalysisResults(int RunID, int AltRunID = 0)
+        public static Dictionary<string, object> LoadAnalysisResults(int RunID)
         {
+            // Base run
+            int AltRunID = 0;
+
             // Initiate the Revit Auth
             Helper.InitRevitAuthProvider();
 
@@ -393,6 +397,7 @@ namespace EnergyAnalysisForDynamo
             };
         }
 
+ 
         /// <summary>
         /// Gets LEED Section
         /// </summary>
@@ -518,8 +523,11 @@ namespace EnergyAnalysisForDynamo
         /// <param name="resulttype"> Result type gbxml or doe2 or inp </param>
         /// <param name="FilePath"> Set File location to download the file </param>
         /// <returns name="report"> string. </returns>
-        public static string GetEnergyModelFiles(int RunId, int AltRunId, string resulttype, string FilePath) // result type gbxml/doe2/eplus
+        public static string GetEnergyModelFiles(int RunId, string resulttype, string FilePath) // result type gbxml/doe2/eplus
         {
+            // Always return the base run
+            int AltRunId = 0;
+
             // Initiate the Revit Auth
             Helper.InitRevitAuthProvider();
 
@@ -587,5 +595,6 @@ namespace EnergyAnalysisForDynamo
         //    };
 
         //}
+
     }
 }

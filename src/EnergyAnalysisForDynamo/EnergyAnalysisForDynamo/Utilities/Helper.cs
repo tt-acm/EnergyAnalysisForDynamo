@@ -185,50 +185,55 @@ namespace EnergyAnalysisForDynamo.Utilities
         /// </summary>
         /// <param name="requestUri"></param>
         /// <returns></returns>
-        public static bool _TurnOffMassRuns()
+        public static void _TurnOffMassRuns()
         {
-            // here is a post that may help:
+            // If you want to know more about this function read this post
             // http://autodesk.typepad.com/bpa/2013/05/new-update-on-gbs-adn-api.html
 
+            string putString = null;
+            
             //Get results Summary of given RunID & AltRunID
+            string getPermissionToTurnOffMassRuns = GBSUri.GBSAPIUri + 
+                                     string.Format(APIV1Uri.GetMassRunPermission);
+            
             string requestTurnOffMassRuns = GBSUri.GBSAPIUri + 
-                                     string.Format(APIV1Uri.TurnOffMassRuns);
+                                     string.Format(APIV1Uri.TurnOffMassRun);
 
             // Sign URL using Revit auth
-            var signedRequestUri = revitAuthProvider.SignRequest(requestTurnOffMassRuns, HttpMethod.Put, null);
+            var MassRunRequestUri = revitAuthProvider.SignRequest(getPermissionToTurnOffMassRuns, HttpMethod.Get, null);
 
-            // Sign URL using Revit auth
-            // var signedRequestUri = revitAuthProvider.SignRequest(requestTurnOffMassRuns, HttpMethod.Put, null);
+            // Send the request to GBS
+            var request = (HttpWebRequest)System.Net.WebRequest.Create(MassRunRequestUri);
+            request.Method = "GET";
+            // request.PreAuthenticate = true;
+            request.ContentType = "application/xml";
 
-            return true;
-            //return signedRequestUri;
+            // get the response
+            WebResponse response = request.GetResponse();
+
+            // read the response
+            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+            reader.ReadToEnd();
+
+            // Turn it off
+            var UpdateRequestUri = revitAuthProvider.SignRequest(requestTurnOffMassRuns, HttpMethod.Put, null);
+
+            // Send the request to GBS
+            var changeRequest = (HttpWebRequest)System.Net.WebRequest.Create(UpdateRequestUri);
+            changeRequest.Method = "PUT";
+            changeRequest.PreAuthenticate = true;
+            changeRequest.ContentType = "application/xml";
+
+            using (Stream requestStream = changeRequest.GetRequestStream())
+            using (StreamWriter requestWriter = new StreamWriter(requestStream))
+            {
+                requestWriter.Write(putString);
+            }
+
+            // get response
+            WebResponse changeResponse = changeRequest.GetResponse();
         }
 
-        /*
-        string url = ConfigurationManager.AppSettings["GBSOpenAPIUrl"] + "v1/User/MassRunRight";
-            HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
-            request.Method = "PUT";
-            request.Headers.Add(HttpRequestHeader.Authorization, _oauthBase.GetOAuthHeader(new Uri(url), _consumerKey, _consumerSecret, _tokenSecretData.Token, _tokenSecretData.Secret, "PUT"));
-            request.PreAuthenticate = true;
-            request.ContentType = "application/xml";
-            
-            using (Stream stream = request.GetRequestStream())
-            {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    DataContractSerializer serializer = new DataContractSerializer(typeof(bool));
-                    serializer.WriteObject(ms, enabled);
-                    byte[] postData = ms.ToArray();
-                    stream.Write(postData, 0, postData.Length);
-                }
-                
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
-                {
-                    reader.ReadToEnd();
-                }
-            }
-        */
 
         public static WebResponse _CallGetApi(string requestUri)
         {

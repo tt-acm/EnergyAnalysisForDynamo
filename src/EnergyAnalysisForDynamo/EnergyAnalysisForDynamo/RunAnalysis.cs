@@ -81,6 +81,9 @@ namespace EnergyAnalysisForDynamo
             // 1. Initiate the Revit Auth
             Helper.InitRevitAuthProvider();
 
+            // 1.1 Turn off MassRuns
+            Helper._TurnOffMassRuns();
+
             // 2. Create A Base Run
             string requestCreateBaseRunUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateBaseRunUri, "xml");
 

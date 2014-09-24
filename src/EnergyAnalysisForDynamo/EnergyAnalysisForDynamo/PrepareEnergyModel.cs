@@ -145,7 +145,7 @@ namespace EnergyAnalysisForDynamo
         /// <param name="Levels">A list of levels to create mass floors with</param>
         /// <returns></returns>
         [MultiReturn("MassFamilyInstance", "ZoneIds", "SurfaceIds")]
-        public static Dictionary<string, object> CreateFromMassAndLevels(AbstractFamilyInstance MassFamilyInstance, List<Revit.Elements.Element> Levels)
+        public static Dictionary<string, object> CreateEnergyModelFromMassAndLevels(AbstractFamilyInstance MassFamilyInstance, List<Revit.Elements.Element> Levels)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
@@ -266,7 +266,7 @@ namespace EnergyAnalysisForDynamo
         /// <param name="MassFamilyInstance">The conceptual mass family instance to create zones from</param>
         /// <returns></returns>
         [MultiReturn("MassFamilyInstance", "ZoneIds", "SurfaceIds")]
-        public static Dictionary<string, object> CreateFromMass(AbstractFamilyInstance MassFamilyInstance)
+        public static Dictionary<string, object> CreateEnergyModelFromMass(AbstractFamilyInstance MassFamilyInstance)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
@@ -345,10 +345,10 @@ namespace EnergyAnalysisForDynamo
         /// <summary>
         /// Exposes an analysis zone's properties, including the zone's exterior face element ids.
         /// </summary>
-        /// <param name="ZoneId">The ElementId of the zone to inspect.  Get this from the AnalysisZones > CreateFrom* > ZoneIds output list</param>
+        /// <param name="ZoneId">The ElementId of the zone to inspect.  Get this from the PrepareEnergyModel > CreateFrom* > ZoneIds output list</param>
         /// <returns></returns>
         [MultiReturn("SurfaceIds", "SpaceType", "conditionType")]
-        public static Dictionary<string, object> DecomposeMassZone(ElementId ZoneId)
+        public static Dictionary<string, object> DecomposeZone(ElementId ZoneId)
         {
             // local variables
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
