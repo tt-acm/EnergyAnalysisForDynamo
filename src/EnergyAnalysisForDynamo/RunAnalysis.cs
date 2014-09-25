@@ -64,9 +64,10 @@ namespace EnergyAnalysisForDynamo
         /// </summary>
         /// <param name="ProjectId"> Input Project ID </param>
         /// <param name="gbXMLPath"> Input file path of gbXML File </param>
+        /// <param name="ExecuteParametricRuns"> Set to true to execute parametric runs. You can read more about parametric runs here: http://autodesk.typepad.com/bpa/ </param>
         /// <returns></returns>
         [MultiReturn("RunId")]
-        public static Dictionary<string, int> RunEnergyAnalysis(int ProjectId, string gbXMLPath)
+        public static Dictionary<string, int> RunEnergyAnalysis(int ProjectId, string gbXMLPath, bool ExecuteParametricRuns = false)
         {
             // Make sure the given file is an .xml
             string extention = Path.GetExtension(gbXMLPath);
@@ -82,7 +83,7 @@ namespace EnergyAnalysisForDynamo
             Helper.InitRevitAuthProvider();
 
             // 1.1 Turn off MassRuns
-            Helper._TurnOffMassRuns();
+            Helper._ExecuteMassRuns(ExecuteParametricRuns, ProjectId);
 
             // 2. Create A Base Run
             string requestCreateBaseRunUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateBaseRunUri, "xml");

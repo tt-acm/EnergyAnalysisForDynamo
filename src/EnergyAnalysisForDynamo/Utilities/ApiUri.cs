@@ -30,8 +30,8 @@ namespace EnergyAnalysisForDynamo.Utilities
         internal static string GetRunStatus = @"/v1/run/status/{0}/{1}/{2}";// 0 = runId, 1 =altrunid, 2 = response format xml/json
         internal static string GetRunResultsUri = @"/v1/run/results/{0}/{1}/{2}"; // 0 = runId, 1 = altRunId, 2=response payload (gbxml||doe2)
         internal static string GetRunSummaryResultsUri = @"/v1/run/results/summary/{0}/{1}/{2}"; // 0 = runId, 1 = altRunId, response format xml/json
-        internal static string GetMassRunPermission = @"/v1/User/MassRunRight";
-        internal static string TurnOffMassRun = @"/v1/User/MassRunRight";
+        internal static string ControlMassRunInUserLevel = @"/v1/User/MassRunRight";
+        internal static string ControlMassRunInProjectLevel = @"/v1/Project/{0}/MassRunRight"; // 0 = projectId
 
     }
 

@@ -17,11 +17,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\EnergyAnalysisForDynamo.XML</DocumentationFile>
+    <DocumentationFile>bin\EnergyAnalysisForDynamo.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\EnergyAnalysisForDynamo.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DSCoreNodesUI">
@@ -53,8 +54,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="EnergyAnalysisforDynamoAuthHelper">
-      <HintPath>..\..\packages\EnergyAnalysisforDynamoAuthHelper.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EnergyAnalysisforDynamoAuthHelper.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

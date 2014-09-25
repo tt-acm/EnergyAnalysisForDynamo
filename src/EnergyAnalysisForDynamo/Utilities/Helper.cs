@@ -181,26 +181,21 @@ namespace EnergyAnalysisForDynamo.Utilities
         #region API Web Requests
 
         /// <summary>
-        /// Turn off MassRuns
+        /// Turn on and off MassRuns in project level
         /// </summary>
         /// <param name="requestUri"></param>
         /// <returns></returns>
-        public static void _TurnOffMassRuns()
-        {
+        public static void _ExecuteMassRuns(bool Run = true, int ProjectId = 0)
+        {   
             // If you want to know more about this function read this post
             // http://autodesk.typepad.com/bpa/2013/05/new-update-on-gbs-adn-api.html
 
-            string putString = null;
-            
             //Get results Summary of given RunID & AltRunID
-            string getPermissionToTurnOffMassRuns = GBSUri.GBSAPIUri + 
-                                     string.Format(APIV1Uri.GetMassRunPermission);
+            string ControlMassRuns = GBSUri.GBSAPIUri + 
+                                     string.Format(APIV1Uri.ControlMassRunInProjectLevel, ProjectId.ToString());
             
-            string requestTurnOffMassRuns = GBSUri.GBSAPIUri + 
-                                     string.Format(APIV1Uri.TurnOffMassRun);
-
             // Sign URL using Revit auth
-            var MassRunRequestUri = revitAuthProvider.SignRequest(getPermissionToTurnOffMassRuns, HttpMethod.Get, null);
+            var MassRunRequestUri = revitAuthProvider.SignRequest(ControlMassRuns, HttpMethod.Get, null);
 
             // Send the request to GBS
             var request = (HttpWebRequest)System.Net.WebRequest.Create(MassRunRequestUri);
@@ -215,23 +210,42 @@ namespace EnergyAnalysisForDynamo.Utilities
             StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
             reader.ReadToEnd();
 
-            // Turn it off
-            var UpdateRequestUri = revitAuthProvider.SignRequest(requestTurnOffMassRuns, HttpMethod.Put, null);
-
+            
+            // Sign URL using Revit auth
+            var MassRunUpdateUri = revitAuthProvider.SignRequest(ControlMassRuns, HttpMethod.Put, null);
+            
             // Send the request to GBS
-            var changeRequest = (HttpWebRequest)System.Net.WebRequest.Create(UpdateRequestUri);
+            var changeRequest = (HttpWebRequest)System.Net.WebRequest.Create(MassRunUpdateUri);
             changeRequest.Method = "PUT";
             changeRequest.PreAuthenticate = true;
             changeRequest.ContentType = "application/xml";
-
+            
             using (Stream requestStream = changeRequest.GetRequestStream())
+
+
             using (StreamWriter requestWriter = new StreamWriter(requestStream))
             {
-                requestWriter.Write(putString);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    DataContractSerializer serializer = new DataContractSerializer((typeof(bool)));
+
+                    serializer.WriteObject(ms, Run);
+
+                    byte[] postData = ms.ToArray();
+                    requestStream.Write(postData, 0, postData.Length);
+                    
+                }
             }
 
             // get response
             WebResponse changeResponse = changeRequest.GetResponse();
+            
+            // read the response
+            //using (StreamReader responseReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+            //{
+            //    responseReader.ReadToEnd();
+            //}
+
         }
 
 
