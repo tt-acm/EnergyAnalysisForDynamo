@@ -1,0 +1,44 @@
+<Workspace Version="0.7.2.16963" X="324.919524838626" Y="60.6110391251689" zoom="0.533626442309908" Description="" Category="" Name="Home">
+  <Elements>
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="2afb2730-f221-4c67-97c2-de43f7bee73a" nickname="RunId" x="408.717451666944" y="138.869261472397" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];" ShouldFocus="false" />
+    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="502f430f-aa33-4f54-9bba-2e9a47bbff1b" nickname="Boolean" x="-485.793800357344" y="111.837102616289" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>True</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="7f4ed103-7b0c-4753-8516-116e1cbf6373" nickname="Select project item" x="-35.5677782045281" y="111.585552481348" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[2];" ShouldFocus="false" />
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="ed46d323-886f-400c-8b6f-9d82b5b74300" nickname="AltId" x="408.717451666944" y="233.025500890335" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="e605e914-62f5-424d-8f91-751a6f807f5e" nickname="GetAnalysisResults.GetProjectsList" x="-319.924818786143" y="112.515145205393" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetProjectsList@bool">
+      <PortInfo index="0" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="1cbf6ea2-b120-4457-b4bc-96e3d298344f" nickname="GetAnalysisResults.GetRunIds" x="105.696188212418" y="118.266780435104" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetRunIds@int" />
+    <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="8209adfe-ce7c-47b3-b897-7d6d3bf734fc" nickname="Watch" x="409.828623528961" y="445.992674893459" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="dc7e8a10-34db-4efc-ab22-ded679cd05c2" nickname="GetAnalysisResults.LoadAnalysisResults" x="580.616925751353" y="145.381632232309" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.LoadAnalysisResults@int,int">
+      <PortInfo index="1" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="66925863-4eae-410e-8296-3875f88091e3" nickname="GetAnalysisResults.GetCarbonNeutralPotential" x="1013.21189443554" y="283.072417488464" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetCarbonNeutralPotential@EnergyAnalysisForDynamo.DataContracts.RunResultSummary" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="4430a1ea-5be1-4c62-bb04-6ad7f80845d7" nickname="GetAnalysisResults.GetEnergyCarbonCostSummary" x="1380.226276484" y="283.072417488464" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetEnergyCarbonCostSummary@EnergyAnalysisForDynamo.DataContracts.RunResultSummary" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="d0b25165-aacc-4f7d-96db-ce6a1ba06c89" nickname="GetAnalysisResults.GetElectricPowerPlantSources" x="1791.37626861303" y="283.072417488464" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetElectricPowerPlantSources@EnergyAnalysisForDynamo.DataContracts.RunResultSummary" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="2afb2730-f221-4c67-97c2-de43f7bee73a" start_index="0" end="dc7e8a10-34db-4efc-ab22-ded679cd05c2" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="502f430f-aa33-4f54-9bba-2e9a47bbff1b" start_index="0" end="e605e914-62f5-424d-8f91-751a6f807f5e" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="7f4ed103-7b0c-4753-8516-116e1cbf6373" start_index="0" end="1cbf6ea2-b120-4457-b4bc-96e3d298344f" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e605e914-62f5-424d-8f91-751a6f807f5e" start_index="0" end="7f4ed103-7b0c-4753-8516-116e1cbf6373" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="1cbf6ea2-b120-4457-b4bc-96e3d298344f" start_index="0" end="8209adfe-ce7c-47b3-b897-7d6d3bf734fc" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="1cbf6ea2-b120-4457-b4bc-96e3d298344f" start_index="1" end="2afb2730-f221-4c67-97c2-de43f7bee73a" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="1cbf6ea2-b120-4457-b4bc-96e3d298344f" start_index="2" end="ed46d323-886f-400c-8b6f-9d82b5b74300" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="dc7e8a10-34db-4efc-ab22-ded679cd05c2" start_index="0" end="66925863-4eae-410e-8296-3875f88091e3" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="dc7e8a10-34db-4efc-ab22-ded679cd05c2" start_index="0" end="4430a1ea-5be1-4c62-bb04-6ad7f80845d7" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="dc7e8a10-34db-4efc-ab22-ded679cd05c2" start_index="0" end="d0b25165-aacc-4f7d-96db-ce6a1ba06c89" end_index="0" portType="0" />
+  </Connectors>
+  <Notes>
+    <Dynamo.Models.NoteModel text="Alt run Id is defaut 0 for Base Model" x="333.649492262018" y="335.266714807496" />
+    <Dynamo.Models.NoteModel text="First you need to load the results for your design option and then use that to get specific results. Check the nodes on the right." x="584.439414838483" y="67.5543064440757" />
+    <Dynamo.Models.NoteModel text="Get Run List of selected Project" x="129.300370698211" y="63.3283643752276" />
+    <Dynamo.Models.NoteModel text="In this example file you can see how you can load the results from Green Building Studio" x="-342.470345466519" y="54.790164407868" />
+    <Dynamo.Models.NoteModel text="Get Carbon Neutral Potential" x="1079.72135589454" y="232.864772110172" />
+    <Dynamo.Models.NoteModel text="Get Energy Carbon Cost Summary " x="1442.19823785698" y="234.776204400888" />
+    <Dynamo.Models.NoteModel text="Get Electric Power Plant Sources" x="1835.73962596786" y="237.122844634028" />
+    <Dynamo.Models.NoteModel text="Select project item" x="-31.4364018274527" y="71.2014676741963" />
+    <Dynamo.Models.NoteModel text="Check run names" x="403.301494308029" y="405.975142428955" />
+  </Notes>
+</Workspace>
