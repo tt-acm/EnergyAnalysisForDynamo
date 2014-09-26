@@ -183,17 +183,21 @@ namespace EnergyAnalysisForDynamo.Utilities
         /// <summary>
         /// Turn on and off MassRuns in project level
         /// </summary>
-        /// <param name="requestUri"></param>
+        /// <param name="Run"></param>
+        /// <param name="ProjectId"></param>
         /// <returns></returns>
         public static void _ExecuteMassRuns(bool Run = true, int ProjectId = 0)
         {   
-            // If you want to know more about this function read this post
+            // For more information eead this post on Autodesk's blog
             // http://autodesk.typepad.com/bpa/2013/05/new-update-on-gbs-adn-api.html
 
-            //Get results Summary of given RunID & AltRunID
+            // Get Uri for updating mass run in project level
+            // You can control mass run either in project level or in user level. The process is similar but the Uri is different.
+            // To update massrun is user level look for APIV1Uri.ControlMassRunInUserLevel
             string ControlMassRuns = GBSUri.GBSAPIUri + 
                                      string.Format(APIV1Uri.ControlMassRunInProjectLevel, ProjectId.ToString());
             
+            // First Get request is to get the permission
             // Sign URL using Revit auth
             var MassRunRequestUri = revitAuthProvider.SignRequest(ControlMassRuns, HttpMethod.Get, null);
 
@@ -207,10 +211,10 @@ namespace EnergyAnalysisForDynamo.Utilities
             WebResponse response = request.GetResponse();
 
             // read the response
-            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-            reader.ReadToEnd();
+            // StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+            // reader.ReadToEnd();
 
-            
+            // Now that we have the permission let's change it based on user's request for this project
             // Sign URL using Revit auth
             var MassRunUpdateUri = revitAuthProvider.SignRequest(ControlMassRuns, HttpMethod.Put, null);
             
@@ -229,6 +233,7 @@ namespace EnergyAnalysisForDynamo.Utilities
                 {
                     DataContractSerializer serializer = new DataContractSerializer((typeof(bool)));
 
+                    // Here we set up the parameters
                     serializer.WriteObject(ms, Run);
 
                     byte[] postData = ms.ToArray();

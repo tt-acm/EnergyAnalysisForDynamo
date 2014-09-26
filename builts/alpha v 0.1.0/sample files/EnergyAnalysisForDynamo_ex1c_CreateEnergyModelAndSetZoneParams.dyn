@@ -1,0 +1,37 @@
+<Workspace Version="0.7.2.16963" X="-162.334421436811" Y="-31.1725094438562" zoom="0.752987929891298" Description="" Category="" Name="Home">
+  <Elements>
+    <DSRevitNodesUI.Levels type="DSRevitNodesUI.Levels" guid="709e9346-2a23-48aa-8000-42d54f27ee54" nickname="Levels" x="509.894853971908" y="382.353504177313" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0" />
+    <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="477cd4a4-3747-4eeb-8717-62056f9087ab" nickname="Select Model Element" x="497.797775762488" y="285.617110879632" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="fef977d6-c403-4a2e-ae1e-212b28b710c2" nickname="List.GetItemAtIndex" x="1265.78985686911" y="307.474069844157" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
+    <Dynamo.Nodes.IntegerSlider type="Dynamo.Nodes.IntegerSlider" guid="93806cc9-c700-4b86-8f31-292fdf058396" nickname="Surface Index" x="1028.76271587859" y="468.624748353365" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Int32>3</System.Int32>
+      <Range min="0" max="10" />
+    </Dynamo.Nodes.IntegerSlider>
+    <GBSforDynamo.SpaceTypeDropdown type="GBSforDynamo.SpaceTypeDropdown" guid="e95b4e84-4cbc-4cbf-a8a8-7574a4a4647a" nickname="Space Types Dropdown" x="842.151026707346" y="727.390038734207" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="95" />
+    <GBSforDynamo.ConditionType type="GBSforDynamo.ConditionType" guid="7aa84c32-3415-4440-98a4-01a911c16def" nickname="Condition Types Dropdown" x="840.72960869859" y="786.89119812935" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="2" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="e0f9cc64-4ddb-44e8-a4f2-974200d63c02" nickname="PrepareEnergyModel.CreateEnergyModelFromMassAndLevels" x="750.841232816303" y="283.000298275796" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.CreateEnergyModelFromMassAndLevels@Revit.Elements.AbstractFamilyInstance,Revit.Elements.Element[]" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="02e7da6b-cb74-43be-b8d5-1b33a3282eed" nickname="PrepareEnergyModel.DecomposeZone" x="1534.81166655895" y="307.638488056279" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DecomposeZone@EnergyAnalysisForDynamo.ElementId" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="8730d5d3-e6f2-429b-9d6a-14fd3c83bedb" nickname="PrepareEnergyModel.DrawAnalysisSurface" x="1842.99007648328" y="305.223225009635" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DrawAnalysisSurface@EnergyAnalysisForDynamo.ElementId" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="4b48e487-5be4-4e8b-bf5b-004ba21f30a2" nickname="PrepareEnergyModel.SetZoneParameters" x="1535.10429939081" y="656.836026469084" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.SetZoneParameters@EnergyAnalysisForDynamo.ElementId,string,string">
+      <PortInfo index="1" default="True" />
+      <PortInfo index="2" default="True" />
+    </Dynamo.Nodes.DSFunction>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="709e9346-2a23-48aa-8000-42d54f27ee54" start_index="0" end="e0f9cc64-4ddb-44e8-a4f2-974200d63c02" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="477cd4a4-3747-4eeb-8717-62056f9087ab" start_index="0" end="e0f9cc64-4ddb-44e8-a4f2-974200d63c02" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="fef977d6-c403-4a2e-ae1e-212b28b710c2" start_index="0" end="4b48e487-5be4-4e8b-bf5b-004ba21f30a2" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="fef977d6-c403-4a2e-ae1e-212b28b710c2" start_index="0" end="02e7da6b-cb74-43be-b8d5-1b33a3282eed" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="93806cc9-c700-4b86-8f31-292fdf058396" start_index="0" end="fef977d6-c403-4a2e-ae1e-212b28b710c2" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e95b4e84-4cbc-4cbf-a8a8-7574a4a4647a" start_index="0" end="4b48e487-5be4-4e8b-bf5b-004ba21f30a2" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="7aa84c32-3415-4440-98a4-01a911c16def" start_index="0" end="4b48e487-5be4-4e8b-bf5b-004ba21f30a2" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e0f9cc64-4ddb-44e8-a4f2-974200d63c02" start_index="1" end="fef977d6-c403-4a2e-ae1e-212b28b710c2" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="02e7da6b-cb74-43be-b8d5-1b33a3282eed" start_index="0" end="8730d5d3-e6f2-429b-9d6a-14fd3c83bedb" end_index="0" portType="0" />
+  </Connectors>
+  <Notes>
+    <Dynamo.Models.NoteModel text="1. Select Mass from Revit/Vasari document" x="443.999382942379" y="235.841027400472" />
+    <Dynamo.Models.NoteModel text="2. This node prepares the energy model and outputs zoneIds and surfaceIds.&#xD;&#xA;Model setting will be inherited from Revits's EnergySetting. You can customize the setting for any zone or surface using SetSurfaceParameters and SetZoneParameters nodes." x="798.210785754071" y="165.264375065118" />
+    <Dynamo.Models.NoteModel text="3. Decompose Zone " x="1584.23337639272" y="239.456641671516" />
+    <Dynamo.Models.NoteModel text="4. Modify Zone Parameter" x="1592.71130187618" y="607.892698056164" />
+  </Notes>
+</Workspace>

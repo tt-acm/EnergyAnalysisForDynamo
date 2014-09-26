@@ -113,9 +113,9 @@ namespace EnergyAnalysisForDynamo
         /// </summary>
         /// <param name="ProjectId"> Input Project ID</param>
         /// <returns name = "RunIds"> Returns Run IDs </returns>
-        /// <returns name = "AltRunIds"> Returns Alternate Run IDs </returns>
+        /// <returns name = "ParametricRunIds"> Returns Alternate Run IDs </returns>
         /// <returns name = "RunNames"> Returns Run Names </returns>
-        [MultiReturn("RunNames", "RunIds")]
+        [MultiReturn("RunNames", "RunIds", "ParametricRunIds")]
         public static Dictionary<string, object> GetRunIds(int ProjectId)
         {
             // Initiate the Revit Auth
@@ -147,8 +147,7 @@ namespace EnergyAnalysisForDynamo
                 }
             }
 
-            /*
-             * Commenting out altRunIds
+            
             // Foreach runId Linq query on Projects Run
             foreach (var runId in runIds)
             {
@@ -171,13 +170,14 @@ namespace EnergyAnalysisForDynamo
                 AltRunIds.Add(altRunIds);
                 RunNames.Add(Names);
             }
-            */
+            
 
             //Populate outputs
             return new Dictionary<string, object>
             {
                 { "RunNames", RunNames}, // Array
-                { "RunIds", runIds} // List
+                { "RunIds", runIds}, // List
+                { "ParametricRunIds", AltRunIds}
 
             };
 
@@ -189,20 +189,17 @@ namespace EnergyAnalysisForDynamo
         /// </summary>
         /// <para> Use .... nodes to parse the Results info of the specific run</para>
         /// <param name="RunID"> Input Run Id </param>
-        /// <param name="AltRunID"> Input Alternate Id </param>
+        /// <param name="ParametricRunID"> Input an Id for one of the parametric runs</param>
         /// <returns></returns>
         [MultiReturn("Results", "BuildingType", "Location", "FloorArea", "BuildingSummary")]
-        public static Dictionary<string, object> LoadAnalysisResults(int RunID)
+        public static Dictionary<string, object> LoadAnalysisResults(int RunID, int ParametricRunID = 0)
         {
-            // Base run
-            int AltRunID = 0;
-
             // Initiate the Revit Auth
             Helper.InitRevitAuthProvider();
 
             //Get results Summary of given RunID & AltRunID
             string requestGetRunSummaryResultsUri = GBSUri.GBSAPIUri +
-                                     string.Format(APIV1Uri.GetRunSummaryResultsUri, RunID, AltRunID, "json");
+                                     string.Format(APIV1Uri.GetRunSummaryResultsUri, RunID, ParametricRunID, "json");
             HttpWebResponse response2 = (HttpWebResponse)Helper._CallGetApi(requestGetRunSummaryResultsUri);
             Stream responseStream2 = response2.GetResponseStream();
             StreamReader reader2 = new StreamReader(responseStream2);
@@ -519,15 +516,12 @@ namespace EnergyAnalysisForDynamo
         /// Download gbXML, inp or idf files from Green Building Studio
         /// </summary>
         /// <param name="RunId"> Input Run ID</param>
-        /// <param name="AltRunId"> Input Alternate Run ID </param>
+        /// <param name="ParametricRunId"> Input ID for one of the parametric runs. Default is set to 0</param>
         /// <param name="resulttype"> Result type gbxml or doe2 or inp </param>
         /// <param name="FilePath"> Set File location to download the file </param>
         /// <returns name="report"> string. </returns>
-        public static string GetEnergyModelFiles(int RunId, string resulttype, string FilePath) // result type gbxml/doe2/eplus
+        public static string GetEnergyModelFiles(int RunId, string resulttype, string FilePath, int ParametricRunId = 0) // result type gbxml/doe2/eplus
         {
-            // Always return the base run
-            int AltRunId = 0;
-
             // Initiate the Revit Auth
             Helper.InitRevitAuthProvider();
 
@@ -536,12 +530,12 @@ namespace EnergyAnalysisForDynamo
 
             // Get result of given RunId
             string requestGetRunResultsUri = GBSUri.GBSAPIUri +
-                                    string.Format(APIV1Uri.GetRunResultsUri, RunId, AltRunId, resulttype);
+                                    string.Format(APIV1Uri.GetRunResultsUri, RunId, ParametricRunId, resulttype);
 
             using (HttpWebResponse response = (HttpWebResponse)Helper._CallGetApi(requestGetRunResultsUri))
             using (Stream stream = response.GetResponseStream())
             {
-                string zipFileName = Path.Combine(FilePath, string.Format("RunResults_{0}_{1}_{2}.zip", RunId, AltRunId, resulttype)); //result type gbxml/doe2/eplus
+                string zipFileName = Path.Combine(FilePath, string.Format("RunResults_{0}_{1}_{2}.zip", RunId, ParametricRunId, resulttype)); //result type gbxml/doe2/eplus
 
                 using (var fs = File.Create(zipFileName))
                 {
