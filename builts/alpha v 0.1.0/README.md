@@ -1,4 +1,4 @@
-GBSforDynamo
+﻿EnergyAnalysisForDynamo
 ============
 
 EnergyAnalysisForDynamo is a parametric interface for [Autodesk Green Building Studio](https://gbs.autodesk.com/GBS/), built on top of [Dynamo](http://dynamobim.org/) and [Vasari](http://autodeskvasari.com/)/[Revit](http://www.autodesk.com/products/revit-family/overview).  The project will enable parametric energy modeling and whole-building energy analysis workflows in Dynamo 0.7.2 and Vasari/Revit.
