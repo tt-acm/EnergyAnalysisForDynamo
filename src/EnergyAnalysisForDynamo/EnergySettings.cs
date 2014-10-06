@@ -30,7 +30,7 @@ namespace EnergyAnalysisForDynamo
         /// Gets existing Energy Data Settings from current document
         /// </summary>
         /// <returns></returns>
-        [MultiReturn("BldgType", "GlzPer", "ShadeDepth", "HvacSystem", "OSchedule")]
+        [MultiReturn("BldgType", "GlzPer", "ShadeDepth", "HVACSystem", "OSchedule")]
         public static Dictionary<string, object> GetEnergySettings()
         {
             // Get current document
@@ -45,7 +45,7 @@ namespace EnergyAnalysisForDynamo
                 { "BldgType", Enum.GetName(typeof(gbXMLBuildingType), es.BuildingType)}, 
                 { "GlzPer",  es.PercentageGlazing}, 
                 { "ShadeDepth",  es.ShadeDepth * UnitConverter.HostToDynamoFactor}, 
-                { "HvacSystem",Enum.GetName(typeof(gbXMLBuildingHVACSystem), es.BuildingHVACSystem)},
+                { "HVACSystem",Enum.GetName(typeof(gbXMLBuildingHVACSystem), es.BuildingHVACSystem)},
                 { "OSchedule",Enum.GetName(typeof(gbXMLBuildingOperatingSchedule), es.BuildingOperatingSchedule)}
             };
 
@@ -63,11 +63,11 @@ namespace EnergyAnalysisForDynamo
         /// <param name="BldgTyp"> Input Building Type </param>
         /// <param name="GlzPer">Input glazing percentage (range: 0 to 1) </param>
         /// <param name="ShadeDepth">Shading Depth, specified as a double.  We assume the double value represents a length using Dynamo's current length unit.</param>
-        /// <param name="HVACsys">Input Building HVAC system</param>
+        /// <param name="HVACSystem">Input Building HVAC system</param>
         /// <param name="OSchedule">Input Building Operating Schedule</param>
         /// <returns></returns>
         [MultiReturn("EnergySettings", "report")]
-        public static Dictionary<string, object> SetEnergySettings(string BldgTyp = "", double GlzPer = 0, double ShadeDepth = 0, string HVACsys = "", string OSchedule = "")
+        public static Dictionary<string, object> SetEnergySettings(string BldgTyp = "", double GlzPer = 0, double ShadeDepth = 0, string HVACSystem = "", string OSchedule = "")
         {
 
             //Get active document
@@ -93,12 +93,12 @@ namespace EnergyAnalysisForDynamo
                 myEnergySettings.BuildingType = type;
             }
 
-            if (!string.IsNullOrEmpty(HVACsys))
+            if (!string.IsNullOrEmpty(HVACSystem))
             {
                 Autodesk.Revit.DB.Analysis.gbXMLBuildingHVACSystem type;
                 try
                 {
-                    type = (Autodesk.Revit.DB.Analysis.gbXMLBuildingHVACSystem)Enum.Parse(typeof(Autodesk.Revit.DB.Analysis.gbXMLBuildingHVACSystem), HVACsys);
+                    type = (Autodesk.Revit.DB.Analysis.gbXMLBuildingHVACSystem)Enum.Parse(typeof(Autodesk.Revit.DB.Analysis.gbXMLBuildingHVACSystem), HVACSystem);
                 }
                 catch (Exception)
                 {
