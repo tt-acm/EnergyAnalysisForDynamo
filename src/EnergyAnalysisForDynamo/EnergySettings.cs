@@ -141,6 +141,7 @@ namespace EnergyAnalysisForDynamo
             else
             {
                 myEnergySettings.IsGlazingShaded = false;
+                myEnergySettings.ShadeDepth = 0;
             }
 
             //done with the transaction 
