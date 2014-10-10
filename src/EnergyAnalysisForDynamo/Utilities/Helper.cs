@@ -11,6 +11,9 @@ using System.Net;
 
 // Revit
 using Autodesk.Revit;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Analysis;
+using RevitServices.Persistence;
 
 //Revit Services
 using RevitServices;
@@ -30,6 +33,94 @@ namespace EnergyAnalysisForDynamo.Utilities
         //RevitAuthProvider
         private static RevitAuthProvider revitAuthProvider;
         
+        // get surface ids from analytical energy model based on type
+        public static List<EnergyAnalysisForDynamo.ElementId> GetSurfaceIdsFromMassEnergyAnalyticalModelBasedOnType(MassEnergyAnalyticalModel MassEnergyAnalyticalModel, string SurfaceTypeName = "Mass Exterior Wall")
+        {
+            
+            //get the MassSurfaceData ids of the definitions belonging to external faces
+            //we'll output these, and then try to visualize the faces and change parameters in another component
+
+            //get references to the faces using the mass - we need these to get at the surface data
+            IList<Reference> faceRefs = MassEnergyAnalyticalModel.GetReferencesToAllFaces();
+
+            //some faces supposedly share massSurfaceData definitions (although i think they are all unique in practice) - here we're pulling out unique data definitions.  
+            Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
+            foreach (var fr in faceRefs)
+            {
+                Autodesk.Revit.DB.ElementId id = MassEnergyAnalyticalModel.GetMassSurfaceDataIdForReference(fr);
+                if (!mySurfaceData.ContainsKey(id.IntegerValue))
+                {
+                    MassSurfaceData d = (MassSurfaceData)MassEnergyAnalyticalModel.Document.GetElement(id);
+                    mySurfaceData.Add(id.IntegerValue, d);
+                }
+            }
+
+            
+            
+            //filter by category = mass exterior wall
+            var allSurfsList = mySurfaceData.Values.ToList();
+            var selectedSurfList = from n in allSurfsList
+                                  where n.Category.Name == SurfaceTypeName
+                                  select n;
+
+            //output list
+            List<Autodesk.Revit.DB.ElementId> SelectedSurfaceIds = new List<Autodesk.Revit.DB.ElementId>();
+            foreach (var s in selectedSurfList)
+            {
+                SelectedSurfaceIds.Add(s.Id);
+            }
+
+            List<ElementId> outSelectedSurfaceIds = SelectedSurfaceIds.Select(e => new ElementId(e.IntegerValue)).ToList();
+
+            return outSelectedSurfaceIds;
+        }
+
+        // get surface ids from zone based on type
+        public static List<EnergyAnalysisForDynamo.ElementId> GetSurfaceIdsFromZoneBasedOnType(MassZone MassZone, string SurfaceTypeName = "Mass Exterior Wall")
+        {
+            //some faces supposedly share massSurfaceData definitions (although i think they are all unique in practice) - here we're pulling out unique data definitions.  
+            Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
+
+            //get references to all of the faces
+            IList<Reference> faceRefs = MassZone.GetReferencesToEnergyAnalysisFaces();
+            foreach (var faceRef in faceRefs)
+            {
+                var srfType = faceRef.GetType();
+                string refType = faceRef.ElementReferenceType.ToString();
+
+                //get the element ID of the MassSurfaceData object associated with this face
+                Autodesk.Revit.DB.ElementId id = MassZone.GetMassDataElementIdForZoneFaceReference(faceRef);
+
+                //add it to our dict if it isn't already there
+                if (!mySurfaceData.ContainsKey(id.IntegerValue))
+                {
+                    var mySurface = MassZone.Document.GetElement(id);
+                    // Extra check to make sure the surface is not a mass floor which is
+                    // a MassLevelData in REVIT. In Vasari it doesn't make any issues.
+                    if (mySurface.Category.Name != "Mass Floor")
+                    {
+                    MassSurfaceData d = (MassSurfaceData)MassZone.Document.GetElement(id);
+                    mySurfaceData.Add(id.IntegerValue, d);
+                    }
+
+                }
+            }
+
+            //filter by category = mass exterior wall
+            var allSurfsList = mySurfaceData.Values.ToList();
+            var extSurfList = from n in allSurfsList
+                              where n.Category.Name == SurfaceTypeName
+                              select n;
+
+            //list of element Ids to wrap and output
+            List<Autodesk.Revit.DB.ElementId> surfaceIds = extSurfList.Select(e => e.Id).ToList();
+
+            //loop over the output lists, and wrap them in our ElementId wrapper class
+            List<ElementId> outSurfaceIds = surfaceIds.Select(e => new ElementId(e.IntegerValue)).ToList();
+
+            return outSurfaceIds;
+        }
+
         // GBS Authentification 
         public static void InitRevitAuthProvider()
         {

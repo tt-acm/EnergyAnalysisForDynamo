@@ -20,6 +20,7 @@ using Autodesk.DesignScript.Interfaces;
 using Autodesk.DesignScript.Geometry;
 using System.Text.RegularExpressions;
 
+using EnergyAnalysisForDynamo.Utilities;
 
 namespace EnergyAnalysisForDynamo
 {
@@ -144,7 +145,7 @@ namespace EnergyAnalysisForDynamo
         /// <param name="MassFamilyInstance">The conceptual mass family instance to create zones from</param>
         /// <param name="Levels">A list of levels to create mass floors with</param>
         /// <returns></returns>
-        [MultiReturn("MassFamilyInstance", "ZoneIds", "SurfaceIds")]
+        [MultiReturn("MassFamilyInstance", "ZoneIds", "WallSurfaceIds", "RoofSurfaceIds")]
         public static Dictionary<string, object> CreateEnergyModelFromMassAndLevels(AbstractFamilyInstance MassFamilyInstance, List<Revit.Elements.Element> Levels)
         {
             //local varaibles
@@ -211,52 +212,20 @@ namespace EnergyAnalysisForDynamo
             //get the zone ids from our Mass's MassEnergyAnalyticalModel object
             //we'll use these to draw zones in another component - not sure if we can use them to drive opening / shading params
             List<Autodesk.Revit.DB.ElementId> zoneIds = mea.GetMassZoneIds().ToList();
-
-            //get the MassSurfaceData ids of the definitions belonging to external faces
-            //we'll output these, and then try to visualize the faces and change parameters in another component
-
-            //get references to the faces using the mass - we need these to get at the surface data
-            IList<Reference> faceRefs = mea.GetReferencesToAllFaces();
-
-            //some faces share massSurfaceData definitions - here we're pulling out unique data definitions.  not totally sure how this all works yet...
-            Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
-            foreach (var fr in faceRefs)
-            {
-                Autodesk.Revit.DB.ElementId id = mea.GetMassSurfaceDataIdForReference(fr);
-                if (!mySurfaceData.ContainsKey(id.IntegerValue))
-                {
-                    MassSurfaceData d = (MassSurfaceData)RvtDoc.GetElement(id);
-                    mySurfaceData.Add(id.IntegerValue, d);
-                }
-            }
-
-            //filter by category = mass exterior wall
-            var allSurfsList = mySurfaceData.Values.ToList();
-            var extSurfList = from n in allSurfsList
-                              where n.Category.Name == "Mass Exterior Wall"
-                              select n;
-
-            //output list of face Ids
-            List<Autodesk.Revit.DB.ElementId> surfaceIds = new List<Autodesk.Revit.DB.ElementId>();
-            foreach (var s in extSurfList)
-            {
-                surfaceIds.Add(s.Id);
-            }
-
-
             //loop over the output lists, and wrap them in our ElementId wrapper class
             List<ElementId> outZoneIds = zoneIds.Select(e => new ElementId(e.IntegerValue)).ToList();
-            List<ElementId> outSurfaceIds = surfaceIds.Select(e => new ElementId(e.IntegerValue)).ToList();
 
-
+            List<ElementId> outWallSurfaceIds = Helper.GetSurfaceIdsFromMassEnergyAnalyticalModelBasedOnType(mea, "Mass Exterior Wall");
+            List<ElementId> outRoofSurfaceIds = Helper.GetSurfaceIdsFromMassEnergyAnalyticalModelBasedOnType(mea, "Mass Roof");
+            
             #endregion
-
 
             return new Dictionary<string, object>
             {
                 {"MassFamilyInstance", MassFamilyInstance},
                 {"ZoneIds", outZoneIds},
-                {"SurfaceIds", outSurfaceIds}
+                {"WallSurfaceIds", outWallSurfaceIds},
+                {"RoofSurfaceIds", outRoofSurfaceIds}
             };
         }
 
@@ -265,7 +234,7 @@ namespace EnergyAnalysisForDynamo
         /// </summary>
         /// <param name="MassFamilyInstance">The conceptual mass family instance to create zones from</param>
         /// <returns></returns>
-        [MultiReturn("MassFamilyInstance", "ZoneIds", "SurfaceIds")]
+        [MultiReturn("MassFamilyInstance", "ZoneIds", "WallSurfaceIds", "RoofSurfaceIds")]
         public static Dictionary<string, object> CreateEnergyModelFromMass(AbstractFamilyInstance MassFamilyInstance)
         {
             //local varaibles
@@ -296,49 +265,19 @@ namespace EnergyAnalysisForDynamo
             //we'll use these to draw zones in another component - not sure if we can use them to drive opening / shading params
             List<Autodesk.Revit.DB.ElementId> zoneIds = mea.GetMassZoneIds().ToList();
 
-
-
-            //get the MassSurfaceData ids of the definitions belonging to external faces
-            //we'll output these, and then try to visualize the faces and change parameters in another component
-
-            //get references to the faces using the mass - we need these to get at the surface data
-            IList<Reference> faceRefs = mea.GetReferencesToAllFaces();
-
-            //some faces supposedly share massSurfaceData definitions (although i think they are all unique in practice) - here we're pulling out unique data definitions.  
-            Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
-            foreach (var fr in faceRefs)
-            {
-                Autodesk.Revit.DB.ElementId id = mea.GetMassSurfaceDataIdForReference(fr);
-                if (!mySurfaceData.ContainsKey(id.IntegerValue))
-                {
-                    MassSurfaceData d = (MassSurfaceData)RvtDoc.GetElement(id);
-                    mySurfaceData.Add(id.IntegerValue, d);
-                }
-            }
-
-            //filter by category = mass exterior wall
-            var allSurfsList = mySurfaceData.Values.ToList();
-            var extSurfList = from n in allSurfsList
-                              where n.Category.Name == "Mass Exterior Wall"
-                              select n;
-
-            //output list
-            List<Autodesk.Revit.DB.ElementId> surfaceIds = new List<Autodesk.Revit.DB.ElementId>();
-            foreach (var s in extSurfList)
-            {
-                surfaceIds.Add(s.Id);
-            }
-
             //loop over the output lists, and wrap them in our ElementId wrapper class
             List<ElementId> outZoneIds = zoneIds.Select(e => new ElementId(e.IntegerValue)).ToList();
-            List<ElementId> outSurfaceIds = surfaceIds.Select(e => new ElementId(e.IntegerValue)).ToList();
+
+            List<ElementId> outWallSurfaceIds = Helper.GetSurfaceIdsFromMassEnergyAnalyticalModelBasedOnType(mea, "Mass Exterior Wall");
+            List<ElementId> outRoofSurfaceIds = Helper.GetSurfaceIdsFromMassEnergyAnalyticalModelBasedOnType(mea, "Mass Roof");
 
 
             return new Dictionary<string, object>
             {
                 {"MassFamilyInstance", MassFamilyInstance},
                 {"ZoneIds", outZoneIds},
-                {"SurfaceIds", outSurfaceIds}
+                {"WallSurfaceIds", outWallSurfaceIds},
+                {"RoofSurfaceIds", outRoofSurfaceIds}
             };
         }
 
@@ -347,7 +286,7 @@ namespace EnergyAnalysisForDynamo
         /// </summary>
         /// <param name="ZoneId">The ElementId of the zone to inspect.  Get this from the PrepareEnergyModel > CreateFrom* > ZoneIds output list</param>
         /// <returns></returns>
-        [MultiReturn("SurfaceIds", "SpaceType", "conditionType")]
+        [MultiReturn("WallSurfaceIds", "RoofSurfaceIds", "SpaceType", "conditionType")]
         public static Dictionary<string, object> DecomposeZone(ElementId ZoneId)
         {
             // local variables
@@ -370,50 +309,9 @@ namespace EnergyAnalysisForDynamo
             }
 
             //get external faces belonging to this zone
-            #region Get faces belonging to this zone
-		
-            //try to get the element id of the MassEnergyAnalyticalModel - we need this to pull faces from
-            try
-            {
-                myEnergyModelId = zone.MassEnergyAnalyticalModelId;
-                if (myEnergyModelId == null) throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Couldn't find a MassEnergyAnalyticalModel object belonging to the Mass instance with Id #: " + zone.MassEnergyAnalyticalModelId.ToString());
-            }
-
-            //some faces supposedly share massSurfaceData definitions (although i think they are all unique in practice) - here we're pulling out unique data definitions.  
-            Dictionary<int, MassSurfaceData> mySurfaceData = new Dictionary<int, MassSurfaceData>();
-
-            //get references to all of the faces
-            IList<Reference> faceRefs = zone.GetReferencesToEnergyAnalysisFaces();
-            foreach (var faceRef in faceRefs)
-            {
-                //get the element ID of the MassSurfaceData object associated with this face
-                Autodesk.Revit.DB.ElementId id = zone.GetMassDataElementIdForZoneFaceReference(faceRef);
-                //add it to our dict if it isn't already there
-                if (!mySurfaceData.ContainsKey(id.IntegerValue))
-                {
-                    MassSurfaceData d = (MassSurfaceData)RvtDoc.GetElement(id);
-                    mySurfaceData.Add(id.IntegerValue, d);
-                }
-            }
-
-            //filter by category = mass exterior wall
-            var allSurfsList = mySurfaceData.Values.ToList();
-            var extSurfList = from n in allSurfsList
-                              where n.Category.Name == "Mass Exterior Wall"
-                              select n;
-
-            //list of element Ids to wrap and output
-            List<Autodesk.Revit.DB.ElementId> surfaceIds = extSurfList.Select(e => e.Id).ToList();
-
-            //loop over the output lists, and wrap them in our ElementId wrapper class
-            List<ElementId> outSurfaceIds = surfaceIds.Select(e => new ElementId(e.IntegerValue)).ToList();
+            List<EnergyAnalysisForDynamo.ElementId> outWallSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Exterior Wall");
+            List<EnergyAnalysisForDynamo.ElementId> outRoofSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Roof");
  
-	        #endregion
-
             // assign condition type
             conditionType = zone.ConditionType;
 
@@ -423,7 +321,8 @@ namespace EnergyAnalysisForDynamo
             // return outputs
             return new Dictionary<string, object>
             {
-                {"SurfaceIds", outSurfaceIds},
+                {"WallSurfaceIds", outWallSurfaceIds},
+                {"RoofSurfaceIds", outRoofSurfaceIds},
                 {"SpaceType", spaceType},
                 {"conditionType", conditionType}
             };
@@ -524,15 +423,14 @@ namespace EnergyAnalysisForDynamo
         }
 
         /// <summary>
-        /// Sets an exterior surface's energy parameters
+        /// Sets a roof surface's energy parameters
         /// </summary>
         /// <param name="SurfaceId">The ElementId of the surface to modify.  Get this from the AnalysisZones > CreateFrom* > SurfaceIds output list</param>
-        /// <param name="glazingPercent">Percentage of glazed area.  Should be a double between 0.0 - 1.0</param>
-        /// <param name="shadingDepth">Shading Depth, specified as a double.  We assume the double value represents a length using Dynamo's current length unit.</param>
-        /// <param name="sillHeight">Target sill height, specified as a double.  We assume the double value represents a length using Dynamo's current length unit.</param>
-        /// <param name="ConstType">Conceptual Construction Type.  Use the Conceptual Construction Types Dropdown node from our EnergySettings tab to specify a value.</param>
+        /// <param name="SkylightPer"></param>
+        /// <param name="SkylightWidth"></param>
+        /// <param name="ConstType">Conceptual Construction Type. Use the Conceptual Construction Types Dropdown node from our EnergySettings tab to specify a value.</param>
         /// <returns></returns>
-        public static ElementId SetSurfaceParameters(ElementId SurfaceId, double glazingPercent = 0.4, double shadingDepth = 0.0, double sillHeight = 0.0, string ConstType = "default")
+        public static ElementId SetRoofSurfaceParameters(ElementId SurfaceId, double SkylightPer = 0.0, string ConstType = "default")
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
@@ -550,7 +448,90 @@ namespace EnergyAnalysisForDynamo
             }
 
             //defense
-            if (!(glazingPercent > 0.0 && glazingPercent <= 1.0))
+            if (!(SkylightPer >= 0.0 && SkylightPer <= 1.0))
+            {
+                throw new Exception("Skylight percentage must be between 0.0 and 1.0");
+            }
+
+
+            //if (SkylightWidth < 0.0)
+            //{
+            //    throw new Exception("Skylight width must be positive");
+            //}
+
+
+            try
+            {
+                //start a transaction task
+                TransactionManager.Instance.EnsureInTransaction(RvtDoc);
+
+                //change the 'Values' param to 1 - by surface
+                var val = surf.get_Parameter("Values");
+                if (val != null)
+                {
+                    val.Set(1);
+                }
+
+                
+                //set skylight percentage
+                surf.PercentageSkylights = SkylightPer;
+
+                //set skylight width
+                //surf.SkylightWidth = SkylightWidth * UnitConverter.DynamoToHostFactor;
+
+
+                //set conceptual construction if not empty
+                if (!string.IsNullOrEmpty(ConstType) && ConstType != "default")
+                {
+                    Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType);
+                    if (myTypeId != null)
+                    {
+                        surf.IsConceptualConstructionByEnergyData = false;
+                        surf.ConceptualConstructionId = myTypeId;
+                    }
+                }
+
+                //done with transaction task
+                TransactionManager.Instance.TransactionTaskDone();
+
+            }
+            catch (Exception)
+            {
+                throw new Exception("Something went wrong when trying to set the parameters on surface # " + SurfaceId.ToString());
+            }
+
+            //return the surface ID so the surface can be used downstream            
+            return SurfaceId;
+        }
+
+        /// <summary>
+        /// Sets an exterior wall surface's energy parameters
+        /// </summary>
+        /// <param name="SurfaceId">The ElementId of the surface to modify.  Get this from the AnalysisZones > CreateFrom* > SurfaceIds output list</param>
+        /// <param name="glazingPercent">Percentage of glazed area.  Should be a double between 0.0 - 1.0</param>
+        /// <param name="shadingDepth">Shading Depth, specified as a double.  We assume the double value represents a length using Dynamo's current length unit.</param>
+        /// <param name="sillHeight">Target sill height, specified as a double.  We assume the double value represents a length using Dynamo's current length unit.</param>
+        /// <param name="ConstType">Conceptual Construction Type.  Use the Conceptual Construction Types Dropdown node from our EnergySettings tab to specify a value.</param>
+        /// <returns></returns>
+        public static ElementId SetWallSurfaceParameters(ElementId SurfaceId, double glazingPercent = 0.4, double shadingDepth = 0.0, double sillHeight = 0.0, string ConstType = "default")
+        {
+            //local varaibles
+            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+            MassSurfaceData surf = null;
+
+            //try to get the MassSurfaceData object from the document
+            try
+            {
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
+                if (surf == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
+            }
+
+            //defense
+            if (!(glazingPercent >= 0.0 && glazingPercent <= 1.0))
             {
                 throw new Exception("Glazing percentage must be between 0.0 and 1.0");
             }

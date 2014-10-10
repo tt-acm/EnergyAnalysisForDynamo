@@ -63,11 +63,12 @@ namespace EnergyAnalysisForDynamo
         /// <param name="BldgTyp"> Input Building Type </param>
         /// <param name="GlzPer">Input glazing percentage (range: 0 to 1) </param>
         /// <param name="ShadeDepth">Shading Depth, specified as a double.  We assume the double value represents a length using Dynamo's current length unit.</param>
+        /// <param name="SkylightPer">Input skylight percentage (range: 0 to 1)</param>
         /// <param name="HVACSystem">Input Building HVAC system</param>
         /// <param name="OSchedule">Input Building Operating Schedule</param>
         /// <returns></returns>
         [MultiReturn("EnergySettings", "report")]
-        public static Dictionary<string, object> SetEnergySettings(string BldgTyp = "", double GlzPer = 0, double ShadeDepth = 0, string HVACSystem = "", string OSchedule = "")
+        public static Dictionary<string, object> SetEnergySettings(string BldgTyp = "", double GlzPer = 0, double ShadeDepth = 0, double SkylightPer = 0, string HVACSystem = "", string OSchedule = "")
         {
 
             //Get active document
@@ -143,6 +144,9 @@ namespace EnergyAnalysisForDynamo
                 myEnergySettings.IsGlazingShaded = false;
                 myEnergySettings.ShadeDepth = 0;
             }
+
+            // add skylight percentage
+            myEnergySettings.PercentageSkylights = SkylightPer;
 
             //done with the transaction 
             TransactionManager.Instance.TransactionTaskDone();
