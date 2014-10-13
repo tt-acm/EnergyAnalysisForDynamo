@@ -154,7 +154,7 @@ namespace EnergyAnalysisForDynamo
             // Report 
             string report = "Building type is " + Enum.GetName(typeof(gbXMLBuildingType), myEnergySettings.BuildingType) + ".\n" +
                 "Glazing percentage is set to " + myEnergySettings.PercentageGlazing.ToString() + ".\n" +
-                "Shading depth is " + myEnergySettings.ShadeDepth.ToString() + ".\n" +
+                "Shading depth is " + ShadeDepth.ToString() + ".\n" +
                 "Current HVAC system is " + Enum.GetName(typeof(gbXMLBuildingHVACSystem), myEnergySettings.BuildingHVACSystem) + ".\n" +
                 "Current Operating Schedule is " + Enum.GetName(typeof(gbXMLBuildingOperatingSchedule), myEnergySettings.BuildingOperatingSchedule) + ".";
 
