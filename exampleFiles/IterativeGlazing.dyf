@@ -1,4 +1,4 @@
-<Workspace Version="0.7.2.2114" X="-213.461684744977" Y="144.046699489518" zoom="1.08570356044719" Description="Example of a custom parametric run" Category="EnergyAnalysisForDynamo.PrepareEnergyModel.Actions" Name="IterativeGlazing" ID="9b6a7b19-4c2a-4cba-bf0a-8d5f1cf85928">
+<Workspace Version="0.7.2.2114" X="-200.606768675205" Y="122.081687885508" zoom="0.965566782607746" Description="Example of a custom parametric run" Category="EnergyAnalysisForDynamo.PrepareEnergyModel.Actions" Name="IterativeGlazing" ID="9b6a7b19-4c2a-4cba-bf0a-8d5f1cf85928">
   <Elements>
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="206c1e9e-26c1-4e59-9099-e3f67c72ebb6" nickname="PrepareEnergyModel.SetWallSurfaceParameters" x="575" y="354.5" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.SetWallSurfaceParameters@EnergyAnalysisForDynamo.ElementId,double,double,double,string">
       <PortInfo index="1" default="True" />
@@ -33,7 +33,7 @@
   </Elements>
   <Connectors>
     <Dynamo.Models.ConnectorModel start="206c1e9e-26c1-4e59-9099-e3f67c72ebb6" start_index="0" end="77421c69-360d-4eb0-bf0e-3b016bbbb41d" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="baf56b52-77bc-40d4-be71-d1db1446c3de" start_index="0" end="206c1e9e-26c1-4e59-9099-e3f67c72ebb6" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="baf56b52-77bc-40d4-be71-d1db1446c3de" start_index="0" end="206c1e9e-26c1-4e59-9099-e3f67c72ebb6" end_index="3" portType="0" />
     <Dynamo.Models.ConnectorModel start="64abdc89-a83d-4afe-ab04-4a312a01a3b7" start_index="0" end="206c1e9e-26c1-4e59-9099-e3f67c72ebb6" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="8aa10307-ccaf-4125-b47f-dbd31269df03" start_index="0" end="206c1e9e-26c1-4e59-9099-e3f67c72ebb6" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="77421c69-360d-4eb0-bf0e-3b016bbbb41d" start_index="0" end="630ec90c-43d4-4493-810e-2e4c63c4b05a" end_index="0" portType="0" />
