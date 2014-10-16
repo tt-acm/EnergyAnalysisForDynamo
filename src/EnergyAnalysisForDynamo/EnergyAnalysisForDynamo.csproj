@@ -58,7 +58,7 @@
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\packages\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.Prism">
@@ -128,7 +128,9 @@
     <Compile Include="Utilities\SingleSignOnManager.cs" />
     <Compile Include="Utilities\ZipUtil.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="EnergyAnalysisForDynamo_DynamoCustomization.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(ProjectDir)\EnergyAnalysisForDynamo_DynamoCustomization.xml" "$(TargetDir)\EnergyAnalysisForDynamo_DynamoCustomization.xml"</PostBuildEvent>
