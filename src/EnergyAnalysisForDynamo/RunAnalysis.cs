@@ -103,7 +103,7 @@ namespace EnergyAnalysisForDynamo
 
         // NODE: Create new Project
         /// <summary>
-        /// Creates new project in GBS Webservices, returns new Project ID. Returns ProjectID if the project is already exists.
+        /// Creates new project in GBS and returns new Project ID. Returns ProjectID if the project with same title already exists.
         /// </summary>
         /// <param name="ProjectTitle"> Title of the project </param>
         /// <returns></returns>
