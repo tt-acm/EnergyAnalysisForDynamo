@@ -74,6 +74,16 @@ namespace EnergyAnalysisForDynamo
             //Get active document
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
 
+            //enable the analytical model in the document if it isn't already
+            try
+            {
+                PrepareEnergyModel.ActivateEnergyModel(RvtDoc);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Something went wrong when trying to enable the energy model.");
+            }
+
             //Load the default energy setting from the active Revit instance
             EnergyDataSettings myEnergySettings = Autodesk.Revit.DB.Analysis.EnergyDataSettings.GetFromDocument(RvtDoc);
 
