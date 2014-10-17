@@ -1,17 +1,17 @@
-<Workspace Version="0.7.2.16963" X="107.996237337315" Y="123.14927699246" zoom="1.07629831171465" Description="" Category="" Name="Home">
+<Workspace Version="0.7.2.16692" X="297.450679840495" Y="144.696483374991" zoom="0.907544310736739" Description="" Category="" Name="Home">
   <Elements>
     <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="04f8115f-66b4-4fce-9d70-0ae67dfca8ec" nickname="Code Block" x="159.592136547261" y="64.8140183466369" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;TestNewProjectfromDynamo&quot;;" ShouldFocus="false" />
     <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="d5b5f019-7105-4565-832d-cee8036e0a30" nickname="Boolean" x="262.681056060283" y="371.143407954465" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Boolean>False</System.Boolean>
     </DSCoreNodesUI.BoolSelector>
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="f9d1ca86-36e5-4c42-93c4-f609bb472c51" nickname="RunAnalysis.CreateNewProject" x="493.825509704569" y="71.1805049598699" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.CreateNewProject@string" />
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="04e26fe3-9315-485f-8ce9-84c93287d72f" nickname="GetAnalysisResults.GetProjectsList" x="482.325509704569" y="371.791209401001" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetProjectsList@bool">
       <PortInfo index="0" default="True" />
     </Dynamo.Nodes.DSFunction>
     <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="766d48a3-d2d1-4da4-9072-6259f3983d13" nickname="Watch" x="886.38440973703" y="396.345967909426" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="2fc22b6d-339b-43f1-99d3-a95f600fa99c" nickname="RunAnalysis.CreateProject" x="479.089432815537" y="66.7174977959826" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.CreateProject@string" />
   </Elements>
   <Connectors>
-    <Dynamo.Models.ConnectorModel start="04f8115f-66b4-4fce-9d70-0ae67dfca8ec" start_index="0" end="f9d1ca86-36e5-4c42-93c4-f609bb472c51" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="04f8115f-66b4-4fce-9d70-0ae67dfca8ec" start_index="0" end="2fc22b6d-339b-43f1-99d3-a95f600fa99c" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="d5b5f019-7105-4565-832d-cee8036e0a30" start_index="0" end="04e26fe3-9315-485f-8ce9-84c93287d72f" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="04e26fe3-9315-485f-8ce9-84c93287d72f" start_index="1" end="766d48a3-d2d1-4da4-9072-6259f3983d13" end_index="0" portType="0" />
   </Connectors>
