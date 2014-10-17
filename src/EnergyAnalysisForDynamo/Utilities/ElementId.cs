@@ -41,6 +41,16 @@ namespace EnergyAnalysisForDynamo
         }
 
         /// <summary>
+        /// Returns a string that represents the current object
+        /// </summary>
+        /// <returns></returns>
+        [SupressImportIntoVM]
+        public override string ToString()
+        {
+            return internalId.ToString();
+        }
+
+        /// <summary>
         /// New ElementId instance with int input to set the Id
         /// </summary>
         /// <param name="id">The int representation of a Revit ElementId</param>
