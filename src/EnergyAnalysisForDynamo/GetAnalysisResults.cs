@@ -517,10 +517,10 @@ namespace EnergyAnalysisForDynamo
         /// </summary>
         /// <param name="RunId"> Input Run ID</param>
         /// <param name="ParametricRunId"> Input ID for one of the parametric runs. Default is set to 0</param>
-        /// <param name="resulttype"> Result type gbxml or doe2 or inp </param>
+        /// <param name="FileType"> Result type gbxml or doe2 or inp </param>
         /// <param name="FilePath"> Set File location to download the file </param>
         /// <returns name="report"> string. </returns>
-        public static string GetEnergyModelFiles(int RunId, string resulttype, string FilePath, int ParametricRunId = 0) // result type gbxml/doe2/eplus
+        public static string GetEnergyModelFiles(int RunId, string FileType, string FilePath, int ParametricRunId = 0) // result type gbxml/doe2/eplus
         {
             // Initiate the Revit Auth
             Helper.InitRevitAuthProvider();
@@ -530,12 +530,12 @@ namespace EnergyAnalysisForDynamo
 
             // Get result of given RunId
             string requestGetRunResultsUri = GBSUri.GBSAPIUri +
-                                    string.Format(APIV1Uri.GetRunResultsUri, RunId, ParametricRunId, resulttype);
+                                    string.Format(APIV1Uri.GetRunResultsUri, RunId, ParametricRunId, FileType);
 
             using (HttpWebResponse response = (HttpWebResponse)Helper._CallGetApi(requestGetRunResultsUri))
             using (Stream stream = response.GetResponseStream())
             {
-                string zipFileName = Path.Combine(FilePath, string.Format("RunResults_{0}_{1}_{2}.zip", RunId, ParametricRunId, resulttype)); //result type gbxml/doe2/eplus
+                string zipFileName = Path.Combine(FilePath, string.Format("RunResults_{0}_{1}_{2}.zip", RunId, ParametricRunId, FileType)); //result type gbxml/doe2/eplus
 
                 using (var fs = File.Create(zipFileName))
                 {
@@ -543,7 +543,7 @@ namespace EnergyAnalysisForDynamo
                 }
 
                 if (File.Exists(zipFileName))
-                { report = "The Analysis result file " + resulttype + " was successfully downloaded!"; }
+                { report = "The Analysis result file " + FileType + " was successfully downloaded!"; }
 
             }
 
