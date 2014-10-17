@@ -103,82 +103,101 @@ namespace EnergyAnalysisForDynamo
 
         // NODE: Create new Project
         /// <summary>
-        /// Creates new project in GBS Webservices, returns new Project ID
+        /// Creates new project in GBS Webservices, returns new Project ID. Returns ProjectID if the project is already exists.
         /// </summary>
         /// <param name="ProjectTitle"> Title of the project </param>
         /// <returns></returns>
         [MultiReturn("ProjectId")]
-        public static Dictionary<string, int> CreateNewProject(string ProjectTitle)
+        public static Dictionary<string, int> CreateProject(string ProjectTitle)
         {
-            //Check if the project exists
-            if (Helper.IsProjectAlreadyExist(ProjectTitle))
-            {
-                throw new Exception(ProjectTitle + " is already an existing project. Try with a another name or use GetProjectList Node to get the existing GBS projects' attributes");
-            }
-
-            //Output variable
+            //1. Output variable
             int newProjectId = 0;
 
-            #region Setup : Get values from current Revit document
+            //NOTE: GBS allows to duplicate Project Titles !!! from user point of view we would like keep Project Titles Unique.
+            //Create Project node return the Id of a project if it already exists. If more than one project with the same name already exist, throw an exception telling the user that multiple projects with that name exist.
 
-            //local variable to get SiteLocation and Lat & Lon information
-            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+            //Check if the project exists
+            List<Project> ExtngProjects = Helper.GetExistingProjectsTitles();
 
-            //Load the default energy setting from the active Revit instance
-            EnergyDataSettings myEnergySettings = Autodesk.Revit.DB.Analysis.EnergyDataSettings.GetFromDocument(RvtDoc);
+            var queryProjects = from pr in ExtngProjects
+                                where pr.Title == ProjectTitle
+                                select pr;
 
-            // get BuildingType and ScheduleId from document
-            // Remap Revit enum/values to GBS enum/ values
-            string RvtBldgtype = Enum.GetName(typeof(gbXMLBuildingType), myEnergySettings.BuildingType);
-            int BuildingTypeId = Helper.RemapBldgType(RvtBldgtype);
-            // this for comparison
-            int RvtBuildingTypeId = (int)myEnergySettings.BuildingType;
-
-            // Lets set the schedule ID to 1 for now
-            //int ScheduleId = (int)myEnergySettings.BuildingOperatingSchedule;
-            int ScheduleId = Helper.RemapScheduleType((int)myEnergySettings.BuildingOperatingSchedule);
-
-
-            // Angles are in Rdaians when coming from revit API
-            // Convert to lat & lon values 
-            const double angleRatio = Math.PI / 180; // angle conversion factor
-
-            double lat = RvtDoc.SiteLocation.Latitude / angleRatio;
-            double lon = RvtDoc.SiteLocation.Longitude / angleRatio;
-
-            #endregion
-
-            #region Setup : Get default Utility Values
-
-            //1. Initiate the Revit Auth
-            Helper.InitRevitAuthProvider();
-
-            // Try to get Default Utility Costs from API 
-            string requestGetDefaultUtilityCost = GBSUri.GBSAPIUri + APIV1Uri.GetDefaultUtilityCost;
-            string requestUriforUtilityCost = string.Format(requestGetDefaultUtilityCost, BuildingTypeId, lat, lon, "xml");
-            HttpWebResponse responseUtility = (HttpWebResponse)Helper._CallGetApi(requestUriforUtilityCost);
-
-            string theresponse = "";
-            using (Stream responseStream = responseUtility.GetResponseStream())
+            if (queryProjects.Any()) // Existing Project
             {
-                using (StreamReader streamReader = new StreamReader(responseStream))
+                // check if multiple projects
+                if (queryProjects.Count() > 1)
                 {
-                    theresponse = streamReader.ReadToEnd();
+                    // if there are multiple thow and exception
+                    throw new Exception("Multiple Projects with this title " + ProjectTitle + " exist. Try with a another name or use GetProjectList Node to get the existing GBS projects' attributes");
+                }
+                else 
+                {
+                    newProjectId = queryProjects.First().Id;
                 }
             }
-            DefaultUtilityItem utilityCost = Helper.DataContractDeserialize<DefaultUtilityItem>(theresponse);
+            else //Create New Project
+            { 
+                #region Setup : Get values from current Revit document
 
-            #endregion
+                //local variable to get SiteLocation and Lat & Lon information
+                Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
 
-            // 2.  Create A New  Project
-            string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateProjectUri, "xml");
+                //Load the default energy setting from the active Revit instance
+                EnergyDataSettings myEnergySettings = Autodesk.Revit.DB.Analysis.EnergyDataSettings.GetFromDocument(RvtDoc);
 
-            var response =
-                (HttpWebResponse)
-                Helper._CallPostApi(requestUri, typeof(NewProjectItem), Helper._CreateProjectItem(ProjectTitle, false, BuildingTypeId, ScheduleId, lat, lon, utilityCost.ElecCost, utilityCost.FuelCost));
+                // get BuildingType and ScheduleId from document
+                // Remap Revit enum/values to GBS enum/ values
+                string RvtBldgtype = Enum.GetName(typeof(gbXMLBuildingType), myEnergySettings.BuildingType);
+                int BuildingTypeId = Helper.RemapBldgType(RvtBldgtype);
+                // this for comparison
+                int RvtBuildingTypeId = (int)myEnergySettings.BuildingType;
 
-            newProjectId = Helper.DeserializeHttpWebResponse(response);
+                // Lets set the schedule ID to 1 for now
+                //int ScheduleId = (int)myEnergySettings.BuildingOperatingSchedule;
+                int ScheduleId = Helper.RemapScheduleType((int)myEnergySettings.BuildingOperatingSchedule);
 
+
+                // Angles are in Rdaians when coming from revit API
+                // Convert to lat & lon values 
+                const double angleRatio = Math.PI / 180; // angle conversion factor
+
+                double lat = RvtDoc.SiteLocation.Latitude / angleRatio;
+                double lon = RvtDoc.SiteLocation.Longitude / angleRatio;
+
+                #endregion
+
+                #region Setup : Get default Utility Values
+
+                //1. Initiate the Revit Auth
+                Helper.InitRevitAuthProvider();
+
+                // Try to get Default Utility Costs from API 
+                string requestGetDefaultUtilityCost = GBSUri.GBSAPIUri + APIV1Uri.GetDefaultUtilityCost;
+                string requestUriforUtilityCost = string.Format(requestGetDefaultUtilityCost, BuildingTypeId, lat, lon, "xml");
+                HttpWebResponse responseUtility = (HttpWebResponse)Helper._CallGetApi(requestUriforUtilityCost);
+
+                string theresponse = "";
+                using (Stream responseStream = responseUtility.GetResponseStream())
+                {
+                    using (StreamReader streamReader = new StreamReader(responseStream))
+                    {
+                        theresponse = streamReader.ReadToEnd();
+                    }
+                }
+                DefaultUtilityItem utilityCost = Helper.DataContractDeserialize<DefaultUtilityItem>(theresponse);
+
+                #endregion
+
+                // 2.  Create A New  Project
+                string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateProjectUri, "xml");
+
+                var response =
+                    (HttpWebResponse)
+                    Helper._CallPostApi(requestUri, typeof(NewProjectItem), Helper._CreateProjectItem(ProjectTitle, false, BuildingTypeId, ScheduleId, lat, lon, utilityCost.ElecCost, utilityCost.FuelCost));
+
+                newProjectId = Helper.DeserializeHttpWebResponse(response);
+            }
 
             // 3. Populate the Outputs
             return new Dictionary<string, int>

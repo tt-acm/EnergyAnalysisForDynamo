@@ -166,6 +166,21 @@ namespace EnergyAnalysisForDynamo.Utilities
             return IsExisting;
         }
 
+        // Get Existing Projects from GBS
+        public static List<Project> GetExistingProjectsTitles()
+        {
+            // Request 
+            string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.GetProjectList, "json");
+
+            HttpWebResponse response = (HttpWebResponse)_CallGetApi(requestUri);
+            Stream responseStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(responseStream);
+            string result = reader.ReadToEnd();
+            List<Project> projectList = DataContractJsonDeserialize<List<Project>>(result);
+
+            return projectList;
+        }
+
         // Remap Revit Building type to GBS 
         public static int RemapBldgType(string RvtBldType)
         {
