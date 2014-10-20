@@ -70,7 +70,16 @@ namespace EnergyAnalysisForDynamo
         public static Dictionary<string, int> RunEnergyAnalysis(int ProjectId, string gbXMLPath, bool ExecuteParametricRuns = false)
         {
             // Make sure the given file is an .xml
-            string extention = Path.GetExtension(gbXMLPath);
+            string extention = string.Empty;
+            try
+            {
+                extention = Path.GetExtension(gbXMLPath);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Use 'File Path' node to set the gbxml file location. " +  ex);
+            }
+
             if (extention != ".xml")
             {
                 throw new Exception("Make sure to input gbxml file");
@@ -112,6 +121,9 @@ namespace EnergyAnalysisForDynamo
         {
             //1. Output variable
             int newProjectId = 0;
+
+            //2. Initiate the Revit Auth
+            Helper.InitRevitAuthProvider();
 
             //NOTE: GBS allows to duplicate Project Titles !!! from user point of view we would like keep Project Titles Unique.
             //Create Project node return the Id of a project if it already exists. If more than one project with the same name already exist, throw an exception telling the user that multiple projects with that name exist.
