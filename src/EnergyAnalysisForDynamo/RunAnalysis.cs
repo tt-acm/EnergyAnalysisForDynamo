@@ -77,7 +77,7 @@ namespace EnergyAnalysisForDynamo
             }
             catch (Exception ex)
             {
-                throw new Exception("Use 'File Path' node to set the gbxml file location. " +  ex);
+                throw new Exception(ex + "Use 'File Path' node to set the gbxml file location." );
             }
 
             if (extention != ".xml")
