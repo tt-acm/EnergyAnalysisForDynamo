@@ -568,6 +568,12 @@ namespace EnergyAnalysisForDynamo
                     surf.IsGlazingShaded = true;
                     surf.ShadeDepth = shadingDepth * UnitConverter.DynamoToHostFactor;
                 }
+                else 
+                {
+                    surf.IsGlazingShaded = false;
+                    surf.ShadeDepth = 0;
+
+                }
 
                 //set conceptual construction if not empty
                 if (!string.IsNullOrEmpty(ConstType) && ConstType != "default")
