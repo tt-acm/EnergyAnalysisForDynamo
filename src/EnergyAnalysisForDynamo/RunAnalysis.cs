@@ -55,8 +55,6 @@ namespace EnergyAnalysisForDynamo
 {
     public static class RunAnalysis
     {
-        //RevitAuthProvider
-        private static RevitAuthProvider revitAuthProvider;
 
         // NODE: Create Base Run
         /// <summary>
