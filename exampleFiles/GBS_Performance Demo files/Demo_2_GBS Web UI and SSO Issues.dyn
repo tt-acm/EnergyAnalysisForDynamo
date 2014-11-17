@@ -1,0 +1,21 @@
+<Workspace Version="0.7.4.3192" X="-33.2936316160158" Y="38.9251522886397" zoom="0.859946206224886" Description="" Category="" Name="Home">
+  <Elements>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="003114db-50a5-49fd-b2f5-e0e470eb9212" nickname="GetAnalysisResults.GetProjectsList" x="338" y="228.91160187891" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetProjectsList@bool">
+      <PortInfo index="0" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="abf3e943-7b73-4ef2-8956-9adf42270ddd" nickname="Boolean" x="145.995844814191" y="229.998614938064" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>True</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
+    <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="792a9dc9-7997-42f3-8944-5bff66762894" nickname="Watch" x="690.985237590629" y="254.234064615509" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="170c6f6f-2c87-4e0c-9ffd-f218a0b01eb3" nickname="RunAnalysis.CreateProject" x="854.098408829712" y="12.5064747873041" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.CreateProject@string" />
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="2cc01595-8cb6-4a08-99c7-fedf72b40c88" nickname="Code Block" x="682.293237630055" y="15.4855533482039" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;demo-2&quot;;" ShouldFocus="false" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="003114db-50a5-49fd-b2f5-e0e470eb9212" start_index="1" end="792a9dc9-7997-42f3-8944-5bff66762894" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="abf3e943-7b73-4ef2-8956-9adf42270ddd" start_index="0" end="003114db-50a5-49fd-b2f5-e0e470eb9212" end_index="0" portType="0" />
+  </Connectors>
+  <Notes>
+    <Dynamo.Models.NoteModel text="EE: GBS project named &quot;IterativeGlazingTester&quot; is not shown at the GBS Web Browser since it was deleted but API returns the deleted item as well !" x="690.978905970584" y="188.138152711124" />
+    <Dynamo.Models.NoteModel text="Sign in as different Users ! Try to  Get Project List &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;1. Get project List&#xD;&#xA;2. Create new Project _ The GetProjectList not updates the list automatically, set false run and set true.&#xD;&#xA;3. Sign out Autodesk 360 and sign in as different user !" x="302.67788346152" y="34.8580183553516" />
+  </Notes>
+</Workspace>
