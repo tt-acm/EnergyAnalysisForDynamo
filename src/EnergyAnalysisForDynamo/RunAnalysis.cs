@@ -223,11 +223,12 @@ namespace EnergyAnalysisForDynamo
         /// </summary>
         /// <param name="FilePath"> Specify the file path location to save gbXML file </param>
         /// <param name="MassFamilyInstance"> Input Mass Id </param>
+        /// <param name="MassShadingInstances"> Input Mass Ids for shading objects </param>
         /// <param name="Run"> Set Boolean True. Default is false </param>
         /// <returns name="report"> Success? </returns>
         /// <returns name="gbXMLPath"></returns>
         [MultiReturn("report", "gbXMLPath")]
-        public static Dictionary<string, object> ExportMassToGBXML(string FilePath, AbstractFamilyInstance MassFamilyInstance, Boolean Run = false)
+        public static Dictionary<string, object> ExportMassToGBXML(string FilePath, AbstractFamilyInstance MassFamilyInstance, List<AbstractFamilyInstance> MassShadingInstances, Boolean Run = false)
         {
             Boolean IsSuccess = false;
 
@@ -258,10 +259,34 @@ namespace EnergyAnalysisForDynamo
             MassEnergyAnalyticalModel mea = (MassEnergyAnalyticalModel)RvtDoc.GetElement(myEnergyModelId);
             ICollection<Autodesk.Revit.DB.ElementId> ZoneIds = mea.GetMassZoneIds();
 
-            MassGBXMLExportOptions gbXmlExportOptions = new MassGBXMLExportOptions(ZoneIds.ToList()); // two constructors 
+            
 
-            RvtDoc.Export(Folder, FileName, gbXmlExportOptions);
+            // get shading Ids
+            List<Autodesk.Revit.DB.ElementId> ShadingIds = new List<Autodesk.Revit.DB.ElementId>();
+            for (int i = 0; i < MassShadingInstances.Count(); i++)
+            {
 
+            // make sure input mass is valid as a shading
+            if (MassInstanceUtils.GetMassLevelDataIds(RvtDoc, MassShadingInstances[i].InternalElement.Id).Count() > 0)
+            {
+                throw new Exception("Item " + i.ToString() + " in MassShadingInstances has mass floors assigned. Remove the mass floors and try again.");
+            }
+
+            ShadingIds.Add(MassShadingInstances[i].InternalElement.Id);
+            }
+
+            if (ShadingIds.Count != 0)
+            {
+                MassGBXMLExportOptions gbXmlExportOptions = new MassGBXMLExportOptions(ZoneIds.ToList(), ShadingIds); // two constructors 
+                RvtDoc.Export(Folder, FileName, gbXmlExportOptions);
+
+            }
+            else
+            {
+                MassGBXMLExportOptions gbXmlExportOptions = new MassGBXMLExportOptions(ZoneIds.ToList()); // two constructors 
+                RvtDoc.Export(Folder, FileName, gbXmlExportOptions);
+            }
+            
 
             // if the file exists return success message if not return failed message
             string path = Path.Combine(Folder, FileName + ".xml");
@@ -325,11 +350,12 @@ namespace EnergyAnalysisForDynamo
         /// </summary>
         /// <param name="FilePath"> Specify the file path location to save gbXML file </param>
         /// <param name="ZoneIds"> Input Zone IDs</param>
+        /// <param name="MassShadingInstances"> Input Mass Ids for shading objects </param>
         /// <param name="Run">Set Boolean True. Default is false </param>
         /// <returns name="report"> Success? </returns>
         /// <returns name="gbXMLPath"></returns>
         [MultiReturn("report", "gbXMLPath")]
-        public static Dictionary<string, object> ExportZonesToGBXML(string FilePath, List<ElementId> ZoneIds, Boolean Run = false)
+        public static Dictionary<string, object> ExportZonesToGBXML(string FilePath, List<ElementId> ZoneIds, List<AbstractFamilyInstance> MassShadingInstances, Boolean Run = false)
         {
             Boolean IsSuccess = false;
 
@@ -358,12 +384,36 @@ namespace EnergyAnalysisForDynamo
             //convert the ElementId wrapper instances to actual Revit ElementId objects
             List<Autodesk.Revit.DB.ElementId> outZoneIds = ZoneIds.Select(e => new Autodesk.Revit.DB.ElementId(e.InternalId)).ToList();
 
-            // Create gbXML
-            MassGBXMLExportOptions gbXmlExportOptions = new MassGBXMLExportOptions(outZoneIds);
 
-            RvtDoc.Export(Folder, FileName, gbXmlExportOptions);
+            // get shading Ids
+            List<Autodesk.Revit.DB.ElementId> ShadingIds = new List<Autodesk.Revit.DB.ElementId>();
+            for (int i = 0; i < MassShadingInstances.Count(); i++)
+            {
 
+                // make sure input mass is valid as a shading
+                if (MassInstanceUtils.GetMassLevelDataIds(RvtDoc, MassShadingInstances[i].InternalElement.Id).Count() > 0)
+                {
+                    throw new Exception("Item " + i.ToString() + " in MassShadingInstances has mass floors assigned. Remove the mass floors and try again.");
+                }
 
+                ShadingIds.Add(MassShadingInstances[i].InternalElement.Id);
+            }
+
+            if (ShadingIds.Count != 0)
+            {
+                // Create gbXML with shadings
+                MassGBXMLExportOptions gbXmlExportOptions = new MassGBXMLExportOptions(outZoneIds.ToList(), ShadingIds); // two constructors 
+                RvtDoc.Export(Folder, FileName, gbXmlExportOptions);
+
+            }
+            else
+            {
+                // Create gbXML
+                MassGBXMLExportOptions gbXmlExportOptions = new MassGBXMLExportOptions(outZoneIds.ToList()); // two constructors 
+                RvtDoc.Export(Folder, FileName, gbXmlExportOptions);
+            }
+
+            
             // if the file exists return success message if not return failed message
             string path = Path.Combine(Folder, FileName + ".xml");
 

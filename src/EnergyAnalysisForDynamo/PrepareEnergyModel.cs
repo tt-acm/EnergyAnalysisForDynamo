@@ -29,6 +29,7 @@ namespace EnergyAnalysisForDynamo
     /// </summary>
     public static class PrepareEnergyModel
     {
+        
         /// <summary>
         /// Draws a point around the center of an analysis surface.  Useful for sorting/grouping surfaces upstream of a SetSurfaceParameters node.
         /// </summary>
@@ -81,6 +82,7 @@ namespace EnergyAnalysisForDynamo
             Autodesk.DesignScript.Geometry.Point outPoint = getAveragePointFromFace(smallFace);
             return outPoint;
         }
+        
 
         /// <summary>
         /// Returns a vector represnting the normal of an analysis surface.  Useful for sorting/grouping surfaces upstream of a SetSurfaceParameters node.
@@ -146,7 +148,7 @@ namespace EnergyAnalysisForDynamo
         /// <param name="Levels">A list of levels to create mass floors with</param>
         /// <returns></returns>
         [MultiReturn("MassFamilyInstance", "ZoneIds", "WallSurfaceIds", "RoofSurfaceIds")]
-        public static Dictionary<string, object> CreateEnergyModelFromMassAndLevels(AbstractFamilyInstance MassFamilyInstance, List<Revit.Elements.Element> Levels)
+        public static Dictionary<string, object> CreateByMassLevels(AbstractFamilyInstance MassFamilyInstance, List<Revit.Elements.Element> Levels)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
@@ -235,7 +237,7 @@ namespace EnergyAnalysisForDynamo
         /// <param name="MassFamilyInstance">The conceptual mass family instance to create zones from</param>
         /// <returns></returns>
         [MultiReturn("MassFamilyInstance", "ZoneIds", "WallSurfaceIds", "RoofSurfaceIds")]
-        public static Dictionary<string, object> CreateEnergyModelFromMass(AbstractFamilyInstance MassFamilyInstance)
+        public static Dictionary<string, object> CreateByMass(AbstractFamilyInstance MassFamilyInstance)
         {
             //local varaibles
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
@@ -370,7 +372,7 @@ namespace EnergyAnalysisForDynamo
             Autodesk.Revit.DB.Mesh prettyMesh = smallFace.Triangulate();
             return Revit.GeometryConversion.RevitToProtoMesh.ToProtoType(prettyMesh);
         }
-
+        
         /// <summary>
         /// Draws an analysis zone in Dynamo.  Use this to identify which zone is which in the CreateFromMass/CreateFromMassAndLevels 'ZoneIds' output list.
         /// </summary>
@@ -790,7 +792,7 @@ namespace EnergyAnalysisForDynamo
                 }
             return false;
         }
-
+        
         private static Autodesk.DesignScript.Geometry.Point getAveragePointFromFace(Autodesk.Revit.DB.Face f)
         {
             //the point to return 
@@ -828,7 +830,6 @@ namespace EnergyAnalysisForDynamo
                     Autodesk.DesignScript.Geometry.Mesh m = Revit.GeometryConversion.RevitToProtoMesh.ToProtoType(pf.Triangulate());
                     var points = m.VertexPositions;
 
-
                     int numVertices = points.Count();
                     double x = 0, y = 0, z = 0;
                     foreach (var v in points)
@@ -845,6 +846,7 @@ namespace EnergyAnalysisForDynamo
             }
             return p;
         }
+        
 
         private static Autodesk.Revit.DB.Face GetSmallestFace(Document RvtDoc, MassSurfaceData surf, Autodesk.Revit.DB.ElementId myEnergyModelId)
         {
