@@ -111,8 +111,19 @@ namespace EnergyAnalysisForDynamo
                 var response =
                             (HttpWebResponse)
                             Helper._CallPostApi(requestCreateBaseRunUri, typeof(NewRunItem), Helper._GetNewRunItem(ProjectId, gbXMLPath));
-                newRunId = Helper.DeserializeHttpWebResponse(response); 
-                newRunIds.Add(newRunId);
+
+                if (response != null)
+                {
+                    newRunId = Helper.DeserializeHttpWebResponse(response); 
+                    newRunIds.Add(newRunId);
+                }
+                else
+                {
+                    // get file name
+                    string filename = Path.GetFileName(gbXMLPath);
+                    throw new Exception("Couldot run the analysis for the file: " + filename );
+                }
+
 	        }
 
             // 3. Populate the Outputs
