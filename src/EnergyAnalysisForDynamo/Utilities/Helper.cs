@@ -309,6 +309,7 @@ namespace EnergyAnalysisForDynamo.Utilities
 
             // Send the request to GBS
             var request = (HttpWebRequest)System.Net.WebRequest.Create(MassRunRequestUri);
+            request.Timeout = 120000;
             request.Method = "GET";
             // request.PreAuthenticate = true;
             request.ContentType = "application/xml";
@@ -326,6 +327,7 @@ namespace EnergyAnalysisForDynamo.Utilities
             
             // Send the request to GBS
             var changeRequest = (HttpWebRequest)System.Net.WebRequest.Create(MassRunUpdateUri);
+            changeRequest.Timeout = 120000;
             changeRequest.Method = "PUT";
             changeRequest.PreAuthenticate = true;
             changeRequest.ContentType = "application/xml";
@@ -367,6 +369,7 @@ namespace EnergyAnalysisForDynamo.Utilities
 
             // Send request to GBS
             System.Net.WebRequest request = System.Net.WebRequest.Create(signedRequestUri);
+            request.Timeout = 120000;
             WebResponse response = request.GetResponse();
 
             return response;
@@ -396,6 +399,7 @@ namespace EnergyAnalysisForDynamo.Utilities
 
             // Send request to GBS
             var request = (HttpWebRequest)System.Net.WebRequest.Create(signedRequestUri);
+            request.Timeout = 120000;
             request.Method = "POST";
             request.ContentType = "application/xml";
             using (Stream requestStream = request.GetRequestStream())

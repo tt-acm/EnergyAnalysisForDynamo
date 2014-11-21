@@ -61,49 +61,64 @@ namespace EnergyAnalysisForDynamo
         /// Creates Base Run and returns Base RunId
         /// </summary>
         /// <param name="ProjectId"> Input Project ID </param>
-        /// <param name="gbXMLPath"> Input file path of gbXML File </param>
+        /// <param name="gbXMLPaths"> Input file path of gbXML File </param>
         /// <param name="ExecuteParametricRuns"> Set to true to execute parametric runs. You can read more about parametric runs here: http://autodesk.typepad.com/bpa/ </param>
         /// <returns></returns>
-        [MultiReturn("RunId")]
-        public static Dictionary<string, int> RunEnergyAnalysis(int ProjectId, string gbXMLPath, bool ExecuteParametricRuns = false)
+        [MultiReturn("RunIds")]
+        public static Dictionary<string,List<int>> RunEnergyAnalysis(int ProjectId, List<string> gbXMLPaths, bool ExecuteParametricRuns = false)
         {
             // Make sure the given file is an .xml
-            string extention = string.Empty;
-            try
+            foreach (var gbXMLPath in gbXMLPaths)
             {
-                extention = Path.GetExtension(gbXMLPath);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex + "Use 'File Path' node to set the gbxml file location." );
-            }
+                string extention = string.Empty;
+                try
+                {
+                    extention = Path.GetExtension(gbXMLPath);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex + "Use 'File Path' node to set the gbxml file location.");
+                }
 
-            if (extention != ".xml")
-            {
-                throw new Exception("Make sure to input gbxml file");
+                if (extention != ".xml")
+                {
+                    throw new Exception("Make sure to input files are gbxml files");
+                }
             }
+           
+		        // 1. Initiate the Revit Auth
+                Helper.InitRevitAuthProvider();
+
+                // 1.1 Turn off MassRuns
+                try
+                {
+                    Helper._ExecuteMassRuns(ExecuteParametricRuns, ProjectId);
+                }
+                catch (Exception)
+                {
+                    // Do Nothing
+                }
 
             //Output variable
-            int newRunId = 0;
+            List<int> newRunIds = new List<int>();
+            foreach (var gbXMLPath in gbXMLPaths)
+	        {
+                int newRunId = 0;
 
-            // 1. Initiate the Revit Auth
-            Helper.InitRevitAuthProvider();
+                // 2. Create A Base Run
+                string requestCreateBaseRunUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateBaseRunUri, "xml");
 
-            // 1.1 Turn off MassRuns
-            Helper._ExecuteMassRuns(ExecuteParametricRuns, ProjectId);
-
-            // 2. Create A Base Run
-            string requestCreateBaseRunUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateBaseRunUri, "xml");
-
-            var response =
-                (HttpWebResponse)
-                 Helper._CallPostApi(requestCreateBaseRunUri, typeof(NewRunItem), Helper._GetNewRunItem(ProjectId, gbXMLPath));
-            newRunId = Helper.DeserializeHttpWebResponse(response);
+                var response =
+                            (HttpWebResponse)
+                            Helper._CallPostApi(requestCreateBaseRunUri, typeof(NewRunItem), Helper._GetNewRunItem(ProjectId, gbXMLPath));
+                newRunId = Helper.DeserializeHttpWebResponse(response); 
+                newRunIds.Add(newRunId);
+	        }
 
             // 3. Populate the Outputs
-            return new Dictionary<string, int>
+            return new Dictionary<string,List<int>>
             {
-                { "RunId", newRunId},
+                { "RunIds", newRunIds},
             };
         }
 
