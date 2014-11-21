@@ -1,16 +1,16 @@
-<Workspace Version="0.7.2.2114" X="259.19208167539" Y="-79.2169112287453" zoom="0.818482410765298" Description="" Category="" Name="Home">
+<Workspace Version="0.7.5.3235" X="148.875764906826" Y="-42.9463089279118" zoom="0.771242269517487" Description="" Category="" Name="Home">
   <Elements>
     <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="83f5eb3b-234f-4081-8461-bd1af9ae6708" nickname="Glazing Percentage" x="36" y="314" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.Double>0.675216627234563</System.Double>
+      <System.Double>0.675</System.Double>
       <Range min="0" max="1" />
     </Dynamo.Nodes.DoubleSlider>
     <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="d4373a50-6b22-49ae-a392-90a2ab77148a" nickname="Shade Depth" x="34.1066938769355" y="414.523243091059" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Double>0</System.Double>
       <Range min="0" max="3" />
     </Dynamo.Nodes.DoubleSlider>
-    <EnergyAnalysisForDynamo_UI.BuildingTypeDropdown type="EnergyAnalysisForDynamo_UI.BuildingTypeDropdown" guid="41146885-0a7e-477a-9a9f-78b12c922d8d" nickname="Building Type Dropdown" x="-83.7439897458912" y="212.423521336771" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0" />
-    <EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown type="EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown" guid="7ebcad18-5ae9-424e-a88a-8285d5417ff3" nickname="Operating Schedules Dropdown" x="-71.1516873063465" y="711.968872395867" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0" />
-    <EnergyAnalysisForDynamo_UI.HVACtypeDropdown type="EnergyAnalysisForDynamo_UI.HVACtypeDropdown" guid="11c4ee65-29ea-4d34-8034-cbf688cbfcd4" nickname="HVAC System Type Dropdown" x="-74.0078460927667" y="636.280664555744" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0" />
+    <EnergyAnalysisForDynamo_UI.BuildingTypeDropdown type="EnergyAnalysisForDynamo_UI.BuildingTypeDropdown" guid="41146885-0a7e-477a-9a9f-78b12c922d8d" nickname="Building Type Dropdown" x="-83.7439897458912" y="212.423521336771" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:AutomotiveFacility" />
+    <EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown type="EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown" guid="7ebcad18-5ae9-424e-a88a-8285d5417ff3" nickname="Operating Schedules Dropdown" x="-71.1516873063465" y="711.968872395867" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:DefaultOperatingSchedule" />
+    <EnergyAnalysisForDynamo_UI.HVACtypeDropdown type="EnergyAnalysisForDynamo_UI.HVACtypeDropdown" guid="11c4ee65-29ea-4d34-8034-cbf688cbfcd4" nickname="HVAC System Type Dropdown" x="-74.0078460927667" y="636.280664555744" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:CentralVAVElectricResistanceHeatChillerFivePointNinetySixCOP" />
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="adf6bbf0-a1b0-4940-9c25-8d8fe087bf13" nickname="EnergySettings.SetEnergySettings" x="795.629283897493" y="414.779995700622" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.EnergySettings.SetEnergySettings@string,double,double,double,string,string">
       <PortInfo index="0" default="True" />
       <PortInfo index="1" default="True" />

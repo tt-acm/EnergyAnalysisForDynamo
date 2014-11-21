@@ -123,7 +123,7 @@ namespace EnergyAnalysisForDynamo
                     string filename = Path.GetFileName(gbXMLPath);
                     throw new Exception("Couldot run the analysis for the file: " + filename );
                 }
-
+                
 	        }
 
             // 3. Populate the Outputs
