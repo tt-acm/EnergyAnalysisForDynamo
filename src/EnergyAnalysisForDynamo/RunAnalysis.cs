@@ -58,7 +58,7 @@ namespace EnergyAnalysisForDynamo
 
         // NODE: Create Base Run
         /// <summary>
-        /// Creates Base Run and returns Base RunId
+        /// Uploads and runs the energy analysis at the cloud and returns 'RunId' for results. GBS Project location information overwrites the gbxml file location. If gbXML locations are variant, create new Project for each.
         /// </summary>
         /// <param name="ProjectId"> Input Project ID </param>
         /// <param name="gbXMLPaths"> Input file path of gbXML File </param>
