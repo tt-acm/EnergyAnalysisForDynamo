@@ -12,6 +12,7 @@ namespace EnergyAnalysisForDynamo
     /// <summary>
     /// Wrapper class for Autodesk.Revit.DB.ElementId.
     /// </summary>
+    [IsVisibleInDynamoLibrary(false)]
     public class ElementId
     {
         //the revit ID that we are wrapping around.
