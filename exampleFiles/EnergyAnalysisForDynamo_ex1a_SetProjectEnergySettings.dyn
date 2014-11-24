@@ -1,7 +1,7 @@
-<Workspace Version="0.7.5.3235" X="148.875764906826" Y="-42.9463089279118" zoom="0.771242269517487" Description="" Category="" Name="Home">
+<Workspace Version="0.7.4.3245" X="148.875764906826" Y="-42.9463089279118" zoom="0.771242269517487" Description="" Category="" Name="Home">
   <Elements>
     <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="83f5eb3b-234f-4081-8461-bd1af9ae6708" nickname="Glazing Percentage" x="36" y="314" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.Double>0.675</System.Double>
+      <System.Double>0.5</System.Double>
       <Range min="0" max="1" />
     </Dynamo.Nodes.DoubleSlider>
     <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="d4373a50-6b22-49ae-a392-90a2ab77148a" nickname="Shade Depth" x="34.1066938769355" y="414.523243091059" isVisible="true" isUpstreamVisible="true" lacing="Disabled">

@@ -1,10 +1,10 @@
-<Workspace Version="0.7.5.3235" X="132.347837007948" Y="217.84549350648" zoom="0.513980702867619" Description="" Category="" Name="Home">
+<Workspace Version="0.7.4.3245" X="157.38941712932" Y="184.634936144104" zoom="0.68159573365329" Description="" Category="" Name="Home">
   <Elements>
     <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="de7e03f2-e422-4bdd-baf5-c07afd650cd8" nickname="Boolean" x="-51.3774654321168" y="74.6898907239289" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Boolean>True</System.Boolean>
     </DSCoreNodesUI.BoolSelector>
     <DSCore.File.Filename type="DSCore.File.Filename" guid="2657efd2-8d61-40a2-b32e-6029f19e9d06" nickname="File Path" x="465.789064946741" y="279.487122660326" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.String>C:\Users\MSadeghipourroudsari\Documents\GitHub\EnergyAnalysisForDynamo\exampleFiles\gbxml TESTDATA\demo_testdata.xml</System.String>
+      <System.String>C:\Users\BHowes\Desktop\exportGBxmlTest_001.xml</System.String>
     </DSCore.File.Filename>
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="43dba25e-e242-4df5-92ad-a6cfda15308e" nickname="GetAnalysisResults.GetProjectsList" x="147.137583114583" y="21.7582211730879" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetProjectsList@bool">
       <PortInfo index="0" default="True" />

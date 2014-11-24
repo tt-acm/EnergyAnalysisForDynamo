@@ -1,8 +1,10 @@
-<Workspace Version="0.7.5.3235" X="-1242.71813658005" Y="-340.419868029219" zoom="0.707241001471941" Description="" Category="" Name="Home">
+<Workspace Version="0.7.4.3245" X="-1179.71813658005" Y="-287.419868029219" zoom="0.707241001471941" Description="" Category="" Name="Home">
   <Elements>
-    <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="805473f9-662e-4e0b-bc1c-bfa37ffbd3be" nickname="Select Model Element" x="1851.06903146706" y="732.513832587272" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="805473f9-662e-4e0b-bc1c-bfa37ffbd3be" nickname="Select Model Element" x="1851.06903146706" y="732.513832587272" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <instance id="822de3a8-2f15-4e66-b339-c7c097590daf-0003aac8" />
+    </Dynamo.Nodes.DSModelElementSelection>
     <DSCore.File.Filename type="DSCore.File.Filename" guid="006cfa8a-373d-4b13-9f3a-9a3576e182ee" nickname="File Path" x="2281.59835494946" y="605.876272157752" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.String>C:\Users\MSadeghipourroudsari\Desktop\test2.XML</System.String>
+      <System.String>C:\Users\BHowes\Desktop\exportGBxmlTest_002.xml</System.String>
     </DSCore.File.Filename>
     <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="da476d52-2857-49e4-bd9c-666302a7fb8f" nickname="Boolean" x="2326.69869389045" y="991.676710392755" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Boolean>True</System.Boolean>

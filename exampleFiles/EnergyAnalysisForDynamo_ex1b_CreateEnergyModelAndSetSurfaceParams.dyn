@@ -1,4 +1,4 @@
-<Workspace Version="0.7.5.3235" X="-264.185958309612" Y="-148.990519492292" zoom="0.58838282914808" Description="" Category="" Name="Home">
+<Workspace Version="0.7.4.3245" X="-236.590173212077" Y="-125.084894903302" zoom="0.668787581941588" Description="" Category="" Name="Home">
   <Elements>
     <DSRevitNodesUI.Levels type="DSRevitNodesUI.Levels" guid="709e9346-2a23-48aa-8000-42d54f27ee54" nickname="Levels" x="490" y="522" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:Level 1" />
     <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="477cd4a4-3747-4eeb-8717-62056f9087ab" nickname="Select Model Element" x="490" y="424.548973339123" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
@@ -21,7 +21,7 @@
       <Range min="0" max="2" />
     </Dynamo.Nodes.DoubleSlider>
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="fef977d6-c403-4a2e-ae1e-212b28b710c2" nickname="List.GetItemAtIndex" x="1470.12048227562" y="634.597329630844" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="443faa2f-d81c-491c-8bac-29f0bf1b6f94" nickname="PrepareEnergyModel.DrawAnalysisSurface" x="1925.43131161661" y="448.531920482421" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DrawAnalysisSurface@EnergyAnalysisForDynamo.ElementId" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="443faa2f-d81c-491c-8bac-29f0bf1b6f94" nickname="PrepareEnergyModel.DrawAnalysisSurface" x="1935.89801313591" y="450.027163556607" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DrawAnalysisSurface@EnergyAnalysisForDynamo.ElementId" />
     <EnergyAnalysisForDynamo_UI.ConcConstTypeDropdown type="EnergyAnalysisForDynamo_UI.ConcConstTypeDropdown" guid="eb992883-3fce-4cdf-8396-d0faf884e75f" nickname="Conceptual Construction Types Dropdown" x="532.152442446895" y="1053.95859555037" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:HighMassConstructionHighInsulation" />
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="180ddc57-828c-4625-856c-b57d58f55b30" nickname="PrepareEnergyModel.SetWallSurfaceParameters" x="1965.30590607996" y="706.586656725431" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.SetWallSurfaceParameters@EnergyAnalysisForDynamo.ElementId,double,double,double,string">
       <PortInfo index="1" default="True" />
