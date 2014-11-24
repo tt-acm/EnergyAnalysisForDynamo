@@ -1,24 +1,29 @@
-<Workspace Version="0.7.2.16963" X="-1469.57484454563" Y="-1274.78539073313" zoom="1.02801092726298" Description="" Category="" Name="Home">
+<Workspace Version="0.7.5.3235" X="-1141.90946576954" Y="-1049.35365309726" zoom="0.831588811919638" Description="" Category="" Name="Home">
   <Elements>
-    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="da476d52-2857-49e4-bd9c-666302a7fb8f" nickname="Boolean" x="1796.52288240698" y="1622.52019006297" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="da476d52-2857-49e4-bd9c-666302a7fb8f" nickname="Boolean" x="1806.406742111" y="1712.3503621082" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Boolean>True</System.Boolean>
     </DSCoreNodesUI.BoolSelector>
-    <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="7aef97d2-7da9-42f6-a485-97565c1dff47" nickname="Select Model Element" x="1771.48597008597" y="1527.69153920116" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="7aef97d2-7da9-42f6-a485-97565c1dff47" nickname="Select Model Element" x="1774.30283264159" y="1513.60722642307" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <instance id="822de3a8-2f15-4e66-b339-c7c097590daf-0003aac8" />
+    </Dynamo.Nodes.DSModelElementSelection>
     <DSCore.File.Filename type="DSCore.File.Filename" guid="df247fb5-b642-4cee-ad17-2aaa72584c2b" nickname="File Path" x="1814.84741055282" y="1409.64499507435" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.String>No file selected.</System.String>
     </DSCore.File.Filename>
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="b81b288b-796b-4d13-820b-91673a74b7fb" nickname="RunAnalysis.ExportMassToGBXML" x="2165.12654952543" y="1446.95378089723" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.ExportMassToGBXML@string,Revit.Elements.AbstractFamilyInstance,bool">
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="b81b288b-796b-4d13-820b-91673a74b7fb" nickname="RunAnalysis.ExportMassToGBXML" x="2165.12654952543" y="1446.95378089723" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.ExportMassToGBXML@string,Revit.Elements.AbstractFamilyInstance,Revit.Elements.AbstractFamilyInstance[],bool">
       <PortInfo index="2" default="True" />
     </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="dee4f6d3-3518-4a7d-a272-3c67bec9a96e" nickname="List.Empty" x="1844.28535113536" y="1612.94639243604" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.Empty" />
   </Elements>
   <Connectors>
-    <Dynamo.Models.ConnectorModel start="da476d52-2857-49e4-bd9c-666302a7fb8f" start_index="0" end="b81b288b-796b-4d13-820b-91673a74b7fb" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="da476d52-2857-49e4-bd9c-666302a7fb8f" start_index="0" end="b81b288b-796b-4d13-820b-91673a74b7fb" end_index="3" portType="0" />
     <Dynamo.Models.ConnectorModel start="7aef97d2-7da9-42f6-a485-97565c1dff47" start_index="0" end="b81b288b-796b-4d13-820b-91673a74b7fb" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="df247fb5-b642-4cee-ad17-2aaa72584c2b" start_index="0" end="b81b288b-796b-4d13-820b-91673a74b7fb" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="dee4f6d3-3518-4a7d-a272-3c67bec9a96e" start_index="0" end="b81b288b-796b-4d13-820b-91673a74b7fb" end_index="2" portType="0" />
   </Connectors>
   <Notes>
     <Dynamo.Models.NoteModel text="1. Set the file location and name it. &#xD;&#xA;File extention is not needed" x="1515.37031967311" y="1430.47357762035" />
-    <Dynamo.Models.NoteModel text="3. To run an energy analysis you need to compile a gbXML file from a Mass or zones. This node will export a gbXML file for a mass." x="2152.28241039305" y="1368.97682921488" />
+    <Dynamo.Models.NoteModel text="4. To run an energy analysis you need to compile a gbXML file from a Mass or zones. This node will export a gbXML file for a mass." x="2152.28241039305" y="1368.97682921488" />
     <Dynamo.Models.NoteModel text="2. Select Mass from Revit/Vasari document" x="1475.67663746426" y="1524.84603414286" />
+    <Dynamo.Models.NoteModel text="3. Select Mass from Revit/Vasari document for context shading" x="1472.75695184897" y="1639.60908480274" />
   </Notes>
 </Workspace>
