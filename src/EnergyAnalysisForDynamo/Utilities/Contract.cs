@@ -988,4 +988,31 @@ namespace EnergyAnalysisForDynamo.DataContracts
         [DataMember]
         public string UtilityName { get; set; }
     }
+
+    [DataContract(Namespace = DataContractNamespace.Namespace)]
+    [IsVisibleInDynamoLibrary(false)]
+    public class SimulationRunFile
+    {
+        [DataMember]
+        public int RunId { get; set; }
+
+        [DataMember]
+        public int AltRunId { get; set; }
+
+        [DataMember]
+        public int ProjectId { get; set; }
+
+        [DataMember]
+        public string FileName { get; set; }
+
+        [DataMember]
+        public string ProjectTitile { get; set; }
+
+        [DataMember]
+        public byte[] FileStream { get; set; }
+
+        [DataMember]
+        public string RunTitle { get; set; }
+
+    }
 }

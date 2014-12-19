@@ -31,7 +31,6 @@ using RevitServices.Persistence;
 using RevitServices.Transactions;
 using ProtoCore;
 using ProtoCore.Utils;
-using Dynamo.Controls;
 using RevitServices.Elements;
 using Dynamo;
 using DynamoUtilities;
@@ -520,7 +519,7 @@ namespace EnergyAnalysisForDynamo
         /// <param name="FileType"> Result type gbxml or doe2 or inp </param>
         /// <param name="FilePath"> Set File location to download the file </param>
         /// <returns name="report"> string. </returns>
-        public static string GetEnergyModelFiles(int RunId, string FileType, string FilePath, int ParametricRunId = 0) // result type gbxml/doe2/eplus
+        public static string GetEnergyModelFiles(int RunId, string FileType, string Directory, int ParametricRunId = 0) // result type gbxml/doe2/eplus
         {
             // Initiate the Revit Auth
             Helper.InitRevitAuthProvider();
@@ -530,65 +529,26 @@ namespace EnergyAnalysisForDynamo
 
             // Get result of given RunId
             string requestGetRunResultsUri = GBSUri.GBSAPIUri +
-                                    string.Format(APIV1Uri.GetRunResultsUri, RunId, ParametricRunId, FileType);
+                                    string.Format(APIV1Uri.GetSimulationRunFile, RunId, ParametricRunId, FileType);
 
-            using (HttpWebResponse response = (HttpWebResponse)Helper._CallGetApi(requestGetRunResultsUri))
-            using (Stream stream = response.GetResponseStream())
-            {
-                string zipFileName = Path.Combine(FilePath, string.Format("RunResults_{0}_{1}_{2}.zip", RunId, ParametricRunId, FileType)); //result type gbxml/doe2/eplus
+            HttpWebResponse response = (HttpWebResponse)Helper._CallGetApi(requestGetRunResultsUri);
+            Stream stream = response.GetResponseStream();
+            
+            StreamReader reader = new StreamReader(stream);
+            string result = reader.ReadToEnd();
 
-                using (var fs = File.Create(zipFileName))
-                {
-                    stream.CopyTo(fs);
-                }
+            SimulationRunFile srf = Helper.DataContractJsonDeserialize<SimulationRunFile>(result);
 
-                if (File.Exists(zipFileName))
-                { report = "The Analysis result file " + FileType + " was successfully downloaded!"; }
+            // Get directory and create zip file location
+            string folder= Path.GetDirectoryName(Directory);
+            string zipFileName = Path.Combine(folder, srf.FileName);
 
-            }
+            System.IO.File.WriteAllBytes(zipFileName, srf.FileStream);
+
+            if (File.Exists(zipFileName))
+            { report = "The Analysis result file " + FileType + " was successfully downloaded!"; }
 
             return report;
         }
-
-
-
-        // TO DO: refer to GetEnergyDataFiles Method
-        //[MultiReturn("INPFile", "IDFFile")]
-        //public static Dictionary<string, object> GetEnergyModelFiles(int ProjectId, string ProjectTitle, bool Connect = false)
-        //{
-        //    //local variables
-        //    string INPFile = string.Empty;
-        //    string IDFFile = string.Empty;
-
-        //    //make Connect? inputs set to True mandatory
-        //    if (Connect == false)
-        //    {
-        //        throw new Exception("Set 'Connect' to True!");
-        //    }
-
-        //    // defense
-
-
-        //    // Initiate the Revit Auth
-        //    InitRevitAuthProvider();
-
-        //    /*
-        //    // Request - I'm still not sure how to create the request - should know more after today meeting
-        //    string requestUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.GetProjectList, "json");
-
-        //    HttpWebResponse response = (HttpWebResponse)_CallGetApi(requestUri);
-        //    Stream responseStream = response.GetResponseStream();
-        //    StreamReader reader = new StreamReader(responseStream);
-        //    string result = reader.ReadToEnd();
-        //    */
-
-        //    return new Dictionary<string, object>
-        //    {
-        //        { "INPFile", INPFile},
-        //        { "IDFFile", IDFFile}
-        //    };
-
-        //}
-
     }
 }
