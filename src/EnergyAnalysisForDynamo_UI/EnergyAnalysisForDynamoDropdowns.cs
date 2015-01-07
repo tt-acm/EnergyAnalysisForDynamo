@@ -37,13 +37,40 @@ namespace EnergyAnalysisForDynamo_UI
         public OperatingSchedulesDropdown(WorkspaceModel workspace) : base(workspace) { }
     }
 
-    [NodeName("Conceptual Construction Types Dropdown")]
+    [NodeName("Conceptual Wall Construction Types Dropdown")]
     [NodeCategory("EnergyAnalysisForDynamo.EnergySettings")]
     [NodeDescription("Select a Conceptual Construction Type to use with the Set Surface Parameters node.")]
     [IsDesignScriptCompatible]
-    public class ConcConstTypeDropdown : EnumAsString<ConceptualConstructionWallType>
+    public class ConcWallConstTypeDropdown : EnumAsString<ConceptualConstructionWallType>
     {
-        public ConcConstTypeDropdown(WorkspaceModel workspace) : base(workspace) { }
+        public ConcWallConstTypeDropdown(WorkspaceModel workspace) : base(workspace) { }
+    }
+    
+    [NodeName("Conceptual Glazing Construction Types Dropdown")]
+    [NodeCategory("EnergyAnalysisForDynamo.EnergySettings")]
+    [NodeDescription("Select a Conceptual Construction Type to use with the Set Surface Parameters node.")]
+    [IsDesignScriptCompatible]
+    public class ConcGlazingConstTypeDropdown : EnumAsString<ConceptualConstructionWindowSkylightType>
+    {
+        public ConcGlazingConstTypeDropdown(WorkspaceModel workspace) : base(workspace) { }
+    }
+
+    [NodeName("Conceptual Floor Construction Types Dropdown")]
+    [NodeCategory("EnergyAnalysisForDynamo.EnergySettings")]
+    [NodeDescription("Select a Conceptual Construction Type to use with the Set Surface Parameters node.")]
+    [IsDesignScriptCompatible]
+    public class ConcFloorConstTypeDropdown : EnumAsString<ConceptualConstructionFloorSlabType>
+    {
+        public ConcFloorConstTypeDropdown(WorkspaceModel workspace) : base(workspace) { }
+    }
+
+    [NodeName("Conceptual Roof Construction Types Dropdown")]
+    [NodeCategory("EnergyAnalysisForDynamo.EnergySettings")]
+    [NodeDescription("Select a Conceptual Construction Type to use with the Set Surface Parameters node.")]
+    [IsDesignScriptCompatible]
+    public class ConcRoofConstTypeDropdown : EnumAsString<ConceptualConstructionRoofType>
+    {
+        public ConcRoofConstTypeDropdown(WorkspaceModel workspace) : base(workspace) { }
     }
 
     [NodeName("Space Types Dropdown")]

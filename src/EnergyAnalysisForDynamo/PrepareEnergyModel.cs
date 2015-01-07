@@ -147,7 +147,7 @@ namespace EnergyAnalysisForDynamo
         /// <param name="MassFamilyInstance">The conceptual mass family instance to create zones from</param>
         /// <param name="Levels">A list of levels to create mass floors with</param>
         /// <returns></returns>
-        [MultiReturn("MassFamilyInstance", "ZoneIds", "WallSurfaceIds", "RoofSurfaceIds")]
+        [MultiReturn("MassFamilyInstance", "ZoneIds")]
         public static Dictionary<string, object> CreateByMassLevels(AbstractFamilyInstance MassFamilyInstance, List<Revit.Elements.Element> Levels)
         {
             //local varaibles
@@ -216,18 +216,13 @@ namespace EnergyAnalysisForDynamo
             List<Autodesk.Revit.DB.ElementId> zoneIds = mea.GetMassZoneIds().ToList();
             //loop over the output lists, and wrap them in our ElementId wrapper class
             List<ElementId> outZoneIds = zoneIds.Select(e => new ElementId(e.IntegerValue)).ToList();
-
-            List<ElementId> outWallSurfaceIds = Helper.GetSurfaceIdsFromMassEnergyAnalyticalModelBasedOnType(mea, "Mass Exterior Wall");
-            List<ElementId> outRoofSurfaceIds = Helper.GetSurfaceIdsFromMassEnergyAnalyticalModelBasedOnType(mea, "Mass Roof");
-            
+           
             #endregion
 
             return new Dictionary<string, object>
             {
                 {"MassFamilyInstance", MassFamilyInstance},
-                {"ZoneIds", outZoneIds},
-                {"WallSurfaceIds", outWallSurfaceIds},
-                {"RoofSurfaceIds", outRoofSurfaceIds}
+                {"ZoneIds", outZoneIds}
             };
         }
 
@@ -236,7 +231,7 @@ namespace EnergyAnalysisForDynamo
         /// </summary>
         /// <param name="MassFamilyInstance">The conceptual mass family instance to create zones from</param>
         /// <returns></returns>
-        [MultiReturn("MassFamilyInstance", "ZoneIds", "WallSurfaceIds", "RoofSurfaceIds")]
+        [MultiReturn("MassFamilyInstance", "ZoneIds")]
         public static Dictionary<string, object> CreateByMass(AbstractFamilyInstance MassFamilyInstance)
         {
             //local varaibles
@@ -270,16 +265,10 @@ namespace EnergyAnalysisForDynamo
             //loop over the output lists, and wrap them in our ElementId wrapper class
             List<ElementId> outZoneIds = zoneIds.Select(e => new ElementId(e.IntegerValue)).ToList();
 
-            List<ElementId> outWallSurfaceIds = Helper.GetSurfaceIdsFromMassEnergyAnalyticalModelBasedOnType(mea, "Mass Exterior Wall");
-            List<ElementId> outRoofSurfaceIds = Helper.GetSurfaceIdsFromMassEnergyAnalyticalModelBasedOnType(mea, "Mass Roof");
-
-
             return new Dictionary<string, object>
             {
                 {"MassFamilyInstance", MassFamilyInstance},
-                {"ZoneIds", outZoneIds},
-                {"WallSurfaceIds", outWallSurfaceIds},
-                {"RoofSurfaceIds", outRoofSurfaceIds}
+                {"ZoneIds", outZoneIds}
             };
         }
 
@@ -288,7 +277,7 @@ namespace EnergyAnalysisForDynamo
         /// </summary>
         /// <param name="ZoneId">The ElementId of the zone to inspect.  Get this from the PrepareEnergyModel > CreateFrom* > ZoneIds output list</param>
         /// <returns></returns>
-        [MultiReturn("WallSurfaceIds", "RoofSurfaceIds", "SpaceType", "conditionType")]
+        [MultiReturn("WallSurfaceIds", "IntWallSurfaceIds", "GlazingSurfaceIds", "FloorSurfaceIds", "RoofSurfaceIds", "SpaceType", "conditionType")]
         public static Dictionary<string, object> DecomposeZone(ElementId ZoneId)
         {
             // local variables
@@ -310,9 +299,14 @@ namespace EnergyAnalysisForDynamo
                 throw new Exception("Couldn't find a zone object with Id #: " + ZoneId.ToString());
             }
 
-            //get external faces belonging to this zone
+            //get ids based on type. Maybe we should write a new function that loops once and returns them all at once
             List<EnergyAnalysisForDynamo.ElementId> outWallSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Exterior Wall");
+            List<EnergyAnalysisForDynamo.ElementId> outIntWallSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Interior Wall");
+            List<EnergyAnalysisForDynamo.ElementId> outGlazingSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Glazing");
+            List<EnergyAnalysisForDynamo.ElementId> outFloorSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Floor");
             List<EnergyAnalysisForDynamo.ElementId> outRoofSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Roof");
+            // Revit consider both floor and ceiling and floor so this one is out!
+            // List<EnergyAnalysisForDynamo.ElementId> outCeilingSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Interior Ceiling");
  
             // assign condition type
             conditionType = zone.ConditionType;
@@ -324,6 +318,9 @@ namespace EnergyAnalysisForDynamo
             return new Dictionary<string, object>
             {
                 {"WallSurfaceIds", outWallSurfaceIds},
+                {"IntWallSurfaceIds", outIntWallSurfaceIds},
+                {"GlazingSurfaceIds", outGlazingSurfaceIds},
+                {"FloorSurfaceIds", outFloorSurfaceIds},
                 {"RoofSurfaceIds", outRoofSurfaceIds},
                 {"SpaceType", spaceType},
                 {"conditionType", conditionType}
