@@ -421,6 +421,109 @@ namespace EnergyAnalysisForDynamo
             return outMeshes;
         }
 
+
+        /// <summary>
+        /// Sets surface's construction type. This node works for all the surface types.
+        /// </summary>
+        /// <param name="SurfaceId">The ElementId of the surface to modify.  Get this from the AnalysisZones > CreateFrom* > SurfaceIds output list</param>
+        /// <param name="ConstType">Conceptual Construction Type. Use the Conceptual Construction Types Dropdown node from our EnergySettings tab to specify a value.</param>
+        /// <returns></returns>
+        public static ElementId SetSurfaceConceptualConstruction(ElementId SurfaceId, string ConstType)
+        {
+            //local varaibles
+            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+            MassSurfaceData surf = null;
+
+            //try to get the MassSurfaceData object from the document
+            try
+            {
+                surf = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceId.InternalId));
+                if (surf == null) throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Couldn't find a MassSurfaceData object with Id #: " + SurfaceId.ToString());
+            }
+            
+            try
+            {
+                //start a transaction task
+                TransactionManager.Instance.EnsureInTransaction(RvtDoc);
+
+                //change the 'Values' param to 1 - by surface
+                var val = surf.get_Parameter("Values");
+                if (val != null)
+                {
+                    val.Set(1);
+                }
+                
+                //set conceptual construction if not empty
+                if (!string.IsNullOrEmpty(ConstType))
+                {
+                    // check if the construction matches the surface type
+                    switch (surf.Category.Name)
+                    {
+                        case "Mass Exterior Wall":
+                            if (Enum.IsDefined(typeof(ConceptualConstructionWallType), ConstType)!=true)
+                            {
+                                throw new Exception(ConstType + " is not a valid construction type for walls.");
+                            }
+                            break;
+
+                        case "Mass Interior Wall":
+                            if (Enum.IsDefined(typeof(ConceptualConstructionWallType), ConstType) != true)
+                            {
+                                throw new Exception(ConstType + " is not a valid construction type for walls.");
+                            }
+                            break;
+
+                        case "Mass Glazing":
+                            if (Enum.IsDefined(typeof(ConceptualConstructionWindowSkylightType), ConstType) != true)
+                            {
+                                throw new Exception(ConstType + " is not a valid construction type for glazing.");
+                            }
+                            break;
+                        
+                        case "Mass Floor":
+                            if (Enum.IsDefined(typeof(ConceptualConstructionFloorSlabType), ConstType) != true)
+                            {
+                                throw new Exception(ConstType + " is not a valid construction type for floors.");
+                            }
+                            break;
+                        
+                        case "Mass Roof":
+                            if (Enum.IsDefined(typeof(ConceptualConstructionRoofType), ConstType) != true)
+                            {
+                                throw new Exception(ConstType + " is not a valid construction type for roofs.");
+                            }
+                            break;
+                    }
+
+                    // it is all fine so let's change the construction type
+                    Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType);
+
+                    if (myTypeId != null)
+                    {
+                        surf.IsConceptualConstructionByEnergyData = false;
+                        surf.ConceptualConstructionId = myTypeId;
+                    }
+                    
+                }
+
+                //done with transaction task
+                TransactionManager.Instance.TransactionTaskDone();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("# " + SurfaceId.ToString() + ": " + ex.Message);
+            }
+
+            //return the surface ID so the surface can be used downstream
+            return SurfaceId;       
+
+        }
+
         /// <summary>
         /// Sets a roof surface's energy parameters
         /// </summary>
@@ -482,11 +585,20 @@ namespace EnergyAnalysisForDynamo
                 //set conceptual construction if not empty
                 if (!string.IsNullOrEmpty(ConstType) && ConstType != "default")
                 {
-                    Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType);
-                    if (myTypeId != null)
+                    // check if construction is a valid Revit construction for roofs
+                    if (Enum.IsDefined(typeof(ConceptualConstructionRoofType), ConstType))
                     {
-                        surf.IsConceptualConstructionByEnergyData = false;
-                        surf.ConceptualConstructionId = myTypeId;
+                        Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType);
+
+                        if (myTypeId != null)
+                        {
+                            surf.IsConceptualConstructionByEnergyData = false;
+                            surf.ConceptualConstructionId = myTypeId;
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception(ConstType + " is not a valid construction type for roofs.");
                     }
                 }
 
@@ -494,12 +606,12 @@ namespace EnergyAnalysisForDynamo
                 TransactionManager.Instance.TransactionTaskDone();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Something went wrong when trying to set the parameters on surface # " + SurfaceId.ToString());
+                throw new Exception("Failed to set the parameters on surface # " + SurfaceId.ToString() + ":\n" + ex.Message);
             }
 
-            //return the surface ID so the surface can be used downstream            
+            //return the surface ID so the surface can be used downstream
             return SurfaceId;
         }
 
@@ -577,11 +689,20 @@ namespace EnergyAnalysisForDynamo
                 //set conceptual construction if not empty
                 if (!string.IsNullOrEmpty(ConstType) && ConstType != "default")
                 {
-                    Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType);
-                    if (myTypeId != null)
+                    // check if construction is a valid Revit construction for walls
+                    if (Enum.IsDefined(typeof(ConceptualConstructionWallType), ConstType))
                     {
-                        surf.IsConceptualConstructionByEnergyData = false;
-                        surf.ConceptualConstructionId = myTypeId;
+                        Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType);
+
+                        if (myTypeId != null)
+                        {
+                            surf.IsConceptualConstructionByEnergyData = false;
+                            surf.ConceptualConstructionId = myTypeId;
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception(ConstType + " is not a valid construction type for walls.");
                     }
                 }
 
@@ -589,9 +710,9 @@ namespace EnergyAnalysisForDynamo
                 TransactionManager.Instance.TransactionTaskDone();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Something went wrong when trying to set the parameters on surface # " + SurfaceId.ToString());
+                throw new Exception("Failed to set the parameters on surface # " + SurfaceId.ToString() + ":\n" + ex.Message);
             }
 
             //return the surface ID so the surface can be used downstream
