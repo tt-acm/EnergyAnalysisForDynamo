@@ -283,7 +283,6 @@ namespace EnergyAnalysisForDynamo
             // local variables
             Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
             MassZone zone = null;
-            Autodesk.Revit.DB.ElementId myEnergyModelId = null;
             gbXMLConditionType conditionType = gbXMLConditionType.NoConditionType;
             gbXMLSpaceType spaceType = gbXMLSpaceType.NoSpaceType;
 
@@ -422,6 +421,75 @@ namespace EnergyAnalysisForDynamo
         }
 
 
+        /// <summary>
+        /// Separate analysis zones by level
+        /// </summary>
+        /// <param name="ZoneIds">The ElementId of the zones.  Get this from the AnalysisZones > CreateFrom* > ZoneIds output list</param>
+        /// <returns></returns>
+        [MultiReturn("Levels", "ZoneIds")]
+
+        public static Dictionary<string, object> SeparateZonesByLevel(List<ElementId> ZoneIds)
+        {
+            
+            //local varaibles
+            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+            MassZone zone = null;
+            Autodesk.Revit.DB.Level level = null;
+
+            List<Autodesk.Revit.DB.ElementId> levelIds = new List<Autodesk.Revit.DB.ElementId>();
+            SortedDictionary<double, Autodesk.Revit.DB.Level> levels = new SortedDictionary<double, Autodesk.Revit.DB.Level>();
+            //SortedDictionary<double, Autodesk.Revit.DB.ElementId> levels = new SortedDictionary<double, Autodesk.Revit.DB.ElementId>();
+            SortedDictionary<double, List<ElementId>> SepatatedZones = new SortedDictionary<double, List<ElementId>>();
+            
+            for (int i = 0; i < ZoneIds.Count(); i++ )
+            { 
+                //try to get MassZone using the ID
+                try
+                {
+                    zone = (MassZone)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(ZoneIds[i].InternalId));
+                    
+                    if (zone == null) throw new Exception();
+                    
+                    //find level ID
+                    Autodesk.Revit.DB.ElementId levelId = zone.LowerLevelId;
+                    
+                    // get level element
+                    level = (Autodesk.Revit.DB.Level)RvtDoc.GetElement(levelId);
+
+                    // get the elevation for the level
+                    double elevation = level.Elevation;
+
+                    // add levels and zones to dictionary based on elevation
+                    levels[elevation] = level;
+
+                    if (!SepatatedZones.ContainsKey(elevation))
+                    {
+                        // create an empty list as place holder
+                        SepatatedZones[elevation] = new List<ElementId>();
+                    }
+                    
+                    // add zoneId
+                    SepatatedZones[elevation].Add(ZoneIds[i]);
+
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Couldn't find a zone object with Id #: " + ZoneIds[i].ToString());
+                }
+
+
+            }
+            
+            //return the levels and zone IDs
+            return new Dictionary<string, object>
+            {
+                {"Levels", levels.Values},
+                {"ZoneIds", SepatatedZones.Values}
+            };
+        }
+        
+        
+        
         /// <summary>
         /// Sets surface's construction type. This node works for all the surface types.
         /// </summary>
