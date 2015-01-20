@@ -494,8 +494,6 @@ namespace EnergyAnalysisForDynamo
         }
         
 
-
-
         /// <summary>
         /// Separate analysis zones by level
         /// </summary>
