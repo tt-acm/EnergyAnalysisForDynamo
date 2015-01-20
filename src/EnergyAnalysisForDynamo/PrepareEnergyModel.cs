@@ -422,6 +422,81 @@ namespace EnergyAnalysisForDynamo
 
 
         /// <summary>
+        /// Separate analysis surfaces by orientation
+        /// </summary>
+        /// <param name="SurfaceIds">The ElementId of the zones.  Get this from the AnalysisZones > CreateFrom* > ZoneIds output list</param>
+        /// <returns></returns>
+        [MultiReturn("AngleToYAxis", "SurfaceIds")]
+
+        public static Dictionary<string, object> SeparateSrfsByOrientation(List<ElementId> SurfaceIds)
+        {
+
+            //local varaibles
+            Document RvtDoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument.Document;
+            MassSurfaceData surface = null;
+            Autodesk.DesignScript.Geometry.Vector YAxisVector = Autodesk.DesignScript.Geometry.Vector.YAxis();
+            double angle2YAxis = 0;
+
+            // Revit project angle vs real north angle is pretty confusing so I just leave it to YAxis
+            // and users can adjust them based on their project
+            // double projectNorth = RvtDoc.ActiveProjectLocation.get_ProjectPosition(XYZ.Zero).Angle;
+
+            List<Autodesk.Revit.DB.ElementId> levelIds = new List<Autodesk.Revit.DB.ElementId>();
+            
+            SortedDictionary<double, List<ElementId>> SepatatedSurfaces = new SortedDictionary<double, List<ElementId>>();
+
+            for (int i = 0; i < SurfaceIds.Count(); i++)
+            {
+                //try to get MassZone using the ID
+                try
+                {
+                    surface = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceIds[i].InternalId));
+
+                    if (surface == null) throw new Exception();
+
+                    // get vector for this surface
+                    Autodesk.DesignScript.Geometry.Vector srfVector = AnalysisSurfaceVector(SurfaceIds[i]);
+
+                    // project vector to XY plane
+                    Autodesk.DesignScript.Geometry.Vector projectedVector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(srfVector.X, srfVector.Y, 0);
+
+                    // find angle to YAxis
+                    //angle2YAxis = Math.Round(projectedVector.AngleBetween(YAxisVector), 3);
+
+                    //AngleBetween is buggy and I already reported it but it is not fixed
+                    //I haven't tested this intensively but worked for couple of cases that I tried
+                    angle2YAxis = Math.Round(CalculateAngleXY(projectedVector, YAxisVector), 3);
+                                                            
+                    if (! SepatatedSurfaces.ContainsKey(angle2YAxis))
+                    {
+                        // create an empty list as place holder
+                        SepatatedSurfaces[angle2YAxis] = new List<ElementId>();
+                    }
+
+                    // add surfaceId
+                    SepatatedSurfaces[angle2YAxis].Add(SurfaceIds[i]);
+
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Couldn't find a surface object with Id #: " + SurfaceIds[i].ToString());
+                }
+
+
+            }
+
+            //return the levels and zone IDs
+            return new Dictionary<string, object>
+            {
+                {"AngleToYAxis", SepatatedSurfaces.Keys},
+                {"SurfaceIds", SepatatedSurfaces.Values}
+            };
+        }
+        
+
+
+
+        /// <summary>
         /// Separate analysis zones by level
         /// </summary>
         /// <param name="ZoneIds">The ElementId of the zones.  Get this from the AnalysisZones > CreateFrom* > ZoneIds output list</param>
@@ -1106,6 +1181,17 @@ namespace EnergyAnalysisForDynamo
                 }
             }
             catch (Exception) { return null; } 
+        }
+
+        private static double CalculateAngleXY(Vector u, Vector v)
+        {
+            double ux = u.X;
+            double uy = u.Y;
+            double vx = v.X;
+            double vy = v.Y;
+            double angleInRad = Math.Atan2(-uy * vx + ux * vy, ux * vx + uy * vy);
+            
+            return angleInRad *180 / Math.PI ;
         }
 
         /// <summary>
