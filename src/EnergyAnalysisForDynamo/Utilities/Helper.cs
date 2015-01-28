@@ -410,7 +410,7 @@ namespace EnergyAnalysisForDynamo.Utilities
 
         public static T DataContractJsonDeserialize<T>(string response)
         {
-            using (MemoryStream stream = new MemoryStream(System.Text.Encoding.Default.GetBytes(response)))
+            using (MemoryStream stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(response)))
             {
                 DataContractJsonSerializer serialize = new DataContractJsonSerializer(typeof(T));
                 return (T)serialize.ReadObject(stream);
