@@ -1,12 +1,12 @@
-<Workspace Version="0.7.4.3245" X="-80.905554131373" Y="-64.3700051747045" zoom="0.447154193048938" Description="" Category="" Name="Home">
+<Workspace Version="0.7.5.3566" X="-128.584279075212" Y="-69.6761649628459" zoom="0.476382601355717" Description="" Category="" Name="Home">
   <Elements>
     <DSRevitNodesUI.Levels type="DSRevitNodesUI.Levels" guid="709e9346-2a23-48aa-8000-42d54f27ee54" nickname="Levels" x="485.833788275462" y="550.395129977657" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:Level 1" />
     <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="477cd4a4-3747-4eeb-8717-62056f9087ab" nickname="Select Model Element" x="490" y="423.457815342308" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <instance id="822de3a8-2f15-4e66-b339-c7c097590daf-0003aac8" />
     </Dynamo.Nodes.DSModelElementSelection>
-    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="67719a78-d9f8-46e0-a7a7-7d097cbad02d" nickname="Code Block" x="1271.62177265647" y="898.540514417588" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="0.1..0.9..#4;" ShouldFocus="false" />
-    <DSCore.LaceLongest type="DSCore.LaceLongest" guid="3db98cf5-2c93-4ced-85ba-b5516649cbad" nickname="List.LaceLongest" x="2320.42114443327" y="816.657983784634" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="5" />
-    <Dynamo.Nodes.Function type="Dynamo.Nodes.Function" guid="31be2738-83ab-4b45-9d23-af4febce7b57" nickname="IterativeGlazing" x="2057.73459172497" y="584.843080378447" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="67719a78-d9f8-46e0-a7a7-7d097cbad02d" nickname="Code Block" x="1273.29053717949" y="683.269890947861" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="0.1..0.9..#4;" ShouldFocus="false" />
+    <DSCore.LaceLongest type="DSCore.LaceLongest" guid="3db98cf5-2c93-4ced-85ba-b5516649cbad" nickname="List.LaceLongest" x="2322.08990895629" y="601.387360314906" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="5" />
+    <Dynamo.Nodes.Function type="Dynamo.Nodes.Function" guid="31be2738-83ab-4b45-9d23-af4febce7b57" nickname="IterativeGlazing" x="2059.40335624799" y="369.572456908719" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <ID value="9b6a7b19-4c2a-4cba-bf0a-8d5f1cf85928" />
       <Name value="IterativeGlazing" />
       <Description value="Example of a custom parametric run" />
@@ -20,19 +20,18 @@
         <Output value="gbXMLfilePath" />
       </Outputs>
     </Dynamo.Nodes.Function>
-    <DSCore.File.Filename type="DSCore.File.Filename" guid="faa5c972-203b-467d-af1d-bb5058510a68" nickname="File Path" x="1243.08712297163" y="987.668611587496" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <DSCore.File.Filename type="DSCore.File.Filename" guid="faa5c972-203b-467d-af1d-bb5058510a68" nickname="File Path" x="1244.75588749465" y="772.397988117768" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.String>C:\Users\BHowes\Desktop\iterativeGlazingTester</System.String>
     </DSCore.File.Filename>
-    <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="14148577-b615-4c47-b18e-3d8d9eec08b6" nickname="List of gbXML file paths _ Input to Run Analysis Node" x="2580.66623160654" y="1131.76099688979" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="a6954094-43a3-480b-a8c1-0ec199d9bce2" nickname="RunAnalysis.RunEnergyAnalysis" x="3247.46269801773" y="1038.079069378" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.RunEnergyAnalysis@int,string[],bool">
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="a6954094-43a3-480b-a8c1-0ec199d9bce2" nickname="RunAnalysis.RunEnergyAnalysis" x="3207.30351893052" y="902.36769343088" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.RunEnergyAnalysis@int,string[],bool">
       <PortInfo index="2" default="True" />
     </Dynamo.Nodes.DSFunction>
-    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="66aa7da3-d647-45d9-86b6-280adca6666a" nickname="Code Block" x="2678.22368077068" y="1008.00549394389" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;iterativeGlazingTester&quot;;" ShouldFocus="false" />
-    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="aabe3526-902d-4c3c-925b-ee01e0cebe18" nickname="Boolean" x="2971.1978127533" y="1221.38738794902" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.Boolean>False</System.Boolean>
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="66aa7da3-d647-45d9-86b6-280adca6666a" nickname="Code Block" x="2638.06450168347" y="872.29411799677" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;iterativeGlazingTester007&quot;;" ShouldFocus="false" />
+    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="aabe3526-902d-4c3c-925b-ee01e0cebe18" nickname="Boolean" x="2931.03863366609" y="1085.6760120019" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>True</System.Boolean>
     </DSCoreNodesUI.BoolSelector>
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="219758e5-1897-41b4-99e3-9941ac5ff6d5" nickname="RunAnalysis.CreateProject" x="2984.38374584919" y="1004.36187578514" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.CreateProject@string" />
-    <DSIronPythonNode.PythonNode type="DSIronPythonNode.PythonNode" guid="bff99c66-5a40-4423-a90b-d19afd1c4b63" nickname="Py.IterativeRunsPreparation" x="1638.9494263887" y="852.758956483742" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="4">
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="219758e5-1897-41b4-99e3-9941ac5ff6d5" nickname="RunAnalysis.CreateProject" x="2944.22456676198" y="868.65049983802" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.CreateProject@string" />
+    <DSIronPythonNode.PythonNode type="DSIronPythonNode.PythonNode" guid="bff99c66-5a40-4423-a90b-d19afd1c4b63" nickname="Py.IterativeRunsPreparation" x="1640.61819091172" y="637.488333014015" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="4">
       <Script>import clr
 
 clr.AddReference('ProtoGeometry')
@@ -72,8 +71,11 @@ for percentage in glazingPercentages:
 #Assign your output to the OUT variable
 OUT = [surfaces, glazingPercentages, filePaths, masses]</Script>
     </DSIronPythonNode.PythonNode>
-    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="08f3c207-8e59-4a12-9f6c-6a14376dd984" nickname="Code Block" x="1871.38603169191" y="856.837290248378" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];&#xA;x[1];&#xA;x[2];&#xA;x[3];" ShouldFocus="false" />
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="08f3c207-8e59-4a12-9f6c-6a14376dd984" nickname="Code Block" x="1873.05479621493" y="641.566666778651" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];&#xA;x[1];&#xA;x[2];&#xA;x[3];" ShouldFocus="false" />
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="e8b740ab-9f0f-4a05-972f-0ee974a16a45" nickname="PrepareEnergyModel.CreateByMassLevels" x="789.683549911802" y="476.963296078596" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.CreateByMassLevels@Revit.Elements.AbstractFamilyInstance,Revit.Elements.Element[]" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="f650283a-13f4-476e-a17a-489c0001712b" nickname="PrepareEnergyModel.DecomposeZone" x="793.322728136819" y="603.570682928551" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DecomposeZone@EnergyAnalysisForDynamo.ElementId" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="44f4cf73-c808-47cd-b3f2-d1555202b447" nickname="Flatten" x="1085.77041191944" y="602.17141171428" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="" function="Flatten@var[]..[]" />
+    <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="161f8f97-cc93-440d-a45b-afba3f292454" nickname="Watch" x="2613.21231694333" y="973.18570422157" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
   </Elements>
   <Connectors>
     <Dynamo.Models.ConnectorModel start="709e9346-2a23-48aa-8000-42d54f27ee54" start_index="0" end="e8b740ab-9f0f-4a05-972f-0ee974a16a45" end_index="1" portType="0" />
@@ -88,18 +90,20 @@ OUT = [surfaces, glazingPercentages, filePaths, masses]</Script>
     <Dynamo.Models.ConnectorModel start="08f3c207-8e59-4a12-9f6c-6a14376dd984" start_index="0" end="3db98cf5-2c93-4ced-85ba-b5516649cbad" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="08f3c207-8e59-4a12-9f6c-6a14376dd984" start_index="1" end="3db98cf5-2c93-4ced-85ba-b5516649cbad" end_index="2" portType="0" />
     <Dynamo.Models.ConnectorModel start="08f3c207-8e59-4a12-9f6c-6a14376dd984" start_index="2" end="3db98cf5-2c93-4ced-85ba-b5516649cbad" end_index="3" portType="0" />
-    <Dynamo.Models.ConnectorModel start="08f3c207-8e59-4a12-9f6c-6a14376dd984" start_index="2" end="14148577-b615-4c47-b18e-3d8d9eec08b6" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="08f3c207-8e59-4a12-9f6c-6a14376dd984" start_index="2" end="161f8f97-cc93-440d-a45b-afba3f292454" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="08f3c207-8e59-4a12-9f6c-6a14376dd984" start_index="3" end="3db98cf5-2c93-4ced-85ba-b5516649cbad" end_index="4" portType="0" />
     <Dynamo.Models.ConnectorModel start="e8b740ab-9f0f-4a05-972f-0ee974a16a45" start_index="0" end="bff99c66-5a40-4423-a90b-d19afd1c4b63" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="e8b740ab-9f0f-4a05-972f-0ee974a16a45" start_index="2" end="bff99c66-5a40-4423-a90b-d19afd1c4b63" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e8b740ab-9f0f-4a05-972f-0ee974a16a45" start_index="1" end="f650283a-13f4-476e-a17a-489c0001712b" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="f650283a-13f4-476e-a17a-489c0001712b" start_index="0" end="44f4cf73-c808-47cd-b3f2-d1555202b447" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="44f4cf73-c808-47cd-b3f2-d1555202b447" start_index="0" end="bff99c66-5a40-4423-a90b-d19afd1c4b63" end_index="1" portType="0" />
   </Connectors>
   <Notes>
     <Dynamo.Models.NoteModel text="1. Select Mass element from Revit/Vasari document" x="413.015483359713" y="384.017895302556" />
-    <Dynamo.Models.NoteModel text="2. Create Analysis Zones From Mass and Levels" x="786.575658694284" y="380.748016500737" />
-    <Dynamo.Models.NoteModel text="3.  Define the glazing percentages to iterate over, and set a location to write files to like &#xD;&#xA;C:\iterativeGlazing" x="1211.56555786519" y="826.245969640412" />
-    <Dynamo.Models.NoteModel text="4. Set up nested lists of Surface IDs and the Glazing percentages. " x="1601.70846484149" y="712.630681097509" />
-    <Dynamo.Models.NoteModel text="5.  Set up a matching list of file paths - one for each glazing percentage." x="1602.93583450203" y="780.513715308525" />
-    <Dynamo.Models.NoteModel text="6.  Set up a custom node containing the SetSurfaceParms node, and the WriteGBxml node ... and here's the important part - a transaction end node to force vasari to export a single state.&#xD;&#xA;" x="2069.40086541554" y="483.235000456275" />
-    <Dynamo.Models.NoteModel text="7.  After writing the files, upload them to GBS." x="2694.68766843413" y="958.672466380578" />
+    <Dynamo.Models.NoteModel text="2. Create Analysis Zones From Mass and Levels, and grab the exterior wall surfaces" x="786.575658694284" y="380.748016500737" />
+    <Dynamo.Models.NoteModel text="3.  Define the glazing percentages to iterate over, and set a location to write files to like &#xD;&#xA;C:\iterativeGlazing" x="1213.23432238821" y="610.975346170684" />
+    <Dynamo.Models.NoteModel text="4. Set up nested lists of Surface IDs and the Glazing percentages. " x="1603.37722936451" y="497.360057627781" />
+    <Dynamo.Models.NoteModel text="5.  Set up a matching list of file paths - one for each glazing percentage." x="1604.60459902505" y="565.243091838797" />
+    <Dynamo.Models.NoteModel text="6.  Set up a custom node containing the SetSurfaceParms node, and the WriteGBxml node ... and here's the important part - a transaction end node to force vasari to export a single state.&#xD;&#xA;" x="2071.06962993856" y="267.964376986547" />
+    <Dynamo.Models.NoteModel text="7.  After writing the files, upload them to GBS." x="2654.52848934692" y="822.961090433458" />
   </Notes>
 </Workspace>
