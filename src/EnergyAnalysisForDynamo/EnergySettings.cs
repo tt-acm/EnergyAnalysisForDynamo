@@ -30,7 +30,7 @@ namespace EnergyAnalysisForDynamo
         /// Gets existing Energy Data Settings from current document
         /// </summary>
         /// <returns></returns>
-        [MultiReturn("BldgType", "GlzPer", "ShadeDepth", "HVACSystem", "OSchedule")]
+        [MultiReturn("BldgType", "GlzPer", "SkylightPer", "ShadeDepth", "HVACSystem", "OSchedule", "CoreOffset", "DividePerimeter")]
         public static Dictionary<string, object> GetEnergySettings()
         {
             // Get current document
@@ -43,10 +43,13 @@ namespace EnergyAnalysisForDynamo
             return new Dictionary<string, object>
             {
                 { "BldgType", Enum.GetName(typeof(gbXMLBuildingType), es.BuildingType)}, 
-                { "GlzPer",  es.PercentageGlazing}, 
+                { "GlzPer",  es.PercentageGlazing},
+                {"SkylightPer", es.PercentageSkylights},
                 { "ShadeDepth",  es.ShadeDepth * UnitConverter.HostToDynamoFactor}, 
                 { "HVACSystem",Enum.GetName(typeof(gbXMLBuildingHVACSystem), es.BuildingHVACSystem)},
-                { "OSchedule",Enum.GetName(typeof(gbXMLBuildingOperatingSchedule), es.BuildingOperatingSchedule)}
+                { "OSchedule",Enum.GetName(typeof(gbXMLBuildingOperatingSchedule), es.BuildingOperatingSchedule)},
+                {"CoreOffset", es.MassZoneCoreOffset},
+                {"DividePerimeter", es.MassZoneDividePerimeter}
             };
 
 
