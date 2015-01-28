@@ -1151,7 +1151,7 @@ namespace EnergyAnalysisForDynamo
             {
                 //query the revit doc for all elements of type ConceptualConstructionWallType
                 FilteredElementCollector col = new FilteredElementCollector(RvtDoc);
-                col.OfCategory(BuiltInCategory.OST_MassWallsAll);
+                col.OfCategory(BuiltInCategory.OST_MassWallsAll); //SEE Issue #88 - this line looks like the suspect.  We need to check for different types here.
                 var ids = col.ToElements();
                 var i = ids.GetEnumerator();
 
