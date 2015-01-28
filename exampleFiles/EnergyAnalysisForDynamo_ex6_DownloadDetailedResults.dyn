@@ -1,0 +1,35 @@
+<Workspace Version="0.7.5.3566" X="178.457381271565" Y="38.2463501040215" zoom="0.79324753310693" Description="" Category="" Name="Home">
+  <Elements>
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="2afb2730-f221-4c67-97c2-de43f7bee73a" nickname="RunId" x="983.569538775207" y="219.550256154259" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];" ShouldFocus="false" />
+    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="502f430f-aa33-4f54-9bba-2e9a47bbff1b" nickname="Boolean" x="-485.793800357344" y="111.837102616289" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>True</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="7f4ed103-7b0c-4753-8516-116e1cbf6373" nickname="Select project item" x="53.9377002706617" y="114.106833565156" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[1];" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="e605e914-62f5-424d-8f91-751a6f807f5e" nickname="GetAnalysisResults.GetProjectsList" x="-319.924818786143" y="112.515145205393" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetProjectsList@bool">
+      <PortInfo index="0" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="1cbf6ea2-b120-4457-b4bc-96e3d298344f" nickname="GetAnalysisResults.GetRunIds" x="448.590415610329" y="111.963577725584" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetRunIds@int" />
+    <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="8209adfe-ce7c-47b3-b897-7d6d3bf734fc" nickname="Watch" x="53.0673501701045" y="202.68905030597" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="05ba3a81-7b4a-459a-aa25-506d35dc3331" nickname="GetAnalysisResults.GetEnergyModelFiles" x="1167.57194201047" y="285.068131576971" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetEnergyModelFiles@int,string,string,int">
+      <PortInfo index="3" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="b04e526d-1374-4434-9ae0-5c3e112ae223" nickname="Code Block" x="1010.026759559" y="318.882848569563" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;inp&quot;;" ShouldFocus="false" />
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="5b5ba515-2986-4544-a5c0-063223f391fc" nickname="Code Block" x="838.324272854344" y="407.361567485755" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;C:\Users\BHowes\Desktop\&quot;;" ShouldFocus="false" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="2afb2730-f221-4c67-97c2-de43f7bee73a" start_index="0" end="05ba3a81-7b4a-459a-aa25-506d35dc3331" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="502f430f-aa33-4f54-9bba-2e9a47bbff1b" start_index="0" end="e605e914-62f5-424d-8f91-751a6f807f5e" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="7f4ed103-7b0c-4753-8516-116e1cbf6373" start_index="0" end="1cbf6ea2-b120-4457-b4bc-96e3d298344f" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e605e914-62f5-424d-8f91-751a6f807f5e" start_index="0" end="7f4ed103-7b0c-4753-8516-116e1cbf6373" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e605e914-62f5-424d-8f91-751a6f807f5e" start_index="1" end="8209adfe-ce7c-47b3-b897-7d6d3bf734fc" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="1cbf6ea2-b120-4457-b4bc-96e3d298344f" start_index="1" end="2afb2730-f221-4c67-97c2-de43f7bee73a" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="b04e526d-1374-4434-9ae0-5c3e112ae223" start_index="0" end="05ba3a81-7b4a-459a-aa25-506d35dc3331" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="5b5ba515-2986-4544-a5c0-063223f391fc" start_index="0" end="05ba3a81-7b4a-459a-aa25-506d35dc3331" end_index="2" portType="0" />
+  </Connectors>
+  <Notes>
+    <Dynamo.Models.NoteModel text="First you need to load the results for your design option and then use that to get specific results. Check the nodes on the right." x="927.333642236394" y="61.2511037345553" />
+    <Dynamo.Models.NoteModel text="Get Run List of selected Project" x="472.194598096122" y="57.0251616657072" />
+    <Dynamo.Models.NoteModel text="In this example file you can see how you can load the results from Green Building Studio" x="-342.470345466519" y="54.790164407868" />
+    <Dynamo.Models.NoteModel text="Select project item" x="58.0690766477371" y="73.7227487580045" />
+  </Notes>
+</Workspace>
