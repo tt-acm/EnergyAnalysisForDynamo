@@ -90,4 +90,20 @@ namespace EnergyAnalysisForDynamo_UI
     {
         public ConditionType(WorkspaceModel workspace) : base(workspace) { }
     }
+
+    [NodeName("Energy Data File Types Dropdown")]
+    [NodeCategory("EnergyAnalysisForDynamo.GetAnalysisResults")]
+    [NodeDescription("Select a Energy Data Type to use with Get Energy Model Files Node.")]
+    [IsDesignScriptCompatible]
+    public class EnergyDataFileTypes : EnumAsString<EnergyDataFileType>
+    {
+        public EnergyDataFileTypes(WorkspaceModel workspace) : base(workspace) { }
+    }
+
+    public enum EnergyDataFileType
+    {
+        gbXML,
+        doe2,
+        eplus
+    }
 }

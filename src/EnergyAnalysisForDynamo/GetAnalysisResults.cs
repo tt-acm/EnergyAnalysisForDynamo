@@ -512,15 +512,33 @@ namespace EnergyAnalysisForDynamo
 
         // NODE: Get Run Result TO DO: work with GBS Team about API calls
         /// <summary>
-        /// Download gbXML, inp or idf files from Green Building Studio
+        /// Downloads gbXML, inp or idf files from Green Building Studio
         /// </summary>
         /// <param name="RunId"> Input Run ID</param>
         /// <param name="ParametricRunId"> Input ID for one of the parametric runs. Default is set to 0</param>
-        /// <param name="FileType"> Result type gbxml or doe2 or inp </param>
-        /// <param name="FilePath"> Set File location to download the file </param>
+        /// <param name="FileType"> Result type gbXMLor doe2 or eplus </param>
+        /// <param name="Directory"> Set File location to download the file </param>
         /// <returns name="report"> string. </returns>
         public static string GetEnergyModelFiles(int RunId, string FileType, string Directory, int ParametricRunId = 0) // result type gbxml/doe2/eplus
         {
+            // handle with the bad string for energy file types
+            if (FileType.ToLower() == "gbxml" || FileType.ToLower() == "xml")
+            {
+                FileType = "gbXML";
+            }
+            else if (FileType.ToLower() == "doe2" || FileType.Contains("doe") || FileType.ToLower() == "inp")
+            {
+                FileType = "doe2";
+            }
+            else if (FileType.ToLower() == "eplus" || FileType.ToLower() == "energyplus" || FileType.ToLower() == "idf")
+            {
+                FileType = "eplus";
+            }
+            else
+            {
+                throw new Exception("Energy data file type is not valid! Use dropdown node to select valid the file type!");
+            }
+
             // Initiate the Revit Auth
             Helper.InitRevitAuthProvider();
 
@@ -532,8 +550,8 @@ namespace EnergyAnalysisForDynamo
                                     string.Format(APIV1Uri.GetSimulationRunFile, RunId, ParametricRunId, FileType);
 
             HttpWebResponse response = (HttpWebResponse)Helper._CallGetApi(requestGetRunResultsUri);
+
             Stream stream = response.GetResponseStream();
-            
             StreamReader reader = new StreamReader(stream);
             string result = reader.ReadToEnd();
 

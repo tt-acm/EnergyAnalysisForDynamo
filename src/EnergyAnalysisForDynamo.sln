@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyAnalysisForDynamo", "EnergyAnalysisForDynamo\EnergyAnalysisForDynamo.csproj", "{213D4BB4-4736-48AE-A9B3-4D7BCE2E8D39}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyAnalysisForDynamo_UI", "EnergyAnalysisForDynamo_UI\EnergyAnalysisForDynamo_UI.csproj", "{8576F024-8D64-4F83-95A8-623D437AF502}"
