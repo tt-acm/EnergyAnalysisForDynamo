@@ -641,7 +641,7 @@ namespace EnergyAnalysisForDynamo
                     }
 
                     // it is all fine so let's change the construction type
-                    Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType);
+                    Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType, surf.Category.Name);
 
                     if (myTypeId != null)
                     {
@@ -729,7 +729,7 @@ namespace EnergyAnalysisForDynamo
                     // check if construction is a valid Revit construction for roofs
                     if (Enum.IsDefined(typeof(ConceptualConstructionRoofType), ConstType))
                     {
-                        Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType);
+                        Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType, surf.Category.Name);
 
                         if (myTypeId != null)
                         {
@@ -833,7 +833,7 @@ namespace EnergyAnalysisForDynamo
                     // check if construction is a valid Revit construction for walls
                     if (Enum.IsDefined(typeof(ConceptualConstructionWallType), ConstType))
                     {
-                        Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType);
+                        Autodesk.Revit.DB.ElementId myTypeId = getConceptualConstructionIdFromName(RvtDoc, ConstType, surf.Category.Name);
 
                         if (myTypeId != null)
                         {
@@ -1145,13 +1145,36 @@ namespace EnergyAnalysisForDynamo
             return bigFace;
         }
 
-        private static Autodesk.Revit.DB.ElementId getConceptualConstructionIdFromName(Document RvtDoc, string name)
+        private static Autodesk.Revit.DB.ElementId getConceptualConstructionIdFromName(Document RvtDoc, string name, string categoryName = "Mass Exterior Wall")
         {
             try
             {
                 //query the revit doc for all elements of type ConceptualConstructionWallType
                 FilteredElementCollector col = new FilteredElementCollector(RvtDoc);
-                col.OfCategory(BuiltInCategory.OST_MassWallsAll); //SEE Issue #88 - this line looks like the suspect.  We need to check for different types here.
+
+                switch (categoryName)
+                {
+                    case "Mass Exterior Wall":
+                        col.OfCategory(BuiltInCategory.OST_MassWallsAll);
+                        break;
+
+                    case "Mass Interior Wall":
+                        col.OfCategory(BuiltInCategory.OST_MassWallsAll);
+                        break;
+
+                    case "Mass Glazing":
+                        col.OfCategory(BuiltInCategory.OST_MassGlazingAll);
+                        break;
+
+                    case "Mass Floor":
+                        col.OfCategory(BuiltInCategory.OST_MassFloorsAll);
+                        break;
+
+                    case "Mass Roof":
+                        col.OfCategory(BuiltInCategory.OST_MassRoof);
+                        break;
+                }
+                
                 var ids = col.ToElements();
                 var i = ids.GetEnumerator();
 
