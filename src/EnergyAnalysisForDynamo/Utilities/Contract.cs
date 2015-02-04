@@ -1015,4 +1015,15 @@ namespace EnergyAnalysisForDynamo.DataContracts
         public string RunTitle { get; set; }
 
     }
+
+    [DataContract(Namespace = DataContractNamespace.Namespace)]
+    [IsVisibleInDynamoLibrary(false)]
+    public class RunStatus
+    {
+        [DataMember]
+        public int StatusPercentDone { get; set; }
+
+        [DataMember]
+        public string DetailedStatus { get; set; }
+    }
 }

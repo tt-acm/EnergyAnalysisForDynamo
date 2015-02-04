@@ -196,6 +196,21 @@ namespace EnergyAnalysisForDynamo
             // Initiate the Revit Auth
             Helper.InitRevitAuthProvider();
 
+            // Defense for 'bad request', check status of RunId
+            string requestGetRunStatusUri = GBSUri.GBSAPIUri +
+                                            string.Format(APIV1Uri.GetRunStatus, RunID, ParametricRunID, "json");
+            HttpWebResponse response = (HttpWebResponse)Helper._CallGetApi(requestGetRunStatusUri);
+            Stream responseStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(responseStream);
+            string result = reader.ReadToEnd();
+            RunStatus runStatus =Helper.DataContractJsonDeserialize<RunStatus>(result);
+            int percentStatus = runStatus.StatusPercentDone;
+
+            if (percentStatus < 100)
+            {
+                throw new Exception(System.String.Format("Run Status: {0}% - {1}", percentStatus, runStatus.DetailedStatus));
+            }
+
             //Get results Summary of given RunID & AltRunID
             string requestGetRunSummaryResultsUri = GBSUri.GBSAPIUri +
                                      string.Format(APIV1Uri.GetRunSummaryResultsUri, RunID, ParametricRunID, "json");
