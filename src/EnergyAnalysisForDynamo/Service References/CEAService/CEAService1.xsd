@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://gbs.autodesk.com/GBS/soap/CEAService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/Message" />
+  <xs:element name="GBS_oListProjects">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oListProjectsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oListProjectsResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oListRuns">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="projectId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oListRunsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oListRunsResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oNewRun">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="title" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="projectId" type="xs:int" />
+        <xs:element minOccurs="0" name="zegbXML" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="runID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oNewRunResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oNewRunResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="runID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oNewRunWithUtilityData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="title" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="projectId" type="xs:int" />
+        <xs:element minOccurs="0" name="zegbXML" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="utilityBillId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="runId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oNewRunWithUtilityDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oNewRunWithUtilityDataResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="runId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oCreateProject">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Demo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="BuildingTypeID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ScheduleID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Latitude" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Longitude" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ProjLicense" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="WeatherID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="WeatherYear" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ElecCost" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="FuelCost" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CultureInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oCreateProjectResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oCreateProjectResult" type="xs:int" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="RunID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cultureInfoForMsg" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetRunStatusResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunStatusSettings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="frequency" type="xs:int" />
+        <xs:element minOccurs="0" name="timeout" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunStatusSettingsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="frequency" type="xs:int" />
+        <xs:element minOccurs="0" name="timeout" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetNearestWeatherStations">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="latitude" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="longitude" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="count" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetNearestWeatherStationsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetNearestWeatherStationsResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetWeatherChartsZipFile">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cultureInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="stationId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="isSIUnitType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="zippedChartFiles" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetWeatherChartsZipFileResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetWeatherChartsZipFileResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="zippedChartFiles" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetChartsURL">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="RunID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cultureInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="isSIUnitType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="urlReturn" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetChartsURLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetChartsURLResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="urlReturn" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetAnalysisInfoByCurrentUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetAnalysisInfoByCurrentUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetAnalysisInfoByCurrentUserResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetProjectInvariants">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ProjectID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Demo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="BuildingTypeIDg" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ScheduleID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Latitude" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Longitude" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="WeatherID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ElecCost" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="FuelCost" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CultureInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cultureInfoForMsg" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetProjectInvariantsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetProjectInvariantsResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Demo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="BuildingTypeIDg" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ScheduleID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Latitude" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Longitude" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="WeatherID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ElecCost" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="FuelCost" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CultureInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oUpdateProjectHVACSystemByID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ProjectID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="HVACID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cultureInfoForMsg" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oUpdateProjectHVACSystemByIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oUpdateProjectHVACSystemByIDResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetResultSettingFiles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cultureInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="zippedSettingFiles" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetResultSettingFilesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetResultSettingFilesResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="zippedSettingFiles" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oRenameProject">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ProjectID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="NewTitle" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cultureInfoForMsg" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oRenameProjectResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oRenameProjectResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oRenameRun">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="RunID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="NewTitle" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cultureInfoForMsg" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oRenameRunResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oRenameRunResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetResultSettingVersion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cultureInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="version" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetResultSettingVersionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetResultSettingVersionResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="version" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oUploadFiles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="runId" type="xs:int" />
+        <xs:element minOccurs="0" name="zipFile" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cultureInfoForMsg" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oUploadFilesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oUploadFilesResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetLatestCeaVersion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="appIdentity" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="localeIdentifier" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetLatestCeaVersionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetLatestCeaVersionResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetVersionFiles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="identifier" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetVersionFilesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetVersionFilesResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunEnergySimulationDialog">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="culture" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="maxBytesInResponse" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunEnergySimulationDialogResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetRunEnergySimulationDialogResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunEnergySimulationDialogExistingProjectsPage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="culture" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="nToSkip" type="xs:int" />
+        <xs:element minOccurs="0" name="maxBytesInResponse" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunEnergySimulationDialogExistingProjectsPageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetRunEnergySimulationDialogExistingProjectsPageResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunEnergySimulationDialogUtilityDataPage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="culture" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="nToSkip" type="xs:int" />
+        <xs:element minOccurs="0" name="projectId" type="xs:int" />
+        <xs:element minOccurs="0" name="maxBytesInResponse" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunEnergySimulationDialogUtilityDataPageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetRunEnergySimulationDialogUtilityDataPageResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorInfo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunStatusClientToken">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="clientToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cultureInfoForMsg" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunStatusClientTokenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetRunStatusClientTokenResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunIdForClientToken">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="clientToken" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oGetRunIdForClientTokenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oGetRunIdForClientTokenResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oNewRunClientToken">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="title" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="projectId" type="xs:int" />
+        <xs:element minOccurs="0" name="zegbXML" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="runID" type="xs:int" />
+        <xs:element minOccurs="0" name="clientToken" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBS_oNewRunClientTokenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GBS_oNewRunClientTokenResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="runID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSolonPackage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="runId" type="xs:int" />
+        <xs:element minOccurs="0" name="isSIUnitType" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSolonPackageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.microsoft.com/Message" name="GetSolonPackageResult" type="q1:StreamBody" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckSolonUpdate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="dashboardId" type="xs:int" />
+        <xs:element minOccurs="0" name="dashboardVersion" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckSolonUpdateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CheckSolonUpdateResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

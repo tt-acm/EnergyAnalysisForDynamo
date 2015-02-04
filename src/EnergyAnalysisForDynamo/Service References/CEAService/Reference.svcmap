@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="863c5da1-5431-4518-80c2-7720ddef6555" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://gbs.autodesk.com/GBS/soap/CEAService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CEAService.wsdl" MetadataType="Wsdl" ID="e2fb62f5-b036-4dd5-8e43-a19206c9616d" SourceId="1" SourceUrl="https://gbs.autodesk.com/GBS/soap/CEAService.svc?wsdl" />
+    <MetadataFile FileName="CEAService.xsd" MetadataType="Schema" ID="133cf9f9-c95a-4663-8cdf-49d1c98fbf51" SourceId="1" SourceUrl="https://gbs.autodesk.com/GBS/soap/CEAService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CEAService1.xsd" MetadataType="Schema" ID="c9c135b3-59e2-4ddb-9159-4ad0f94108bc" SourceId="1" SourceUrl="https://gbs.autodesk.com/GBS/soap/CEAService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CEAService2.xsd" MetadataType="Schema" ID="91f82b84-451b-4306-967d-2c5b20ffaaa0" SourceId="1" SourceUrl="https://gbs.autodesk.com/GBS/soap/CEAService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

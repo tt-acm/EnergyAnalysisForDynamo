@@ -1,0 +1,1462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CEAService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oListProjects_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oListRuns_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oNewRun_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oNewRunWithUtilityData_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oCreateProject_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetRunStatus_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetRunStatusSettings_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetNearestWeatherStations_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetWeatherChartsZipFile_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetChartsURL_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetAnalysisInfoByCurrentUser_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetProjectInvariants_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oUpdateProjectHVACSystemByID_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetResultSettingFiles_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oRenameProject_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oRenameRun_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetResultSettingVersion_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oUploadFiles_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetLatestCeaVersion_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetVersionFiles_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetRunEnergySimulationDialog_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetRunEnergySimulationDialogExistingProjectsPage_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetRunEnergySimulationDialogUtilityDataPage_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetRunStatusClientToken_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oGetRunIdForClientToken_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IGBS_oNewRunClientToken_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_ISolon_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="https://gbs.autodesk.com/GBS/soap/CEAService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="https://gbs.autodesk.com/GBS/soap/CEAService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://gbs.autodesk.com/GBS/soap/CEAService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/Message" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IGBS_oListProjects_GBS_oListProjects_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oListProjects" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oListProjects_GBS_oListProjects_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oListProjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oListRuns_GBS_oListRuns_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oListRuns" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oListRuns_GBS_oListRuns_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oListRunsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oNewRun_GBS_oNewRun_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oNewRun" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oNewRun_GBS_oNewRun_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oNewRunResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oNewRunWithUtilityData_GBS_oNewRunWithUtilityData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oNewRunWithUtilityData" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oNewRunWithUtilityData_GBS_oNewRunWithUtilityData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oNewRunWithUtilityDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oCreateProject_GBS_oCreateProject_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oCreateProject" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oCreateProject_GBS_oCreateProject_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oCreateProjectResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunStatus_GBS_oGetRunStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunStatus" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunStatus_GBS_oGetRunStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunStatusSettings_GBS_oGetRunStatusSettings_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunStatusSettings" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunStatusSettings_GBS_oGetRunStatusSettings_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunStatusSettingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetNearestWeatherStations_GBS_oGetNearestWeatherStations_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetNearestWeatherStations" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetNearestWeatherStations_GBS_oGetNearestWeatherStations_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetNearestWeatherStationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetWeatherChartsZipFile_GBS_oGetWeatherChartsZipFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetWeatherChartsZipFile" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetWeatherChartsZipFile_GBS_oGetWeatherChartsZipFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetWeatherChartsZipFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetChartsURL_GBS_oGetChartsURL_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetChartsURL" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetChartsURL_GBS_oGetChartsURL_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetChartsURLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetAnalysisInfoByCurrentUser_GBS_oGetAnalysisInfoByCurrentUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetAnalysisInfoByCurrentUser" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetAnalysisInfoByCurrentUser_GBS_oGetAnalysisInfoByCurrentUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetAnalysisInfoByCurrentUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetProjectInvariants_GBS_oGetProjectInvariants_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetProjectInvariants" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetProjectInvariants_GBS_oGetProjectInvariants_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetProjectInvariantsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oUpdateProjectHVACSystemByID_GBS_oUpdateProjectHVACSystemByID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oUpdateProjectHVACSystemByID" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oUpdateProjectHVACSystemByID_GBS_oUpdateProjectHVACSystemByID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oUpdateProjectHVACSystemByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetResultSettingFiles_GBS_oGetResultSettingFiles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetResultSettingFiles" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetResultSettingFiles_GBS_oGetResultSettingFiles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetResultSettingFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oRenameProject_GBS_oRenameProject_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oRenameProject" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oRenameProject_GBS_oRenameProject_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oRenameProjectResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oRenameRun_GBS_oRenameRun_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oRenameRun" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oRenameRun_GBS_oRenameRun_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oRenameRunResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetResultSettingVersion_GBS_oGetResultSettingVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetResultSettingVersion" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetResultSettingVersion_GBS_oGetResultSettingVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetResultSettingVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oUploadFiles_GBS_oUploadFiles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oUploadFiles" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oUploadFiles_GBS_oUploadFiles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oUploadFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetLatestCeaVersion_GBS_oGetLatestCeaVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetLatestCeaVersion" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetLatestCeaVersion_GBS_oGetLatestCeaVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetLatestCeaVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetVersionFiles_GBS_oGetVersionFiles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetVersionFiles" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetVersionFiles_GBS_oGetVersionFiles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetVersionFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunEnergySimulationDialog_GBS_oGetRunEnergySimulationDialog_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunEnergySimulationDialog" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunEnergySimulationDialog_GBS_oGetRunEnergySimulationDialog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunEnergySimulationDialogResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunEnergySimulationDialogExistingProjectsPage_GBS_oGetRunEnergySimulationDialogExistingProjectsPage_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunEnergySimulationDialogExistingProjectsPage" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunEnergySimulationDialogExistingProjectsPage_GBS_oGetRunEnergySimulationDialogExistingProjectsPage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunEnergySimulationDialogExistingProjectsPageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunEnergySimulationDialogUtilityDataPage_GBS_oGetRunEnergySimulationDialogUtilityDataPage_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunEnergySimulationDialogUtilityDataPage" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunEnergySimulationDialogUtilityDataPage_GBS_oGetRunEnergySimulationDialogUtilityDataPage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunEnergySimulationDialogUtilityDataPageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunStatusClientToken_GBS_oGetRunStatusClientToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunStatusClientToken" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunStatusClientToken_GBS_oGetRunStatusClientToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunStatusClientTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunIdForClientToken_GBS_oGetRunIdForClientToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunIdForClientToken" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oGetRunIdForClientToken_GBS_oGetRunIdForClientToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oGetRunIdForClientTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oNewRunClientToken_GBS_oNewRunClientToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oNewRunClientToken" />
+  </wsdl:message>
+  <wsdl:message name="IGBS_oNewRunClientToken_GBS_oNewRunClientToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GBS_oNewRunClientTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISolon_GetSolonPackage_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSolonPackage" />
+  </wsdl:message>
+  <wsdl:message name="ISolon_GetSolonPackage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSolonPackageResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISolon_CheckSolonUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckSolonUpdate" />
+  </wsdl:message>
+  <wsdl:message name="ISolon_CheckSolonUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckSolonUpdateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IGBS_oListProjects">
+    <wsdl:operation name="GBS_oListProjects">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oListProjects/GBS_oListProjects" message="tns:IGBS_oListProjects_GBS_oListProjects_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oListProjects/GBS_oListProjectsResponse" message="tns:IGBS_oListProjects_GBS_oListProjects_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oListRuns">
+    <wsdl:operation name="GBS_oListRuns">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oListRuns/GBS_oListRuns" message="tns:IGBS_oListRuns_GBS_oListRuns_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oListRuns/GBS_oListRunsResponse" message="tns:IGBS_oListRuns_GBS_oListRuns_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oNewRun">
+    <wsdl:operation name="GBS_oNewRun">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oNewRun/GBS_oNewRun" message="tns:IGBS_oNewRun_GBS_oNewRun_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oNewRun/GBS_oNewRunResponse" message="tns:IGBS_oNewRun_GBS_oNewRun_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oNewRunWithUtilityData">
+    <wsdl:operation name="GBS_oNewRunWithUtilityData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oNewRunWithUtilityData/GBS_oNewRunWithUtilityData" message="tns:IGBS_oNewRunWithUtilityData_GBS_oNewRunWithUtilityData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oNewRunWithUtilityData/GBS_oNewRunWithUtilityDataResponse" message="tns:IGBS_oNewRunWithUtilityData_GBS_oNewRunWithUtilityData_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oCreateProject">
+    <wsdl:operation name="GBS_oCreateProject">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oCreateProject/GBS_oCreateProject" message="tns:IGBS_oCreateProject_GBS_oCreateProject_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oCreateProject/GBS_oCreateProjectResponse" message="tns:IGBS_oCreateProject_GBS_oCreateProject_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetRunStatus">
+    <wsdl:operation name="GBS_oGetRunStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetRunStatus/GBS_oGetRunStatus" message="tns:IGBS_oGetRunStatus_GBS_oGetRunStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetRunStatus/GBS_oGetRunStatusResponse" message="tns:IGBS_oGetRunStatus_GBS_oGetRunStatus_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetRunStatusSettings">
+    <wsdl:operation name="GBS_oGetRunStatusSettings">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetRunStatusSettings/GBS_oGetRunStatusSettings" message="tns:IGBS_oGetRunStatusSettings_GBS_oGetRunStatusSettings_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetRunStatusSettings/GBS_oGetRunStatusSettingsResponse" message="tns:IGBS_oGetRunStatusSettings_GBS_oGetRunStatusSettings_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetNearestWeatherStations">
+    <wsdl:operation name="GBS_oGetNearestWeatherStations">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetNearestWeatherStations/GBS_oGetNearestWeatherStations" message="tns:IGBS_oGetNearestWeatherStations_GBS_oGetNearestWeatherStations_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetNearestWeatherStations/GBS_oGetNearestWeatherStationsResponse" message="tns:IGBS_oGetNearestWeatherStations_GBS_oGetNearestWeatherStations_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetWeatherChartsZipFile">
+    <wsdl:operation name="GBS_oGetWeatherChartsZipFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetWeatherChartsZipFile/GBS_oGetWeatherChartsZipFile" message="tns:IGBS_oGetWeatherChartsZipFile_GBS_oGetWeatherChartsZipFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetWeatherChartsZipFile/GBS_oGetWeatherChartsZipFileResponse" message="tns:IGBS_oGetWeatherChartsZipFile_GBS_oGetWeatherChartsZipFile_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetChartsURL">
+    <wsdl:operation name="GBS_oGetChartsURL">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetChartsURL/GBS_oGetChartsURL" message="tns:IGBS_oGetChartsURL_GBS_oGetChartsURL_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetChartsURL/GBS_oGetChartsURLResponse" message="tns:IGBS_oGetChartsURL_GBS_oGetChartsURL_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetAnalysisInfoByCurrentUser">
+    <wsdl:operation name="GBS_oGetAnalysisInfoByCurrentUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetAnalysisInfoByCurrentUser/GBS_oGetAnalysisInfoByCurrentUser" message="tns:IGBS_oGetAnalysisInfoByCurrentUser_GBS_oGetAnalysisInfoByCurrentUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetAnalysisInfoByCurrentUser/GBS_oGetAnalysisInfoByCurrentUserResponse" message="tns:IGBS_oGetAnalysisInfoByCurrentUser_GBS_oGetAnalysisInfoByCurrentUser_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetProjectInvariants">
+    <wsdl:operation name="GBS_oGetProjectInvariants">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetProjectInvariants/GBS_oGetProjectInvariants" message="tns:IGBS_oGetProjectInvariants_GBS_oGetProjectInvariants_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetProjectInvariants/GBS_oGetProjectInvariantsResponse" message="tns:IGBS_oGetProjectInvariants_GBS_oGetProjectInvariants_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oUpdateProjectHVACSystemByID">
+    <wsdl:operation name="GBS_oUpdateProjectHVACSystemByID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oUpdateProjectHVACSystemByID/GBS_oUpdateProjectHVACSystemByID" message="tns:IGBS_oUpdateProjectHVACSystemByID_GBS_oUpdateProjectHVACSystemByID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oUpdateProjectHVACSystemByID/GBS_oUpdateProjectHVACSystemByIDResponse" message="tns:IGBS_oUpdateProjectHVACSystemByID_GBS_oUpdateProjectHVACSystemByID_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetResultSettingFiles">
+    <wsdl:operation name="GBS_oGetResultSettingFiles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetResultSettingFiles/GBS_oGetResultSettingFiles" message="tns:IGBS_oGetResultSettingFiles_GBS_oGetResultSettingFiles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetResultSettingFiles/GBS_oGetResultSettingFilesResponse" message="tns:IGBS_oGetResultSettingFiles_GBS_oGetResultSettingFiles_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oRenameProject">
+    <wsdl:operation name="GBS_oRenameProject">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oRenameProject/GBS_oRenameProject" message="tns:IGBS_oRenameProject_GBS_oRenameProject_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oRenameProject/GBS_oRenameProjectResponse" message="tns:IGBS_oRenameProject_GBS_oRenameProject_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oRenameRun">
+    <wsdl:operation name="GBS_oRenameRun">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oRenameRun/GBS_oRenameRun" message="tns:IGBS_oRenameRun_GBS_oRenameRun_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oRenameRun/GBS_oRenameRunResponse" message="tns:IGBS_oRenameRun_GBS_oRenameRun_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetResultSettingVersion">
+    <wsdl:operation name="GBS_oGetResultSettingVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetResultSettingVersion/GBS_oGetResultSettingVersion" message="tns:IGBS_oGetResultSettingVersion_GBS_oGetResultSettingVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetResultSettingVersion/GBS_oGetResultSettingVersionResponse" message="tns:IGBS_oGetResultSettingVersion_GBS_oGetResultSettingVersion_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oUploadFiles">
+    <wsdl:operation name="GBS_oUploadFiles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oUploadFiles/GBS_oUploadFiles" message="tns:IGBS_oUploadFiles_GBS_oUploadFiles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oUploadFiles/GBS_oUploadFilesResponse" message="tns:IGBS_oUploadFiles_GBS_oUploadFiles_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetLatestCeaVersion">
+    <wsdl:operation name="GBS_oGetLatestCeaVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetLatestCeaVersion/GBS_oGetLatestCeaVersion" message="tns:IGBS_oGetLatestCeaVersion_GBS_oGetLatestCeaVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetLatestCeaVersion/GBS_oGetLatestCeaVersionResponse" message="tns:IGBS_oGetLatestCeaVersion_GBS_oGetLatestCeaVersion_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetVersionFiles">
+    <wsdl:operation name="GBS_oGetVersionFiles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetVersionFiles/GBS_oGetVersionFiles" message="tns:IGBS_oGetVersionFiles_GBS_oGetVersionFiles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetVersionFiles/GBS_oGetVersionFilesResponse" message="tns:IGBS_oGetVersionFiles_GBS_oGetVersionFiles_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetRunEnergySimulationDialog">
+    <wsdl:operation name="GBS_oGetRunEnergySimulationDialog">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetRunEnergySimulationDialog/GBS_oGetRunEnergySimulationDialog" message="tns:IGBS_oGetRunEnergySimulationDialog_GBS_oGetRunEnergySimulationDialog_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetRunEnergySimulationDialog/GBS_oGetRunEnergySimulationDialogResponse" message="tns:IGBS_oGetRunEnergySimulationDialog_GBS_oGetRunEnergySimulationDialog_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetRunEnergySimulationDialogExistingProjectsPage">
+    <wsdl:operation name="GBS_oGetRunEnergySimulationDialogExistingProjectsPage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetRunEnergySimulationDialogExistingProjectsPage/GBS_oGetRunEnergySimulationDialogExistingProjectsPage" message="tns:IGBS_oGetRunEnergySimulationDialogExistingProjectsPage_GBS_oGetRunEnergySimulationDialogExistingProjectsPage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetRunEnergySimulationDialogExistingProjectsPage/GBS_oGetRunEnergySimulationDialogExistingProjectsPageResponse" message="tns:IGBS_oGetRunEnergySimulationDialogExistingProjectsPage_GBS_oGetRunEnergySimulationDialogExistingProjectsPage_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetRunEnergySimulationDialogUtilityDataPage">
+    <wsdl:operation name="GBS_oGetRunEnergySimulationDialogUtilityDataPage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetRunEnergySimulationDialogUtilityDataPage/GBS_oGetRunEnergySimulationDialogUtilityDataPage" message="tns:IGBS_oGetRunEnergySimulationDialogUtilityDataPage_GBS_oGetRunEnergySimulationDialogUtilityDataPage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetRunEnergySimulationDialogUtilityDataPage/GBS_oGetRunEnergySimulationDialogUtilityDataPageResponse" message="tns:IGBS_oGetRunEnergySimulationDialogUtilityDataPage_GBS_oGetRunEnergySimulationDialogUtilityDataPage_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetRunStatusClientToken">
+    <wsdl:operation name="GBS_oGetRunStatusClientToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetRunStatusClientToken/GBS_oGetRunStatusClientToken" message="tns:IGBS_oGetRunStatusClientToken_GBS_oGetRunStatusClientToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetRunStatusClientToken/GBS_oGetRunStatusClientTokenResponse" message="tns:IGBS_oGetRunStatusClientToken_GBS_oGetRunStatusClientToken_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oGetRunIdForClientToken">
+    <wsdl:operation name="GBS_oGetRunIdForClientToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oGetRunIdForClientToken/GBS_oGetRunIdForClientToken" message="tns:IGBS_oGetRunIdForClientToken_GBS_oGetRunIdForClientToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oGetRunIdForClientToken/GBS_oGetRunIdForClientTokenResponse" message="tns:IGBS_oGetRunIdForClientToken_GBS_oGetRunIdForClientToken_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGBS_oNewRunClientToken">
+    <wsdl:operation name="GBS_oNewRunClientToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGBS_oNewRunClientToken/GBS_oNewRunClientToken" message="tns:IGBS_oNewRunClientToken_GBS_oNewRunClientToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGBS_oNewRunClientToken/GBS_oNewRunClientTokenResponse" message="tns:IGBS_oNewRunClientToken_GBS_oNewRunClientToken_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ISolon">
+    <wsdl:operation name="GetSolonPackage">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISolon/GetSolonPackage" message="tns:ISolon_GetSolonPackage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISolon/GetSolonPackageResponse" message="tns:ISolon_GetSolonPackage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckSolonUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISolon/CheckSolonUpdate" message="tns:ISolon_CheckSolonUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISolon/CheckSolonUpdateResponse" message="tns:ISolon_CheckSolonUpdate_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oListProjects" type="tns:IGBS_oListProjects">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oListProjects_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oListProjects">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oListProjects/GBS_oListProjects" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oListRuns" type="tns:IGBS_oListRuns">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oListRuns_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oListRuns">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oListRuns/GBS_oListRuns" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oNewRun" type="tns:IGBS_oNewRun">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oNewRun_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oNewRun">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oNewRun/GBS_oNewRun" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oNewRunWithUtilityData" type="tns:IGBS_oNewRunWithUtilityData">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oNewRunWithUtilityData_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oNewRunWithUtilityData">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oNewRunWithUtilityData/GBS_oNewRunWithUtilityData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oCreateProject" type="tns:IGBS_oCreateProject">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oCreateProject_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oCreateProject">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oCreateProject/GBS_oCreateProject" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetRunStatus" type="tns:IGBS_oGetRunStatus">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetRunStatus_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetRunStatus">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetRunStatus/GBS_oGetRunStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetRunStatusSettings" type="tns:IGBS_oGetRunStatusSettings">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetRunStatusSettings_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetRunStatusSettings">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetRunStatusSettings/GBS_oGetRunStatusSettings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetNearestWeatherStations" type="tns:IGBS_oGetNearestWeatherStations">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetNearestWeatherStations_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetNearestWeatherStations">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetNearestWeatherStations/GBS_oGetNearestWeatherStations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetWeatherChartsZipFile" type="tns:IGBS_oGetWeatherChartsZipFile">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetWeatherChartsZipFile_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetWeatherChartsZipFile">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetWeatherChartsZipFile/GBS_oGetWeatherChartsZipFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetChartsURL" type="tns:IGBS_oGetChartsURL">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetChartsURL_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetChartsURL">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetChartsURL/GBS_oGetChartsURL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetAnalysisInfoByCurrentUser" type="tns:IGBS_oGetAnalysisInfoByCurrentUser">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetAnalysisInfoByCurrentUser_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetAnalysisInfoByCurrentUser">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetAnalysisInfoByCurrentUser/GBS_oGetAnalysisInfoByCurrentUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetProjectInvariants" type="tns:IGBS_oGetProjectInvariants">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetProjectInvariants_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetProjectInvariants">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetProjectInvariants/GBS_oGetProjectInvariants" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oUpdateProjectHVACSystemByID" type="tns:IGBS_oUpdateProjectHVACSystemByID">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oUpdateProjectHVACSystemByID_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oUpdateProjectHVACSystemByID">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oUpdateProjectHVACSystemByID/GBS_oUpdateProjectHVACSystemByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetResultSettingFiles" type="tns:IGBS_oGetResultSettingFiles">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetResultSettingFiles_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetResultSettingFiles">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetResultSettingFiles/GBS_oGetResultSettingFiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oRenameProject" type="tns:IGBS_oRenameProject">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oRenameProject_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oRenameProject">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oRenameProject/GBS_oRenameProject" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oRenameRun" type="tns:IGBS_oRenameRun">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oRenameRun_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oRenameRun">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oRenameRun/GBS_oRenameRun" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetResultSettingVersion" type="tns:IGBS_oGetResultSettingVersion">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetResultSettingVersion_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetResultSettingVersion">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetResultSettingVersion/GBS_oGetResultSettingVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oUploadFiles" type="tns:IGBS_oUploadFiles">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oUploadFiles_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oUploadFiles">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oUploadFiles/GBS_oUploadFiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetLatestCeaVersion" type="tns:IGBS_oGetLatestCeaVersion">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetLatestCeaVersion_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetLatestCeaVersion">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetLatestCeaVersion/GBS_oGetLatestCeaVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetVersionFiles" type="tns:IGBS_oGetVersionFiles">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetVersionFiles_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetVersionFiles">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetVersionFiles/GBS_oGetVersionFiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetRunEnergySimulationDialog" type="tns:IGBS_oGetRunEnergySimulationDialog">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetRunEnergySimulationDialog_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetRunEnergySimulationDialog">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetRunEnergySimulationDialog/GBS_oGetRunEnergySimulationDialog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetRunEnergySimulationDialogExistingProjectsPage" type="tns:IGBS_oGetRunEnergySimulationDialogExistingProjectsPage">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetRunEnergySimulationDialogExistingProjectsPage_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetRunEnergySimulationDialogExistingProjectsPage">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetRunEnergySimulationDialogExistingProjectsPage/GBS_oGetRunEnergySimulationDialogExistingProjectsPage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetRunEnergySimulationDialogUtilityDataPage" type="tns:IGBS_oGetRunEnergySimulationDialogUtilityDataPage">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetRunEnergySimulationDialogUtilityDataPage_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetRunEnergySimulationDialogUtilityDataPage">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetRunEnergySimulationDialogUtilityDataPage/GBS_oGetRunEnergySimulationDialogUtilityDataPage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetRunStatusClientToken" type="tns:IGBS_oGetRunStatusClientToken">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetRunStatusClientToken_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetRunStatusClientToken">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetRunStatusClientToken/GBS_oGetRunStatusClientToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oGetRunIdForClientToken" type="tns:IGBS_oGetRunIdForClientToken">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oGetRunIdForClientToken_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oGetRunIdForClientToken">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oGetRunIdForClientToken/GBS_oGetRunIdForClientToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IGBS_oNewRunClientToken" type="tns:IGBS_oNewRunClientToken">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IGBS_oNewRunClientToken_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GBS_oNewRunClientToken">
+      <soap:operation soapAction="http://tempuri.org/IGBS_oNewRunClientToken/GBS_oNewRunClientToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_ISolon" type="tns:ISolon">
+    <wsp:PolicyReference URI="#BasicHttpBinding_ISolon_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSolonPackage">
+      <soap:operation soapAction="http://tempuri.org/ISolon/GetSolonPackage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckSolonUpdate">
+      <soap:operation soapAction="http://tempuri.org/ISolon/CheckSolonUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CEAService">
+    <wsdl:port name="BasicHttpBinding_IGBS_oListProjects" binding="tns:BasicHttpBinding_IGBS_oListProjects">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oListRuns" binding="tns:BasicHttpBinding_IGBS_oListRuns">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oNewRun" binding="tns:BasicHttpBinding_IGBS_oNewRun">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oNewRunWithUtilityData" binding="tns:BasicHttpBinding_IGBS_oNewRunWithUtilityData">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oCreateProject" binding="tns:BasicHttpBinding_IGBS_oCreateProject">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetRunStatus" binding="tns:BasicHttpBinding_IGBS_oGetRunStatus">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetRunStatusSettings" binding="tns:BasicHttpBinding_IGBS_oGetRunStatusSettings">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetNearestWeatherStations" binding="tns:BasicHttpBinding_IGBS_oGetNearestWeatherStations">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetWeatherChartsZipFile" binding="tns:BasicHttpBinding_IGBS_oGetWeatherChartsZipFile">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetChartsURL" binding="tns:BasicHttpBinding_IGBS_oGetChartsURL">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetAnalysisInfoByCurrentUser" binding="tns:BasicHttpBinding_IGBS_oGetAnalysisInfoByCurrentUser">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetProjectInvariants" binding="tns:BasicHttpBinding_IGBS_oGetProjectInvariants">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oUpdateProjectHVACSystemByID" binding="tns:BasicHttpBinding_IGBS_oUpdateProjectHVACSystemByID">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetResultSettingFiles" binding="tns:BasicHttpBinding_IGBS_oGetResultSettingFiles">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oRenameProject" binding="tns:BasicHttpBinding_IGBS_oRenameProject">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oRenameRun" binding="tns:BasicHttpBinding_IGBS_oRenameRun">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetResultSettingVersion" binding="tns:BasicHttpBinding_IGBS_oGetResultSettingVersion">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oUploadFiles" binding="tns:BasicHttpBinding_IGBS_oUploadFiles">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetLatestCeaVersion" binding="tns:BasicHttpBinding_IGBS_oGetLatestCeaVersion">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetVersionFiles" binding="tns:BasicHttpBinding_IGBS_oGetVersionFiles">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetRunEnergySimulationDialog" binding="tns:BasicHttpBinding_IGBS_oGetRunEnergySimulationDialog">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetRunEnergySimulationDialogExistingProjectsPage" binding="tns:BasicHttpBinding_IGBS_oGetRunEnergySimulationDialogExistingProjectsPage">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetRunEnergySimulationDialogUtilityDataPage" binding="tns:BasicHttpBinding_IGBS_oGetRunEnergySimulationDialogUtilityDataPage">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetRunStatusClientToken" binding="tns:BasicHttpBinding_IGBS_oGetRunStatusClientToken">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oGetRunIdForClientToken" binding="tns:BasicHttpBinding_IGBS_oGetRunIdForClientToken">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IGBS_oNewRunClientToken" binding="tns:BasicHttpBinding_IGBS_oNewRunClientToken">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_ISolon" binding="tns:BasicHttpBinding_ISolon">
+      <soap:address location="https://gbs.autodesk.com/GBS/soap/CEAService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
