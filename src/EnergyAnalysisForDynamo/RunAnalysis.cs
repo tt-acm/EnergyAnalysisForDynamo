@@ -62,9 +62,10 @@ namespace EnergyAnalysisForDynamo
         /// <param name="ProjectId"> Input Project ID </param>
         /// <param name="gbXMLPaths"> Input file path of gbXML File </param>
         /// <param name="ExecuteParametricRuns"> Set to true to execute parametric runs. You can read more about parametric runs here: http://autodesk.typepad.com/bpa/ </param>
+        /// /// <param name="Timeout"> Set custom connection timeout value. Default is 300000 ms (2 mins) </param>
         /// <returns></returns>
-        [MultiReturn("RunIds")]
-        public static Dictionary<string,List<object>> RunEnergyAnalysis(int ProjectId, List<string> gbXMLPaths, bool ExecuteParametricRuns = false)
+        [MultiReturn("RunIds","UploadTimes","Report")]
+        public static Dictionary<string, List<object>> RunEnergyAnalysis(int ProjectId, List<string> gbXMLPaths, bool ExecuteParametricRuns = false, int Timeout = 300000)
         {
             // Make sure the given file is an .xml
             foreach (var gbXMLPath in gbXMLPaths)
@@ -98,11 +99,16 @@ namespace EnergyAnalysisForDynamo
                     // Do Nothing
                 }
 
-            //Output variable
+            //Output variables
             List<object> newRunIds = new List<object>();
+            List<object> uploadTimes = new List<object>();
+            List<object> Reports = new List<object>();
+
             foreach (var gbXMLPath in gbXMLPaths)
 	        {
                 int newRunId = 0;
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
 
                 // 2. Create A Base Run
                 string requestCreateBaseRunUri = GBSUri.GBSAPIUri + string.Format(APIV1Uri.CreateBaseRunUri, "xml");
@@ -111,7 +117,7 @@ namespace EnergyAnalysisForDynamo
                 {
                     response =
                         (HttpWebResponse)
-                        Helper._CallPostApi(requestCreateBaseRunUri, typeof(NewRunItem), Helper._GetNewRunItem(ProjectId, gbXMLPath));
+                        Helper._CallPostApi(requestCreateBaseRunUri, typeof(NewRunItem), Helper._GetNewRunItem(ProjectId, gbXMLPath),Timeout);
                 }
                 catch (Exception)
                 {
@@ -123,20 +129,27 @@ namespace EnergyAnalysisForDynamo
                 {
                     newRunId = Helper.DeserializeHttpWebResponse(response); 
                     newRunIds.Add(newRunId);
+                    Reports.Add("Success!");
                 }
                 else
-                {
+                {                  
+                    newRunIds.Add(null);
                     // get file name
                     string filename = Path.GetFileName(gbXMLPath);
-                    throw new Exception("Couldot run the analysis for the file: " + filename );
+                    Reports.Add("Couldn't upload gbxml file name : " + filename + ". Set timeout longer and try to run again! ");
+                    //throw new Exception("Couldot run the analysis for the file: " + filename );
                 }
-                
+
+                stopwatch.Stop();
+                uploadTimes.Add(stopwatch.Elapsed.ToString(@"m\:ss"));
 	        }
 
             // 3. Populate the Outputs
             return new Dictionary<string,List<object>>
             {
-                { "RunIds", newRunIds},
+                { "RunIds" , newRunIds},
+                { "UploadTimes" , uploadTimes},
+                { "Report" , Reports}
             };
         }
 

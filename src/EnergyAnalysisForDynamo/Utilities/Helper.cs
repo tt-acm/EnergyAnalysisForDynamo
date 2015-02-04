@@ -366,7 +366,7 @@ namespace EnergyAnalysisForDynamo.Utilities
             return response;
         }
 
-        public static WebResponse _CallPostApi(string requestUri, System.Type type, object o)
+        public static WebResponse _CallPostApi(string requestUri, System.Type type, object o, int Timeout = 300000)
         {
             string postString = null;
             try
@@ -390,7 +390,7 @@ namespace EnergyAnalysisForDynamo.Utilities
 
             // Send request to GBS
             var request = (HttpWebRequest)System.Net.WebRequest.Create(signedRequestUri);
-            request.Timeout = 300000;
+            request.Timeout = Timeout;
             request.Method = "POST";
             request.ContentType = "application/xml";
             using (Stream requestStream = request.GetRequestStream())
