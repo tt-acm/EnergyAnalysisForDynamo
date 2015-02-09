@@ -217,7 +217,7 @@ namespace EnergyAnalysisForDynamo
             else // true, blocks the dynamo solution until simulation being completed
             {
                 int percentStatus = 0;
-                while (percentStatus > 100)
+                while (percentStatus < 100)
                 {
                     string requestGetRunStatusUri = GBSUri.GBSAPIUri +
                                 string.Format(APIV1Uri.GetRunStatus, RunID, ParametricRunID, "json");

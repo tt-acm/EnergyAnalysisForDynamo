@@ -1,4 +1,4 @@
-<Workspace Version="0.7.5.3566" X="-3552.28768582075" Y="-1114.71512809274" zoom="1.29825919533115" Description="" Category="" Name="Home">
+<Workspace Version="0.7.5.3566" X="-2388.17224801328" Y="-514.161373540907" zoom="0.734484731076336" Description="" Category="" Name="Home">
   <Elements>
     <DSRevitNodesUI.Levels type="DSRevitNodesUI.Levels" guid="709e9346-2a23-48aa-8000-42d54f27ee54" nickname="Levels" x="485.833788275462" y="550.395129977657" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:Level 1" />
     <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="477cd4a4-3747-4eeb-8717-62056f9087ab" nickname="Select Model Element" x="490" y="423.457815342308" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
@@ -21,9 +21,9 @@
       </Outputs>
     </Dynamo.Nodes.Function>
     <DSCore.File.Filename type="DSCore.File.Filename" guid="faa5c972-203b-467d-af1d-bb5058510a68" nickname="File Path" x="1215.6356313257" y="925.98309464969" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.String>C:\Users\EErtugrul\Desktop\temp\Iterative\iterativetest</System.String>
+      <System.String>C:\Users\eertugrul\Desktop\temp-delete\va3cTest.dyn</System.String>
     </DSCore.File.Filename>
-    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="66aa7da3-d647-45d9-86b6-280adca6666a" nickname="Code Block" x="2638.06450168347" y="872.29411799677" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;iterativeGlazingTester007&quot;;" ShouldFocus="false" />
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="66aa7da3-d647-45d9-86b6-280adca6666a" nickname="Code Block" x="2638.06450168347" y="872.29411799677" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;enablessyncTest&quot;;" ShouldFocus="false" />
     <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="aabe3526-902d-4c3c-925b-ee01e0cebe18" nickname="Boolean" x="2929.64163228192" y="1054.94198155005" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Boolean>False</System.Boolean>
     </DSCoreNodesUI.BoolSelector>
@@ -73,10 +73,17 @@ OUT = [surfaces, glazingPercentages, filePaths, masses]</Script>
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="f650283a-13f4-476e-a17a-489c0001712b" nickname="PrepareEnergyModel.DecomposeZone" x="793.322728136819" y="603.570682928551" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DecomposeZone@EnergyAnalysisForDynamo.ElementId" />
     <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="44f4cf73-c808-47cd-b3f2-d1555202b447" nickname="Flatten" x="1085.77041191944" y="602.17141171428" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="" function="Flatten@var[]..[]" />
     <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="161f8f97-cc93-440d-a45b-afba3f292454" nickname="Watch" x="2613.21231694333" y="973.18570422157" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="2abfe43d-e67e-442b-bfb6-689196a14a70" nickname="RunAnalysis.RunEnergyAnalysis" x="3275.56750696834" y="895.384123048396" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.RunEnergyAnalysis@int,string[],bool,int">
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="2abfe43d-e67e-442b-bfb6-689196a14a70" nickname="RunAnalysis.RunEnergyAnalysis" x="3275.56750696834" y="895.384123048396" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.RunEnergyAnalysis@int,string[],bool,int">
       <PortInfo index="2" default="True" />
       <PortInfo index="3" default="True" />
     </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="ca593189-db3a-4fee-904a-610115e7c7c4" nickname="GetAnalysisResults.LoadAnalysisResults" x="3835.22767906414" y="895.571584029924" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.LoadAnalysisResults@int,int,bool">
+      <PortInfo index="1" default="True" />
+      <PortInfo index="2" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="8e0793b1-0d21-4bb5-a8f8-1dcaade96132" nickname="Boolean" x="3595.33630077081" y="1103.63598843329" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>True</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
   </Elements>
   <Connectors>
     <Dynamo.Models.ConnectorModel start="709e9346-2a23-48aa-8000-42d54f27ee54" start_index="0" end="e8b740ab-9f0f-4a05-972f-0ee974a16a45" end_index="1" portType="0" />
@@ -97,6 +104,8 @@ OUT = [surfaces, glazingPercentages, filePaths, masses]</Script>
     <Dynamo.Models.ConnectorModel start="e8b740ab-9f0f-4a05-972f-0ee974a16a45" start_index="1" end="f650283a-13f4-476e-a17a-489c0001712b" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="f650283a-13f4-476e-a17a-489c0001712b" start_index="0" end="44f4cf73-c808-47cd-b3f2-d1555202b447" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="44f4cf73-c808-47cd-b3f2-d1555202b447" start_index="0" end="bff99c66-5a40-4423-a90b-d19afd1c4b63" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="161f8f97-cc93-440d-a45b-afba3f292454" start_index="0" end="2abfe43d-e67e-442b-bfb6-689196a14a70" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="8e0793b1-0d21-4bb5-a8f8-1dcaade96132" start_index="0" end="ca593189-db3a-4fee-904a-610115e7c7c4" end_index="2" portType="0" />
   </Connectors>
   <Notes>
     <Dynamo.Models.NoteModel text="1. Select Mass element from Revit/Vasari document" x="413.015483359713" y="384.017895302556" />
