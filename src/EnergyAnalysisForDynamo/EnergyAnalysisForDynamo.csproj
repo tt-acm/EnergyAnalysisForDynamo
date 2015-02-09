@@ -33,6 +33,10 @@
     <DocumentationFile>bin\Release\EnergyAnalysisForDynamo.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetOpenAuth, Version=3.4.4.10159, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\GBSforDynamo\resources\gbs_sdk_2012_1220\gbs.api.v1.sample\gbs.console\3rdPartyComponent\DotNetOpenAuth.dll</HintPath>
+    </Reference>
     <Reference Include="DSCoreNodesUI">
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Dynamo 0.7\nodes\DSCoreNodesUI.dll</HintPath>
       <Private>False</Private>
@@ -56,10 +60,21 @@
     <Reference Include="EnergyAnalysisforDynamoAuthHelper">
       <HintPath>..\packages\EnergyAnalysisforDynamoAuthHelper.dll</HintPath>
     </Reference>
+    <Reference Include="GBS.SingleSignOn, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\GBSforDynamo\resources\gbs_sdk_2012_1220\gbs.api.v1.sample\gbs.console\3rdPartyComponent\GBS.SingleSignOn.dll</HintPath>
+    </Reference>
+    <Reference Include="GBSCommon, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\GBSforDynamo\resources\gbs_sdk_2012_1220\gbs.api.v1.sample\gbs.console\3rdPartyComponent\GBSCommon.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\Desktop\GBSforDynamo\resources\gbs_sdk_2012_1220\gbs.api.v1.sample\gbs.console\3rdPartyComponent\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Prism">
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Dynamo 0.7\Microsoft.Practices.Prism.dll</HintPath>

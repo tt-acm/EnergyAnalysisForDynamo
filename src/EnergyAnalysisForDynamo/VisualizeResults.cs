@@ -53,6 +53,9 @@ using System.Diagnostics;
 using System.Web.Services;
 using EnergyAnalysisForDynamo.CEAService;
 
+using DotNetOpenAuth;
+using GBS.SingleSignOn.OAuth;
+
 namespace EnergyAnalysisForDynamo
 {
     public class VisualizeResults
@@ -61,26 +64,55 @@ namespace EnergyAnalysisForDynamo
 
         public static void GetChart(int RunId)
         {
-            // Credentials or Access Token ?
+            // Get Oxygen SSO Access Token 
 
-            SingleSignOnManager.RegisterSingleSignOn();
-            revitAuthProvider = revitAuthProvider ?? new RevitAuthProvider(SynchronizationContext.Current);
+            string _consumerKey = string.Empty;
+            string _consumerSecret = string.Empty;
 
-            // request token ??
-            var signedRequestUri = revitAuthProvider.SignRequest(@"https://gbs.autodesk.com/GBS/soap/CEAService.svc?wsdl", HttpMethod.Get, null);
+            string identityOAuthConsumerKey = string.Empty;
+            string identityOAuthConsumerSecret = string.Empty;
+
+            string accessToken = string.Empty;
+
+            try
+            {
+                IdentityOAuthConsumer consumer = new IdentityOAuthConsumer(_consumerKey, _consumerSecret);
+                TokenSecretData data = consumer.GetAccessToken("", "");
+                string tokenSecret = data.Secret;
+                accessToken = data.Token;
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+
+            try
+            {
+                IdentityOAuthConsumer consumer = new IdentityOAuthConsumer(identityOAuthConsumerKey, identityOAuthConsumerSecret);
+                TokenSecretData data = consumer.GetAccessToken("", "");
+                string tokenSecret = data.Secret;
+                accessToken = data.Token;
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+
 
             string urlReturn = string.Empty;
             string errorInfo = string.Empty;
             string cultureinfo = CultureInfo.CurrentCulture.ToString();
-
-            
+           
            
             //CEAService.SolonClient scl = new CEAService.SolonClient();
             //scl.GetSolonPackage(signedRequestUri, RunId, true);
+            CEAService.GBS_oCreateProjectClient pcl = new CEAService.GBS_oCreateProjectClient();
 
             CEAService.GBS_oGetChartsURLClient cl = new CEAService.GBS_oGetChartsURLClient();
-            
-            cl.GBS_oGetChartsURL(signedRequestUri, RunId.ToString(), cultureinfo, "in", ref urlReturn, ref errorInfo);
+
+            cl.GBS_oGetChartsURL(accessToken, RunId.ToString(), cultureinfo, "in", ref urlReturn, ref errorInfo);
             
         }
         
