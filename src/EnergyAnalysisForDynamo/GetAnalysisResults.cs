@@ -189,26 +189,45 @@ namespace EnergyAnalysisForDynamo
         /// <para> Use .... nodes to parse the Results info of the specific run</para>
         /// <param name="RunID"> Input Run Id </param>
         /// <param name="ParametricRunID"> Input an Id for one of the parametric runs</param>
+        /// <param name="enable"> Enables synchronization with the simulation, default is false. Set true to wait the simulation being completed. Beware, it might take several minutes and blocks the Dynamo solution! </param>
         /// <returns></returns>
         [MultiReturn("Results", "BuildingType", "Location", "FloorArea", "BuildingSummary")]
-        public static Dictionary<string, object> LoadAnalysisResults(int RunID, int ParametricRunID = 0)
+        public static Dictionary<string, object> LoadAnalysisResults(int RunID, int ParametricRunID = 0, bool enable = false)
         {
             // Initiate the Revit Auth
             Helper.InitRevitAuthProvider();
 
-            // Defense for 'bad request', check status of RunId
-            string requestGetRunStatusUri = GBSUri.GBSAPIUri +
-                                            string.Format(APIV1Uri.GetRunStatus, RunID, ParametricRunID, "json");
-            HttpWebResponse response = (HttpWebResponse)Helper._CallGetApi(requestGetRunStatusUri);
-            Stream responseStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(responseStream);
-            string result = reader.ReadToEnd();
-            RunStatus runStatus =Helper.DataContractJsonDeserialize<RunStatus>(result);
-            int percentStatus = runStatus.StatusPercentDone;
-
-            if (percentStatus < 100)
+            if (!enable) // don't block the dynamo solution
             {
-                throw new Exception(System.String.Format("Run Status: {0}% - {1}", percentStatus, runStatus.DetailedStatus));
+                // Defense for 'bad request', check status of RunId
+                string requestGetRunStatusUri = GBSUri.GBSAPIUri +
+                                                string.Format(APIV1Uri.GetRunStatus, RunID, ParametricRunID, "json");
+                HttpWebResponse response = (HttpWebResponse)Helper._CallGetApi(requestGetRunStatusUri);
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream);
+                string result = reader.ReadToEnd();
+                RunStatus runStatus = Helper.DataContractJsonDeserialize<RunStatus>(result);
+                int percentStatus = runStatus.StatusPercentDone;
+
+                if (percentStatus < 100)
+                {
+                    throw new Exception(System.String.Format("Run Status: {0}% - {1}", percentStatus, runStatus.DetailedStatus));
+                } 
+            }
+            else // true, blocks the dynamo solution until simulation being completed
+            {
+                int percentStatus = 0;
+                while (percentStatus > 100)
+                {
+                    string requestGetRunStatusUri = GBSUri.GBSAPIUri +
+                                string.Format(APIV1Uri.GetRunStatus, RunID, ParametricRunID, "json");
+                    HttpWebResponse response = (HttpWebResponse)Helper._CallGetApi(requestGetRunStatusUri);
+                    Stream responseStream = response.GetResponseStream();
+                    StreamReader reader = new StreamReader(responseStream);
+                    string result = reader.ReadToEnd();
+                    RunStatus runStatus = Helper.DataContractJsonDeserialize<RunStatus>(result);
+                    percentStatus = runStatus.StatusPercentDone;
+                }
             }
 
             //Get results Summary of given RunID & AltRunID
