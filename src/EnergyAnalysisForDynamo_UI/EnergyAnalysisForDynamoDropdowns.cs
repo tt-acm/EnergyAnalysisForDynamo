@@ -16,7 +16,7 @@ namespace EnergyAnalysisForDynamo_UI
     [IsDesignScriptCompatible]
     public class BuildingTypeDropdown : EnumAsString<gbXMLBuildingType>
     {
-        public BuildingTypeDropdown(WorkspaceModel workspace) : base(workspace) { }
+        public BuildingTypeDropdown(WorkspaceModel workspace) : base() { }
     }
 
     [NodeName("HVAC System Type Dropdown")]
@@ -25,7 +25,7 @@ namespace EnergyAnalysisForDynamo_UI
     [IsDesignScriptCompatible]
     public class HVACtypeDropdown : EnumAsString<gbXMLBuildingHVACSystem>
     {
-        public HVACtypeDropdown(WorkspaceModel workspace) : base(workspace) { }
+        public HVACtypeDropdown(WorkspaceModel workspace) : base() { }
     }
 
     [NodeName("Operating Schedules Dropdown")]
@@ -34,7 +34,7 @@ namespace EnergyAnalysisForDynamo_UI
     [IsDesignScriptCompatible]
     public class OperatingSchedulesDropdown : EnumAsString<gbXMLBuildingOperatingSchedule>
     {
-        public OperatingSchedulesDropdown(WorkspaceModel workspace) : base(workspace) { }
+        public OperatingSchedulesDropdown(WorkspaceModel workspace) : base() { }
     }
 
     [NodeName("Conceptual Wall Construction Types Dropdown")]
@@ -43,7 +43,7 @@ namespace EnergyAnalysisForDynamo_UI
     [IsDesignScriptCompatible]
     public class ConcWallConstTypeDropdown : EnumAsString<ConceptualConstructionWallType>
     {
-        public ConcWallConstTypeDropdown(WorkspaceModel workspace) : base(workspace) { }
+        public ConcWallConstTypeDropdown(WorkspaceModel workspace) : base() { }
     }
     
     [NodeName("Conceptual Glazing Construction Types Dropdown")]
@@ -52,7 +52,7 @@ namespace EnergyAnalysisForDynamo_UI
     [IsDesignScriptCompatible]
     public class ConcGlazingConstTypeDropdown : EnumAsString<ConceptualConstructionWindowSkylightType>
     {
-        public ConcGlazingConstTypeDropdown(WorkspaceModel workspace) : base(workspace) { }
+        public ConcGlazingConstTypeDropdown(WorkspaceModel workspace) : base() { }
     }
 
     [NodeName("Conceptual Floor Construction Types Dropdown")]
@@ -61,7 +61,7 @@ namespace EnergyAnalysisForDynamo_UI
     [IsDesignScriptCompatible]
     public class ConcFloorConstTypeDropdown : EnumAsString<ConceptualConstructionFloorSlabType>
     {
-        public ConcFloorConstTypeDropdown(WorkspaceModel workspace) : base(workspace) { }
+        public ConcFloorConstTypeDropdown(WorkspaceModel workspace) : base() { }
     }
 
     [NodeName("Conceptual Roof Construction Types Dropdown")]
@@ -70,7 +70,7 @@ namespace EnergyAnalysisForDynamo_UI
     [IsDesignScriptCompatible]
     public class ConcRoofConstTypeDropdown : EnumAsString<ConceptualConstructionRoofType>
     {
-        public ConcRoofConstTypeDropdown(WorkspaceModel workspace) : base(workspace) { }
+        public ConcRoofConstTypeDropdown(WorkspaceModel workspace) : base() { }
     }
 
     [NodeName("Space Types Dropdown")]
@@ -79,7 +79,7 @@ namespace EnergyAnalysisForDynamo_UI
     [IsDesignScriptCompatible]
     public class SpaceTypeDropdown : EnumAsString<gbXMLSpaceType>
     {
-        public SpaceTypeDropdown(WorkspaceModel workspace) : base(workspace) { }
+        public SpaceTypeDropdown(WorkspaceModel workspace) : base() { }
     }
 
     [NodeName("Condition Types Dropdown")]
@@ -88,7 +88,7 @@ namespace EnergyAnalysisForDynamo_UI
     [IsDesignScriptCompatible]
     public class ConditionType : EnumAsString<gbXMLConditionType>
     {
-        public ConditionType(WorkspaceModel workspace) : base(workspace) { }
+        public ConditionType(WorkspaceModel workspace) : base() { }
     }
 
     [NodeName("Energy Data File Types Dropdown")]
@@ -97,7 +97,7 @@ namespace EnergyAnalysisForDynamo_UI
     [IsDesignScriptCompatible]
     public class EnergyDataFileTypes : EnumAsString<EnergyDataFileType>
     {
-        public EnergyDataFileTypes(WorkspaceModel workspace) : base(workspace) { }
+        public EnergyDataFileTypes(WorkspaceModel workspace) : base() { }
     }
 
     public enum EnergyDataFileType

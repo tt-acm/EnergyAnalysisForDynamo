@@ -296,7 +296,8 @@ namespace EnergyAnalysisForDynamo.Utilities
             
             // First Get request is to get the permission
             // Sign URL using Revit auth
-            var MassRunRequestUri = revitAuthProvider.SignRequest(ControlMassRuns, HttpMethod.Get, null);
+            //var MassRunRequestUri = revitAuthProvider.SignRequest(ControlMassRuns, HttpMethod.Get, null);
+            var MassRunRequestUri = "fix me";
 
             // Send the request to GBS
             var request = (HttpWebRequest)System.Net.WebRequest.Create(MassRunRequestUri);
@@ -314,7 +315,8 @@ namespace EnergyAnalysisForDynamo.Utilities
 
             // Now that we have the permission let's change it based on user's request for this project
             // Sign URL using Revit auth
-            var MassRunUpdateUri = revitAuthProvider.SignRequest(ControlMassRuns, HttpMethod.Put, null);
+            //var MassRunUpdateUri = revitAuthProvider.SignRequest(ControlMassRuns, HttpMethod.Put, null);
+            var MassRunUpdateUri = "fix me";
             
             // Send the request to GBS
             var changeRequest = (HttpWebRequest)System.Net.WebRequest.Create(MassRunUpdateUri);
@@ -356,7 +358,8 @@ namespace EnergyAnalysisForDynamo.Utilities
         public static WebResponse _CallGetApi(string requestUri)
         {
             // Sign URL using Revit auth
-            var signedRequestUri = revitAuthProvider.SignRequest(requestUri, HttpMethod.Get, null);
+            //var signedRequestUri = revitAuthProvider.SignRequest(requestUri, HttpMethod.Get, null);
+            var signedRequestUri = "fix me";
 
             // Send request to GBS
             System.Net.WebRequest request = System.Net.WebRequest.Create(signedRequestUri);
@@ -386,7 +389,8 @@ namespace EnergyAnalysisForDynamo.Utilities
 
 
             // Sign URL using Revit auth
-            var signedRequestUri = revitAuthProvider.SignRequest(requestUri, HttpMethod.Post, null);
+            //var signedRequestUri = revitAuthProvider.SignRequest(requestUri, HttpMethod.Post, null);
+            var signedRequestUri = "fix me";
 
             // Send request to GBS
             var request = (HttpWebRequest)System.Net.WebRequest.Create(signedRequestUri);

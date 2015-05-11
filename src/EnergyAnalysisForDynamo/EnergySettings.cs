@@ -45,7 +45,8 @@ namespace EnergyAnalysisForDynamo
                 { "BldgType", Enum.GetName(typeof(gbXMLBuildingType), es.BuildingType)}, 
                 { "GlzPer",  es.PercentageGlazing},
                 {"SkylightPer", es.PercentageSkylights},
-                { "ShadeDepth",  es.ShadeDepth * UnitConverter.HostToDynamoFactor}, 
+                { "ShadeDepth",  es.ShadeDepth}, 
+ //               { "ShadeDepth",  es.ShadeDepth * UnitConverter.HostToDynamoFactor}, 
                 { "HVACSystem",Enum.GetName(typeof(gbXMLBuildingHVACSystem), es.BuildingHVACSystem)},
                 { "OSchedule",Enum.GetName(typeof(gbXMLBuildingOperatingSchedule), es.BuildingOperatingSchedule)},
                 {"CoreOffset", es.MassZoneCoreOffset},
@@ -152,7 +153,8 @@ namespace EnergyAnalysisForDynamo
             if (ShadeDepth > 0.0)
             {
                 myEnergySettings.IsGlazingShaded = true;
-                myEnergySettings.ShadeDepth = ShadeDepth * UnitConverter.DynamoToHostFactor;
+                //myEnergySettings.ShadeDepth = ShadeDepth * UnitConverter.DynamoToHostFactor;
+                myEnergySettings.ShadeDepth = ShadeDepth;
             }
             else
             {
@@ -166,7 +168,8 @@ namespace EnergyAnalysisForDynamo
             // set core-perimeter parameters
             if (CoreOffset >= 0)
             {
-                myEnergySettings.MassZoneCoreOffset = CoreOffset * UnitConverter.DynamoToHostFactor;
+                //myEnergySettings.MassZoneCoreOffset = CoreOffset * UnitConverter.DynamoToHostFactor;
+                myEnergySettings.MassZoneCoreOffset = CoreOffset;
             }
             
             // set divide perimeter 

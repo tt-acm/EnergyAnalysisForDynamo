@@ -809,7 +809,8 @@ namespace EnergyAnalysisForDynamo
                 }
 
                 //set target sill height 
-                surf.SillHeight = sillHeight * UnitConverter.DynamoToHostFactor;
+                //surf.SillHeight = sillHeight * UnitConverter.DynamoToHostFactor;
+                surf.SillHeight = sillHeight;
 
                 //set glazing percentage
                 surf.PercentageGlazing = glazingPercent;
@@ -818,7 +819,8 @@ namespace EnergyAnalysisForDynamo
                 if (shadingDepth > 0)
                 {
                     surf.IsGlazingShaded = true;
-                    surf.ShadeDepth = shadingDepth * UnitConverter.DynamoToHostFactor;
+                    //surf.ShadeDepth = shadingDepth * UnitConverter.DynamoToHostFactor;
+                    surf.ShadeDepth = shadingDepth;
                 }
                 else 
                 {
