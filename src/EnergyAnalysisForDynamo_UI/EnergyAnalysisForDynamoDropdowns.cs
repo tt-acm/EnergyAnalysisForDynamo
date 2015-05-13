@@ -3,13 +3,38 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Xml;
+using DSCore;
 using DSCoreNodesUI;
 using Dynamo.Models;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Analysis;
+using ProtoCore.AST.AssociativeAST;
 
 namespace EnergyAnalysisForDynamo_UI
 {
+    [NodeName("Building Type Dropdown")]
+    [NodeCategory("EnergyAnalysisForDynamo.EnergySettings")]
+    [NodeDescription("Select a building type to use with the GBSforDynamo Energy Settings node.")]
+    [IsDesignScriptCompatible]
+    public class Tester : DSDropDownBase
+    {
+        public Tester() : base("Tester") { }
+
+        public override void PopulateItems()
+        {
+            Items.Clear();
+            Items.Add(new DynamoDropDownItem("A", "A"));
+            Items.Add(new DynamoDropDownItem("B", "B"));
+            Items.Add(new DynamoDropDownItem("C", "C"));
+        }
+
+        public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+        {
+            return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildStringNode(Items[SelectedIndex].Name)) };
+        }
+    }
+
+
     [NodeName("Building Type Dropdown")]
     [NodeCategory("EnergyAnalysisForDynamo.EnergySettings")]
     [NodeDescription("Select a building type to use with the GBSforDynamo Energy Settings node.")]
