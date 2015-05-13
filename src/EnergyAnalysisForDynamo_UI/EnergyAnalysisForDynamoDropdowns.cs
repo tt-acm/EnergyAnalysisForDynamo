@@ -12,24 +12,39 @@ using ProtoCore.AST.AssociativeAST;
 
 namespace EnergyAnalysisForDynamo_UI
 {
-    [NodeName("Building Type Dropdown")]
-    [NodeCategory("EnergyAnalysisForDynamo.EnergySettings")]
-    [NodeDescription("Select a building type to use with the GBSforDynamo Energy Settings node.")]
-    [IsDesignScriptCompatible]
-    public class Tester : DSDropDownBase
+
+    public abstract class EA4DDropdownBase : DSDropDownBase
     {
-        public Tester() : base("Tester") { }
+        public EA4DDropdownBase(string value, Enum e) : base(value) 
+        {
+            stringsFromEnum(e);
+        }
+
+        private List<string> myDropdownItems = new List<string>();
+
+        private void stringsFromEnum(Enum e) 
+        {
+            foreach (var i in Enum.GetValues(e.GetType()))
+            {
+                myDropdownItems.Add(i.ToString());
+            }
+        }
 
         public override void PopulateItems()
         {
             Items.Clear();
-            Items.Add(new DynamoDropDownItem("A", "A"));
-            Items.Add(new DynamoDropDownItem("B", "B"));
-            Items.Add(new DynamoDropDownItem("C", "C"));
+            foreach (var i in myDropdownItems)
+            {
+                Items.Add(new DynamoDropDownItem(i, i)); 
+            }
         }
 
         public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
         {
+            if (Items.Count == 0)
+            {
+                PopulateItems();
+            }
             return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildStringNode(Items[SelectedIndex].Name)) };
         }
     }
@@ -39,9 +54,9 @@ namespace EnergyAnalysisForDynamo_UI
     [NodeCategory("EnergyAnalysisForDynamo.EnergySettings")]
     [NodeDescription("Select a building type to use with the GBSforDynamo Energy Settings node.")]
     [IsDesignScriptCompatible]
-    public class BuildingTypeDropdown : EnumAsString<gbXMLBuildingType>
+    public class BuildingTypeDropdown : EA4DDropdownBase
     {
-        public BuildingTypeDropdown(WorkspaceModel workspace) : base() { }
+        public BuildingTypeDropdown() : base("Building Type", new gbXMLBuildingType()) { }
     }
 
     [NodeName("HVAC System Type Dropdown")]
