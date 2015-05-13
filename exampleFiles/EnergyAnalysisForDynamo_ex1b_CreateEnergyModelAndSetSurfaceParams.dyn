@@ -1,33 +1,34 @@
-<Workspace Version="0.7.5.3566" X="-289.590173212077" Y="-125.084894903302" zoom="0.668787581941588" Description="" Category="" Name="Home">
+<Workspace Version="0.8.0.950" X="-519.00469277141" Y="-179.542285663407" zoom="0.825408698436205" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
   <Elements>
-    <DSRevitNodesUI.Levels type="DSRevitNodesUI.Levels" guid="709e9346-2a23-48aa-8000-42d54f27ee54" nickname="Levels" x="675.410141199108" y="465.180763180918" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:Level 1" />
-    <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="477cd4a4-3747-4eeb-8717-62056f9087ab" nickname="Select Model Element" x="675.410141199108" y="367.729736520041" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <instance id="822de3a8-2f15-4e66-b339-c7c097590daf-0003aac8" />
+    <DSRevitNodesUI.Levels guid="709e9346-2a23-48aa-8000-42d54f27ee54" type="DSRevitNodesUI.Levels" nickname="Levels" x="675.410141199108" y="465.180763180918" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:Level 1" />
+    <Dynamo.Nodes.DSModelElementSelection guid="477cd4a4-3747-4eeb-8717-62056f9087ab" type="Dynamo.Nodes.DSModelElementSelection" nickname="Select Model Element" x="675.410141199108" y="367.729736520041" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <instance id="e2208c72-2ddd-45d0-b99b-4e74a33253b3-00032065" />
     </Dynamo.Nodes.DSModelElementSelection>
-    <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="f4b472cb-7f0e-487d-8ff3-1b951d0a9f8b" nickname="Glazing %" x="1886.27798295539" y="737.922637842794" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <DSCoreNodesUI.Input.DoubleSlider guid="f4b472cb-7f0e-487d-8ff3-1b951d0a9f8b" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Number Slider" x="1817.16548458076" y="731.011388005331" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Double>0.6</System.Double>
-      <Range min="0.2" max="0.8" />
-    </Dynamo.Nodes.DoubleSlider>
-    <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="9299930a-564d-4996-9ef1-2ad42f4e86cd" nickname="Shading Depth" x="1882.2918202437" y="833.936475131109" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.Double>1</System.Double>
-      <Range min="0" max="1.5" />
-    </Dynamo.Nodes.DoubleSlider>
-    <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="f996a98e-44f0-44c0-9086-7ca30a646454" nickname="Sill Height" x="1879.67055247745" y="931.291670739871" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.Double>1</System.Double>
-      <Range min="0" max="2" />
-    </Dynamo.Nodes.DoubleSlider>
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="443faa2f-d81c-491c-8bac-29f0bf1b6f94" nickname="PrepareEnergyModel.DrawAnalysisSurface" x="2209.52749571201" y="472.455809669402" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DrawAnalysisSurface@EnergyAnalysisForDynamo.ElementId" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="180ddc57-828c-4625-856c-b57d58f55b30" nickname="PrepareEnergyModel.SetWallSurfaceParameters" x="2201.5543118014" y="703.596170577058" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.SetWallSurfaceParameters@EnergyAnalysisForDynamo.ElementId,double,double,double,string">
+      <Range min="0.2" max="0.8" step="0.1" />
+    </DSCoreNodesUI.Input.DoubleSlider>
+    <DSCoreNodesUI.Input.DoubleSlider guid="9299930a-564d-4996-9ef1-2ad42f4e86cd" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Number Slider" x="1818.70832173904" y="796.615726008809" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double>0.6</System.Double>
+      <Range min="0" max="1.5" step="0.1" />
+    </DSCoreNodesUI.Input.DoubleSlider>
+    <DSCoreNodesUI.Input.DoubleSlider guid="f996a98e-44f0-44c0-9086-7ca30a646454" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Number Slider" x="1818.85155390778" y="858.032422462764" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double>1.8</System.Double>
+      <Range min="0" max="2" step="0.1" />
+    </DSCoreNodesUI.Input.DoubleSlider>
+    <Dynamo.Nodes.DSFunction guid="443faa2f-d81c-491c-8bac-29f0bf1b6f94" type="Dynamo.Nodes.DSFunction" nickname="PrepareEnergyModel.DrawAnalysisSurface" x="2209.52749571201" y="472.455809669402" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DrawAnalysisSurface@EnergyAnalysisForDynamo.ElementId" />
+    <Dynamo.Nodes.DSFunction guid="180ddc57-828c-4625-856c-b57d58f55b30" type="Dynamo.Nodes.DSFunction" nickname="PrepareEnergyModel.SetWallSurfaceParameters" x="2201.5543118014" y="703.596170577058" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.SetWallSurfaceParameters@EnergyAnalysisForDynamo.ElementId,double,double,double,string">
       <PortInfo index="1" default="True" />
       <PortInfo index="2" default="True" />
       <PortInfo index="3" default="True" />
       <PortInfo index="4" default="True" />
     </Dynamo.Nodes.DSFunction>
-    <EnergyAnalysisForDynamo_UI.ConcWallConstTypeDropdown type="EnergyAnalysisForDynamo_UI.ConcWallConstTypeDropdown" guid="ceef2ecc-dfeb-47e0-9a90-530989be9ac2" nickname="Conceptual Wall Construction Types Dropdown" x="1874.60331033392" y="1043.98789026876" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:HighMassConstructionHighInsulation" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="d8204c1c-70c5-47b4-96a5-c25342b34f22" nickname="PrepareEnergyModel.DecomposeZone" x="1577.04993857083" y="411.50006988793" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DecomposeZone@EnergyAnalysisForDynamo.ElementId" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="56d79c96-4bb7-4822-9683-70db774ff22a" nickname="PrepareEnergyModel.CreateByMassLevels" x="980.447951970478" y="383.090451478389" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.CreateByMassLevels@Revit.Elements.AbstractFamilyInstance,Revit.Elements.Element[]" />
-    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="d47f0ad9-ee9a-4fa3-8f1a-f8414f21e349" nickname="Code Block" x="1448.90538427329" y="414.010036641195" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[1];" ShouldFocus="false" />
-    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="98cb8c9e-8cdd-488a-9e8f-02fb9d84d721" nickname="Code Block" x="1855.40010455791" y="416.742603216496" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="d8204c1c-70c5-47b4-96a5-c25342b34f22" type="Dynamo.Nodes.DSFunction" nickname="PrepareEnergyModel.DecomposeZone" x="1577.04993857083" y="411.50006988793" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DecomposeZone@EnergyAnalysisForDynamo.ElementId" />
+    <Dynamo.Nodes.DSFunction guid="56d79c96-4bb7-4822-9683-70db774ff22a" type="Dynamo.Nodes.DSFunction" nickname="PrepareEnergyModel.CreateByMassLevels" x="980.447951970478" y="383.090451478389" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.CreateByMassLevels@Revit.Elements.AbstractFamilyInstance,Revit.Elements.Element[]" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="d47f0ad9-ee9a-4fa3-8f1a-f8414f21e349" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1448.90538427329" y="414.010036641195" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[1];" ShouldFocus="false" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="98cb8c9e-8cdd-488a-9e8f-02fb9d84d721" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1855.40010455791" y="416.742603216496" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];" ShouldFocus="false" />
+    <EnergyAnalysisForDynamo_UI.ConcWallConstTypeDropdown guid="ec6be07c-326a-46d3-b949-62d25ed8dd64" type="EnergyAnalysisForDynamo_UI.ConcWallConstTypeDropdown" nickname="Conceptual Wall Construction Types Dropdown" x="1817.06869263643" y="931.406733730944" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:LightweightConstructionHighInsulation" />
   </Elements>
   <Connectors>
     <Dynamo.Models.ConnectorModel start="709e9346-2a23-48aa-8000-42d54f27ee54" start_index="0" end="56d79c96-4bb7-4822-9683-70db774ff22a" end_index="1" portType="0" />
@@ -35,12 +36,12 @@
     <Dynamo.Models.ConnectorModel start="f4b472cb-7f0e-487d-8ff3-1b951d0a9f8b" start_index="0" end="180ddc57-828c-4625-856c-b57d58f55b30" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="9299930a-564d-4996-9ef1-2ad42f4e86cd" start_index="0" end="180ddc57-828c-4625-856c-b57d58f55b30" end_index="2" portType="0" />
     <Dynamo.Models.ConnectorModel start="f996a98e-44f0-44c0-9086-7ca30a646454" start_index="0" end="180ddc57-828c-4625-856c-b57d58f55b30" end_index="3" portType="0" />
-    <Dynamo.Models.ConnectorModel start="ceef2ecc-dfeb-47e0-9a90-530989be9ac2" start_index="0" end="180ddc57-828c-4625-856c-b57d58f55b30" end_index="4" portType="0" />
     <Dynamo.Models.ConnectorModel start="d8204c1c-70c5-47b4-96a5-c25342b34f22" start_index="0" end="98cb8c9e-8cdd-488a-9e8f-02fb9d84d721" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="56d79c96-4bb7-4822-9683-70db774ff22a" start_index="1" end="d47f0ad9-ee9a-4fa3-8f1a-f8414f21e349" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="d47f0ad9-ee9a-4fa3-8f1a-f8414f21e349" start_index="0" end="d8204c1c-70c5-47b4-96a5-c25342b34f22" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="98cb8c9e-8cdd-488a-9e8f-02fb9d84d721" start_index="0" end="443faa2f-d81c-491c-8bac-29f0bf1b6f94" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="98cb8c9e-8cdd-488a-9e8f-02fb9d84d721" start_index="0" end="180ddc57-828c-4625-856c-b57d58f55b30" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="ec6be07c-326a-46d3-b949-62d25ed8dd64" start_index="0" end="180ddc57-828c-4625-856c-b57d58f55b30" end_index="4" portType="0" />
   </Connectors>
   <Notes>
     <Dynamo.Models.NoteModel text="1. Select Mass element from Revit/Vasari document" x="598.425624558821" y="327.198658483474" />

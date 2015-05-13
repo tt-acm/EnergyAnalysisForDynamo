@@ -1,21 +1,19 @@
-<Workspace Version="0.7.5.3566" X="222.568841077157" Y="-97.012470218399" zoom="0.874053649550263" Description="" Category="" Name="Home">
+<Workspace Version="0.8.0.950" X="247.568841077157" Y="-39.012470218399" zoom="0.874053649550263" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
   <Elements>
-    <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="83f5eb3b-234f-4081-8461-bd1af9ae6708" nickname="Glazing Percentage" x="36" y="314" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <DSCoreNodesUI.Input.DoubleSlider guid="83f5eb3b-234f-4081-8461-bd1af9ae6708" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Number Slider" x="36" y="314" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Double>0.5</System.Double>
-      <Range min="0" max="1" />
-    </Dynamo.Nodes.DoubleSlider>
-    <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="d4373a50-6b22-49ae-a392-90a2ab77148a" nickname="Shade Depth" x="34.1066938769355" y="414.523243091059" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Range min="0" max="1" step="0.1" />
+    </DSCoreNodesUI.Input.DoubleSlider>
+    <DSCoreNodesUI.Input.DoubleSlider guid="d4373a50-6b22-49ae-a392-90a2ab77148a" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Number Slider" x="34.1066938769355" y="414.523243091059" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Double>0</System.Double>
-      <Range min="0" max="3" />
-    </Dynamo.Nodes.DoubleSlider>
-    <EnergyAnalysisForDynamo_UI.BuildingTypeDropdown type="EnergyAnalysisForDynamo_UI.BuildingTypeDropdown" guid="41146885-0a7e-477a-9a9f-78b12c922d8d" nickname="Building Type Dropdown" x="-83.7439897458912" y="212.423521336771" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:AutomotiveFacility" />
-    <EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown type="EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown" guid="7ebcad18-5ae9-424e-a88a-8285d5417ff3" nickname="Operating Schedules Dropdown" x="-71.1516873063465" y="711.968872395867" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:DefaultOperatingSchedule" />
-    <EnergyAnalysisForDynamo_UI.HVACtypeDropdown type="EnergyAnalysisForDynamo_UI.HVACtypeDropdown" guid="11c4ee65-29ea-4d34-8034-cbf688cbfcd4" nickname="HVAC System Type Dropdown" x="-74.0078460927667" y="636.280664555744" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:CentralVAVElectricResistanceHeatChillerFivePointNinetySixCOP" />
-    <Dynamo.Nodes.DoubleSlider type="Dynamo.Nodes.DoubleSlider" guid="68e4d7c7-bdb7-419a-a77d-17a8850e486f" nickname="Skylight Percentage" x="28.8547748862904" y="524.14501684792" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Range min="0" max="3" step="0.1" />
+    </DSCoreNodesUI.Input.DoubleSlider>
+    <DSCoreNodesUI.Input.DoubleSlider guid="68e4d7c7-bdb7-419a-a77d-17a8850e486f" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Number Slider" x="28.8547748862904" y="524.14501684792" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Double>0</System.Double>
-      <Range min="0" max="1" />
-    </Dynamo.Nodes.DoubleSlider>
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="e64bc458-2670-46a4-a46a-3de874d29874" nickname="EnergySettings.SetEnergySettings" x="840.938990811397" y="525.833975408557" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.EnergySettings.SetEnergySettings@string,double,double,double,string,string,double,bool">
+      <Range min="0" max="1" step="0.1" />
+    </DSCoreNodesUI.Input.DoubleSlider>
+    <Dynamo.Nodes.DSFunction guid="e64bc458-2670-46a4-a46a-3de874d29874" type="Dynamo.Nodes.DSFunction" nickname="EnergySettings.SetEnergySettings" x="840.938990811397" y="525.833975408557" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.EnergySettings.SetEnergySettings@string,double,double,double,string,string,double,bool">
       <PortInfo index="0" default="True" />
       <PortInfo index="1" default="True" />
       <PortInfo index="2" default="True" />
@@ -25,14 +23,17 @@
       <PortInfo index="6" default="True" />
       <PortInfo index="7" default="True" />
     </Dynamo.Nodes.DSFunction>
+    <EnergyAnalysisForDynamo_UI.BuildingTypeDropdown guid="1786bdf5-41d9-43a9-a660-e8fa6dfa9ef3" type="EnergyAnalysisForDynamo_UI.BuildingTypeDropdown" nickname="Building Type Dropdown" x="42.9330556392337" y="204.915459543623" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:AutomotiveFacility" />
+    <EnergyAnalysisForDynamo_UI.HVACtypeDropdown guid="427297bd-ee73-4d25-9221-a7b63ff70880" type="EnergyAnalysisForDynamo_UI.HVACtypeDropdown" nickname="HVAC System Type Dropdown" x="18.9070704942653" y="604.204450762383" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:TwelveSEERSPointNineAFUESplitPackagedGasFiveToElevenTon" />
+    <EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown guid="cc670865-3b01-4858-b947-40e1b0437884" type="EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown" nickname="Operating Schedules Dropdown" x="21.1952595556909" y="714.037525710809" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:DefaultOperatingSchedule" />
   </Elements>
   <Connectors>
     <Dynamo.Models.ConnectorModel start="83f5eb3b-234f-4081-8461-bd1af9ae6708" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="d4373a50-6b22-49ae-a392-90a2ab77148a" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="2" portType="0" />
-    <Dynamo.Models.ConnectorModel start="41146885-0a7e-477a-9a9f-78b12c922d8d" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="7ebcad18-5ae9-424e-a88a-8285d5417ff3" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="5" portType="0" />
-    <Dynamo.Models.ConnectorModel start="11c4ee65-29ea-4d34-8034-cbf688cbfcd4" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="4" portType="0" />
     <Dynamo.Models.ConnectorModel start="68e4d7c7-bdb7-419a-a77d-17a8850e486f" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="3" portType="0" />
+    <Dynamo.Models.ConnectorModel start="1786bdf5-41d9-43a9-a660-e8fa6dfa9ef3" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="427297bd-ee73-4d25-9221-a7b63ff70880" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="4" portType="0" />
+    <Dynamo.Models.ConnectorModel start="cc670865-3b01-4858-b947-40e1b0437884" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="5" portType="0" />
   </Connectors>
   <Notes>
     <Dynamo.Models.NoteModel text="Use this node to Modify Energy Settings Parameters in Project level.&#xD;&#xA;This setting will be applied to all the zones and surfaces in your model. You can use SetSurfaceParameters and SetZoneParameters to customize the setting for selected zones or surfaces." x="843.613374056973" y="409.770063846028" />
