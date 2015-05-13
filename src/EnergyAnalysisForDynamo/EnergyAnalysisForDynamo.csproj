@@ -91,6 +91,14 @@
       <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\Revit_2014\RevitServices.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SSONET">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2014\SSONET.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SSONETUI">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2014\SSONETUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
