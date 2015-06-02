@@ -551,9 +551,9 @@ namespace EnergyAnalysisForDynamo
         /// <param name="RunId"> Input Run ID</param>
         /// <param name="ParametricRunId"> Input ID for one of the parametric runs. Default is set to 0</param>
         /// <param name="FileType"> Result type gbXMLor doe2 or eplus </param>
-        /// <param name="Directory"> Set File location to download the file </param>
+        /// <param name="DirectoryPath"> Set File location to download the file </param>
         /// <returns name="report"> string. </returns>
-        public static string GetEnergyModelFiles(int RunId, string FileType, string Directory, int ParametricRunId = 0) // result type gbxml/doe2/eplus
+        public static string GetEnergyModelFiles(int RunId, string FileType, string DirectoryPath, int ParametricRunId = 0) // result type gbxml/doe2/eplus
         {
             // handle with the bad string for energy file types
             if (FileType.ToLower() == "gbxml" || FileType.ToLower() == "xml")
@@ -573,6 +573,23 @@ namespace EnergyAnalysisForDynamo
                 throw new Exception("Energy data file type is not valid! Use dropdown node to select valid the file type!");
             }
 
+            // Check if path is file or directoy  & Handle unvalid directory path
+            // get the file attributes for file or directory
+            FileAttributes attr = File.GetAttributes(DirectoryPath);
+
+            //detect whether its a directory or file
+            if ((attr & FileAttributes.Directory) == FileAttributes.Directory) // it is directory
+            { }
+            else
+            {
+                throw new Exception("Please input Directory Path!");
+            }
+
+            if (!Directory.Exists(DirectoryPath))
+            {
+                throw new Exception("Input valid Directory Path!");
+            }
+             
             // Initiate the Revit Auth
             Helper.InitRevitAuthProvider();
 
@@ -592,8 +609,8 @@ namespace EnergyAnalysisForDynamo
             SimulationRunFile srf = Helper.DataContractJsonDeserialize<SimulationRunFile>(result);
 
             // Get directory and create zip file location
-            string folder= Path.GetDirectoryName(Directory);
-            string zipFileName = Path.Combine(folder, srf.FileName);
+            //string folder= Path.GetDirectoryName(DirectoryPath);
+            string zipFileName = Path.Combine(DirectoryPath, srf.FileName);
 
             System.IO.File.WriteAllBytes(zipFileName, srf.FileStream);
 

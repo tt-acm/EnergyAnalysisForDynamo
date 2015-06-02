@@ -1,20 +1,23 @@
-<Workspace Version="0.7.5.3566" X="-214.042012542192" Y="96.5511609475557" zoom="0.721066356035973" Description="" Category="" Name="Home">
+<Workspace Version="0.8.0.950" X="470.34509564893" Y="62.7334044629947" zoom="0.86396719719886" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
   <Elements>
-    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="2afb2730-f221-4c67-97c2-de43f7bee73a" nickname="RunId" x="983.569538775207" y="219.550256154259" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];" ShouldFocus="false" />
-    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="502f430f-aa33-4f54-9bba-2e9a47bbff1b" nickname="Boolean" x="-485.793800357344" y="111.837102616289" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <Dynamo.Nodes.CodeBlockNodeModel guid="2afb2730-f221-4c67-97c2-de43f7bee73a" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="RunId" x="983.569538775207" y="219.550256154259" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];" ShouldFocus="false" />
+    <DSCoreNodesUI.BoolSelector guid="502f430f-aa33-4f54-9bba-2e9a47bbff1b" type="DSCoreNodesUI.BoolSelector" nickname="Boolean" x="-485.793800357344" y="111.837102616289" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Boolean>True</System.Boolean>
     </DSCoreNodesUI.BoolSelector>
-    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="7f4ed103-7b0c-4753-8516-116e1cbf6373" nickname="Select project item" x="53.9377002706617" y="114.106833565156" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[1];" ShouldFocus="false" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="e605e914-62f5-424d-8f91-751a6f807f5e" nickname="GetAnalysisResults.GetProjectsList" x="-319.924818786143" y="112.515145205393" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetProjectsList@bool">
+    <Dynamo.Nodes.CodeBlockNodeModel guid="7f4ed103-7b0c-4753-8516-116e1cbf6373" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Select project item" x="53.9377002706617" y="114.106833565156" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="e605e914-62f5-424d-8f91-751a6f807f5e" type="Dynamo.Nodes.DSFunction" nickname="GetAnalysisResults.GetProjectsList" x="-319.924818786143" y="112.515145205393" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetProjectsList@bool">
       <PortInfo index="0" default="True" />
     </Dynamo.Nodes.DSFunction>
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="1cbf6ea2-b120-4457-b4bc-96e3d298344f" nickname="GetAnalysisResults.GetRunIds" x="448.590415610329" y="111.963577725584" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetRunIds@int" />
-    <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="8209adfe-ce7c-47b3-b897-7d6d3bf734fc" nickname="Watch" x="53.0673501701045" y="202.68905030597" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="05ba3a81-7b4a-459a-aa25-506d35dc3331" nickname="GetAnalysisResults.GetEnergyModelFiles" x="1167.57194201047" y="285.068131576971" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetEnergyModelFiles@int,string,string,int">
+    <Dynamo.Nodes.DSFunction guid="1cbf6ea2-b120-4457-b4bc-96e3d298344f" type="Dynamo.Nodes.DSFunction" nickname="GetAnalysisResults.GetRunIds" x="448.590415610329" y="111.963577725584" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetRunIds@int" />
+    <Dynamo.Nodes.Watch guid="8209adfe-ce7c-47b3-b897-7d6d3bf734fc" type="Dynamo.Nodes.Watch" nickname="Watch" x="53.0673501701045" y="202.68905030597" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.DSFunction guid="05ba3a81-7b4a-459a-aa25-506d35dc3331" type="Dynamo.Nodes.DSFunction" nickname="GetAnalysisResults.GetEnergyModelFiles" x="1167.57194201047" y="285.068131576971" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetEnergyModelFiles@int,string,string,int">
       <PortInfo index="3" default="True" />
     </Dynamo.Nodes.DSFunction>
-    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="5b5ba515-2986-4544-a5c0-063223f391fc" nickname="Code Block" x="829.405967860391" y="410.334335817073" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;C:\Users\EErtugrul\Desktop\&quot;;" ShouldFocus="false" />
-    <EnergyAnalysisForDynamo_UI.EnergyDataFileTypes type="EnergyAnalysisForDynamo_UI.EnergyDataFileTypes" guid="038d0f4b-9496-40ef-8fda-5874cbed71d5" nickname="Energy Data File Types Dropdown" x="698.242879267738" y="320.830220552901" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="1:eplus" />
+    <EnergyAnalysisForDynamo_UI.EnergyDataFileTypes guid="038d0f4b-9496-40ef-8fda-5874cbed71d5" type="EnergyAnalysisForDynamo_UI.EnergyDataFileTypes" nickname="Energy Data File Types Dropdown" x="715.417784038966" y="313.196929543466" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:gbXML" />
+    <DSCore.File.Directory guid="d40f02ef-414c-47a3-b0ff-f87891c59960" type="DSCore.File.Directory" nickname="Directory Path" x="814.875111573857" y="416.583535341664" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.String>C:\Users\EErtugrul\Desktop</System.String>
+    </DSCore.File.Directory>
   </Elements>
   <Connectors>
     <Dynamo.Models.ConnectorModel start="2afb2730-f221-4c67-97c2-de43f7bee73a" start_index="0" end="05ba3a81-7b4a-459a-aa25-506d35dc3331" end_index="0" portType="0" />
@@ -23,8 +26,8 @@
     <Dynamo.Models.ConnectorModel start="e605e914-62f5-424d-8f91-751a6f807f5e" start_index="0" end="7f4ed103-7b0c-4753-8516-116e1cbf6373" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="e605e914-62f5-424d-8f91-751a6f807f5e" start_index="1" end="8209adfe-ce7c-47b3-b897-7d6d3bf734fc" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="1cbf6ea2-b120-4457-b4bc-96e3d298344f" start_index="1" end="2afb2730-f221-4c67-97c2-de43f7bee73a" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="5b5ba515-2986-4544-a5c0-063223f391fc" start_index="0" end="05ba3a81-7b4a-459a-aa25-506d35dc3331" end_index="2" portType="0" />
     <Dynamo.Models.ConnectorModel start="038d0f4b-9496-40ef-8fda-5874cbed71d5" start_index="0" end="05ba3a81-7b4a-459a-aa25-506d35dc3331" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="d40f02ef-414c-47a3-b0ff-f87891c59960" start_index="0" end="05ba3a81-7b4a-459a-aa25-506d35dc3331" end_index="2" portType="0" />
   </Connectors>
   <Notes>
     <Dynamo.Models.NoteModel text="First you need to load the results for your design option and then use that to get specific results. Check the nodes on the right." x="927.333642236394" y="61.2511037345553" />
