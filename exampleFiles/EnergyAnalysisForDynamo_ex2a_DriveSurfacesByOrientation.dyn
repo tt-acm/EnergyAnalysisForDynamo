@@ -1,4 +1,4 @@
-<Workspace Version="0.8.0.950" X="-1286.32397775255" Y="-121.937980707264" zoom="0.699604461545956" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="True">
+<Workspace Version="0.8.0.950" X="-835.368587083458" Y="-150.474016083099" zoom="0.781469048716841" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
     <Dynamo.Nodes.DSFunction guid="85d69076-84d9-4526-a557-b8b36581dff5" type="Dynamo.Nodes.DSFunction" nickname="Math.RemapRange" x="3360.10353444038" y="1037.75971337344" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.Math.RemapRange@double[],double,double">
@@ -29,28 +29,13 @@
     <Dynamo.Nodes.DSFunction guid="93e0faea-3ec3-4e44-b9ea-9f87577233b2" type="Dynamo.Nodes.DSFunction" nickname="PrepareEnergyModel.CreateByMass" x="1520.51371164386" y="496.07859243138" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.CreateByMass@Revit.Elements.AbstractFamilyInstance" />
     <Dynamo.Nodes.CodeBlockNodeModel guid="a591c719-9249-4233-b4d5-4f9761566fc5" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="3336.80998249017" y="653.936537993715" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="1;" ShouldFocus="false" />
     <Dynamo.Nodes.DSFunction guid="29e10175-9c8c-4365-98bf-28be9a911112" type="Dynamo.Nodes.DSFunction" nickname="PrepareEnergyModel.DecomposeZone" x="2002.51371893769" y="524.824427881421" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DecomposeZone@EnergyAnalysisForDynamo.ElementId" />
-    <Dynamo.Nodes.DSFunction guid="da5f8bfd-ba4d-4bb3-ac48-d5914bfc9db4" type="Dynamo.Nodes.DSFunction" nickname="List.IsEmpty" x="2458.68426827936" y="528.690123807697" isVisible="true" isUpstreamVisible="true" lacing="Longest" assembly="DSCoreNodes.dll" function="DSCore.List.IsEmpty@var[]..[]" />
-    <DSIronPythonNode.PythonNode guid="fed689af-f868-45ea-a6be-0d097e4af157" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="2625.3637623137" y="427.074002168277" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="2">
-      <Script>import clr
-clr.AddReference('ProtoGeometry')
-from Autodesk.DesignScript.Geometry import *
-#The inputs to this node will be stored as a list in the IN variable.
-list = IN[0]
-cullpattern = IN[1]
-
-culledList = []
-for i in range(0,len(list)):
-	if (cullpattern[i] == False):
-		culledList.append(list[i])
-
-#Assign your output to the OUT variable
-OUT = culledList</Script>
-    </DSIronPythonNode.PythonNode>
+    <Dynamo.Nodes.DSFunction guid="da5f8bfd-ba4d-4bb3-ac48-d5914bfc9db4" type="Dynamo.Nodes.DSFunction" nickname="List.IsEmpty" x="2456.3982985411" y="519.546244854674" isVisible="true" isUpstreamVisible="true" lacing="Longest" assembly="DSCoreNodes.dll" function="DSCore.List.IsEmpty@var[]..[]" />
     <Dynamo.Nodes.DSFunction guid="7032a5d2-b550-423e-8035-e18292e428a6" type="Dynamo.Nodes.DSFunction" nickname="Math.Abs" x="2846.26212888181" y="857.735544445755" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.Math.Abs@double" />
     <Dynamo.Nodes.DSFunction guid="0639d307-9718-42be-b6f9-600fef851783" type="Dynamo.Nodes.DSFunction" nickname="List.Flatten" x="3106.05705199493" y="962.79331899918" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.Flatten@var[]..[],int" />
     <Dynamo.Nodes.CodeBlockNodeModel guid="0ec1fd8e-4383-4be7-948d-65101becb033" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="2972.72278241284" y="993.693553625906" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="1;" ShouldFocus="false" />
     <Dynamo.Nodes.CodeBlockNodeModel guid="e87b31b6-302d-4ec8-9f9e-4b69e215bd56" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="2956.49207945193" y="523.453284831007" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="1;" ShouldFocus="false" />
     <Dynamo.Nodes.DSFunction guid="9452f159-0d6c-4701-ae89-c2ec3d210488" type="Dynamo.Nodes.DSFunction" nickname="List.Flatten" x="3065.33727605616" y="426.067758740974" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.Flatten@var[]..[],int" />
+    <Dynamo.Nodes.DSFunction guid="4e1dbc44-efa8-4c6e-9486-51f4f863c1e0" type="Dynamo.Nodes.DSFunction" nickname="List.FilterByBoolMask" x="2628.78204062866" y="416.069620889836" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.FilterByBoolMask@var[]..[],var[]..[]" />
   </Elements>
   <Connectors>
     <Dynamo.Models.ConnectorModel start="85d69076-84d9-4526-a557-b8b36581dff5" start_index="0" end="33e1b989-8617-482a-a171-b51c985b2ed5" end_index="1" portType="0" />
@@ -64,24 +49,25 @@ OUT = culledList</Script>
     <Dynamo.Models.ConnectorModel start="93e0faea-3ec3-4e44-b9ea-9f87577233b2" start_index="1" end="29e10175-9c8c-4365-98bf-28be9a911112" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="a591c719-9249-4233-b4d5-4f9761566fc5" start_index="0" end="33e1b989-8617-482a-a171-b51c985b2ed5" end_index="3" portType="0" />
     <Dynamo.Models.ConnectorModel start="29e10175-9c8c-4365-98bf-28be9a911112" start_index="0" end="da5f8bfd-ba4d-4bb3-ac48-d5914bfc9db4" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="29e10175-9c8c-4365-98bf-28be9a911112" start_index="0" end="fed689af-f868-45ea-a6be-0d097e4af157" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="da5f8bfd-ba4d-4bb3-ac48-d5914bfc9db4" start_index="0" end="fed689af-f868-45ea-a6be-0d097e4af157" end_index="1" portType="0" />
-    <Dynamo.Models.ConnectorModel start="fed689af-f868-45ea-a6be-0d097e4af157" start_index="0" end="8ea13fde-c1f0-46d2-a9dd-267b1949d98f" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="fed689af-f868-45ea-a6be-0d097e4af157" start_index="0" end="9452f159-0d6c-4701-ae89-c2ec3d210488" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="29e10175-9c8c-4365-98bf-28be9a911112" start_index="0" end="4e1dbc44-efa8-4c6e-9486-51f4f863c1e0" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="da5f8bfd-ba4d-4bb3-ac48-d5914bfc9db4" start_index="0" end="4e1dbc44-efa8-4c6e-9486-51f4f863c1e0" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="7032a5d2-b550-423e-8035-e18292e428a6" start_index="0" end="0639d307-9718-42be-b6f9-600fef851783" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="0639d307-9718-42be-b6f9-600fef851783" start_index="0" end="85d69076-84d9-4526-a557-b8b36581dff5" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="0ec1fd8e-4383-4be7-948d-65101becb033" start_index="0" end="0639d307-9718-42be-b6f9-600fef851783" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="e87b31b6-302d-4ec8-9f9e-4b69e215bd56" start_index="0" end="9452f159-0d6c-4701-ae89-c2ec3d210488" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="9452f159-0d6c-4701-ae89-c2ec3d210488" start_index="0" end="33e1b989-8617-482a-a171-b51c985b2ed5" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="4e1dbc44-efa8-4c6e-9486-51f4f863c1e0" start_index="1" end="9452f159-0d6c-4701-ae89-c2ec3d210488" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="4e1dbc44-efa8-4c6e-9486-51f4f863c1e0" start_index="1" end="8ea13fde-c1f0-46d2-a9dd-267b1949d98f" end_index="0" portType="0" />
   </Connectors>
   <Notes>
-    <Dynamo.Models.NoteModel text="2. Create Analysis Zones from Mass" x="1543.52580437897" y="439.384713455274" />
+    <Dynamo.Models.NoteModel text="2. Create Analysis Zones from Mass" x="1562.13958770236" y="446.364882201544" />
     <Dynamo.Models.NoteModel text="1. Select Mass element from Revit/Vasari document" x="1171.77753840937" y="441.837162739971" />
-    <Dynamo.Models.NoteModel text="4.  Set Glazing percentages based on orientation" x="3525.16878014329" y="474.145486500278" />
-    <Dynamo.Models.NoteModel text="5. Draw Surfaces in Dynamo" x="4038.04399344057" y="469.559005445395" />
+    <Dynamo.Models.NoteModel text="4.  Set Glazing percentages based on orientation" x="3531.9853577508" y="479.403255935645" />
+    <Dynamo.Models.NoteModel text="5. Draw Surfaces in Dynamo" x="4044.04243899864" y="470.75869455701" />
     <Dynamo.Models.NoteModel text="3. Get wall surfaces from the list of zones, and compute glazing percentage based on orientation" x="1983.7964479785" y="467.492828765876" />
-    <Dynamo.Models.NoteModel text="Cull Pattern _ remove empty lists " x="2587.5441317766" y="374.216645977627" />
-    <Dynamo.Models.NoteModel text="Wall SurfaceIds" x="3072.6328517948" y="367.883421995352" />
+    <Dynamo.Models.NoteModel text="Filter List, remove empty list" x="2621.02885808966" y="377.464381605573" />
+    <Dynamo.Models.NoteModel text="Flatten Wall Surface Ids " x="3059.09498983412" y="369.966169989302" />
     <Dynamo.Models.NoteModel text="Glazing Percentage remapped per orientation" x="3310.35217602421" y="978.058212388286" />
+    <Dynamo.Models.NoteModel text="Flatten Values" x="3124.62976701691" y="885.81796608432" />
   </Notes>
 </Workspace>
