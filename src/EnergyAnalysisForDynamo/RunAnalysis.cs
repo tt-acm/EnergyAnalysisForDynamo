@@ -71,7 +71,7 @@ namespace EnergyAnalysisForDynamo
             foreach (var gbXMLPath in gbXMLPaths)
             {
                 // check if it is exist
-                if (File.Exists(gbXMLPath))
+                if (!File.Exists(gbXMLPath))
                 {
                     throw new Exception("The file doesn't exists!");
                 }

@@ -1,12 +1,13 @@
-<Workspace Version="0.7.5.3566" X="-1803.71953336131" Y="-362.126266136527" zoom="0.595239083825995" Description="" Category="" Name="Home">
+<Workspace Version="0.8.0.950" X="-2039.37983473944" Y="-685.804451614986" zoom="1.0509903757293" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
   <Elements>
-    <DSRevitNodesUI.Levels type="DSRevitNodesUI.Levels" guid="709e9346-2a23-48aa-8000-42d54f27ee54" nickname="Levels" x="485.833788275462" y="550.395129977657" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:Level 1" />
-    <Dynamo.Nodes.DSModelElementSelection type="Dynamo.Nodes.DSModelElementSelection" guid="477cd4a4-3747-4eeb-8717-62056f9087ab" nickname="Select Model Element" x="490" y="423.457815342308" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <instance id="822de3a8-2f15-4e66-b339-c7c097590daf-0003aac8" />
+    <DSRevitNodesUI.Levels guid="709e9346-2a23-48aa-8000-42d54f27ee54" type="DSRevitNodesUI.Levels" nickname="Levels" x="485.833788275462" y="550.395129977657" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:Level 1" />
+    <Dynamo.Nodes.DSModelElementSelection guid="477cd4a4-3747-4eeb-8717-62056f9087ab" type="Dynamo.Nodes.DSModelElementSelection" nickname="Select Model Element" x="490" y="423.457815342308" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <instance id="e2208c72-2ddd-45d0-b99b-4e74a33253b3-00032065" />
     </Dynamo.Nodes.DSModelElementSelection>
-    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="67719a78-d9f8-46e0-a7a7-7d097cbad02d" nickname="Code Block" x="1241.31709870684" y="834.001815176083" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="0.1..0.9..#4;" ShouldFocus="false" />
-    <DSCore.LaceLongest type="DSCore.LaceLongest" guid="3db98cf5-2c93-4ced-85ba-b5516649cbad" nickname="List.LaceLongest" x="2322.08990895629" y="601.387360314906" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="5" />
-    <Dynamo.Nodes.Function type="Dynamo.Nodes.Function" guid="31be2738-83ab-4b45-9d23-af4febce7b57" nickname="IterativeGlazing" x="2059.40335624799" y="369.572456908719" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <Dynamo.Nodes.CodeBlockNodeModel guid="67719a78-d9f8-46e0-a7a7-7d097cbad02d" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1241.31709870684" y="834.001815176083" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="0.1..0.9..#4;" ShouldFocus="false" />
+    <DSCore.LaceLongest guid="3db98cf5-2c93-4ced-85ba-b5516649cbad" type="DSCore.LaceLongest" nickname="List.LaceLongest" x="2322.08990895629" y="601.387360314906" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="5" />
+    <Dynamo.Nodes.Function guid="31be2738-83ab-4b45-9d23-af4febce7b57" type="Dynamo.Nodes.Function" nickname="IterativeGlazing" x="2059.40335624799" y="369.572456908719" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <ID value="9b6a7b19-4c2a-4cba-bf0a-8d5f1cf85928" />
       <Name value="IterativeGlazing" />
       <Description value="Example of a custom parametric run" />
@@ -20,15 +21,15 @@
         <Output value="gbXMLfilePath" />
       </Outputs>
     </Dynamo.Nodes.Function>
-    <DSCore.File.Filename type="DSCore.File.Filename" guid="faa5c972-203b-467d-af1d-bb5058510a68" nickname="File Path" x="1215.6356313257" y="925.98309464969" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.String>C:\Users\eertugrul\Desktop\temp-delete\va3cTest.dyn</System.String>
+    <DSCore.File.Filename guid="faa5c972-203b-467d-af1d-bb5058510a68" type="DSCore.File.Filename" nickname="File Path" x="1215.6356313257" y="925.98309464969" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.String>C:\Users\EErtugrul\Desktop\delete\DYNAMO2.5 Test\iterativegbXML</System.String>
     </DSCore.File.Filename>
-    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="66aa7da3-d647-45d9-86b6-280adca6666a" nickname="Code Block" x="2638.06450168347" y="872.29411799677" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;enablessyncTest_1&quot;;" ShouldFocus="false" />
-    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="aabe3526-902d-4c3c-925b-ee01e0cebe18" nickname="Boolean" x="2929.64163228192" y="1054.94198155005" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <Dynamo.Nodes.CodeBlockNodeModel guid="66aa7da3-d647-45d9-86b6-280adca6666a" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="2638.06450168347" y="872.29411799677" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;IterativeEnergyModel&quot;;" ShouldFocus="false" />
+    <DSCoreNodesUI.BoolSelector guid="aabe3526-902d-4c3c-925b-ee01e0cebe18" type="DSCoreNodesUI.BoolSelector" nickname="Boolean" x="2929.64163228192" y="1054.94198155005" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Boolean>False</System.Boolean>
     </DSCoreNodesUI.BoolSelector>
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="219758e5-1897-41b4-99e3-9941ac5ff6d5" nickname="RunAnalysis.CreateProject" x="2944.22456676198" y="868.65049983802" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.CreateProject@string" />
-    <DSIronPythonNode.PythonNode type="DSIronPythonNode.PythonNode" guid="bff99c66-5a40-4423-a90b-d19afd1c4b63" nickname="Py.IterativeRunsPreparation" x="1640.61819091172" y="637.488333014015" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="4">
+    <Dynamo.Nodes.DSFunction guid="219758e5-1897-41b4-99e3-9941ac5ff6d5" type="Dynamo.Nodes.DSFunction" nickname="RunAnalysis.CreateProject" x="2944.22456676198" y="868.65049983802" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.CreateProject@string" />
+    <DSIronPythonNode.PythonNode guid="bff99c66-5a40-4423-a90b-d19afd1c4b63" type="DSIronPythonNode.PythonNode" nickname="Py.IterativeRunsPreparation" x="1640.61819091172" y="637.488333014015" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="4">
       <Script>import clr
 
 clr.AddReference('ProtoGeometry')
@@ -68,20 +69,20 @@ for percentage in glazingPercentages:
 #Assign your output to the OUT variable
 OUT = [surfaces, glazingPercentages, filePaths, masses]</Script>
     </DSIronPythonNode.PythonNode>
-    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="08f3c207-8e59-4a12-9f6c-6a14376dd984" nickname="Code Block" x="1873.05479621493" y="641.566666778651" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];&#xA;x[1];&#xA;x[2];&#xA;x[3];" ShouldFocus="false" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="e8b740ab-9f0f-4a05-972f-0ee974a16a45" nickname="PrepareEnergyModel.CreateByMassLevels" x="789.683549911802" y="476.963296078596" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.CreateByMassLevels@Revit.Elements.AbstractFamilyInstance,Revit.Elements.Element[]" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="f650283a-13f4-476e-a17a-489c0001712b" nickname="PrepareEnergyModel.DecomposeZone" x="793.322728136819" y="603.570682928551" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DecomposeZone@EnergyAnalysisForDynamo.ElementId" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="44f4cf73-c808-47cd-b3f2-d1555202b447" nickname="Flatten" x="1085.77041191944" y="602.17141171428" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="" function="Flatten@var[]..[]" />
-    <Dynamo.Nodes.Watch type="Dynamo.Nodes.Watch" guid="161f8f97-cc93-440d-a45b-afba3f292454" nickname="gbXML Paths" x="2613.21231694333" y="973.18570422157" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="2abfe43d-e67e-442b-bfb6-689196a14a70" nickname="RunAnalysis.RunEnergyAnalysis" x="3275.56750696834" y="895.384123048396" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.RunEnergyAnalysis@int,string[],bool,int">
+    <Dynamo.Nodes.CodeBlockNodeModel guid="08f3c207-8e59-4a12-9f6c-6a14376dd984" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1873.05479621493" y="641.566666778651" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];&#xA;x[1];&#xA;x[2];&#xA;x[3];" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="e8b740ab-9f0f-4a05-972f-0ee974a16a45" type="Dynamo.Nodes.DSFunction" nickname="PrepareEnergyModel.CreateByMassLevels" x="789.683549911802" y="476.963296078596" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.CreateByMassLevels@Revit.Elements.AbstractFamilyInstance,Revit.Elements.Element[]" />
+    <Dynamo.Nodes.DSFunction guid="f650283a-13f4-476e-a17a-489c0001712b" type="Dynamo.Nodes.DSFunction" nickname="PrepareEnergyModel.DecomposeZone" x="793.322728136819" y="603.570682928551" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DecomposeZone@EnergyAnalysisForDynamo.ElementId" />
+    <Dynamo.Nodes.DSFunction guid="44f4cf73-c808-47cd-b3f2-d1555202b447" type="Dynamo.Nodes.DSFunction" nickname="Flatten" x="1085.77041191944" y="602.17141171428" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="" function="Flatten@var[]..[]" />
+    <Dynamo.Nodes.Watch guid="161f8f97-cc93-440d-a45b-afba3f292454" type="Dynamo.Nodes.Watch" nickname="gbXML Paths" x="2627.4845694267" y="1021.71136266503" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.DSFunction guid="2abfe43d-e67e-442b-bfb6-689196a14a70" type="Dynamo.Nodes.DSFunction" nickname="RunAnalysis.RunEnergyAnalysis" x="3275.56750696834" y="895.384123048396" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.RunEnergyAnalysis@int,string[],bool,int">
       <PortInfo index="2" default="True" />
       <PortInfo index="3" default="True" />
     </Dynamo.Nodes.DSFunction>
-    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="ca593189-db3a-4fee-904a-610115e7c7c4" nickname="GetAnalysisResults.LoadAnalysisResults" x="3903.11485737081" y="895.482264071451" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.LoadAnalysisResults@int,int,bool">
+    <Dynamo.Nodes.DSFunction guid="ca593189-db3a-4fee-904a-610115e7c7c4" type="Dynamo.Nodes.DSFunction" nickname="GetAnalysisResults.LoadAnalysisResults" x="3903.11485737081" y="895.482264071451" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.LoadAnalysisResults@int,int,bool">
       <PortInfo index="1" default="True" />
       <PortInfo index="2" default="True" />
     </Dynamo.Nodes.DSFunction>
-    <DSCoreNodesUI.BoolSelector type="DSCoreNodesUI.BoolSelector" guid="8e0793b1-0d21-4bb5-a8f8-1dcaade96132" nickname="Boolean" x="3702.94472419866" y="1050.65578938167" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <DSCoreNodesUI.BoolSelector guid="8e0793b1-0d21-4bb5-a8f8-1dcaade96132" type="DSCoreNodesUI.BoolSelector" nickname="Boolean" x="3702.94472419866" y="1050.65578938167" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Boolean>True</System.Boolean>
     </DSCoreNodesUI.BoolSelector>
   </Elements>
@@ -116,5 +117,6 @@ OUT = [surfaces, glazingPercentages, filePaths, masses]</Script>
     <Dynamo.Models.NoteModel text="6.  Set up a custom node containing the SetSurfaceParms node, and the WriteGBxml node ... and here's the important part - a transaction end node to force vasari to export a single state.&#xD;&#xA;" x="2071.06962993856" y="267.964376986547" />
     <Dynamo.Models.NoteModel text="7.  After writing the files, upload them to GBS." x="2654.52848934692" y="822.961090433458" />
     <Dynamo.Models.NoteModel text="8.  Load Analysis results. Enable synchronization to wait the simulations to be completed. It might take several minutes and block the Dynamo solution" x="3830.30005105277" y="815.114235156311" />
+    <Dynamo.Models.NoteModel text="Input gbXML file paths into Run Energy Analysis Node" x="2625.98954493907" y="971.763756317529" />
   </Notes>
 </Workspace>

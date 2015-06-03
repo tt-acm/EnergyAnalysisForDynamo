@@ -1,4 +1,4 @@
-<Workspace Version="0.8.0.950" X="247.568841077157" Y="-39.012470218399" zoom="0.874053649550263" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+<Workspace Version="0.8.0.950" X="287.857024687701" Y="35.4341424321817" zoom="0.590922080487422" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
     <DSCoreNodesUI.Input.DoubleSlider guid="83f5eb3b-234f-4081-8461-bd1af9ae6708" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Number Slider" x="36" y="314" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
@@ -13,7 +13,7 @@
       <System.Double>0</System.Double>
       <Range min="0" max="1" step="0.1" />
     </DSCoreNodesUI.Input.DoubleSlider>
-    <Dynamo.Nodes.DSFunction guid="e64bc458-2670-46a4-a46a-3de874d29874" type="Dynamo.Nodes.DSFunction" nickname="EnergySettings.SetEnergySettings" x="840.938990811397" y="525.833975408557" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.EnergySettings.SetEnergySettings@string,double,double,double,string,string,double,bool">
+    <Dynamo.Nodes.DSFunction guid="e64bc458-2670-46a4-a46a-3de874d29874" type="Dynamo.Nodes.DSFunction" nickname="EnergySettings.SetEnergySettings" x="840.938990811397" y="525.833975408557" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.EnergySettings.SetEnergySettings@string,double,double,double,string,string,double,bool">
       <PortInfo index="0" default="True" />
       <PortInfo index="1" default="True" />
       <PortInfo index="2" default="True" />
@@ -23,9 +23,9 @@
       <PortInfo index="6" default="True" />
       <PortInfo index="7" default="True" />
     </Dynamo.Nodes.DSFunction>
-    <EnergyAnalysisForDynamo_UI.BuildingTypeDropdown guid="1786bdf5-41d9-43a9-a660-e8fa6dfa9ef3" type="EnergyAnalysisForDynamo_UI.BuildingTypeDropdown" nickname="Building Type Dropdown" x="42.9330556392337" y="204.915459543623" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:AutomotiveFacility" />
-    <EnergyAnalysisForDynamo_UI.HVACtypeDropdown guid="427297bd-ee73-4d25-9221-a7b63ff70880" type="EnergyAnalysisForDynamo_UI.HVACtypeDropdown" nickname="HVAC System Type Dropdown" x="18.9070704942653" y="604.204450762383" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:TwelveSEERSPointNineAFUESplitPackagedGasFiveToElevenTon" />
-    <EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown guid="cc670865-3b01-4858-b947-40e1b0437884" type="EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown" nickname="Operating Schedules Dropdown" x="21.1952595556909" y="714.037525710809" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:DefaultOperatingSchedule" />
+    <EnergyAnalysisForDynamo_UI.BuildingTypeDropdown guid="1786bdf5-41d9-43a9-a660-e8fa6dfa9ef3" type="EnergyAnalysisForDynamo_UI.BuildingTypeDropdown" nickname="Building Type Dropdown" x="42.9330556392337" y="204.915459543623" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="2:Courthouse" />
+    <EnergyAnalysisForDynamo_UI.HVACtypeDropdown guid="427297bd-ee73-4d25-9221-a7b63ff70880" type="EnergyAnalysisForDynamo_UI.HVACtypeDropdown" nickname="HVAC System Type Dropdown" x="18.9070704942653" y="604.204450762383" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="1:ElevenPointThreeEERPackagedVAVEightyFourPointFourPercentBoilerHeating" />
+    <EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown guid="cc670865-3b01-4858-b947-40e1b0437884" type="EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown" nickname="Operating Schedules Dropdown" x="21.1952595556909" y="714.037525710809" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="3:TwentyFourHourHourFiveDayFacility" />
   </Elements>
   <Connectors>
     <Dynamo.Models.ConnectorModel start="83f5eb3b-234f-4081-8461-bd1af9ae6708" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="1" portType="0" />

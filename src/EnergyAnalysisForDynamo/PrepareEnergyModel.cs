@@ -451,9 +451,8 @@ namespace EnergyAnalysisForDynamo
                 try
                 {
                     surface = (MassSurfaceData)RvtDoc.GetElement(new Autodesk.Revit.DB.ElementId(SurfaceIds[i].InternalId));
-
                     if (surface == null) throw new Exception();
-
+                    
                     // get vector for this surface
                     Autodesk.DesignScript.Geometry.Vector srfVector = AnalysisSurfaceVector(SurfaceIds[i]);
 
