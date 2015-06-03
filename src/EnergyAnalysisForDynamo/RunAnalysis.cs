@@ -70,6 +70,12 @@ namespace EnergyAnalysisForDynamo
             // Make sure the given file is an .xml
             foreach (var gbXMLPath in gbXMLPaths)
             {
+                // check if it is exist
+                if (File.Exists(gbXMLPath))
+                {
+                    throw new Exception("The file doesn't exists!");
+                }
+
                 string extention = string.Empty;
                 try
                 {
@@ -84,6 +90,7 @@ namespace EnergyAnalysisForDynamo
                 {
                     throw new Exception("Make sure to input files are gbxml files");
                 }
+
             }
            
 		        // 1. Initiate the Revit Auth
@@ -320,7 +327,7 @@ namespace EnergyAnalysisForDynamo
             Autodesk.Revit.DB.ElementId myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
             if (myEnergyModelId.IntegerValue == -1)
             {
-                throw new Exception("Mass Enegry Analytical model has no mass level data. Create 'Mass Floors' first, and Run again!");
+                throw new Exception("Could not get the MassEnergyAnalyticalModel from the mass - make sure the Mass has at least one Mass Floor.");
             }
             MassEnergyAnalyticalModel mea = (MassEnergyAnalyticalModel)RvtDoc.GetElement(myEnergyModelId);
             ICollection<Autodesk.Revit.DB.ElementId> ZoneIds = mea.GetMassZoneIds();
@@ -428,20 +435,14 @@ namespace EnergyAnalysisForDynamo
             string FileName = string.Empty;
             string Folder = string.Empty;
 
-            // Check if path is file or directoy  & Handle unvalid directory path
-            // get the file attributes for file or directory
-            FileAttributes attr = File.GetAttributes(FilePath);
+            // Check if path and directory valid
+            if (System.String.IsNullOrEmpty(FilePath) || FilePath == "No file selected.")
+            {
+                throw new Exception("No File selected !");
+            }
 
-            //detect whether its a directory or file
-            if ((attr & FileAttributes.Directory) == FileAttributes.Directory) // it is a directory
-            {
-                throw new Exception("Please input a File Path! Use 'File Path' node.");
-            }
-            else
-            {
-                FileName = Path.GetFileNameWithoutExtension(FilePath);
-                Folder = Path.GetDirectoryName(FilePath);
-            }
+            FileName = Path.GetFileNameWithoutExtension(FilePath);
+            Folder = Path.GetDirectoryName(FilePath);
 
             // Check if Directory Exists
             if (!Directory.Exists(Folder))
