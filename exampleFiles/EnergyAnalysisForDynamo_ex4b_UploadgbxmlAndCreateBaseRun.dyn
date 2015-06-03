@@ -1,4 +1,4 @@
-<Workspace Version="0.8.0.950" X="-153.024972401599" Y="233.214940038591" zoom="0.6574300927052" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="False">
+<Workspace Version="0.8.0.950" X="8.8870290283993" Y="237.622087484916" zoom="0.661508021868321" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="False">
   <NamespaceResolutionMap />
   <Elements>
     <DSCoreNodesUI.BoolSelector guid="de7e03f2-e422-4bdd-baf5-c07afd650cd8" type="DSCoreNodesUI.BoolSelector" nickname="Boolean" x="-54.0903710724173" y="24.5011363783713" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
@@ -19,7 +19,7 @@
       <PortInfo index="2" default="True" />
       <PortInfo index="3" default="True" />
     </Dynamo.Nodes.DSFunction>
-    <DSCore.File.Filename guid="9ae61a3e-974f-4965-ba98-5b128a074302" type="DSCore.File.Filename" nickname="File Path" x="758.771874477316" y="267.776780215826" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <DSCore.File.Filename guid="9ae61a3e-974f-4965-ba98-5b128a074302" type="DSCore.File.Filename" nickname="File Path" x="764.681690190772" y="272.504632786591" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.String>No file selected.</System.String>
     </DSCore.File.Filename>
   </Elements>

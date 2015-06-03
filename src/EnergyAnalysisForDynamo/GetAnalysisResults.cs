@@ -570,7 +570,7 @@ namespace EnergyAnalysisForDynamo
             }
             else
             {
-                throw new Exception("Energy data file type is not valid! Use dropdown node to select valid the file type!");
+                throw new Exception("Energy data file type is not valid! Use 'Energy Data File Types' dropdown node to select valid the file type!");
             }
 
             // Check if path is file or directoy  & Handle unvalid directory path

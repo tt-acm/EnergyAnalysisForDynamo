@@ -276,10 +276,26 @@ namespace EnergyAnalysisForDynamo
         [MultiReturn("report", "gbXMLPath")]
         public static Dictionary<string, object> ExportMassToGBXML(string FilePath, AbstractFamilyInstance MassFamilyInstance, List<AbstractFamilyInstance> MassShadingInstances, Boolean Run = false)
         {
+            // Local variables
             Boolean IsSuccess = false;
+            string FileName = string.Empty;
+            string Folder = string.Empty;
 
-            string FileName = Path.GetFileNameWithoutExtension(FilePath);
-            string Folder = Path.GetDirectoryName(FilePath);
+            // Check if path and directory valid
+            if (System.String.IsNullOrEmpty(FilePath) || FilePath == "No file selected.")
+            {
+                throw new Exception("No File selected !");
+            }
+
+            FileName = Path.GetFileNameWithoutExtension(FilePath);
+            Folder = Path.GetDirectoryName(FilePath);
+
+            // Check if Directory Exists
+            if (!Directory.Exists(Folder))
+            {
+                throw new Exception("Folder doesn't exist. Input valid Directory Path!");
+            }
+        
 
             //make RUN? inputs set to True mandatory
             if (Run == false)
@@ -302,6 +318,10 @@ namespace EnergyAnalysisForDynamo
 
             //get the id of the analytical model associated with that mass
             Autodesk.Revit.DB.ElementId myEnergyModelId = MassEnergyAnalyticalModel.GetMassEnergyAnalyticalModelIdForMassInstance(RvtDoc, MassFamilyInstance.InternalElement.Id);
+            if (myEnergyModelId.IntegerValue == -1)
+            {
+                throw new Exception("Mass Enegry Analytical model has no mass level data. Create 'Mass Floors' first, and Run again!");
+            }
             MassEnergyAnalyticalModel mea = (MassEnergyAnalyticalModel)RvtDoc.GetElement(myEnergyModelId);
             ICollection<Autodesk.Revit.DB.ElementId> ZoneIds = mea.GetMassZoneIds();
 
@@ -403,10 +423,31 @@ namespace EnergyAnalysisForDynamo
         [MultiReturn("report", "gbXMLPath")]
         public static Dictionary<string, object> ExportZonesToGBXML(string FilePath, List<ElementId> ZoneIds, List<AbstractFamilyInstance> MassShadingInstances, Boolean Run = false)
         {
+            // Local variables
             Boolean IsSuccess = false;
+            string FileName = string.Empty;
+            string Folder = string.Empty;
 
-            string FileName = Path.GetFileNameWithoutExtension(FilePath);
-            string Folder = Path.GetDirectoryName(FilePath);
+            // Check if path is file or directoy  & Handle unvalid directory path
+            // get the file attributes for file or directory
+            FileAttributes attr = File.GetAttributes(FilePath);
+
+            //detect whether its a directory or file
+            if ((attr & FileAttributes.Directory) == FileAttributes.Directory) // it is a directory
+            {
+                throw new Exception("Please input a File Path! Use 'File Path' node.");
+            }
+            else
+            {
+                FileName = Path.GetFileNameWithoutExtension(FilePath);
+                Folder = Path.GetDirectoryName(FilePath);
+            }
+
+            // Check if Directory Exists
+            if (!Directory.Exists(Folder))
+            {
+                throw new Exception("Folder doesn't exist. Input valid Directory Path!");
+            }
 
             //make RUN? inputs set to True mandatory
             if (Run == false)
