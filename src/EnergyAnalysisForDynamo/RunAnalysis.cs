@@ -102,8 +102,8 @@ namespace EnergyAnalysisForDynamo
                     Helper._ExecuteMassRuns(ExecuteParametricRuns, ProjectId);
                 }
                 catch (Exception)
-                {
-                    // Do Nothing
+                { 
+                    // Do Nothing!
                 }
 
             //Output variables
