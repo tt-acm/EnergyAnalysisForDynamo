@@ -1,4 +1,4 @@
-<Workspace Version="0.8.0.950" X="-466.538580410639" Y="-138.398242005557" zoom="0.840560985106336" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+<Workspace Version="0.8.0.950" X="-384.45682614284" Y="-122.775000428584" zoom="0.706913213877679" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
     <DSRevitNodesUI.Levels guid="709e9346-2a23-48aa-8000-42d54f27ee54" type="DSRevitNodesUI.Levels" nickname="Levels" x="675.410141199108" y="465.180763180918" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:Level 1" />
@@ -28,7 +28,7 @@
     <Dynamo.Nodes.DSFunction guid="56d79c96-4bb7-4822-9683-70db774ff22a" type="Dynamo.Nodes.DSFunction" nickname="PrepareEnergyModel.CreateByMassLevels" x="980.447951970478" y="383.090451478389" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.CreateByMassLevels@Revit.Elements.AbstractFamilyInstance,Revit.Elements.Element[]" />
     <Dynamo.Nodes.CodeBlockNodeModel guid="d47f0ad9-ee9a-4fa3-8f1a-f8414f21e349" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1448.90538427329" y="414.010036641195" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[1];" ShouldFocus="false" />
     <Dynamo.Nodes.CodeBlockNodeModel guid="98cb8c9e-8cdd-488a-9e8f-02fb9d84d721" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1855.40010455791" y="416.742603216496" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];" ShouldFocus="false" />
-    <EnergyAnalysisForDynamo_UI.ConcWallConstTypeDropdown guid="ec6be07c-326a-46d3-b949-62d25ed8dd64" type="EnergyAnalysisForDynamo_UI.ConcWallConstTypeDropdown" nickname="Conceptual Wall Construction Types Dropdown" x="1817.06869263643" y="931.406733730944" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:LightweightConstructionHighInsulation" />
+    <EnergyAnalysisForDynamo_UI.ConcWallConstTypeDropdown guid="ec6be07c-326a-46d3-b949-62d25ed8dd64" type="EnergyAnalysisForDynamo_UI.ConcWallConstTypeDropdown" nickname="Conceptual Wall Construction Types Dropdown" x="1817.06869263643" y="931.406733730944" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="-1" />
   </Elements>
   <Connectors>
     <Dynamo.Models.ConnectorModel start="709e9346-2a23-48aa-8000-42d54f27ee54" start_index="0" end="56d79c96-4bb7-4822-9683-70db774ff22a" end_index="1" portType="0" />

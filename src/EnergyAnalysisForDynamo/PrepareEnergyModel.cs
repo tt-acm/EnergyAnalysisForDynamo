@@ -277,7 +277,7 @@ namespace EnergyAnalysisForDynamo
         /// </summary>
         /// <param name="ZoneId">The ElementId of the zone to inspect.  Get this from the PrepareEnergyModel > CreateFrom* > ZoneIds output list</param>
         /// <returns></returns>
-        [MultiReturn("WallSurfaceIds", "IntWallSurfaceIds", "GlazingSurfaceIds", "FloorSurfaceIds", "RoofSurfaceIds", "SpaceType", "conditionType")]
+        [MultiReturn("WallSurfaceIds", "IntWallSurfaceIds", "GlazingSurfaceIds", "FloorSurfaceIds", "RoofSurfaceIds", "SkylightSurfaceIds", "SpaceType", "conditionType")]
         public static Dictionary<string, object> DecomposeZone(ElementId ZoneId)
         {
             // local variables
@@ -304,6 +304,7 @@ namespace EnergyAnalysisForDynamo
             List<EnergyAnalysisForDynamo.ElementId> outGlazingSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Glazing");
             List<EnergyAnalysisForDynamo.ElementId> outFloorSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Floor");
             List<EnergyAnalysisForDynamo.ElementId> outRoofSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Roof");
+            List<EnergyAnalysisForDynamo.ElementId> outSkylightSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Skylight");
             // Revit consider both floor and ceiling and floor so this one is out!
             // List<EnergyAnalysisForDynamo.ElementId> outCeilingSurfaceIds = Helper.GetSurfaceIdsFromZoneBasedOnType(zone, "Mass Interior Ceiling");
  
@@ -321,6 +322,7 @@ namespace EnergyAnalysisForDynamo
                 {"GlazingSurfaceIds", outGlazingSurfaceIds},
                 {"FloorSurfaceIds", outFloorSurfaceIds},
                 {"RoofSurfaceIds", outRoofSurfaceIds},
+                {"SkylightSurfaceIds", outSkylightSurfaceIds},
                 {"SpaceType", spaceType},
                 {"conditionType", conditionType}
             };
