@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Threading;
 using System.Text;
 using System.Net;
-using System.Windows.Threading;
 
 // Serialization
 using System.Runtime.Serialization;
@@ -21,19 +20,14 @@ using Autodesk.Revit.DB.Analysis;
 using Autodesk.DesignScript.Runtime;
 
 //Dynamo
-using DSCore;
 using DSCoreNodesUI;
 using Dynamo.Models;
 using Dynamo.Nodes;
 using Dynamo.Utilities;
-using ProtoCore.AST.AssociativeAST;
 using RevitServices.Persistence;
 using RevitServices.Transactions;
-using ProtoCore;
-using ProtoCore.Utils;
 using RevitServices.Elements;
 using Dynamo;
-using DynamoUtilities;
 
 //Revit Services
 using RevitServices;

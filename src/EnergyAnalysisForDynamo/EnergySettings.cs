@@ -8,16 +8,12 @@ using System.Xml;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Analysis;
 using Autodesk.Revit.UI;
-using DSCore;
 using DSCoreNodesUI;
 using Dynamo.Models;
 using Dynamo.Nodes;
 using Dynamo.Utilities;
-using ProtoCore.AST.AssociativeAST;
 using RevitServices.Persistence;
 using RevitServices.Transactions;
-using ProtoCore;
-using ProtoCore.Utils;
 using Autodesk.DesignScript.Runtime;
 using Revit.GeometryConversion;
 
