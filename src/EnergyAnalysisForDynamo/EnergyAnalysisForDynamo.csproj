@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)/config/CS.props" />
+  </ImportGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -17,36 +20,36 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>$(OutputPath)</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\EnergyAnalysisForDynamo.XML</DocumentationFile>
+    <DocumentationFile>$(OutputPath)\EnergyAnalysisForDynamo.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>$(OutputPath)</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\EnergyAnalysisForDynamo.XML</DocumentationFile>
+    <DocumentationFile>$(OutputPath)\EnergyAnalysisForDynamo.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DSCoreNodesUI">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\nodes\DSCoreNodesUI.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\nodes\DSCoreNodesUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DynamoCore">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\DynamoCore.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\DynamoCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DynamoRevitDS">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\Revit_2014\DynamoRevitDS.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\DynamoRevitDS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DynamoUtilities">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\DynamoUtilities.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\DynamoUtilities.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="EnergyAnalysisforDynamoAuthHelper">
@@ -57,57 +60,48 @@
       <HintPath>..\packages\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.Prism">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\Microsoft.Practices.Prism.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="ProtoCore">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\ProtoCore.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\ProtoCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ProtoGeometry">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\ProtoGeometry.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\ProtoGeometry.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ProtoInterface">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\ProtoInterface.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\ProtoInterface.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPI">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2014\RevitAPI.dll</HintPath>
+      <HintPath>$(REVIT_API)\RevitAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUI">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2014\RevitAPIUI.dll</HintPath>
+      <HintPath>$(REVIT_API)\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitNodes">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\Revit_2014\RevitNodes.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\RevitNodes.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitServices">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\Revit_2014\RevitServices.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\RevitServices.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SSONET">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2014\SSONET.dll</HintPath>
+      <HintPath>$(REVIT_API)\SSONET.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SSONETUI">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2014\SSONETUI.dll</HintPath>
+      <HintPath>$(REVIT_API)\SSONETUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -131,11 +125,18 @@
   <PropertyGroup>
     <PostBuildEvent>copy "$(ProjectDir)\EnergyAnalysisForDynamo_DynamoCustomization.xml" "$(TargetDir)\EnergyAnalysisForDynamo_DynamoCustomization.xml"</PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
   <Target Name="AfterBuild">
+    <ItemGroup>
+      <Dlls Include="$(OutDir)*.dll" />
+      <Pdbs Include="$(OutDir)*.pdb" />
+      <Xmls Include="$(OutDir)*.xml" />
+      <Configs Include="$(OutDir)*.config" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Dlls)" DestinationFolder="$(SolutionDir)..\packages\EnergyAnalysisForDynamo\bin\" />
+    <Copy SourceFiles="@(Pdbs)" DestinationFolder="$(SolutionDir)..\packages\EnergyAnalysisForDynamo\bin\" />
+    <Copy SourceFiles="@(Xmls)" DestinationFolder="$(SolutionDir)..\packages\EnergyAnalysisForDynamo\bin\" />
+    <Copy SourceFiles="@(Configs)" DestinationFolder="$(SolutionDir)..\packages\EnergyAnalysisForDynamo\bin\" />
+    <MakeDir Directories="$(SolutionDir)..\packages\EnergyAnalysisForDynamo\dyf" />
+    <MakeDir Directories="$(SolutionDir)..\packages\EnergyAnalysisForDynamo\extra" />
   </Target>
-  -->
 </Project>

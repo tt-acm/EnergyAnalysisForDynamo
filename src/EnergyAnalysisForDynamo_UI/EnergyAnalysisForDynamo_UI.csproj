@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)/config/CS.props" />
+  </ImportGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -17,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>$(OutputPath)</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,51 +28,42 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>$(OutputPath)</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DSCoreNodesUI">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\nodes\DSCoreNodesUI.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\nodes\DSCoreNodesUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DSRevitNodesUI">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\Revit_2014\nodes\DSRevitNodesUI.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\nodes\DSRevitNodesUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DynamoCore">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\DynamoCore.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Prism">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\Microsoft.Practices.Prism.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\DynamoCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ProtoCore">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\ProtoCore.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\ProtoCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPI">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2014\RevitAPI.dll</HintPath>
+      <HintPath>$(REVIT_API)\RevitAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitNodes">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\Revit_2014\RevitNodes.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\RevitNodes.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitServices">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.8\Revit_2014\RevitServices.dll</HintPath>
+      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\RevitServices.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnergyAnalysisForDynamoDropdowns.cs" />
