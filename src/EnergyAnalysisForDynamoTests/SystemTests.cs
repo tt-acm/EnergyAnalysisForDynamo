@@ -17,7 +17,7 @@ namespace EnergyAnalysisForDynamoTests
 
             var asmDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             workingDirectory = Path.GetFullPath(Path.Combine(asmDirectory,
-                @"..\..\..\exampleFiles"));
+                @"..\..\..\packages\EnergyAnalysisForDynamo\extra"));
         }
 
         [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
