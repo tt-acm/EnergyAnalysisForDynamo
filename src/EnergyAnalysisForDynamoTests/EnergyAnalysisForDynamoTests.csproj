@@ -42,6 +42,17 @@
       <HintPath>$(DYNAMO_API)\nunit.framework.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="RevitAPI">
+      <HintPath>$(REVIT_API)\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>$(REVIT_API)\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitServices">
+      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\RevitServices.dll</HintPath>
+    </Reference>
     <Reference Include="RevitTestFrameworkTypes">
       <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\RevitTestFrameworkTypes.dll</HintPath>
       <Private>False</Private>

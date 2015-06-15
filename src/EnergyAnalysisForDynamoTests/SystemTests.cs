@@ -3,6 +3,10 @@ using System.Reflection;
 using NUnit.Framework;
 using RevitTestServices;
 using RTF.Framework;
+using Autodesk.Revit.DB;
+using RevitServices.Persistence;
+
+
 
 namespace EnergyAnalysisForDynamoTests
 {
@@ -20,10 +24,30 @@ namespace EnergyAnalysisForDynamoTests
                 @"..\..\..\packages\EnergyAnalysisForDynamo\extra"));
         }
 
+        /// <summary>
+        /// Test for Example file 1a.  Set the Revit Project's energy settings, and check to make sure the settings were applied.
+        /// </summary>
         [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
         public void SetProjectEnergySettings()
         {
+            //open and run the example file
             OpenAndRunDynamoDefinition(@".\EnergyAnalysisForDynamo_ex1a_SetProjectEnergySettings.dyn");
+            
+
+            //check to see that the value[s] that we set with Dynamo actually took in Revit.
+            
+            //glazing percentage
+            var myTargetGlazingPercentage = GetPreviewValue("83f5eb3b-234f-4081-8461-bd1af9ae6708");
+            var es = Autodesk.Revit.DB.Analysis.EnergyDataSettings.GetFromDocument(DocumentManager.Instance.CurrentUIDocument.Document);
+            if ((double)myTargetGlazingPercentage != es.PercentageGlazing)
+            {
+                Assert.Fail();
+            }
+
+
+            //if we got here, nothing failed.
+            Assert.Pass();
+
         }
     }
 }
