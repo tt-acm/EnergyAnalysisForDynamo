@@ -49,5 +49,23 @@ namespace EnergyAnalysisForDynamoTests
             Assert.Pass();
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
+        public void SetSurfaceParameters()
+        {
+            //open and run the example file
+            OpenAndRunDynamoDefinition(@".\EnergyAnalysisForDynamo_ex1a_SetProjectEnergySettings.dyn");
+
+            //get the ID of the surface we are trying to set
+
+            //get the target glazing percentage
+
+            //get the actual glazing percentage from the revit doc
+
+            //do the target and the actual match?
+        }
     }
 }
