@@ -38,14 +38,34 @@ namespace EnergyAnalysisForDynamoTests
             
 
             //check to see that the value[s] that we set with Dynamo actually took in Revit.
-            
-            //glazing percentage
-            var myTargetGlazingPercentage = GetPreviewValue("83f5eb3b-234f-4081-8461-bd1af9ae6708");
+
+            //Revit energy settings object
             var es = Autodesk.Revit.DB.Analysis.EnergyDataSettings.GetFromDocument(DocumentManager.Instance.CurrentUIDocument.Document);
-            if ((double)myTargetGlazingPercentage != es.PercentageGlazing)
-            {
-                Assert.Fail();
-            }
+
+
+            //glazing percentage
+            var myTargetGlazingPercentage = (double)GetPreviewValue("83f5eb3b-234f-4081-8461-bd1af9ae6708");
+            if (myTargetGlazingPercentage != es.PercentageGlazing) Assert.Fail();
+
+            //shade depth
+            var myTargetShadeDepth = (double)GetPreviewValue("d4373a50-6b22-49ae-a392-90a2ab77148a");
+            if (myTargetShadeDepth != es.ShadeDepth) Assert.Fail();
+
+            //skylight percentage
+            var myTargetSkylightPercentage = (double)GetPreviewValue("68e4d7c7-bdb7-419a-a77d-17a8850e486f");
+            if (myTargetSkylightPercentage != es.PercentageSkylights) Assert.Fail();
+
+            //HVAC system type --- fix dropdowns first
+
+            //Operating Schedule --- fix dropdowns first
+
+            //Core offset amount
+            var myTargetCoreOFfset = (double)GetPreviewValue("8972da79-c508-4dd2-ab56-6301cd4e5128");
+            if (myTargetCoreOFfset != es.MassZoneCoreOffset) Assert.Fail();
+
+            //Dividie perimeter
+            var myTargetDividePerimeter = (bool)GetPreviewValue("8da9e555-e7e4-4143-9b50-ef9b2dd8f069");
+            if (myTargetDividePerimeter != es.MassZoneDividePerimeter) Assert.Fail();
 
 
             //if we got here, nothing failed.
@@ -54,7 +74,7 @@ namespace EnergyAnalysisForDynamoTests
         }
 
         /// <summary>
-        /// 
+        /// Test for Example file 1b.  Set some parameters on wall and glazing surfaces in Dynamo, and make sure they were applied in Revit.
         /// </summary>
         [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
         public void SetSurfaceParameters()
