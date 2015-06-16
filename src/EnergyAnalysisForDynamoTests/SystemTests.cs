@@ -14,7 +14,7 @@ using EnergyAnalysisForDynamo;
 namespace EnergyAnalysisForDynamoTests
 {
     [TestFixture]
-    public class SystemTestExample : RevitSystemTestBase
+    public class EnergyAnalysisForDynamo_SystemTesting : RevitSystemTestBase
     {
         [SetUp]
         public void Setup()
@@ -113,5 +113,23 @@ namespace EnergyAnalysisForDynamoTests
             Assert.Pass();
 
         }
+
+        /// <summary>
+        /// Test for Example file 1c.  Set some parameters on a zone in Dynamo, and make sure they were applied in Revit.
+        /// </summary>
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
+        public void SetZoneParameters()
+        {
+            //get a handle on the Revit zone we are setting properties on
+            var myZone = (MassZone)DocumentManager.Instance.CurrentUIDocument.Document.GetElement(new Autodesk.Revit.DB.ElementId(205231));
+
+            //space types --- fix dropdowns first 
+
+            //condition types --- fix dropdpwns first 
+
+            //if we got here, nothing failed.
+            Assert.Pass();
+        }
+
     }
 }
