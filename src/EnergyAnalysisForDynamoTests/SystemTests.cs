@@ -182,7 +182,7 @@ namespace EnergyAnalysisForDynamoTests
         /// <summary>
         /// Test for example 3a.  Create a GBXML file from a mass
         /// </summary>
-        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex3_simpleRevitMassWithFloor.rvt")]
         public void CreateGbxmlFromMass()
         {
             //open and run the example file
@@ -199,7 +199,7 @@ namespace EnergyAnalysisForDynamoTests
         /// <summary>
         /// Test for example 3b.  Create a GBXML file from zones
         /// </summary>
-        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex3_simpleRevitMassWithFloor.rvt")]
         public void CreateGbxmlFromZones()
         {
             //open and run the example file
