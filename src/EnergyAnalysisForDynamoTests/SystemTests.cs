@@ -68,28 +68,25 @@ namespace EnergyAnalysisForDynamoTests
 
             //BH 20150616 - I couldn't get the above to work - could not get any preview values back from our nodes or from a code block.  
             //Everything came back null.  ???   Hard coding for now...
-            var mySurface = (MassSurfaceData)DocumentManager.Instance.CurrentUIDocument.Document.GetElement(new Autodesk.Revit.DB.ElementId(205245));
+            var myWallSurface = (MassSurfaceData)DocumentManager.Instance.CurrentUIDocument.Document.GetElement(new Autodesk.Revit.DB.ElementId(205245));
+            //var myWindowSurface = (MassSurfaceData)DocumentManager.Instance.CurrentUIDocument.Document.GetElement(new Autodesk.Revit.DB.ElementId(205256));
 
 
             //Glazing percentage
-
-            //get the target glazing percentage
             double myTargetGlazingPercentage = (double)GetPreviewValue("f4b472cb-7f0e-487d-8ff3-1b951d0a9f8b");
-
-            //do the target and the actual match?
-            if (myTargetGlazingPercentage != mySurface.PercentageGlazing)
-            {
-                Assert.Fail();
-            }
-
+            if (myTargetGlazingPercentage != myWallSurface.PercentageGlazing) Assert.Fail();
 
             //Shading Depth
-
+            double myTargetShadingDepth = (double)GetPreviewValue("9299930a-564d-4996-9ef1-2ad42f4e86cd");
+            if (myTargetShadingDepth != myWallSurface.ShadeDepth) Assert.Fail();
 
             //Sill Height
+            double myTargetSillHeight = (double)GetPreviewValue("f996a98e-44f0-44c0-9086-7ca30a646454");
+            if (myTargetSillHeight != myWallSurface.SillHeight) Assert.Fail();
 
+            //Wall Conceptual Construction --- fix dropdowns first.
 
-            //Conceptual Construction
+            //Window Conceptual Construction --- fix dropdowns first.
 
 
             //if we got here, nothing failed.
