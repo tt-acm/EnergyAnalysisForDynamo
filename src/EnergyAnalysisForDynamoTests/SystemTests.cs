@@ -120,6 +120,10 @@ namespace EnergyAnalysisForDynamoTests
         [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
         public void SetZoneParameters()
         {
+            //open and run the example file
+            OpenAndRunDynamoDefinition(@".\EnergyAnalysisForDynamo_ex1c_CreateEnergyModelAndSetZoneParams.dyn");
+
+
             //get a handle on the Revit zone we are setting properties on
             var myZone = (MassZone)DocumentManager.Instance.CurrentUIDocument.Document.GetElement(new Autodesk.Revit.DB.ElementId(205231));
 
@@ -129,6 +133,152 @@ namespace EnergyAnalysisForDynamoTests
 
             //if we got here, nothing failed.
             Assert.Pass();
+        }
+
+        /// <summary>
+        /// Test for Example file 1d.  Create a series of iterations to analyze with GBS.
+        /// </summary>
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
+        public void IterativeAnalysis()
+        {
+            //open and run the example file
+            OpenAndRunDynamoDefinition(@".\EnergyAnalysisForDynamo_ex1d_iterativeAnalysisExample.dyn");
+        }
+
+        /// <summary>
+        /// Test for Example file 1e.  Set surface parametes based on their orientation.
+        /// </summary>
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
+        public void SetSurfaceParamsByOrientation()
+        {
+            //open and run the example file
+            OpenAndRunDynamoDefinition(@".\EnergyAnalysisForDynamo_ex1e_SetSurfaceParamsByOrientation.dyn");
+            foreach (var i in AllNodes)
+            {
+                if (IsNodeInErrorOrWarningState(i.GUID.ToString()))
+                {
+                    Assert.Fail("The node called '" + i.NickName + "' failed or threw a warning.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Test for example 2a.  Drive glazing percentages on a bunch of surfaces
+        /// </summary>
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex2_fancyRevitMass.rvt")]
+        public void DriveGlazingPercentageByOrientation()
+        {
+            //open and run the example file
+            OpenAndRunDynamoDefinition(@".\EnergyAnalysisForDynamo_ex2a_DriveSurfacesByOrientation.dyn");
+            foreach (var i in AllNodes)
+            {
+                if (IsNodeInErrorOrWarningState(i.GUID.ToString()))
+                {
+                    Assert.Fail("The node called '" + i.NickName + "' failed or threw a warning.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Test for example 3a.  Create a GBXML file from a mass
+        /// </summary>
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
+        public void CreateGbxmlFromMass()
+        {
+            //open and run the example file
+            OpenAndRunDynamoDefinition(@".\EnergyAnalysisForDynamo_ex3a_CreategbXMLfromMass.dyn");
+            foreach (var i in AllNodes)
+            {
+                if (IsNodeInErrorOrWarningState(i.GUID.ToString()))
+                {
+                    Assert.Fail("The node called '" + i.NickName + "' failed or threw a warning.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Test for example 3b.  Create a GBXML file from zones
+        /// </summary>
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
+        public void CreateGbxmlFromZones()
+        {
+            //open and run the example file
+            OpenAndRunDynamoDefinition(@".\EnergyAnalysisForDynamo_ex3b_CreategbXMLfromZones.dyn");
+            foreach (var i in AllNodes)
+            {
+                if (IsNodeInErrorOrWarningState(i.GUID.ToString()))
+                {
+                    Assert.Fail("The node called '" + i.NickName + "' failed or threw a warning.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Example 4a.  Create a new project and get a list of projects
+        /// </summary>
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
+        public void CreateNewGbsProject()
+        {
+            //open and run the example file
+            OpenAndRunDynamoDefinition(@".\EnergyAnalysisForDynamo_ex4a_CreateNewProjectAndGetProjectLists.dyn");
+            foreach (var i in AllNodes)
+            {
+                if (IsNodeInErrorOrWarningState(i.GUID.ToString()))
+                {
+                    Assert.Fail("The node called '" + i.NickName + "' failed or threw a warning.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Example 4b.  Upload gbxml into a new project and create a base run
+        /// </summary>
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
+        public void UploadGbxmlAndCreateBaseRun()
+        {
+            //open and run the example file
+            OpenAndRunDynamoDefinition(@".\EnergyAnalysisForDynamo_ex4b_UploadgbxmlAndCreateBaseRun.dyn");
+            foreach (var i in AllNodes)
+            {
+                if (IsNodeInErrorOrWarningState(i.GUID.ToString()))
+                {
+                    Assert.Fail("The node called '" + i.NickName + "' failed or threw a warning.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Example 5.  Get the results of an analysis
+        /// </summary>
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
+        public void GetRunResults()
+        {
+            //open and run the example file
+            OpenAndRunDynamoDefinition(@".\EnergyAnalysisForDynamo_ex5a_GetRunResultsSummary.dyn");
+            foreach (var i in AllNodes)
+            {
+                if (IsNodeInErrorOrWarningState(i.GUID.ToString()))
+                {
+                    Assert.Fail("The node called '" + i.NickName + "' failed or threw a warning.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Example 6.  Download the detailed results of an analysis
+        /// </summary>
+        [Test, TestModel(@".\EnergyAnalysisForDynamo_ex1_simpleRevitMass.rvt")]
+        public void DownloadDetailedResults()
+        {
+            //open and run the example file
+            OpenAndRunDynamoDefinition(@".\EnergyAnalysisForDynamo_ex6_DownloadDetailedResults.dyn");
+            foreach (var i in AllNodes)
+            {
+                if (IsNodeInErrorOrWarningState(i.GUID.ToString()))
+                {
+                    Assert.Fail("The node called '" + i.NickName + "' failed or threw a warning.");
+                }
+            }
         }
 
     }
