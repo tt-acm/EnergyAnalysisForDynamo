@@ -82,6 +82,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EnergyAnalysisForDynamo\EnergyAnalysisForDynamo.csproj">
+      <Project>{213d4bb4-4736-48ae-a9b3-4d7bce2e8d39}</Project>
+      <Name>EnergyAnalysisForDynamo</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
