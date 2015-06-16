@@ -52,25 +52,26 @@ namespace EnergyAnalysisForDynamo_UI
             {
                 Items.Add(new DynamoDropDownItem(i, i)); 
             }
+            SelectedIndex = 0;
         }
 
         /// <summary>
-        /// No clue what this does.  I found an example here and modified it: https://github.com/DynamoDS/DynamoRevit/blob/Revit2015/src/Libraries/RevitNodesUI/RevitDropDown.cs
+        /// Absolutely no clue what this does.  I found an example here and modified it: https://github.com/DynamoDS/DynamoRevit/blob/Revit2015/src/Libraries/RevitNodesUI/RevitDropDown.cs
+        /// Ian also helped with this link... https://github.com/DynamoDS/Dynamo/commit/19d37337742f87bbf4bc6283de10ee7bbf7927a1  looks like everything is working again now
         /// </summary>
         /// <param name="inputAstNodes"></param>
         /// <returns></returns>
         public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
         {
-            if (SelectedIndex == -1)
-            {
-                return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
-            }
-
-            if (Items.Count == 0)
+            if (Items.Count == 0 || Items.Count == -1)
             {
                 PopulateItems();
             }
-            return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildStringNode(Items[SelectedIndex].Name)) };
+
+            var stringNode = AstFactory.BuildStringNode((string)Items[SelectedIndex].Item);
+            var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), stringNode);
+
+            return new List<AssociativeNode> {assign};
         }
     }
 
