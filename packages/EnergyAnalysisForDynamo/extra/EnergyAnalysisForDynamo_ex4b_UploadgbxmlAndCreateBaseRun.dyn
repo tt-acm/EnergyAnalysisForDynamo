@@ -1,45 +1,28 @@
-<Workspace Version="0.8.0.950" X="8.8870290283993" Y="237.622087484916" zoom="0.661508021868321" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="False">
+<Workspace Version="0.8.0.950" X="-109.470710641349" Y="177.131945145796" zoom="0.630119359047454" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
-    <DSCoreNodesUI.BoolSelector guid="de7e03f2-e422-4bdd-baf5-c07afd650cd8" type="DSCoreNodesUI.BoolSelector" nickname="Boolean" x="-54.0903710724173" y="24.5011363783713" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.Boolean>True</System.Boolean>
-    </DSCoreNodesUI.BoolSelector>
-    <Dynamo.Nodes.DSFunction guid="43dba25e-e242-4df5-92ad-a6cfda15308e" type="Dynamo.Nodes.DSFunction" nickname="GetAnalysisResults.GetProjectsList" x="147.137583114583" y="21.7582211730879" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetProjectsList@bool">
-      <PortInfo index="0" default="True" />
-    </Dynamo.Nodes.DSFunction>
-    <Dynamo.Nodes.DSFunction guid="ebd93fe8-7da3-4253-bab6-1bcb74553bf4" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="766.766000491191" y="20.5294138752697" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
-    <DSCoreNodesUI.Input.IntegerSlider guid="aa13ea5b-e8f3-42b4-9b95-7180ad65eba2" type="DSCoreNodesUI.Input.IntegerSlider" nickname="Integer Slider" x="447.94600508177" y="124.527610947711" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.Int32>0</System.Int32>
-      <Range min="0" max="10" step="1" />
-    </DSCoreNodesUI.Input.IntegerSlider>
-    <Dynamo.Nodes.Watch guid="c2e3af17-5c2a-4c82-8eea-f16b77a82c94" type="Dynamo.Nodes.Watch" nickname="Watch" x="532.178436544747" y="-131.874155289893" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
     <Dynamo.Nodes.Watch guid="228d2f08-44b2-4748-9823-6808618162c1" type="Dynamo.Nodes.Watch" nickname="Watch" x="1686.64291269489" y="45.415678214731" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
-    <Dynamo.Nodes.DSFunction guid="704c9212-ef22-4ffb-927e-41e2ebaa5e99" type="Dynamo.Nodes.DSFunction" nickname="GetAnalysisResults.GetRunIds" x="1614.54541547023" y="258.548446040205" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.GetAnalysisResults.GetRunIds@int" />
-    <Dynamo.Nodes.DSFunction guid="4c0201ea-36d4-4d9c-9880-616f8e17fb0d" type="Dynamo.Nodes.DSFunction" nickname="RunAnalysis.RunEnergyAnalysis" x="1133.15285283877" y="48.0314233514918" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\src\EnergyAnalysisForDynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.RunEnergyAnalysis@int,string[],bool,int">
+    <Dynamo.Nodes.DSFunction guid="4c0201ea-36d4-4d9c-9880-616f8e17fb0d" type="Dynamo.Nodes.DSFunction" nickname="RunAnalysis.RunEnergyAnalysis" x="1133.15285283877" y="48.0314233514918" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\..\..\..\..\..\AppData\Roaming\Dynamo\0.8\packages\Energy%20Analysis%20for%20%20Dynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.RunEnergyAnalysis@int,string[],bool,int">
       <PortInfo index="2" default="True" />
       <PortInfo index="3" default="True" />
     </Dynamo.Nodes.DSFunction>
-    <DSCore.File.Filename guid="9ae61a3e-974f-4965-ba98-5b128a074302" type="DSCore.File.Filename" nickname="File Path" x="764.681690190772" y="272.504632786591" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
-      <System.String>No file selected.</System.String>
+    <DSCore.File.Filename guid="9ae61a3e-974f-4965-ba98-5b128a074302" type="DSCore.File.Filename" nickname="File Path" x="506.984332357477" y="256.818706657608" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.String>C:\Users\BHowes\Desktop\EA4D_ExampleGbxmlFromMass.xml</System.String>
     </DSCore.File.Filename>
+    <Dynamo.Nodes.DSFunction guid="8b29a837-f9cb-41b8-b648-a98411cc340e" type="Dynamo.Nodes.DSFunction" nickname="RunAnalysis.CreateProject" x="707.629766718239" y="51.0873378734165" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\..\..\..\..\..\AppData\Roaming\Dynamo\0.8\packages\Energy%20Analysis%20for%20%20Dynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.RunAnalysis.CreateProject@string" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="eab5259b-5d03-4c0d-a33d-cb9bc852d67a" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="398.080023326314" y="53.2113084716166" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;TestNewProjectfromDynamo&quot;;" ShouldFocus="false" />
   </Elements>
   <Connectors>
-    <Dynamo.Models.ConnectorModel start="de7e03f2-e422-4bdd-baf5-c07afd650cd8" start_index="0" end="43dba25e-e242-4df5-92ad-a6cfda15308e" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="43dba25e-e242-4df5-92ad-a6cfda15308e" start_index="0" end="ebd93fe8-7da3-4253-bab6-1bcb74553bf4" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="43dba25e-e242-4df5-92ad-a6cfda15308e" start_index="0" end="c2e3af17-5c2a-4c82-8eea-f16b77a82c94" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="ebd93fe8-7da3-4253-bab6-1bcb74553bf4" start_index="0" end="704c9212-ef22-4ffb-927e-41e2ebaa5e99" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="ebd93fe8-7da3-4253-bab6-1bcb74553bf4" start_index="0" end="4c0201ea-36d4-4d9c-9880-616f8e17fb0d" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="aa13ea5b-e8f3-42b4-9b95-7180ad65eba2" start_index="0" end="ebd93fe8-7da3-4253-bab6-1bcb74553bf4" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="4c0201ea-36d4-4d9c-9880-616f8e17fb0d" start_index="0" end="228d2f08-44b2-4748-9823-6808618162c1" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="9ae61a3e-974f-4965-ba98-5b128a074302" start_index="0" end="4c0201ea-36d4-4d9c-9880-616f8e17fb0d" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="8b29a837-f9cb-41b8-b648-a98411cc340e" start_index="0" end="4c0201ea-36d4-4d9c-9880-616f8e17fb0d" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="eab5259b-5d03-4c0d-a33d-cb9bc852d67a" start_index="0" end="8b29a837-f9cb-41b8-b648-a98411cc340e" end_index="0" portType="0" />
   </Connectors>
   <Notes>
     <Dynamo.Models.NoteModel text="This node uploads the gbXML file to GBS, runs the energy analysis under the project.&#xD;&#xA;I suggest you to visit https://gbs.autodesk.com/GBS and get yourself familiarized with the app." x="1134.8417059015" y="-48.5647081399926" />
-    <Dynamo.Models.NoteModel text="1. Now that you have a project created and have a gbXML file from your model you can go ahead and run the analysis." x="115.194799990771" y="-60.9450632204949" />
-    <Dynamo.Models.NoteModel text="2. Select the project" x="777.923965492847" y="-20.7689410003315" />
-    <Dynamo.Models.NoteModel text="3. Select gbXML file" x="764.020292932144" y="220.845308908652" />
+    <Dynamo.Models.NoteModel text="1. Now that you have a project created and have a gbXML file from your model you can go ahead and run the analysis." x="379.61469759363" y="-32.9344808473107" />
+    <Dynamo.Models.NoteModel text="2. Select gbXML file" x="764.020292932144" y="220.845308908652" />
     <Dynamo.Models.NoteModel text="Once the study is over you can use the RunId to load the results from GBS!" x="1590.59644641188" y="-3.91419882512463" />
-    <Dynamo.Models.NoteModel text="Green Building Studio has an inbuilt parametric run engine which will execute a number of simulations on top of your model. Default in Dynamo node is set to false however you can turn it on by setting the ExecuteParametricRuns to True.&#xD;&#xA;&#xD;&#xA;You can read more about parametric runs here:&#xD;&#xA;http://knowledge.autodesk.com/support/green-building-studio/learn-explore/caas/CloudHelp/cloudhelp/ENU/BPA-GBSWebService/files/GUID-F4D32E61-1A3A-4AE5-B476-217860E8F3CB-htm.html" x="1134.37656901046" y="225.322733205123" />
-    <Dynamo.Models.NoteModel text="To load Ids for parametric runs you can use GetRunIds node. Check next example file to see it in action." x="1608.25598130995" y="159.63432742653" />
+    <Dynamo.Models.NoteModel text="Green Building Studio has an inbuilt parametric run engine which will execute a number of simulations on top of your model. Default in Dynamo node is set to false however you can turn it on by setting the ExecuteParametricRuns to True.&#xD;&#xA;&#xD;&#xA;You can read more about parametric runs here:&#xD;&#xA;http://knowledge.autodesk.com/support/green-building-studio/learn-explore/caas/CloudHelp/cloudhelp/ENU/BPA-GBSWebService/files/GUID-F4D32E61-1A3A-4AE5-B476-217860E8F3CB-htm.html" x="1128.77445253582" y="223.081886615268" />
   </Notes>
 </Workspace>

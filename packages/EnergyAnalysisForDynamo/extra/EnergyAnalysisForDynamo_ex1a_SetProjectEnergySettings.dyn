@@ -1,19 +1,19 @@
-<Workspace Version="0.8.0.950" X="177.232385245195" Y="-27.6356895748163" zoom="0.815052692959033" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+<Workspace Version="0.8.0.950" X="47.9662317282886" Y="-54.9267208841521" zoom="0.684832420747576" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
-    <DSCoreNodesUI.Input.DoubleSlider guid="83f5eb3b-234f-4081-8461-bd1af9ae6708" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Glazing Percentage" x="43.8000242680715" y="321.800024268072" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <DSCoreNodesUI.Input.DoubleSlider guid="83f5eb3b-234f-4081-8461-bd1af9ae6708" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Glazing Percentage" x="42.9330556392337" y="303.208829527654" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Double>0.5</System.Double>
       <Range min="0" max="1" step="0.1" />
     </DSCoreNodesUI.Input.DoubleSlider>
-    <DSCoreNodesUI.Input.DoubleSlider guid="d4373a50-6b22-49ae-a392-90a2ab77148a" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Shade Depth" x="39.9567120779891" y="419.398258258604" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <DSCoreNodesUI.Input.DoubleSlider guid="d4373a50-6b22-49ae-a392-90a2ab77148a" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Shade Depth" x="42.9330556392337" y="373.29562995916" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Double>0</System.Double>
       <Range min="0" max="3" step="0.1" />
     </DSCoreNodesUI.Input.DoubleSlider>
-    <DSCoreNodesUI.Input.DoubleSlider guid="68e4d7c7-bdb7-419a-a77d-17a8850e486f" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Skylight Percentage" x="38.1034174603132" y="522.918102307745" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+    <DSCoreNodesUI.Input.DoubleSlider guid="68e4d7c7-bdb7-419a-a77d-17a8850e486f" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Skylight Percentage" x="42.9330556392337" y="443.382430390667" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
       <System.Double>0</System.Double>
       <Range min="0" max="1" step="0.1" />
     </DSCoreNodesUI.Input.DoubleSlider>
-    <Dynamo.Nodes.DSFunction guid="e64bc458-2670-46a4-a46a-3de874d29874" type="Dynamo.Nodes.DSFunction" nickname="EnergySettings.SetEnergySettings" x="878.543559620977" y="236.56866521788" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\..\..\..\..\..\AppData\Roaming\Dynamo\0.8\packages\Energy%20Analysis%20for%20%20Dynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.EnergySettings.SetEnergySettings@string,double,double,double,string,string,double,bool">
+    <Dynamo.Nodes.DSFunction guid="e64bc458-2670-46a4-a46a-3de874d29874" type="Dynamo.Nodes.DSFunction" nickname="EnergySettings.SetEnergySettings" x="957.066090192159" y="408.336700842341" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\..\..\..\..\..\AppData\Roaming\Dynamo\0.8\packages\Energy%20Analysis%20for%20%20Dynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.EnergySettings.SetEnergySettings@string,double,double,double,string,string,double,bool">
       <PortInfo index="0" default="True" />
       <PortInfo index="1" default="True" />
       <PortInfo index="2" default="True" />
@@ -23,19 +23,28 @@
       <PortInfo index="6" default="True" />
       <PortInfo index="7" default="True" />
     </Dynamo.Nodes.DSFunction>
-    <EnergyAnalysisForDynamo_UI.BuildingTypeDropdown guid="1786bdf5-41d9-43a9-a660-e8fa6dfa9ef3" type="EnergyAnalysisForDynamo_UI.BuildingTypeDropdown" nickname="Building Type Dropdown" x="42.9330556392337" y="204.915459543623" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="-1" />
-    <EnergyAnalysisForDynamo_UI.HVACtypeDropdown guid="427297bd-ee73-4d25-9221-a7b63ff70880" type="EnergyAnalysisForDynamo_UI.HVACtypeDropdown" nickname="HVAC System Type Dropdown" x="41.1133225251272" y="609.829408235708" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="-1" />
-    <EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown guid="2aa7a6d9-2660-43a2-b851-6eafb40c5992" type="EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown" nickname="Operating Schedules Dropdown" x="44.6999849597975" y="720.576932309068" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="-1" />
+    <DSCoreNodesUI.Input.DoubleSlider guid="8972da79-c508-4dd2-ab56-6301cd4e5128" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Core Offset" x="42.9330556392337" y="703.642831685187" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double>10</System.Double>
+      <Range min="0" max="15" step="0.1" />
+    </DSCoreNodesUI.Input.DoubleSlider>
+    <DSCoreNodesUI.BoolSelector guid="8da9e555-e7e4-4143-9b50-ef9b2dd8f069" type="DSCoreNodesUI.BoolSelector" nickname="Boolean" x="42.9330556392337" y="773.729632116694" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>True</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
+    <EnergyAnalysisForDynamo_UI.BuildingTypeDropdown guid="f765ee15-cd16-4835-ac34-be1c402edb9a" type="EnergyAnalysisForDynamo_UI.BuildingTypeDropdown" nickname="Building Type Dropdown" x="42.9330556392337" y="208.122029096147" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="2:Courthouse" />
+    <EnergyAnalysisForDynamo_UI.HVACtypeDropdown guid="250c2abf-57f0-45ae-8218-895fc502d4ab" type="EnergyAnalysisForDynamo_UI.HVACtypeDropdown" nickname="HVAC System Type Dropdown" x="42.9330556392337" y="513.469230822174" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="3:FourPipeFanCoilSystemChillerFivePointNinetySixCOPBoilersEightFourPointFiveEff" />
+    <EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown guid="c92a03c2-b426-4112-b496-c7ce59815bfd" type="EnergyAnalysisForDynamo_UI.OperatingSchedulesDropdown" nickname="Operating Schedules Dropdown" x="42.9330556392337" y="608.556031253681" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="5:TwelveHourSixDayFacility" />
   </Elements>
   <Connectors>
     <Dynamo.Models.ConnectorModel start="83f5eb3b-234f-4081-8461-bd1af9ae6708" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="1" portType="0" />
     <Dynamo.Models.ConnectorModel start="d4373a50-6b22-49ae-a392-90a2ab77148a" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="2" portType="0" />
     <Dynamo.Models.ConnectorModel start="68e4d7c7-bdb7-419a-a77d-17a8850e486f" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="3" portType="0" />
-    <Dynamo.Models.ConnectorModel start="1786bdf5-41d9-43a9-a660-e8fa6dfa9ef3" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="427297bd-ee73-4d25-9221-a7b63ff70880" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="4" portType="0" />
-    <Dynamo.Models.ConnectorModel start="2aa7a6d9-2660-43a2-b851-6eafb40c5992" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="5" portType="0" />
+    <Dynamo.Models.ConnectorModel start="8972da79-c508-4dd2-ab56-6301cd4e5128" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="6" portType="0" />
+    <Dynamo.Models.ConnectorModel start="8da9e555-e7e4-4143-9b50-ef9b2dd8f069" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="7" portType="0" />
+    <Dynamo.Models.ConnectorModel start="f765ee15-cd16-4835-ac34-be1c402edb9a" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="250c2abf-57f0-45ae-8218-895fc502d4ab" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="4" portType="0" />
+    <Dynamo.Models.ConnectorModel start="c92a03c2-b426-4112-b496-c7ce59815bfd" start_index="0" end="e64bc458-2670-46a4-a46a-3de874d29874" end_index="5" portType="0" />
   </Connectors>
   <Notes>
-    <Dynamo.Models.NoteModel text="Use this node to Modify Energy Settings Parameters at the Project level.&#xD;&#xA;This setting will be applied to all the zones and surfaces in your model. You can use SetSurfaceParameters and SetZoneParameters to customize the setting for selected zones or surfaces." x="876.784099798412" y="129.666198017689" />
+    <Dynamo.Models.NoteModel text="Use this node to Modify Energy Settings Parameters at the Project level.&#xD;&#xA;This setting will be applied to all the zones and surfaces in your model. You can use SetSurfaceParameters and SetZoneParameters to customize the setting for selected zones or surfaces." x="955.306630369594" y="301.43423364215" />
   </Notes>
 </Workspace>
