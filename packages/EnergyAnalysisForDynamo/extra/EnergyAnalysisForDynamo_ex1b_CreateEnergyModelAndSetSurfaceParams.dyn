@@ -1,4 +1,4 @@
-<Workspace Version="0.8.0.950" X="-257.242787087991" Y="-100.615715963401" zoom="0.477072733047814" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+<Workspace Version="0.8.0.950" X="-157.16127531082" Y="-21.2584089036748" zoom="0.350666670708616" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
     <DSRevitNodesUI.Levels guid="709e9346-2a23-48aa-8000-42d54f27ee54" type="DSRevitNodesUI.Levels" nickname="Levels" x="675.410141199108" y="465.180763180918" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:Level 1" />
@@ -28,11 +28,11 @@
     <Dynamo.Nodes.DSFunction guid="56d79c96-4bb7-4822-9683-70db774ff22a" type="Dynamo.Nodes.DSFunction" nickname="PrepareEnergyModel.CreateByMassLevels" x="980.447951970478" y="383.090451478389" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\..\..\..\..\..\AppData\Roaming\Dynamo\0.8\packages\Energy%20Analysis%20for%20%20Dynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.CreateByMassLevels@Revit.Elements.AbstractFamilyInstance,Revit.Elements.Element[]" />
     <Dynamo.Nodes.CodeBlockNodeModel guid="d47f0ad9-ee9a-4fa3-8f1a-f8414f21e349" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Zone ID" x="1448.90538427329" y="414.010036641195" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[1];" ShouldFocus="false" />
     <Dynamo.Nodes.CodeBlockNodeModel guid="98cb8c9e-8cdd-488a-9e8f-02fb9d84d721" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Wall Surface ID" x="2131.88862516131" y="475.230559497985" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];" ShouldFocus="false" />
-    <EnergyAnalysisForDynamo_UI.ConcWallConstTypeDropdown guid="ec6be07c-326a-46d3-b949-62d25ed8dd64" type="EnergyAnalysisForDynamo_UI.ConcWallConstTypeDropdown" nickname="Conceptual Wall Construction Types Dropdown" x="2100.77891490447" y="874.955644597808" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="-1" />
     <Dynamo.Nodes.DSFunction guid="8e492419-3232-412d-a5f9-94ce941dc584" type="Dynamo.Nodes.DSFunction" nickname="PrepareEnergyModel.SetSurfaceConceptualConstruction" x="2535.09085053797" y="1325.77302239676" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\..\..\..\..\..\AppData\Roaming\Dynamo\0.8\packages\Energy%20Analysis%20for%20%20Dynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.SetSurfaceConceptualConstruction@EnergyAnalysisForDynamo.ElementId,string" />
     <Dynamo.Nodes.CodeBlockNodeModel guid="50527880-6d90-45e6-926c-24ad9c344946" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Wall Surface ID" x="2149.90036339371" y="1191.15318361347" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];" ShouldFocus="false" />
     <Dynamo.Nodes.DSFunction guid="19c3d16e-7c11-4324-aa6e-c35ebdbeedd4" type="Dynamo.Nodes.DSFunction" nickname="PrepareEnergyModel.DrawAnalysisSurface" x="2536.8407516189" y="1180.00375072029" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="..\..\..\..\..\..\AppData\Roaming\Dynamo\0.8\packages\Energy%20Analysis%20for%20%20Dynamo\bin\EnergyAnalysisForDynamo.dll" function="EnergyAnalysisForDynamo.PrepareEnergyModel.DrawAnalysisSurface@EnergyAnalysisForDynamo.ElementId" />
-    <EnergyAnalysisForDynamo_UI.ConcGlazingConstTypeDropdown guid="71f132a9-87bc-4ffa-b8ec-7efadef6f743" type="EnergyAnalysisForDynamo_UI.ConcGlazingConstTypeDropdown" nickname="Conceptual Glazing Construction Types Dropdown" x="2150.58422196208" y="1350.84869290355" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="-1" />
+    <EnergyAnalysisForDynamo_UI.ConcGlazingConstTypeDropdown guid="7155d73e-babe-4664-95c9-9d682aadbe25" type="EnergyAnalysisForDynamo_UI.ConcGlazingConstTypeDropdown" nickname="Conceptual Glazing Construction Types Dropdown" x="2121.11235491213" y="1354.40566131198" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="9:TriplePaneClearLowEHotOrColdClimate" />
+    <EnergyAnalysisForDynamo_UI.ConcWallConstTypeDropdown guid="f39b745e-13af-45d4-9721-935fc61e1544" type="EnergyAnalysisForDynamo_UI.ConcWallConstTypeDropdown" nickname="Conceptual Wall Construction Types Dropdown" x="2101.41790275933" y="875.031036870101" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="6:HighMassConstructionTypicalColdClimateInsulation" />
   </Elements>
   <Connectors>
     <Dynamo.Models.ConnectorModel start="709e9346-2a23-48aa-8000-42d54f27ee54" start_index="0" end="56d79c96-4bb7-4822-9683-70db774ff22a" end_index="1" portType="0" />
@@ -46,10 +46,10 @@
     <Dynamo.Models.ConnectorModel start="d47f0ad9-ee9a-4fa3-8f1a-f8414f21e349" start_index="0" end="d8204c1c-70c5-47b4-96a5-c25342b34f22" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="98cb8c9e-8cdd-488a-9e8f-02fb9d84d721" start_index="0" end="443faa2f-d81c-491c-8bac-29f0bf1b6f94" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="98cb8c9e-8cdd-488a-9e8f-02fb9d84d721" start_index="0" end="180ddc57-828c-4625-856c-b57d58f55b30" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="ec6be07c-326a-46d3-b949-62d25ed8dd64" start_index="0" end="180ddc57-828c-4625-856c-b57d58f55b30" end_index="4" portType="0" />
     <Dynamo.Models.ConnectorModel start="50527880-6d90-45e6-926c-24ad9c344946" start_index="0" end="19c3d16e-7c11-4324-aa6e-c35ebdbeedd4" end_index="0" portType="0" />
     <Dynamo.Models.ConnectorModel start="50527880-6d90-45e6-926c-24ad9c344946" start_index="0" end="8e492419-3232-412d-a5f9-94ce941dc584" end_index="0" portType="0" />
-    <Dynamo.Models.ConnectorModel start="71f132a9-87bc-4ffa-b8ec-7efadef6f743" start_index="0" end="8e492419-3232-412d-a5f9-94ce941dc584" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="7155d73e-babe-4664-95c9-9d682aadbe25" start_index="0" end="8e492419-3232-412d-a5f9-94ce941dc584" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="f39b745e-13af-45d4-9721-935fc61e1544" start_index="0" end="180ddc57-828c-4625-856c-b57d58f55b30" end_index="4" portType="0" />
   </Connectors>
   <Notes>
     <Dynamo.Models.NoteModel text="1. Select Mass element from Revit/Vasari document" x="598.425624558821" y="327.198658483474" />

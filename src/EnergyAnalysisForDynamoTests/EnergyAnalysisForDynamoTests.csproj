@@ -52,6 +52,7 @@
     </Reference>
     <Reference Include="RevitServices">
       <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\RevitServices.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitTestFrameworkTypes">
       <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\RevitTestFrameworkTypes.dll</HintPath>
