@@ -1,4 +1,4 @@
-<Workspace Version="0.8.0.950" X="-157.16127531082" Y="-21.2584089036748" zoom="0.350666670708616" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+<Workspace Version="0.8.0.950" X="-157.16127531082" Y="-21.2584089036748" zoom="0.350666670708616" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
     <DSRevitNodesUI.Levels guid="709e9346-2a23-48aa-8000-42d54f27ee54" type="DSRevitNodesUI.Levels" nickname="Levels" x="675.410141199108" y="465.180763180918" isVisible="true" isUpstreamVisible="true" lacing="Disabled" index="0:Level 1" />

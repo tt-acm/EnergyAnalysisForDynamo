@@ -1,4 +1,4 @@
-<Workspace Version="0.8.0.950" X="-146.369113426432" Y="233.328736505715" zoom="0.892519822220248" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+<Workspace Version="0.8.0.950" X="-109.470710641349" Y="177.131945145796" zoom="0.630119359047454" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
     <Dynamo.Nodes.Watch guid="228d2f08-44b2-4748-9823-6808618162c1" type="Dynamo.Nodes.Watch" nickname="Watch" x="1686.64291269489" y="45.415678214731" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />

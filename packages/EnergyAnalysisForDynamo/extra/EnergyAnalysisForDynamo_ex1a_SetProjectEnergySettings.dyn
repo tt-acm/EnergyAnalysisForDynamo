@@ -1,4 +1,4 @@
-<Workspace Version="0.8.0.950" X="47.9662317282886" Y="-54.9267208841521" zoom="0.684832420747576" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+<Workspace Version="0.8.0.950" X="47.9662317282886" Y="-54.9267208841521" zoom="0.684832420747576" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
     <DSCoreNodesUI.Input.DoubleSlider guid="83f5eb3b-234f-4081-8461-bd1af9ae6708" type="DSCoreNodesUI.Input.DoubleSlider" nickname="Glazing Percentage" x="42.9330556392337" y="303.208829527654" isVisible="true" isUpstreamVisible="true" lacing="Disabled">

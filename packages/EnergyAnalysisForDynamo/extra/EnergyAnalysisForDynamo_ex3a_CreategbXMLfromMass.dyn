@@ -1,4 +1,4 @@
-<Workspace Version="0.8.0.950" X="-1359.86902300076" Y="-1295.10974346503" zoom="1.01113072936547" Name="Home" RunType="Automatic" RunPeriod="100" HasRunWithoutCrash="True">
+<Workspace Version="0.8.0.950" X="-931.625286526476" Y="-765.664433076339" zoom="0.699261127577155" Name="Home" RunType="Manual" RunPeriod="100" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
     <DSCoreNodesUI.BoolSelector guid="da476d52-2857-49e4-bd9c-666302a7fb8f" type="DSCoreNodesUI.BoolSelector" nickname="Boolean" x="1774.30283264159" y="1703.18073047995" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
