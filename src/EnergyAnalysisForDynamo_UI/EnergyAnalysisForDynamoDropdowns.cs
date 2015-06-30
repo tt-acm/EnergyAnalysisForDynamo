@@ -27,11 +27,9 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set up the collection
             var newItems = new List<DynamoDropDownItem>();
-            int i=0;
             foreach (var j in Enum.GetValues(new gbXMLBuildingType().GetType())) //PAss in the enum here!
             {
-                newItems.Add(new DynamoDropDownItem(j.ToString(), i));
-                i++;
+                newItems.Add(new DynamoDropDownItem(j.ToString(), j.ToString()));
             }
             Items.AddRange(newItems);
 
@@ -43,7 +41,7 @@ namespace EnergyAnalysisForDynamo_UI
         {
             // Build an AST node for the type of object contained in your Items collection.
 
-            var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+            var intNode = AstFactory.BuildStringNode((string)Items[SelectedIndex].Item);
             var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
 
             return new List<AssociativeNode> {assign};
@@ -66,11 +64,9 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set up the collection
             var newItems = new List<DynamoDropDownItem>();
-            int i=0;
             foreach (var j in Enum.GetValues(new gbXMLBuildingHVACSystem().GetType())) //PAss in the enum here!
             {
-                newItems.Add(new DynamoDropDownItem(j.ToString(), i));
-                i++;
+                newItems.Add(new DynamoDropDownItem(j.ToString(), j.ToString()));
             }
             Items.AddRange(newItems);
 
@@ -82,7 +78,7 @@ namespace EnergyAnalysisForDynamo_UI
         {
             // Build an AST node for the type of object contained in your Items collection.
 
-            var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+            var intNode = AstFactory.BuildStringNode((string)Items[SelectedIndex].Item);
             var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
 
             return new List<AssociativeNode> {assign};
@@ -104,11 +100,9 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set up the collection
             var newItems = new List<DynamoDropDownItem>();
-            int i=0;
             foreach (var j in Enum.GetValues(new gbXMLBuildingOperatingSchedule().GetType())) //PAss in the enum here!
             {
-                newItems.Add(new DynamoDropDownItem(j.ToString(), i));
-                i++;
+                newItems.Add(new DynamoDropDownItem(j.ToString(), j.ToString()));
             }
             Items.AddRange(newItems);
 
@@ -120,7 +114,7 @@ namespace EnergyAnalysisForDynamo_UI
         {
             // Build an AST node for the type of object contained in your Items collection.
 
-            var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+            var intNode = AstFactory.BuildStringNode((string)Items[SelectedIndex].Item);
             var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
 
             return new List<AssociativeNode> {assign};
@@ -142,11 +136,9 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set up the collection
             var newItems = new List<DynamoDropDownItem>();
-            int i=0;
             foreach (var j in Enum.GetValues(new ConceptualConstructionWallType().GetType())) //PAss in the enum here!
             {
-                newItems.Add(new DynamoDropDownItem(j.ToString(), i));
-                i++;
+                newItems.Add(new DynamoDropDownItem(j.ToString(), j.ToString()));
             }
             Items.AddRange(newItems);
 
@@ -158,7 +150,7 @@ namespace EnergyAnalysisForDynamo_UI
         {
             // Build an AST node for the type of object contained in your Items collection.
 
-            var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+            var intNode = AstFactory.BuildStringNode((string)Items[SelectedIndex].Item);
             var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
 
             return new List<AssociativeNode> {assign};
@@ -180,11 +172,9 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set up the collection
             var newItems = new List<DynamoDropDownItem>();
-            int i=0;
             foreach (var j in Enum.GetValues(new ConceptualConstructionWindowSkylightType().GetType())) //PAss in the enum here!
             {
-                newItems.Add(new DynamoDropDownItem(j.ToString(), i));
-                i++;
+                newItems.Add(new DynamoDropDownItem(j.ToString(), j.ToString()));
             }
             Items.AddRange(newItems);
 
@@ -196,7 +186,7 @@ namespace EnergyAnalysisForDynamo_UI
         {
             // Build an AST node for the type of object contained in your Items collection.
 
-            var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+            var intNode = AstFactory.BuildStringNode((string)Items[SelectedIndex].Item);
             var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
 
             return new List<AssociativeNode> {assign};
@@ -218,11 +208,9 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set up the collection
             var newItems = new List<DynamoDropDownItem>();
-            int i=0;
             foreach (var j in Enum.GetValues(new ConceptualConstructionFloorSlabType().GetType())) //PAss in the enum here!
             {
-                newItems.Add(new DynamoDropDownItem(j.ToString(), i));
-                i++;
+                newItems.Add(new DynamoDropDownItem(j.ToString(), j.ToString()));
             }
             Items.AddRange(newItems);
 
@@ -234,7 +222,7 @@ namespace EnergyAnalysisForDynamo_UI
         {
             // Build an AST node for the type of object contained in your Items collection.
 
-            var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+            var intNode = AstFactory.BuildStringNode((string)Items[SelectedIndex].Item);
             var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
 
             return new List<AssociativeNode> {assign};
@@ -256,11 +244,9 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set up the collection
             var newItems = new List<DynamoDropDownItem>();
-            int i=0;
             foreach (var j in Enum.GetValues(new ConceptualConstructionRoofType().GetType())) //PAss in the enum here!
             {
-                newItems.Add(new DynamoDropDownItem(j.ToString(), i));
-                i++;
+                newItems.Add(new DynamoDropDownItem(j.ToString(), j.ToString()));
             }
             Items.AddRange(newItems);
 
@@ -272,7 +258,7 @@ namespace EnergyAnalysisForDynamo_UI
         {
             // Build an AST node for the type of object contained in your Items collection.
 
-            var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+            var intNode = AstFactory.BuildStringNode((string)Items[SelectedIndex].Item);
             var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
 
             return new List<AssociativeNode> {assign};
@@ -294,11 +280,9 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set up the collection
             var newItems = new List<DynamoDropDownItem>();
-            int i=0;
             foreach (var j in Enum.GetValues(new gbXMLSpaceType().GetType())) //PAss in the enum here!
             {
-                newItems.Add(new DynamoDropDownItem(j.ToString(), i));
-                i++;
+                newItems.Add(new DynamoDropDownItem(j.ToString(), j.ToString()));
             }
             Items.AddRange(newItems);
 
@@ -310,7 +294,7 @@ namespace EnergyAnalysisForDynamo_UI
         {
             // Build an AST node for the type of object contained in your Items collection.
 
-            var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+            var intNode = AstFactory.BuildStringNode((string)Items[SelectedIndex].Item);
             var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
 
             return new List<AssociativeNode> {assign};
@@ -332,11 +316,9 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set up the collection
             var newItems = new List<DynamoDropDownItem>();
-            int i=0;
             foreach (var j in Enum.GetValues(new gbXMLConditionType().GetType())) //PAss in the enum here!
             {
-                newItems.Add(new DynamoDropDownItem(j.ToString(), i));
-                i++;
+                newItems.Add(new DynamoDropDownItem(j.ToString(), j.ToString()));
             }
             Items.AddRange(newItems);
 
@@ -348,7 +330,7 @@ namespace EnergyAnalysisForDynamo_UI
         {
             // Build an AST node for the type of object contained in your Items collection.
 
-            var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+            var intNode = AstFactory.BuildStringNode((string)Items[SelectedIndex].Item);
             var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
 
             return new List<AssociativeNode> {assign};
@@ -370,11 +352,9 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set up the collection
             var newItems = new List<DynamoDropDownItem>();
-            int i=0;
             foreach (var j in Enum.GetValues(new EnergyDataFileType().GetType())) //PAss in the enum here!
             {
-                newItems.Add(new DynamoDropDownItem(j.ToString(), i));
-                i++;
+                newItems.Add(new DynamoDropDownItem(j.ToString(), j.ToString()));
             }
             Items.AddRange(newItems);
 
@@ -386,7 +366,7 @@ namespace EnergyAnalysisForDynamo_UI
         {
             // Build an AST node for the type of object contained in your Items collection.
 
-            var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+            var intNode = AstFactory.BuildStringNode((string)Items[SelectedIndex].Item);
             var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
 
             return new List<AssociativeNode> {assign};
