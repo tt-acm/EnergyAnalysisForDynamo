@@ -13,8 +13,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EnergyAnalysisForDynamo_UI</RootNamespace>
     <AssemblyName>EnergyAnalysisForDynamo_UI</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,34 +34,28 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DSCoreNodesUI">
-      <HintPath>$(DYNAMO_API)\nodes\DSCoreNodesUI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DSRevitNodesUI">
-      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\nodes\DSRevitNodesUI.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="CoreNodeModels">
+      <HintPath>$(DYNAMO_API)\nodes\CoreNodeModels.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DynamoCore">
       <HintPath>$(DYNAMO_API)\DynamoCore.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DynamoUtilities">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Dynamo 0.9\DynamoUtilities.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ProtoCore">
       <HintPath>$(DYNAMO_API)\ProtoCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="RevitAPI">
-      <HintPath>$(REVIT_API)\RevitAPI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="RevitNodes">
-      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\RevitNodes.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="RevitServices">
-      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\RevitServices.dll</HintPath>
+    <Reference Include="RevitAPI, Version=2014.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2015\RevitAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

@@ -46,10 +46,6 @@
       <HintPath>$(DYNAMO_API)\DynamoCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DynamoRevitDS">
-      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\DynamoRevitDS.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="DynamoUtilities">
       <HintPath>$(DYNAMO_API)\DynamoUtilities.dll</HintPath>
       <Private>False</Private>
@@ -75,12 +71,15 @@
       <HintPath>$(DYNAMO_API)\ProtoInterface.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="RevitAPI">
+    <Reference Include="RevitAPI, Version=2015.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>$(REVIT_API)\RevitAPI.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUI">
       <HintPath>$(REVIT_API)\RevitAPIUI.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitNodes">
