@@ -39,7 +39,7 @@
   <ItemGroup>
     <Reference Include="CoreNodeModels">
       <HintPath>$(DYNAMO_API)\nodes\CoreNodeModels.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DynamoCore">
       <HintPath>$(DYNAMO_API)\DynamoCore.dll</HintPath>
