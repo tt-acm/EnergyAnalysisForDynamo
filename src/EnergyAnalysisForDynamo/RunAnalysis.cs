@@ -20,9 +20,9 @@ using Autodesk.Revit.DB.Analysis;
 using Autodesk.DesignScript.Runtime;
 
 //Dynamo
-using DSCoreNodesUI;
+
 using Dynamo.Models;
-using Dynamo.Nodes;
+using Dynamo.Graph.Nodes;
 using Dynamo.Utilities;
 using RevitServices.Persistence;
 using RevitServices.Transactions;

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using DSCore;
-using DSCoreNodesUI;
-using Dynamo.Models;
+using Dynamo.Graph.Nodes;
+using CoreNodeModels;
 using Dynamo.Utilities;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Analysis;
@@ -12,10 +11,10 @@ using ProtoCore.AST.AssociativeAST;
 namespace EnergyAnalysisForDynamo_UI
 {
 
-    [NodeName("Building Type Dropdown")]
-    [NodeCategory("EnergyAnalysisForDynamo.EnergySettings")]
-    [NodeDescription("Select a building type to use with the GBSforDynamo Energy Settings node.")]
-    [IsDesignScriptCompatible]
+    [NodeNameAttribute("Building Type Dropdown")]
+    [NodeCategoryAttribute("EnergyAnalysisForDynamo.EnergySettings")]
+    [NodeDescriptionAttribute("Select a building type to use with the GBSforDynamo Energy Settings node.")]
+    [IsDesignScriptCompatibleAttribute]
     public class BuildingTypeDropdown : DSDropDownBase
     {
         public BuildingTypeDropdown() : base(">") { }
