@@ -38,13 +38,12 @@
     <DocumentationFile>$(OutputPath)\EnergyAnalysisForDynamo.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DSCoreNodesUI">
-      <HintPath>$(DYNAMO_API)\nodes\DSCoreNodesUI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="DynamoCore">
       <HintPath>$(DYNAMO_API)\DynamoCore.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="DynamoServices">
+      <HintPath>$(DYNAMO_API)\DynamoServices.dll</HintPath>
     </Reference>
     <Reference Include="DynamoUtilities">
       <HintPath>$(DYNAMO_API)\DynamoUtilities.dll</HintPath>
@@ -67,10 +66,6 @@
       <HintPath>$(DYNAMO_API)\ProtoGeometry.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ProtoInterface">
-      <HintPath>$(DYNAMO_API)\ProtoInterface.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="RevitAPI, Version=2015.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(REVIT_API)\RevitAPI.dll</HintPath>
@@ -83,11 +78,11 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitNodes">
-      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\RevitNodes.dll</HintPath>
+      <HintPath>$(DYNAMOREVIT_API)\$(REVIT_VERSION)\RevitNodes.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitServices">
-      <HintPath>$(DYNAMO_API)\$(REVIT_VERSION)\RevitServices.dll</HintPath>
+      <HintPath>$(DYNAMOREVIT_API)\$(REVIT_VERSION)\RevitServices.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SSONET">

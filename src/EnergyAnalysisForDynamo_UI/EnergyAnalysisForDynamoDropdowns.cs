@@ -19,7 +19,7 @@ namespace EnergyAnalysisForDynamo_UI
     {
         public BuildingTypeDropdown() : base(">") { }
 
-        public override void PopulateItems()
+        protected override DSDropDownBase.SelectionState PopulateItemsCore(string currentSelection)
         {
             //clear items
             Items.Clear();
@@ -34,6 +34,7 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set the selected index to 0
             SelectedIndex = 0;
+            return SelectionState.Done;
         }
 
         public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
@@ -56,7 +57,7 @@ namespace EnergyAnalysisForDynamo_UI
     {
         public HVACtypeDropdown() : base(">") { }
 
-        public override void PopulateItems()
+        protected override DSDropDownBase.SelectionState PopulateItemsCore(string currentSelection)
         {
             //clear items
             Items.Clear();
@@ -71,6 +72,7 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set the selected index to 0
             SelectedIndex = 0;
+            return SelectionState.Done;
         }
 
         public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
@@ -92,7 +94,7 @@ namespace EnergyAnalysisForDynamo_UI
     {
         public OperatingSchedulesDropdown() : base(">") { }
 
-        public override void PopulateItems()
+        protected override DSDropDownBase.SelectionState PopulateItemsCore(string currentSelection)
         {
             //clear items
             Items.Clear();
@@ -107,6 +109,7 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set the selected index to 0
             SelectedIndex = 0;
+            return SelectionState.Done;
         }
 
         public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
@@ -128,7 +131,7 @@ namespace EnergyAnalysisForDynamo_UI
     {
         public ConcWallConstTypeDropdown() : base(">") { }
 
-        public override void PopulateItems()
+        protected override DSDropDownBase.SelectionState PopulateItemsCore(string currentSelection)
         {
             //clear items
             Items.Clear();
@@ -143,6 +146,7 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set the selected index to 0
             SelectedIndex = 0;
+            return SelectionState.Done;
         }
 
         public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
@@ -164,7 +168,7 @@ namespace EnergyAnalysisForDynamo_UI
     {
         public ConcGlazingConstTypeDropdown() : base(">") { }
 
-        public override void PopulateItems()
+        protected override DSDropDownBase.SelectionState PopulateItemsCore(string currentSelection)
         {
             //clear items
             Items.Clear();
@@ -179,6 +183,8 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set the selected index to 0
             SelectedIndex = 0;
+
+            return SelectionState.Done;
         }
 
         public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
@@ -200,7 +206,7 @@ namespace EnergyAnalysisForDynamo_UI
     {
         public ConcFloorConstTypeDropdown() : base(">") { }
 
-        public override void PopulateItems()
+        protected override DSDropDownBase.SelectionState PopulateItemsCore(string currentSelection)
         {
             //clear items
             Items.Clear();
@@ -215,6 +221,7 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set the selected index to 0
             SelectedIndex = 0;
+            return SelectionState.Done;
         }
 
         public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
@@ -236,7 +243,7 @@ namespace EnergyAnalysisForDynamo_UI
     {
         public ConcRoofConstTypeDropdown() : base(">") { }
 
-        public override void PopulateItems()
+        protected override DSDropDownBase.SelectionState PopulateItemsCore(string currentSelection)
         {
             //clear items
             Items.Clear();
@@ -251,6 +258,7 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set the selected index to 0
             SelectedIndex = 0;
+            return SelectionState.Done;
         }
 
         public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
@@ -272,7 +280,7 @@ namespace EnergyAnalysisForDynamo_UI
     {
         public SpaceTypeDropdown() : base(">") { }
 
-        public override void PopulateItems()
+        protected override DSDropDownBase.SelectionState PopulateItemsCore(string currentSelection)
         {
             //clear items
             Items.Clear();
@@ -287,6 +295,7 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set the selected index to 0
             SelectedIndex = 0;
+            return SelectionState.Done;
         }
 
         public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
@@ -308,7 +317,7 @@ namespace EnergyAnalysisForDynamo_UI
     {
         public ConditionType() : base(">") { }
 
-        public override void PopulateItems()
+        protected override DSDropDownBase.SelectionState PopulateItemsCore(string currentSelection)
         {
             //clear items
             Items.Clear();
@@ -323,6 +332,7 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set the selected index to 0
             SelectedIndex = 0;
+            return SelectionState.Done;
         }
 
         public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
@@ -344,7 +354,7 @@ namespace EnergyAnalysisForDynamo_UI
     {
         public EnergyDataFileTypes() : base(">") { }
 
-        public override void PopulateItems()
+        protected override DSDropDownBase.SelectionState PopulateItemsCore(string currentSelection)
         {
             //clear items
             Items.Clear();
@@ -359,6 +369,7 @@ namespace EnergyAnalysisForDynamo_UI
 
             //set the selected index to 0
             SelectedIndex = 0;
+            return SelectionState.Done;
         }
 
         public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
